@@ -70,10 +70,13 @@ export default function Quiz({ mode }: QuizProps) {
     const nextIndex = currentIndex + 1;
     
     if (isLastQuestion) {
-      const score = Object.entries(answers).reduce((acc, [id, answer]) => {
+      const allAnswers = selectedAnswer && currentQuestion
+        ? { ...answers, [currentQuestion.id]: selectedAnswer }
+        : answers;
+      const score = Object.entries(allAnswers).reduce((acc, [id, answer]) => {
         const question = questions.find(q => q.id === id);
         return acc + (question?.answer === answer ? 1 : 0);
-      }, 0) + (isCorrect ? 1 : 0);
+      }, 0);
       
       setLocation(`/results?mode=${mode}&score=${score}&total=${questions.length}`);
       return;
