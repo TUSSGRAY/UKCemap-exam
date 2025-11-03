@@ -18,6 +18,9 @@ function Router() {
       <Route path="/quiz/exam">
         {() => <Quiz mode="exam" />}
       </Route>
+      <Route path="/quiz/scenario">
+        {() => <Quiz mode="scenario" />}
+      </Route>
       <Route path="/results" component={Results} />
       <Route component={NotFound} />
     </Switch>

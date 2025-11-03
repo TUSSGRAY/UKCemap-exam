@@ -9,18 +9,19 @@ import { Progress } from "@/components/ui/progress";
 export default function Results() {
   const [score, setScore] = useState(0);
   const [total, setTotal] = useState(0);
-  const [mode, setMode] = useState<"practice" | "exam">("practice");
+  const [mode, setMode] = useState<"practice" | "exam" | "scenario">("practice");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setScore(Number(params.get("score")) || 0);
     setTotal(Number(params.get("total")) || 0);
-    setMode((params.get("mode") as "practice" | "exam") || "practice");
+    setMode((params.get("mode") as "practice" | "exam" | "scenario") || "practice");
   }, []);
 
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const isExamMode = mode === "exam";
-  const passThreshold = isExamMode ? Math.ceil(total * 0.8) : Math.ceil(total * 0.6);
+  const isScenarioMode = mode === "scenario";
+  const passThreshold = (isExamMode || isScenarioMode) ? Math.ceil(total * 0.8) : Math.ceil(total * 0.6);
   const passed = score >= passThreshold;
 
   return (
@@ -103,11 +104,13 @@ export default function Results() {
               {passed ? (
                 <div className="text-center">
                   <p className="text-lg font-medium text-foreground mb-2">
-                    {isExamMode ? "🌟 Excellent! You're CeMAP-ready." : "👍 Good job! Keep revising."}
+                    {isExamMode ? "🌟 Excellent! You're CeMAP-ready." : isScenarioMode ? "💼 Great work! You've mastered this scenario." : "👍 Good job! Keep revising."}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {isExamMode
                       ? "You've demonstrated a strong understanding of CeMAP topics."
+                      : isScenarioMode
+                      ? "You've shown strong application of CeMAP knowledge to real-world situations."
                       : "You're making great progress. Consider taking the full exam when ready."}
                   </p>
                 </div>
@@ -117,7 +120,9 @@ export default function Results() {
                     📘 Keep studying - you're getting there!
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Review the key CeMAP topics and try again. Practice makes perfect!
+                    {isScenarioMode 
+                      ? "Review this scenario carefully and try again. Focus on applying CeMAP principles to real-world situations."
+                      : "Review the key CeMAP topics and try again. Practice makes perfect!"}
                   </p>
                 </div>
               )}
