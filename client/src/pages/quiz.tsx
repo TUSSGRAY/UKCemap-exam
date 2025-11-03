@@ -24,9 +24,10 @@ export default function Quiz({ mode }: QuizProps) {
   const [showAdBreak, setShowAdBreak] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(5);
+  const [quizSessionId] = useState(() => Date.now());
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: ["/api/questions", mode, questionCount],
+    queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,
     queryFn: async () => {
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`);
