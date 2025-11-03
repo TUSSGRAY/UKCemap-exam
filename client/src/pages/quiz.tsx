@@ -26,6 +26,15 @@ export default function Quiz({ mode }: QuizProps) {
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
 
+  useEffect(() => {
+    if (mode === "exam") {
+      const hasAccess = localStorage.getItem('examPurchased') === 'true';
+      if (!hasAccess) {
+        setLocation('/checkout');
+      }
+    }
+  }, [mode, setLocation]);
+
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,

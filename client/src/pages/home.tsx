@@ -1,10 +1,18 @@
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lock } from "lucide-react";
 
 export default function Home() {
+  const [, setLocation] = useLocation();
+  const [hasExamAccess, setHasExamAccess] = useState(false);
+
+  useEffect(() => {
+    const purchased = localStorage.getItem('examPurchased') === 'true';
+    setHasExamAccess(purchased);
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-6 py-12">
@@ -107,11 +115,30 @@ export default function Home() {
                   <span className="text-sm text-muted-foreground">Estimated time: 60-90 minutes</span>
                 </li>
               </ul>
-              <Link href="/quiz/exam" data-testid="link-start-exam">
-                <Button className="w-full" size="lg" variant="default">
-                  Start Full Exam
-                </Button>
-              </Link>
+              {hasExamAccess ? (
+                <Link href="/quiz/exam" data-testid="link-start-exam">
+                  <Button className="w-full" size="lg" variant="default">
+                    Start Full Exam
+                  </Button>
+                </Link>
+              ) : (
+                <div className="space-y-3">
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center">
+                    <p className="text-2xl font-bold text-foreground mb-1">£0.99</p>
+                    <p className="text-xs text-muted-foreground">One-time payment</p>
+                  </div>
+                  <Button 
+                    className="w-full" 
+                    size="lg" 
+                    variant="default"
+                    onClick={() => setLocation('/checkout')}
+                    data-testid="button-purchase-exam"
+                  >
+                    <Lock className="w-4 h-4 mr-2" />
+                    Purchase Full Exam
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
 
