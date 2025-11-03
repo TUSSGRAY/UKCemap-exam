@@ -50,7 +50,9 @@ Preferred communication style: Simple, everyday language.
 ### Data Storage Solutions
 
 **Current Implementation**: In-memory storage with hardcoded question bank and advertisements
-- Questions organized by topic (Regulation and Ethics, Mortgage Law, Financial Advice Process, Mortgage Products, etc.)
+- 136 challenging questions organized by 8 CeMAP topics: Financial Services Industry, Economic Policy, UK Taxation, Welfare Benefits, Mortgage Products, Protection Products, Legal Aspects of Mortgages, and Mortgage Market
+- Questions feature numerically similar answer options to test genuine understanding rather than simple recall (e.g., "£12,570" vs "£11,850" for personal allowance, "183 days" vs "120 days" for residency)
+- Questions include specific textbook details: GRAM/PADS acronyms, MPC meeting frequency (8/year), IHT taper relief percentages, SDLT rate bands, Universal Credit taper rate (55%), triple lock (2.5%), NICs requirements (35 years for full pension)
 - Three static advertisement messages
 
 **Database Schema** (Drizzle ORM ready):
