@@ -1,0 +1,191 @@
+import random
+import time
+import os
+
+# -----------------------------
+# CeMAP Quiz App with Ad Breaks
+# -----------------------------
+# A quiz on UK CeMAP topics, with a 10-second advert every 9th question.
+
+# Question bank
+question_bank = [
+    {
+        "topic": "Regulation and Ethics",
+        "question": "Which body regulates mortgage advice in the UK?",
+        "options": ["A. FCA", "B. PRA", "C. Bank of England", "D. FSCS"],
+        "answer": "A"
+    },
+    {
+        "topic": "Mortgage Law",
+        "question": "What is a 'charge' in relation to a mortgage?",
+        "options": [
+            "A. A fee paid by the borrower",
+            "B. A lender’s legal right over the property",
+            "C. An insurance policy",
+            "D. A type of interest rate"
+        ],
+        "answer": "B"
+    },
+    {
+        "topic": "Financial Advice Process",
+        "question": "What is the main purpose of a fact find?",
+        "options": [
+            "A. To test the client’s financial knowledge",
+            "B. To collect information about the client’s needs and circumstances",
+            "C. To check the client’s credit history",
+            "D. To recommend specific lenders"
+        ],
+        "answer": "B"
+    },
+    {
+        "topic": "Mortgage Products",
+        "question": "Which of the following has interest that remains the same throughout the mortgage term?",
+        "options": [
+            "A. Tracker mortgage",
+            "B. Discount mortgage",
+            "C. Fixed-rate mortgage",
+            "D. Variable-rate mortgage"
+        ],
+        "answer": "C"
+    },
+    {
+        "topic": "Protection Products",
+        "question": "What does critical illness cover provide?",
+        "options": [
+            "A. A lump sum if the policyholder dies",
+            "B. Monthly income on redundancy",
+            "C. A lump sum on diagnosis of certain illnesses",
+            "D. Refund of mortgage payments"
+        ],
+        "answer": "C"
+    },
+    {
+        "topic": "Property Valuation",
+        "question": "Which valuation method is based on comparing recent sale prices of similar properties?",
+        "options": [
+            "A. Cost method",
+            "B. Income method",
+            "C. Comparable method",
+            "D. Residual method"
+        ],
+        "answer": "C"
+    },
+    {
+        "topic": "Legal Aspects",
+        "question": "At what point does a mortgage offer become legally binding?",
+        "options": [
+            "A. When the client accepts it",
+            "B. When funds are released",
+            "C. On exchange of contracts",
+            "D. On valuation approval"
+        ],
+        "answer": "C"
+    },
+    {
+        "topic": "Mortgage Repayment",
+        "question": "Which repayment method involves paying interest and capital together over time?",
+        "options": [
+            "A. Interest-only",
+            "B. Repayment mortgage",
+            "C. Offset mortgage",
+            "D. Bridging loan"
+        ],
+        "answer": "B"
+    },
+    {
+        "topic": "Financial Conduct",
+        "question": "Under the FCA’s principles, firms must treat customers how?",
+        "options": [
+            "A. As sources of profit",
+            "B. According to their income level",
+            "C. Fairly and transparently",
+            "D. With minimal compliance"
+        ],
+        "answer": "C"
+    },
+    {
+        "topic": "Mortgage Market",
+        "question": "What is the primary purpose of the Mortgage Market Review (MMR)?",
+        "options": [
+            "A. To reduce competition",
+            "B. To ensure responsible lending",
+            "C. To promote fixed-rate deals",
+            "D. To increase house prices"
+        ],
+        "answer": "B"
+    }
+]
+
+# Example adverts
+adverts = [
+    "📣 Sponsored Message: Get 20% off your CeMAP revision materials at StudySmart UK!",
+    "💼 Advert: Ready to boost your mortgage career? Join CeMAP Masterclass Online today!",
+    "🏦 Ad Break: Refresh your knowledge with CeMAP Pro’s 2025 syllabus updates!"
+]
+
+# -----------------------------
+# Quiz logic
+# -----------------------------
+
+def clear_screen():
+    # Clear terminal for better readability (works on Replit)
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+print("🏠 Welcome to the CeMAP Quiz!")
+print("You'll be given up to 10 random questions across various CeMAP topics.\n")
+
+# User selects number of questions
+num_questions = input("How many questions would you like? (0–10): ")
+
+try:
+    num_questions = int(num_questions)
+    if num_questions < 0 or num_questions > 10:
+        raise ValueError
+except ValueError:
+    print("Invalid input. Defaulting to 5 questions.")
+    num_questions = 5
+
+if num_questions == 0:
+    print("No questions selected. Goodbye!")
+    exit()
+
+selected_questions = random.sample(question_bank, num_questions)
+score = 0
+
+for i, q in enumerate(selected_questions, 1):
+    clear_screen()
+    print(f"Question {i} of {num_questions} ({q['topic']})\n")
+    print(q["question"])
+    for opt in q["options"]:
+        print(opt)
+    
+    answer = input("\nYour answer (A/B/C/D): ").strip().upper()
+    if answer == q["answer"]:
+        print("✅ Correct!")
+        score += 1
+    else:
+        print(f"❌ Incorrect. The correct answer was {q['answer']}.")
+
+    # Every 9th question → show advert
+    if i % 9 == 0 and i != num_questions:
+        ad = random.choice(adverts)
+        print("\n============================")
+        print("⏳ AD BREAK — Please wait 10 seconds")
+        print(ad)
+        print("============================")
+        time.sleep(10)
+        clear_screen()
+
+# Final results
+clear_screen()
+print("-----------------------------")
+print(f"🏁 Your final score: {score}/{num_questions}")
+print(f"📊 Percentage: {score / num_questions * 100:.1f}%")
+print("-----------------------------")
+
+if score == num_questions:
+    print("🌟 Excellent! You're CeMAP-ready.")
+elif score >= num_questions * 0.6:
+    print("👍 Good job! Keep revising.")
+else:
+    print("📘 Needs improvement — review key CeMAP topics.")
