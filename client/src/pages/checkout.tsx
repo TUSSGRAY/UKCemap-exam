@@ -13,7 +13,7 @@ if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
 }
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
@@ -29,19 +29,38 @@ const CheckoutForm = () => {
 
     setIsProcessing(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/payment-success`,
-      },
-    });
+    try {
+      // Confirm payment without redirect (works in iframe environments like Replit)
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        redirect: "if_required", // Only redirect if absolutely necessary (3D Secure)
+        confirmParams: {
+          return_url: `${window.location.origin}/payment-success`,
+        },
+      });
 
-    setIsProcessing(false);
-
-    if (error) {
+      if (error) {
+        setIsProcessing(false);
+        toast({
+          title: "Payment Failed",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else if (paymentIntent && paymentIntent.status === "succeeded") {
+        // Payment succeeded - navigate to success page
+        setLocation(`/payment-success?payment_intent=${paymentIntent.id}`);
+      } else {
+        setIsProcessing(false);
+        toast({
+          title: "Payment Processing",
+          description: "Your payment is being processed. Please wait...",
+        });
+      }
+    } catch (err: any) {
+      setIsProcessing(false);
       toast({
-        title: "Payment Failed",
-        description: error.message,
+        title: "Error",
+        description: err.message || "An unexpected error occurred",
         variant: "destructive",
       });
     }
@@ -128,7 +147,7 @@ export default function Checkout() {
           </CardHeader>
           <CardContent>
             <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <CheckoutForm />
+              <CheckoutForm clientSecret={clientSecret} />
             </Elements>
           </CardContent>
         </Card>
