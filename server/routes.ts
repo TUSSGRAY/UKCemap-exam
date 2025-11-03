@@ -54,12 +54,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: 99, // £0.99 in pence (hardcoded)
         currency: "gbp",
-        // Only allow card payments (no redirect-based methods like Link/wallets)
-        // This prevents iframe navigation errors in embedded environments
-        automatic_payment_methods: {
-          enabled: true,
-          allow_redirects: "never" // Disable redirect-based payment methods
-        },
+        // Explicitly specify card as the only payment method (no automatic methods)
+        // This prevents redirect-based payment methods in iframe environments
+        payment_method_types: ["card"],
         metadata: {
           product: "cemap_full_exam"
         }

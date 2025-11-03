@@ -68,7 +68,16 @@ const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <PaymentElement />
+      <PaymentElement 
+        options={{
+          layout: "tabs",
+          // Disable all wallet/redirect-based payment methods
+          wallets: {
+            applePay: "never",
+            googlePay: "never"
+          }
+        }}
+      />
       <Button 
         type="submit" 
         className="w-full" 
