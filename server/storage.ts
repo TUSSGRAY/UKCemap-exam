@@ -1266,6 +1266,428 @@ export class MemStorage implements IStorage {
         optionD: "Mandatory retraining",
         answer: "B"
       },
+
+      // SCENARIO-BASED QUESTIONS (12 scenarios with 3 questions each)
+      
+      // Scenario 1: First-Time Buyer with Gifted Deposit
+      {
+        topic: "Mortgage Products",
+        scenario: "Sarah and James are first-time buyers looking to purchase a property for £280,000. They have saved £14,000, and Sarah's parents are gifting them £14,000 towards the deposit. Sarah earns £32,000 per year as a teacher, and James earns £28,000 as a graphic designer. They have no other debts. Sarah's parents own their home outright and have confirmed the gift is non-repayable.",
+        scenarioId: "scenario-1",
+        question: "What is the Loan-to-Value (LTV) ratio for Sarah and James's mortgage?",
+        optionA: "85% LTV",
+        optionB: "90% LTV",
+        optionC: "95% LTV",
+        optionD: "80% LTV",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Sarah and James are first-time buyers looking to purchase a property for £280,000. They have saved £14,000, and Sarah's parents are gifting them £14,000 towards the deposit. Sarah earns £32,000 per year as a teacher, and James earns £28,000 as a graphic designer. They have no other debts. Sarah's parents own their home outright and have confirmed the gift is non-repayable.",
+        scenarioId: "scenario-1",
+        question: "What documentation will the lender typically require regarding the gifted deposit from Sarah's parents?",
+        optionA: "Proof of funds and a gifted deposit letter confirming it's non-repayable",
+        optionB: "Only a bank statement from the parents",
+        optionC: "A solicitor's letter only",
+        optionD: "No documentation is required for parental gifts",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Sarah and James are first-time buyers looking to purchase a property for £280,000. They have saved £14,000, and Sarah's parents are gifting them £14,000 towards the deposit. Sarah earns £32,000 per year as a teacher, and James earns £28,000 as a graphic designer. They have no other debts. Sarah's parents own their home outright and have confirmed the gift is non-repayable.",
+        scenarioId: "scenario-1",
+        question: "Using a typical affordability multiple of 4.5 times joint income, what is the maximum mortgage amount Sarah and James could borrow?",
+        optionA: "£252,000",
+        optionB: "£270,000",
+        optionC: "£288,000",
+        optionD: "£300,000",
+        answer: "B"
+      },
+
+      // Scenario 2: Remortgage with Debt Consolidation
+      {
+        topic: "Mortgage Products",
+        scenario: "Michael owns a property valued at £350,000 with an existing mortgage balance of £180,000. He has £25,000 in unsecured debts (credit cards and a personal loan) with monthly payments totaling £650. His current mortgage payment is £850 per month. Michael earns £55,000 per year and wants to remortgage to consolidate his debts.",
+        scenarioId: "scenario-2",
+        question: "If Michael remortgages for £205,000 to consolidate his debts, what will his new LTV be?",
+        optionA: "51.4% LTV",
+        optionB: "55.7% LTV",
+        optionC: "58.6% LTV",
+        optionD: "62.3% LTV",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Michael owns a property valued at £350,000 with an existing mortgage balance of £180,000. He has £25,000 in unsecured debts (credit cards and a personal loan) with monthly payments totaling £650. His current mortgage payment is £850 per month. Michael earns £55,000 per year and wants to remortgage to consolidate his debts.",
+        scenarioId: "scenario-2",
+        question: "What is a key risk you should explain to Michael about consolidating unsecured debt into his mortgage?",
+        optionA: "His credit score will be permanently damaged",
+        optionB: "He will pay less interest overall",
+        optionC: "He is converting unsecured debt into debt secured against his home, which could be repossessed if he defaults",
+        optionD: "He cannot remortgage again for 10 years",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Michael owns a property valued at £350,000 with an existing mortgage balance of £180,000. He has £25,000 in unsecured debts (credit cards and a personal loan) with monthly payments totaling £650. His current mortgage payment is £850 per month. Michael earns £55,000 per year and wants to remortgage to consolidate his debts.",
+        scenarioId: "scenario-2",
+        question: "After consolidating his debts, Michael's new mortgage payment would be approximately £975 per month. What is the approximate monthly saving compared to his current total debt obligations?",
+        optionA: "£425 per month",
+        optionB: "£525 per month",
+        optionC: "£625 per month",
+        optionD: "£725 per month",
+        answer: "B"
+      },
+
+      // Scenario 3: Buy-to-Let Investment
+      {
+        topic: "Mortgage Products",
+        scenario: "Linda wants to purchase a buy-to-let property for £220,000. She has a £55,000 deposit. The property would generate a rental income of £1,100 per month. Linda already owns her main residence with a mortgage and earns £48,000 per year from employment. The lender requires rental income to be 125% of the mortgage payment at a stressed rate of 5.5%.",
+        scenarioId: "scenario-3",
+        question: "What LTV will Linda's buy-to-let mortgage be?",
+        optionA: "70% LTV",
+        optionB: "75% LTV",
+        optionC: "80% LTV",
+        optionD: "85% LTV",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Linda wants to purchase a buy-to-let property for £220,000. She has a £55,000 deposit. The property would generate a rental income of £1,100 per month. Linda already owns her main residence with a mortgage and earns £48,000 per year from employment. The lender requires rental income to be 125% of the mortgage payment at a stressed rate of 5.5%.",
+        scenarioId: "scenario-3",
+        question: "At the stressed rate of 5.5% on a £165,000 mortgage, the monthly payment would be approximately £936. Does the rental income meet the 125% interest coverage ratio?",
+        optionA: "No, the rental income is too low",
+        optionB: "Yes, but only just",
+        optionC: "No, she needs £1,170 per month rental income",
+        optionD: "Yes, with a comfortable margin",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Linda wants to purchase a buy-to-let property for £220,000. She has a £55,000 deposit. The property would generate a rental income of £1,100 per month. Linda already owns her main residence with a mortgage and earns £48,000 per year from employment. The lender requires rental income to be 125% of the mortgage payment at a stressed rate of 5.5%.",
+        scenarioId: "scenario-3",
+        question: "How much Stamp Duty Land Tax (SDLT) will Linda pay as an additional property surcharge on top of the standard rates?",
+        optionA: "2% additional surcharge (£4,400 extra)",
+        optionB: "3% additional surcharge (£6,600 extra)",
+        optionC: "4% additional surcharge (£8,800 extra)",
+        optionD: "5% additional surcharge (£11,000 extra)",
+        answer: "B"
+      },
+
+      // Scenario 4: Self-Employed Applicant
+      {
+        topic: "Financial Advice Process",
+        scenario: "Robert is a self-employed plumber who has been trading for 3 years. His net profit for the last 3 years was: Year 1: £38,000, Year 2: £42,000, Year 3: £46,000. He wants to purchase a property for £265,000 with a £40,000 deposit. Robert has provided 3 years of SA302 forms and tax year overviews from HMRC.",
+        scenarioId: "scenario-4",
+        question: "How will most lenders calculate Robert's income for affordability purposes?",
+        optionA: "Use only the most recent year (£46,000)",
+        optionB: "Average the last 2 years (£44,000)",
+        optionC: "Average all 3 years (£42,000)",
+        optionD: "Use the lowest year to be cautious (£38,000)",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Robert is a self-employed plumber who has been trading for 3 years. His net profit for the last 3 years was: Year 1: £38,000, Year 2: £42,000, Year 3: £46,000. He wants to purchase a property for £265,000 with a £40,000 deposit. Robert has provided 3 years of SA302 forms and tax year overviews from HMRC.",
+        scenarioId: "scenario-4",
+        question: "Using the average of the last 2 years' income (£44,000) and a typical affordability multiple of 4.5, what is the maximum mortgage Robert could borrow?",
+        optionA: "£171,000",
+        optionB: "£189,000",
+        optionC: "£198,000",
+        optionD: "£207,000",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Robert is a self-employed plumber who has been trading for 3 years. His net profit for the last 3 years was: Year 1: £38,000, Year 2: £42,000, Year 3: £46,000. He wants to purchase a property for £265,000 with a £40,000 deposit. Robert has provided 3 years of SA302 forms and tax year overviews from HMRC.",
+        scenarioId: "scenario-4",
+        question: "What additional documentation might a lender request from Robert beyond his SA302 forms?",
+        optionA: "Only a bank statement",
+        optionB: "Business bank statements and potentially accountant's reference",
+        optionC: "Just his passport",
+        optionD: "No additional documentation needed",
+        answer: "B"
+      },
+
+      // Scenario 5: Inheritance Tax Planning
+      {
+        topic: "UK Taxation",
+        scenario: "Margaret, aged 72, owns a property worth £550,000 and has savings of £200,000. She is widowed and her late husband's nil-rate band was unused. She wants to gift £100,000 to her daughter now and leave the remainder of her estate to her two children. Margaret's main residence is the £550,000 property where she has lived for 30 years.",
+        scenarioId: "scenario-5",
+        question: "What is Margaret's combined nil-rate band threshold including her late husband's unused allowance?",
+        optionA: "£325,000",
+        optionB: "£500,000",
+        optionC: "£650,000",
+        optionD: "£1,000,000",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Margaret, aged 72, owns a property worth £550,000 and has savings of £200,000. She is widowed and her late husband's nil-rate band was unused. She wants to gift £100,000 to her daughter now and leave the remainder of her estate to her two children. Margaret's main residence is the £550,000 property where she has lived for 30 years.",
+        scenarioId: "scenario-5",
+        question: "If Margaret makes the £100,000 gift to her daughter and survives for 5 years, what percentage of the gift will be exempt from IHT under taper relief?",
+        optionA: "40% exempt (60% chargeable)",
+        optionB: "60% exempt (40% chargeable)",
+        optionC: "80% exempt (20% chargeable)",
+        optionD: "100% exempt (0% chargeable)",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Margaret, aged 72, owns a property worth £550,000 and has savings of £200,000. She is widowed and her late husband's nil-rate band was unused. She wants to gift £100,000 to her daughter now and leave the remainder of her estate to her two children. Margaret's main residence is the £550,000 property where she has lived for 30 years.",
+        scenarioId: "scenario-5",
+        question: "What is the current residence nil-rate band that Margaret could benefit from when passing her main residence to her children?",
+        optionA: "£125,000 per person (£250,000 total including spouse)",
+        optionB: "£150,000 per person (£300,000 total including spouse)",
+        optionC: "£175,000 per person (£350,000 total including spouse)",
+        optionD: "£200,000 per person (£400,000 total including spouse)",
+        answer: "C"
+      },
+
+      // Scenario 6: Retirement Interest-Only Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "David and Susan, both aged 68, own a property worth £420,000 with an existing interest-only mortgage of £150,000 that is maturing. They receive pension income of £32,000 per year combined but have no lump sum to repay the mortgage. They want to switch to a Retirement Interest-Only (RIO) mortgage. They plan to downsize or use the property sale to repay the mortgage when they move into care or pass away.",
+        scenarioId: "scenario-6",
+        question: "What is the key difference between a standard interest-only mortgage and a Retirement Interest-Only (RIO) mortgage?",
+        optionA: "RIO mortgages have higher interest rates",
+        optionB: "RIO mortgages have no fixed end date and are repaid from the sale of the property",
+        optionC: "RIO mortgages require monthly capital repayments",
+        optionD: "RIO mortgages are only available to people over 75",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "David and Susan, both aged 68, own a property worth £420,000 with an existing interest-only mortgage of £150,000 that is maturing. They receive pension income of £32,000 per year combined but have no lump sum to repay the mortgage. They want to switch to a Retirement Interest-Only (RIO) mortgage. They plan to downsize or use the property sale to repay the mortgage when they move into care or pass away.",
+        scenarioId: "scenario-6",
+        question: "What LTV will David and Susan's RIO mortgage be?",
+        optionA: "30.7% LTV",
+        optionB: "35.7% LTV",
+        optionC: "40.7% LTV",
+        optionD: "45.7% LTV",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "David and Susan, both aged 68, own a property worth £420,000 with an existing interest-only mortgage of £150,000 that is maturing. They receive pension income of £32,000 per year combined but have no lump sum to repay the mortgage. They want to switch to a Retirement Interest-Only (RIO) mortgage. They plan to downsize or use the property sale to repay the mortgage when they move into care or pass away.",
+        scenarioId: "scenario-6",
+        question: "At an interest rate of 4.5%, what would David and Susan's monthly interest payment be on their £150,000 RIO mortgage?",
+        optionA: "£462.50",
+        optionB: "£562.50",
+        optionC: "£662.50",
+        optionD: "£762.50",
+        answer: "B"
+      },
+
+      // Scenario 7: Help to Buy Equity Loan
+      {
+        topic: "Mortgage Products",
+        scenario: "Emma is a first-time buyer purchasing a new-build property in England for £300,000. She has a £15,000 deposit (5%) and is using the Help to Buy equity loan scheme. The government will lend her 20% equity (£60,000), and she needs a mortgage for the remaining 75% (£225,000). Emma earns £35,000 per year.",
+        scenarioId: "scenario-7",
+        question: "For the first 5 years of the Help to Buy equity loan, what interest does Emma pay on the £60,000 equity loan?",
+        optionA: "0% interest (interest-free period)",
+        optionB: "1.75% interest from year one",
+        optionC: "2.5% interest from year one",
+        optionD: "Bank of England base rate plus 1%",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Emma is a first-time buyer purchasing a new-build property in England for £300,000. She has a £15,000 deposit (5%) and is using the Help to Buy equity loan scheme. The government will lend her 20% equity (£60,000), and she needs a mortgage for the remaining 75% (£225,000). Emma earns £35,000 per year.",
+        scenarioId: "scenario-7",
+        question: "After 5 years, the Help to Buy equity loan interest rate is charged at:",
+        optionA: "1.5% fixed rate",
+        optionB: "1.75% of the equity loan value, increasing annually by RPI plus 1%",
+        optionC: "2.75% of the equity loan value, increasing annually by RPI plus 2%",
+        optionD: "Bank of England base rate only",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Emma is a first-time buyer purchasing a new-build property in England for £300,000. She has a £15,000 deposit (5%) and is using the Help to Buy equity loan scheme. The government will lend her 20% equity (£60,000), and she needs a mortgage for the remaining 75% (£225,000). Emma earns £35,000 per year.",
+        scenarioId: "scenario-7",
+        question: "When Emma sells the property or repays the Help to Buy loan, how much must she repay?",
+        optionA: "Exactly £60,000 regardless of property value",
+        optionB: "£60,000 plus interest accrued",
+        optionC: "20% of the property's current market value",
+        optionD: "£60,000 adjusted for inflation",
+        answer: "C"
+      },
+
+      // Scenario 8: Joint Borrower Sole Proprietor
+      {
+        topic: "Mortgage Products",
+        scenario: "Tom, aged 28, wants to buy his first home for £240,000. He earns £30,000 per year and has a £12,000 deposit. His mother, who already owns her own home outright, has offered to be a joint borrower to help him qualify for a larger mortgage. She earns £38,000 per year. Tom will be the sole owner of the property, but his mother will be jointly liable for the mortgage.",
+        scenarioId: "scenario-8",
+        question: "Using a 4.5 times income multiple on their combined income, what is the maximum mortgage Tom and his mother could borrow together?",
+        optionA: "£276,000",
+        optionB: "£294,000",
+        optionC: "£306,000",
+        optionD: "£324,000",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Tom, aged 28, wants to buy his first home for £240,000. He earns £30,000 per year and has a £12,000 deposit. His mother, who already owns her own home outright, has offered to be a joint borrower to help him qualify for a larger mortgage. She earns £38,000 per year. Tom will be the sole owner of the property, but his mother will be jointly liable for the mortgage.",
+        scenarioId: "scenario-8",
+        question: "Will Tom's mother have to pay the 3% SDLT surcharge for additional properties even though she won't own Tom's property?",
+        optionA: "Yes, because she is a joint borrower on a second mortgage",
+        optionB: "No, because she is not on the title deeds as an owner",
+        optionC: "Yes, but only on 50% of the property value",
+        optionD: "Yes, unless she sells her own property first",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Tom, aged 28, wants to buy his first home for £240,000. He earns £30,000 per year and has a £12,000 deposit. His mother, who already owns her own home outright, has offered to be a joint borrower to help him qualify for a larger mortgage. She earns £38,000 per year. Tom will be the sole owner of the property, but his mother will be jointly liable for the mortgage.",
+        scenarioId: "scenario-8",
+        question: "What is a key risk you should explain to Tom's mother about being a joint borrower sole proprietor?",
+        optionA: "She will automatically inherit the property",
+        optionB: "She is fully liable for the mortgage debt but has no legal ownership of the property",
+        optionC: "She cannot remortgage her own property",
+        optionD: "She must live in Tom's property",
+        answer: "B"
+      },
+
+      // Scenario 9: Protection Insurance Needs
+      {
+        topic: "Protection Products",
+        scenario: "Helen and Mark, both aged 35, have just taken out a £280,000 repayment mortgage over 25 years. Helen earns £42,000 and Mark earns £38,000. They have two children aged 5 and 7. They have no existing life insurance or critical illness cover. Their monthly mortgage payment is £1,330.",
+        scenarioId: "scenario-9",
+        question: "What type of life insurance would be most cost-effective to cover their repayment mortgage?",
+        optionA: "Level term assurance for £280,000",
+        optionB: "Decreasing term assurance for £280,000",
+        optionC: "Whole of life assurance for £280,000",
+        optionD: "Endowment policy for £280,000",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Helen and Mark, both aged 35, have just taken out a £280,000 repayment mortgage over 25 years. Helen earns £42,000 and Mark earns £38,000. They have two children aged 5 and 7. They have no existing life insurance or critical illness cover. Their monthly mortgage payment is £1,330.",
+        scenarioId: "scenario-9",
+        question: "If Helen wanted to ensure her family could maintain their standard of living if she died, how much life cover should she consider (using a typical multiple of 10 times income)?",
+        optionA: "£280,000",
+        optionB: "£320,000",
+        optionC: "£380,000",
+        optionD: "£420,000",
+        answer: "D"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Helen and Mark, both aged 35, have just taken out a £280,000 repayment mortgage over 25 years. Helen earns £42,000 and Mark earns £38,000. They have two children aged 5 and 7. They have no existing life insurance or critical illness cover. Their monthly mortgage payment is £1,330.",
+        scenarioId: "scenario-9",
+        question: "What is the key benefit of adding critical illness cover to their life insurance policy?",
+        optionA: "It costs less than life insurance alone",
+        optionB: "It pays out if they are diagnosed with a specified critical illness, even if they survive",
+        optionC: "It covers any illness or injury",
+        optionD: "It replaces their income indefinitely",
+        answer: "B"
+      },
+
+      // Scenario 10: Shared Ownership
+      {
+        topic: "Mortgage Products",
+        scenario: "Aisha wants to purchase a shared ownership property valued at £200,000. She will buy a 50% share (£100,000) and pay rent on the remaining 50% to a housing association. Aisha has a £10,000 deposit and earns £28,000 per year. The monthly rent on the 50% share is £425. Aisha plans to 'staircase' to 100% ownership over time.",
+        scenarioId: "scenario-10",
+        question: "What LTV will Aisha's mortgage be based on the share she is purchasing?",
+        optionA: "85% LTV",
+        optionB: "90% LTV",
+        optionC: "95% LTV",
+        optionD: "100% LTV",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Aisha wants to purchase a shared ownership property valued at £200,000. She will buy a 50% share (£100,000) and pay rent on the remaining 50% to a housing association. Aisha has a £10,000 deposit and earns £28,000 per year. The monthly rent on the 50% share is £425. Aisha plans to 'staircase' to 100% ownership over time.",
+        scenarioId: "scenario-10",
+        question: "What does 'staircasing' mean in shared ownership?",
+        optionA: "Paying off the mortgage faster",
+        optionB: "Buying additional shares in the property, increasing ownership percentage",
+        optionC: "Renovating the property",
+        optionD: "Moving to a larger shared ownership property",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Aisha wants to purchase a shared ownership property valued at £200,000. She will buy a 50% share (£100,000) and pay rent on the remaining 50% to a housing association. Aisha has a £10,000 deposit and earns £28,000 per year. The monthly rent on the 50% share is £425. Aisha plans to 'staircase' to 100% ownership over time.",
+        scenarioId: "scenario-10",
+        question: "For Stamp Duty Land Tax purposes, how is Aisha's shared ownership purchase treated if she pays SDLT on the market value upfront?",
+        optionA: "She pays SDLT only on the share she is buying (£100,000)",
+        optionB: "She pays SDLT on the full market value (£200,000) and no further SDLT when staircasing",
+        optionC: "She pays no SDLT on shared ownership properties",
+        optionD: "She pays double SDLT because it's shared ownership",
+        answer: "B"
+      },
+
+      // Scenario 11: Adverse Credit History
+      {
+        topic: "Financial Advice Process",
+        scenario: "Paul, aged 32, wants to purchase a property for £195,000 with a £29,250 deposit (15%). He earns £36,000 per year. Paul had a County Court Judgment (CCJ) for £1,200 that was registered 18 months ago, which he has now fully settled. He also missed 2 credit card payments 12 months ago but has maintained a clean record since then.",
+        scenarioId: "scenario-11",
+        question: "How long do County Court Judgments (CCJs) remain on a credit file?",
+        optionA: "3 years from registration",
+        optionB: "5 years from registration",
+        optionC: "6 years from registration",
+        optionD: "10 years from registration",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Paul, aged 32, wants to purchase a property for £195,000 with a £29,250 deposit (15%). He earns £36,000 per year. Paul had a County Court Judgment (CCJ) for £1,200 that was registered 18 months ago, which he has now fully settled. He also missed 2 credit card payments 12 months ago but has maintained a clean record since then.",
+        scenarioId: "scenario-11",
+        question: "Given Paul's adverse credit history, what type of lender should you research for him?",
+        optionA: "Standard high-street lenders only",
+        optionB: "Specialist lenders who accept adverse credit with satisfied CCJs",
+        optionC: "Only government-backed schemes",
+        optionD: "Building societies only",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Paul, aged 32, wants to purchase a property for £195,000 with a £29,250 deposit (15%). He earns £36,000 per year. Paul had a County Court Judgment (CCJ) for £1,200 that was registered 18 months ago, which he has now fully settled. He also missed 2 credit card payments 12 months ago but has maintained a clean record since then.",
+        scenarioId: "scenario-11",
+        question: "What impact will Paul's adverse credit likely have on his mortgage?",
+        optionA: "No impact at all",
+        optionB: "He will be declined by all lenders",
+        optionC: "He may face higher interest rates and lower LTV limits",
+        optionD: "He must wait 6 years before applying",
+        answer: "C"
+      },
+
+      // Scenario 12: Offset Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Raj and Priya have a mortgage of £250,000 at 4.5% interest. They have £40,000 in savings earning 2% interest in a standard savings account (taxable). They are both higher-rate taxpayers (40%). Their lender offers an offset mortgage at 4.6% interest where their savings would be offset against the mortgage balance, reducing the interest charged.",
+        scenarioId: "scenario-12",
+        question: "If Raj and Priya offset their £40,000 savings against their £250,000 mortgage, what balance will interest be charged on?",
+        optionA: "£250,000 (no change)",
+        optionB: "£230,000",
+        optionC: "£210,000",
+        optionD: "£200,000",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Raj and Priya have a mortgage of £250,000 at 4.5% interest. They have £40,000 in savings earning 2% interest in a standard savings account (taxable). They are both higher-rate taxpayers (40%). Their lender offers an offset mortgage at 4.6% interest where their savings would be offset against the mortgage balance, reducing the interest charged.",
+        scenarioId: "scenario-12",
+        question: "As higher-rate taxpayers, what is Raj and Priya's effective after-tax return on their savings account earning 2% interest?",
+        optionA: "0.8% after tax",
+        optionB: "1.2% after tax",
+        optionC: "1.5% after tax",
+        optionD: "2.0% (no tax impact)",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Raj and Priya have a mortgage of £250,000 at 4.5% interest. They have £40,000 in savings earning 2% interest in a standard savings account (taxable). They are both higher-rate taxpayers (40%). Their lender offers an offset mortgage at 4.6% interest where their savings would be offset against the mortgage balance, reducing the interest charged.",
+        scenarioId: "scenario-12",
+        question: "What is a key advantage of an offset mortgage for higher-rate taxpayers like Raj and Priya?",
+        optionA: "The savings are locked away and cannot be accessed",
+        optionB: "They receive tax-free interest on their savings",
+        optionC: "They effectively earn the mortgage interest rate (4.6%) tax-free on their savings by reducing mortgage interest",
+        optionD: "The mortgage rate is always lower than standard mortgages",
+        answer: "C"
+      },
     ];
 
     questionBank.forEach((q) => {
@@ -1282,7 +1704,30 @@ export class MemStorage implements IStorage {
   async getQuestionsByMode(mode: QuizMode, count: number): Promise<Question[]> {
     const allQuestions = Array.from(this.questions.values());
     
-    const shuffled = allQuestions.sort(() => Math.random() - 0.5);
+    if (mode === "scenario") {
+      const scenarioQuestions = allQuestions.filter(q => q.scenarioId);
+      const scenarioGroups = new Map<string, Question[]>();
+      
+      scenarioQuestions.forEach(q => {
+        if (!scenarioGroups.has(q.scenarioId!)) {
+          scenarioGroups.set(q.scenarioId!, []);
+        }
+        scenarioGroups.get(q.scenarioId!)!.push(q);
+      });
+      
+      const completeScenarios = Array.from(scenarioGroups.values()).filter(
+        group => group.length === 3
+      );
+      
+      const randomScenario = completeScenarios[
+        Math.floor(Math.random() * completeScenarios.length)
+      ];
+      
+      return randomScenario || [];
+    }
+    
+    const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);
+    const shuffled = nonScenarioQuestions.sort(() => Math.random() - 0.5);
     
     const questionCount = mode === "exam" ? 100 : Math.min(count, 10);
     

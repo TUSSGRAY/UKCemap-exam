@@ -13,6 +13,8 @@ export const questions = pgTable("questions", {
   optionC: text("option_c").notNull(),
   optionD: text("option_d").notNull(),
   answer: text("answer").notNull(), // A, B, C, or D
+  scenario: text("scenario"), // Optional scenario context for scenario-based questions
+  scenarioId: text("scenario_id"), // Groups questions that share the same scenario
 });
 
 export const insertQuestionSchema = createInsertSchema(questions).omit({
@@ -23,7 +25,7 @@ export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 export type Question = typeof questions.$inferSelect;
 
 // Quiz mode type
-export const quizModeSchema = z.enum(["practice", "exam"]);
+export const quizModeSchema = z.enum(["practice", "exam", "scenario"]);
 export type QuizMode = z.infer<typeof quizModeSchema>;
 
 // Quiz request schema
