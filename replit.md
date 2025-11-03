@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. The application features three distinct modes: Practice Mode (with immediate feedback and flexible question counts), Exam Mode (100 questions with results shown at the end), and Scenario Quiz Mode (realistic case studies with 3 related questions per scenario). The system includes periodic advertisement breaks during quiz sessions and tracks user performance.
+A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (free, realistic case studies with 3 related questions per scenario). The system includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
 
 ## User Preferences
 
@@ -19,12 +19,14 @@ Preferred communication style: Simple, everyday language.
 - Custom theming system using CSS variables for light/dark mode support
 - Comprehensive component library including cards, buttons, dialogs, progress indicators, and form elements
 
-**Routing**: Wouter for client-side routing with five main routes:
-- Home page (mode selection)
-- Practice quiz (`/quiz/practice`)
-- Exam quiz (`/quiz/exam`)
-- Scenario quiz (`/quiz/scenario`)
+**Routing**: Wouter for client-side routing with seven main routes:
+- Home page (mode selection with branding)
+- Practice quiz (`/quiz/practice`) - Free access
+- Exam quiz (`/quiz/exam`) - Requires payment
+- Scenario quiz (`/quiz/scenario`) - Free access
 - Results page (`/results`)
+- Checkout page (`/checkout`) - Stripe payment for exam access
+- Payment success page (`/payment-success`) - Confirms purchase and grants access
 
 **State Management**: 
 - React hooks for local component state
@@ -41,8 +43,11 @@ Preferred communication style: Simple, everyday language.
 **Server Framework**: Express.js with TypeScript running on Node.js
 
 **API Design**: RESTful endpoints:
-- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode
+- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode (exam mode requires X-Access-Token header)
 - `GET /api/adverts/random` - Retrieves a random advertisement
+- `POST /api/create-payment-intent` - Creates Stripe payment intent for £0.99 exam access
+- `POST /api/verify-payment` - Verifies Stripe payment and generates access token
+- `GET /api/check-exam-access` - Validates access token for exam mode
 
 **Data Layer**: Currently using in-memory storage (MemStorage class) with an interface-based storage abstraction (IStorage) that allows for future database implementation
 
@@ -73,9 +78,20 @@ Preferred communication style: Simple, everyday language.
 ### Key Features
 
 **Quiz Modes**:
-- Practice Mode: Flexible question count (5-100), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
-- Exam Mode: Fixed 100 questions, no feedback until completion, 80% pass threshold
-- Scenario Quiz Mode: One complete scenario with 3 related questions, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions
+- Practice Mode: Free access, flexible question count (5-100), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
+- Full Exam Mode: £0.99 purchase required, fixed 100 questions, no feedback until completion, 80% pass threshold, device-based access control
+- Scenario Quiz Mode: Free access, one complete scenario with 3 related questions, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions
+
+**Payment & Access Control System**:
+- Stripe integration for secure payment processing (£0.99 for Full Exam access)
+- Device-based access control using cryptographic tokens (UUID)
+- Payment amount hardcoded server-side for security
+- Server-side token validation before serving exam content
+- Each successful payment generates unique access token
+- Tokens stored in localStorage for device persistence
+- All exam API requests require valid X-Access-Token header
+- Unauthorized access attempts return 403 Forbidden
+- No user authentication required - simple device-based model
 
 **Advertisement System**: 
 - Modal displays every 9th question with 10-second countdown timer
@@ -138,6 +154,11 @@ Preferred communication style: Simple, everyday language.
 
 **Routing**: 
 - wouter for lightweight client-side routing
+
+**Payment Processing**:
+- Stripe (@stripe/stripe-js, @stripe/react-stripe-js, stripe)
+- Stripe Payment Elements for secure checkout UI
+- Server-side payment verification and token generation
 
 **Development Tools**:
 - Vite with React plugin
