@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. The application features two distinct modes: Practice Mode (with immediate feedback and flexible question counts) and Exam Mode (100 questions with results shown at the end). The system includes periodic advertisement breaks during quiz sessions and tracks user performance.
+A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. The application features three distinct modes: Practice Mode (with immediate feedback and flexible question counts), Exam Mode (100 questions with results shown at the end), and Scenario Quiz Mode (realistic case studies with 3 related questions per scenario). The system includes periodic advertisement breaks during quiz sessions and tracks user performance.
 
 ## User Preferences
 
@@ -19,10 +19,11 @@ Preferred communication style: Simple, everyday language.
 - Custom theming system using CSS variables for light/dark mode support
 - Comprehensive component library including cards, buttons, dialogs, progress indicators, and form elements
 
-**Routing**: Wouter for client-side routing with four main routes:
+**Routing**: Wouter for client-side routing with five main routes:
 - Home page (mode selection)
 - Practice quiz (`/quiz/practice`)
 - Exam quiz (`/quiz/exam`)
+- Scenario quiz (`/quiz/scenario`)
 - Results page (`/results`)
 
 **State Management**: 
@@ -40,7 +41,7 @@ Preferred communication style: Simple, everyday language.
 **Server Framework**: Express.js with TypeScript running on Node.js
 
 **API Design**: RESTful endpoints:
-- `GET /api/questions?mode={practice|exam}&count={number}` - Fetches questions based on quiz mode
+- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode
 - `GET /api/adverts/random` - Retrieves a random advertisement
 
 **Data Layer**: Currently using in-memory storage (MemStorage class) with an interface-based storage abstraction (IStorage) that allows for future database implementation
@@ -51,8 +52,10 @@ Preferred communication style: Simple, everyday language.
 
 **Current Implementation**: In-memory storage with hardcoded question bank and advertisements
 - 136 challenging questions organized by 8 CeMAP topics: Financial Services Industry, Economic Policy, UK Taxation, Welfare Benefits, Mortgage Products, Protection Products, Legal Aspects of Mortgages, and Mortgage Market
+- 12 realistic scenario-based case studies with 3 related questions each (36 scenario questions total)
 - Questions feature numerically similar answer options to test genuine understanding rather than simple recall (e.g., "£12,570" vs "£11,850" for personal allowance, "183 days" vs "120 days" for residency)
 - Questions include specific textbook details: GRAM/PADS acronyms, MPC meeting frequency (8/year), IHT taper relief percentages, SDLT rate bands, Universal Credit taper rate (55%), triple lock (2.5%), NICs requirements (35 years for full pension)
+- Scenario questions cover real-world situations: first-time buyers, remortgages, buy-to-let, self-employed clients, IHT planning, retirement mortgages, Help to Buy, joint borrower sole proprietor, protection insurance, shared ownership, adverse credit, and offset mortgages
 - Three static advertisement messages
 
 **Database Schema** (Drizzle ORM ready):
@@ -62,16 +65,17 @@ Preferred communication style: Simple, everyday language.
 - Migration setup configured in `drizzle.config.ts`
 
 **Data Models**:
-- Question: Core quiz question with multiple choice options
-- QuizMode: Enum type ("practice" | "exam")
+- Question: Core quiz question with multiple choice options, optional scenario and scenarioId fields for case studies
+- QuizMode: Enum type ("practice" | "exam" | "scenario")
 - QuizSession: Client-side session tracking current progress
 - Advert: Advertisement content structure
 
 ### Key Features
 
 **Quiz Modes**:
-- Practice Mode: Flexible question count (5-100), immediate feedback after each answer, supports returning home mid-quiz
+- Practice Mode: Flexible question count (5-100), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
 - Exam Mode: Fixed 100 questions, no feedback until completion, 80% pass threshold
+- Scenario Quiz Mode: One complete scenario with 3 related questions, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions
 
 **Advertisement System**: 
 - Modal displays every 9th question with 10-second countdown timer
