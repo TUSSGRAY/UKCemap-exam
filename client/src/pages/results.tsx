@@ -28,6 +28,11 @@ export default function Results() {
     <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-primary tracking-wide uppercase">
+              J&K Cemap Training
+            </p>
+          </div>
           <div className="flex items-center justify-center mb-6">
             <div className={`w-20 h-20 rounded-full flex items-center justify-center ${
               passed ? "bg-green-100 dark:bg-green-950" : "bg-orange-100 dark:bg-orange-950"

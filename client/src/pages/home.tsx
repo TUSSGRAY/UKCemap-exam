@@ -9,6 +9,11 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="text-center mb-16">
+          <div className="mb-3">
+            <p className="text-sm font-semibold text-primary tracking-wide uppercase" data-testid="text-company-name">
+              J&K Cemap Training
+            </p>
+          </div>
           <div className="flex items-center justify-center mb-6">
             <GraduationCap className="w-12 h-12 text-primary mr-3" />
             <h1 className="text-5xl font-bold text-foreground" data-testid="text-app-title">

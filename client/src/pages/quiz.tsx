@@ -147,7 +147,7 @@ export default function Quiz({ mode }: QuizProps) {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-10 bg-background border-b border-border">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-6 py-3 flex items-center justify-between">
           <Button
             variant="ghost"
             size="icon"
@@ -156,9 +156,14 @@ export default function Quiz({ mode }: QuizProps) {
           >
             <Home className="w-5 h-5" />
           </Button>
-          <Badge variant="secondary" className="text-sm font-medium" data-testid="badge-mode-indicator">
-            {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : "Full Exam"}
-          </Badge>
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-xs font-semibold text-primary tracking-wide uppercase">
+              J&K Cemap Training
+            </p>
+            <Badge variant="secondary" className="text-xs font-medium" data-testid="badge-mode-indicator">
+              {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : "Full Exam"}
+            </Badge>
+          </div>
           <div className="w-10" />
         </div>
         <div className="max-w-4xl mx-auto px-6">
