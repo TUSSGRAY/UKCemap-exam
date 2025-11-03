@@ -37,13 +37,20 @@ export default function Quiz({ mode }: QuizProps) {
 
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
-  const isPracticeMode = mode === "practice";
+  const isPracticeMode = mode === "practice" || mode === "scenario";
   const isCorrect = selectedAnswer === currentQuestion?.answer;
 
   const handleStartQuiz = async (count: number) => {
     setQuestionCount(count);
     setIsStarted(true);
   };
+
+  useEffect(() => {
+    if (mode === "scenario") {
+      setQuestionCount(3);
+      setIsStarted(true);
+    }
+  }, [mode]);
 
   const handleAnswerSelect = (answer: string) => {
     if (!showFeedback) {
@@ -82,7 +89,7 @@ export default function Quiz({ mode }: QuizProps) {
       return;
     }
 
-    if ((nextIndex) % 9 === 0) {
+    if ((nextIndex) % 9 === 0 && mode !== "scenario") {
       setShowAdBreak(true);
     } else {
       moveToNextQuestion();
@@ -149,7 +156,7 @@ export default function Quiz({ mode }: QuizProps) {
             <Home className="w-5 h-5" />
           </Button>
           <Badge variant="secondary" className="text-sm font-medium" data-testid="badge-mode-indicator">
-            {mode === "practice" ? "Practice Mode" : "Full Exam"}
+            {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : "Full Exam"}
           </Badge>
           <div className="w-10" />
         </div>
@@ -172,6 +179,16 @@ export default function Quiz({ mode }: QuizProps) {
 
         <Card className="shadow-lg" data-testid="card-question">
           <CardHeader className="space-y-6 p-8">
+            {currentQuestion.scenario && (
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 mb-4" data-testid="text-scenario">
+                <h3 className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
+                  Client Scenario
+                </h3>
+                <p className="text-base leading-relaxed text-foreground">
+                  {currentQuestion.scenario}
+                </p>
+              </div>
+            )}
             <h2 className="text-2xl font-medium leading-relaxed text-foreground" data-testid="text-question">
               {currentQuestion.question}
             </h2>
