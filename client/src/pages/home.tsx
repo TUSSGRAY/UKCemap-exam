@@ -8,10 +8,29 @@ import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lo
 export default function Home() {
   const [, setLocation] = useLocation();
   const [hasExamAccess, setHasExamAccess] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    const purchased = localStorage.getItem('examPurchased') === 'true';
-    setHasExamAccess(purchased);
+    // Check localStorage first for quick UI
+    const cachedAccess = localStorage.getItem('examPurchased') === 'true';
+    setHasExamAccess(cachedAccess);
+    
+    // Verify with server (authoritative source)
+    fetch('/api/check-exam-access')
+      .then(res => res.json())
+      .then(data => {
+        setHasExamAccess(data.hasAccess);
+        // Update cache
+        if (data.hasAccess) {
+          localStorage.setItem('examPurchased', 'true');
+        } else {
+          localStorage.removeItem('examPurchased');
+        }
+        setIsChecking(false);
+      })
+      .catch(() => {
+        setIsChecking(false);
+      });
   }, []);
   return (
     <div className="min-h-screen bg-background">

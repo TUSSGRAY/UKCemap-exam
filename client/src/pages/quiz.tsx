@@ -28,10 +28,17 @@ export default function Quiz({ mode }: QuizProps) {
 
   useEffect(() => {
     if (mode === "exam") {
-      const hasAccess = localStorage.getItem('examPurchased') === 'true';
-      if (!hasAccess) {
-        setLocation('/checkout');
-      }
+      // Verify access with server (authoritative source)
+      fetch('/api/check-exam-access')
+        .then(res => res.json())
+        .then(data => {
+          if (!data.hasAccess) {
+            setLocation('/checkout');
+          }
+        })
+        .catch(() => {
+          setLocation('/checkout');
+        });
     }
   }, [mode, setLocation]);
 

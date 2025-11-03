@@ -72,7 +72,8 @@ export default function Checkout() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    apiRequest("POST", "/api/create-payment-intent", { amount: 0.99 })
+    // Amount is hardcoded on server - no client input needed
+    apiRequest("POST", "/api/create-payment-intent", {})
       .then((data) => {
         setClientSecret(data.clientSecret);
       })

@@ -1,16 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function PaymentSuccess() {
   const [, setLocation] = useLocation();
+  const [isVerifying, setIsVerifying] = useState(true);
 
   useEffect(() => {
-    // Mark exam as purchased in localStorage
-    localStorage.setItem('examPurchased', 'true');
-  }, []);
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentIntentId = urlParams.get('payment_intent');
+
+    if (paymentIntentId) {
+      // Verify payment on server
+      apiRequest("POST", "/api/verify-payment", { paymentIntentId })
+        .then((data) => {
+          if (data.verified && data.hasAccess) {
+            // Payment verified - set localStorage as cache
+            localStorage.setItem('examPurchased', 'true');
+            setIsVerifying(false);
+          } else {
+            setLocation('/');
+          }
+        })
+        .catch(() => {
+          setLocation('/');
+        });
+    } else {
+      setLocation('/');
+    }
+  }, [setLocation]);
 
   const handleStartExam = () => {
     setLocation('/quiz/exam');
@@ -19,6 +40,17 @@ export default function PaymentSuccess() {
   const handleGoHome = () => {
     setLocation('/');
   };
+
+  if (isVerifying) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" aria-label="Loading"/>
+          <p className="text-lg text-muted-foreground">Verifying payment...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center">
