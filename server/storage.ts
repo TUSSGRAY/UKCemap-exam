@@ -5,18 +5,18 @@ export interface IStorage {
   getAllQuestions(): Promise<Question[]>;
   getQuestionsByMode(mode: QuizMode, count: number): Promise<Question[]>;
   getRandomAdvert(): Promise<Advert>;
-  recordExamPurchase(paymentIntentId: string): Promise<void>;
-  checkExamAccess(): Promise<boolean>;
+  recordExamPurchase(paymentIntentId: string): Promise<string>;
+  checkExamAccess(accessToken: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
   private questions: Map<string, Question>;
   private adverts: Advert[];
-  private examPurchases: Set<string>;
+  private examAccessTokens: Map<string, string>;
 
   constructor() {
     this.questions = new Map();
-    this.examPurchases = new Set();
+    this.examAccessTokens = new Map();
     this.adverts = [
       {
         id: "1",
@@ -1743,12 +1743,14 @@ export class MemStorage implements IStorage {
     return this.adverts[randomIndex];
   }
 
-  async recordExamPurchase(paymentIntentId: string): Promise<void> {
-    this.examPurchases.add(paymentIntentId);
+  async recordExamPurchase(paymentIntentId: string): Promise<string> {
+    const accessToken = randomUUID();
+    this.examAccessTokens.set(accessToken, paymentIntentId);
+    return accessToken;
   }
 
-  async checkExamAccess(): Promise<boolean> {
-    return this.examPurchases.size > 0;
+  async checkExamAccess(accessToken: string): Promise<boolean> {
+    return this.examAccessTokens.has(accessToken);
   }
 }
 

@@ -16,10 +16,11 @@ export default function PaymentSuccess() {
     if (paymentIntentId) {
       // Verify payment on server
       apiRequest("POST", "/api/verify-payment", { paymentIntentId })
+        .then((res) => res.json())
         .then((data) => {
-          if (data.verified && data.hasAccess) {
-            // Payment verified - set localStorage as cache
-            localStorage.setItem('examPurchased', 'true');
+          if (data.verified && data.hasAccess && data.accessToken) {
+            // Payment verified - store unique access token for this device
+            localStorage.setItem('examAccessToken', data.accessToken);
             setIsVerifying(false);
           } else {
             setLocation('/');

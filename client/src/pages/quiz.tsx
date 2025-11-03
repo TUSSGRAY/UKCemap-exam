@@ -28,11 +28,23 @@ export default function Quiz({ mode }: QuizProps) {
 
   useEffect(() => {
     if (mode === "exam") {
-      // Verify access with server (authoritative source)
-      fetch('/api/check-exam-access')
+      const accessToken = localStorage.getItem('examAccessToken');
+      
+      if (!accessToken) {
+        setLocation('/checkout');
+        return;
+      }
+      
+      // Verify access token with server (authoritative source)
+      fetch('/api/check-exam-access', {
+        headers: {
+          'X-Access-Token': accessToken
+        }
+      })
         .then(res => res.json())
         .then(data => {
           if (!data.hasAccess) {
+            localStorage.removeItem('examAccessToken');
             setLocation('/checkout');
           }
         })
@@ -46,7 +58,20 @@ export default function Quiz({ mode }: QuizProps) {
     queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,
     queryFn: async () => {
-      const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`);
+      const headers: Record<string, string> = {};
+      
+      // Include access token for exam mode
+      if (mode === "exam") {
+        const accessToken = localStorage.getItem('examAccessToken');
+        if (accessToken) {
+          headers['X-Access-Token'] = accessToken;
+        }
+      }
+      
+      const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
+        credentials: "include",
+        headers
+      });
       if (!response.ok) throw new Error("Failed to fetch questions");
       return response.json();
     },

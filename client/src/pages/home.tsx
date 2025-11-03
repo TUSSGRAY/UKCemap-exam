@@ -11,20 +11,27 @@ export default function Home() {
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    // Check localStorage first for quick UI
-    const cachedAccess = localStorage.getItem('examPurchased') === 'true';
-    setHasExamAccess(cachedAccess);
+    // Get access token from localStorage
+    const accessToken = localStorage.getItem('examAccessToken');
     
-    // Verify with server (authoritative source)
-    fetch('/api/check-exam-access')
+    if (!accessToken) {
+      setHasExamAccess(false);
+      setIsChecking(false);
+      return;
+    }
+    
+    // Verify token with server (authoritative source)
+    fetch('/api/check-exam-access', {
+      headers: {
+        'X-Access-Token': accessToken
+      }
+    })
       .then(res => res.json())
       .then(data => {
         setHasExamAccess(data.hasAccess);
-        // Update cache
-        if (data.hasAccess) {
-          localStorage.setItem('examPurchased', 'true');
-        } else {
-          localStorage.removeItem('examPurchased');
+        // Remove token if invalid
+        if (!data.hasAccess) {
+          localStorage.removeItem('examAccessToken');
         }
         setIsChecking(false);
       })
