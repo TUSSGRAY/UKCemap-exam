@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lock, Mail, Gift } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
+import { Leaderboard } from "@/components/leaderboard";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -358,6 +359,16 @@ export default function Home() {
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        <div className="mt-16 max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground text-center mb-8" data-testid="text-leaderboard-title">
+            Weekly Leaderboard
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Leaderboard mode="exam" title="Full Exam Top Scores" />
+            <Leaderboard mode="scenario" title="Scenario Quiz Top Scores" />
+          </div>
         </div>
 
         <div className="mt-12 text-center">
