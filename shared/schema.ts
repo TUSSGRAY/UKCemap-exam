@@ -54,3 +54,19 @@ export const advertSchema = z.object({
 });
 
 export type Advert = z.infer<typeof advertSchema>;
+
+// Email subscription schema for 100 Days campaign
+export const emailSubscriptions = pgTable("email_subscriptions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: text("email").notNull().unique(),
+  subscribedAt: text("subscribed_at").notNull(),
+  isActive: integer("is_active").notNull().default(1), // 1 = active, 0 = unsubscribed
+  daysSent: integer("days_sent").notNull().default(0), // Track how many days have been sent (max 100)
+});
+
+export const insertEmailSubscriptionSchema = createInsertSchema(emailSubscriptions).omit({
+  id: true,
+});
+
+export type InsertEmailSubscription = z.infer<typeof insertEmailSubscriptionSchema>;
+export type EmailSubscription = typeof emailSubscriptions.$inferSelect;

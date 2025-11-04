@@ -3,6 +3,8 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { quizRequestSchema } from "@shared/schema";
 import Stripe from "stripe";
+import { sendDailyQuizToSubscriber, sendDailyQuizToAllSubscribers } from "./email-service";
+import { z } from "zod";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
@@ -182,6 +184,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const hasAccess = await storage.checkScenarioAccess(accessToken);
       res.json({ hasAccess });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Email subscription endpoint
+  app.post("/api/subscribe-email", async (req, res) => {
+    try {
+      const emailSchema = z.object({
+        email: z.string().email("Invalid email address"),
+      });
+
+      const { email } = emailSchema.parse(req.body);
+      
+      // Check if already subscribed
+      const existing = await storage.getEmailSubscription(email);
+      if (existing) {
+        return res.json({ 
+          success: true, 
+          message: "Already subscribed",
+          subscription: existing 
+        });
+      }
+
+      const subscription = await storage.subscribeEmail(email);
+      res.json({ 
+        success: true, 
+        message: "Successfully subscribed to 100 Days campaign",
+        subscription 
+      });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Send daily quiz to a specific subscriber (manual trigger)
+  app.post("/api/send-daily-quiz", async (req, res) => {
+    try {
+      const emailSchema = z.object({
+        email: z.string().email("Invalid email address"),
+      });
+
+      const { email } = emailSchema.parse(req.body);
+      
+      await sendDailyQuizToSubscriber(email);
+      res.json({ 
+        success: true, 
+        message: `Daily quiz sent to ${email}` 
+      });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Send daily quiz to all subscribers (manual trigger for batch)
+  app.post("/api/send-daily-quiz-all", async (req, res) => {
+    try {
+      const result = await sendDailyQuizToAllSubscribers();
+      res.json({ 
+        success: true, 
+        ...result 
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Get subscription status
+  app.get("/api/subscription-status", async (req, res) => {
+    try {
+      const email = req.query.email as string;
+      
+      if (!email) {
+        return res.status(400).json({ error: "Email parameter required" });
+      }
+
+      const subscription = await storage.getEmailSubscription(email);
+      if (!subscription) {
+        return res.json({ subscribed: false });
+      }
+
+      res.json({
+        subscribed: true,
+        isActive: subscription.isActive === 1,
+        daysSent: subscription.daysSent,
+        subscribedAt: subscription.subscribedAt,
+      });
     } catch (error: any) {
       res.status(500).json({ error: error.message });
     }

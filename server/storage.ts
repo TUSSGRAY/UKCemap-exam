@@ -1,4 +1,4 @@
-import type { Question, InsertQuestion, QuizMode, Advert } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, EmailSubscription, InsertEmailSubscription } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -10,6 +10,11 @@ export interface IStorage {
   recordBundlePurchase(paymentIntentId: string): Promise<string>;
   checkExamAccess(accessToken: string): Promise<boolean>;
   checkScenarioAccess(accessToken: string): Promise<boolean>;
+  subscribeEmail(email: string): Promise<EmailSubscription>;
+  getEmailSubscription(email: string): Promise<EmailSubscription | null>;
+  getAllActiveSubscriptions(): Promise<EmailSubscription[]>;
+  updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void>;
+  unsubscribeEmail(email: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -18,12 +23,14 @@ export class MemStorage implements IStorage {
   private examAccessTokens: Map<string, string>;
   private scenarioAccessTokens: Map<string, string>;
   private bundleAccessTokens: Map<string, string>;
+  private emailSubscriptions: Map<string, EmailSubscription>;
 
   constructor() {
     this.questions = new Map();
     this.examAccessTokens = new Map();
     this.scenarioAccessTokens = new Map();
     this.bundleAccessTokens = new Map();
+    this.emailSubscriptions = new Map();
     this.adverts = [
       {
         id: "1",
@@ -3190,6 +3197,46 @@ export class MemStorage implements IStorage {
   async checkScenarioAccess(accessToken: string): Promise<boolean> {
     // Bundle gives access to scenarios too
     return this.scenarioAccessTokens.has(accessToken) || this.bundleAccessTokens.has(accessToken);
+  }
+
+  async subscribeEmail(email: string): Promise<EmailSubscription> {
+    const subscription: EmailSubscription = {
+      id: randomUUID(),
+      email: email.toLowerCase(),
+      subscribedAt: new Date().toISOString(),
+      isActive: 1,
+      daysSent: 0,
+    };
+    this.emailSubscriptions.set(email.toLowerCase(), subscription);
+    return subscription;
+  }
+
+  async getEmailSubscription(email: string): Promise<EmailSubscription | null> {
+    return this.emailSubscriptions.get(email.toLowerCase()) || null;
+  }
+
+  async getAllActiveSubscriptions(): Promise<EmailSubscription[]> {
+    return Array.from(this.emailSubscriptions.values()).filter(
+      sub => sub.isActive === 1 && sub.daysSent < 100
+    );
+  }
+
+  async updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void> {
+    const subscription = Array.from(this.emailSubscriptions.values()).find(
+      sub => sub.id === id
+    );
+    if (subscription) {
+      subscription.daysSent = daysSent;
+      this.emailSubscriptions.set(subscription.email, subscription);
+    }
+  }
+
+  async unsubscribeEmail(email: string): Promise<void> {
+    const subscription = this.emailSubscriptions.get(email.toLowerCase());
+    if (subscription) {
+      subscription.isActive = 0;
+      this.emailSubscriptions.set(email.toLowerCase(), subscription);
+    }
   }
 }
 
