@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, all 50 realistic case studies presented in random order with 150 questions total, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
+A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, all 50 realistic case studies presented in random order with 150 questions total, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. Bundle purchasers also get enrolled in the "100 Days to CeMAP Ready" email campaign, receiving 3 random scenario questions with answers daily at 8:59am for 100 days via Outlook integration. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
 
 ## User Preferences
 
@@ -50,6 +50,10 @@ Preferred communication style: Simple, everyday language.
 - `POST /api/verify-payment` - Verifies Stripe payment and generates appropriate access token based on purchase type
 - `GET /api/check-exam-access` - Validates access token for exam mode (accepts exam or bundle tokens)
 - `GET /api/check-scenario-access` - Validates access token for scenario mode (accepts scenario or bundle tokens)
+- `POST /api/subscribe-email` - Subscribes email to 100 Days campaign (body: {email})
+- `POST /api/send-daily-quiz` - Manually triggers daily quiz email to specific subscriber (body: {email})
+- `POST /api/send-daily-quiz-all` - Manually triggers daily quiz email to all active subscribers
+- `GET /api/subscription-status?email={email}` - Gets subscription status for an email address
 
 **Data Layer**: Currently using in-memory storage (MemStorage class) with an interface-based storage abstraction (IStorage) that allows for future database implementation
 
@@ -76,6 +80,7 @@ Preferred communication style: Simple, everyday language.
 - QuizMode: Enum type ("practice" | "exam" | "scenario")
 - QuizSession: Client-side session tracking current progress
 - Advert: Advertisement content structure
+- EmailSubscription: Email campaign enrollment tracking (id, email, subscribedAt, isActive, daysSent)
 
 ### Key Features
 
@@ -117,13 +122,30 @@ Preferred communication style: Simple, everyday language.
 - Feedback messages based on rating
 - Ratings stored in localStorage for reference
 
+**100 Days Email Campaign** (Bundle Package Bonus):
+- Automatic enrollment for bundle purchasers who provide email
+- Email opt-in checkbox on bundle checkout page
+- Sends 3 random scenario questions with answers daily at 8:59am
+- Tracks days sent (max 100 days)
+- HTML-formatted emails with:
+  - Professional template with J&K branding
+  - Question text, topic, scenario context (if applicable)
+  - All 4 answer options (A, B, C, D)
+  - Correct answers shown at bottom
+  - Progress indicator (Day X of 100)
+- Manual trigger endpoints for sending daily emails
+- Outlook integration for email delivery from ukcemap@outlook.com
+- Email subscription status tracking
+
 **User Experience**:
 - Question count selector for practice mode
 - Visual feedback for correct/incorrect answers in practice mode
 - Progress tracking with question counter
 - Results summary with percentage score and pass/fail indication
 - Topic badges on questions for content categorization
-- Textbook promotion section on home page with link to official CeMAP study materials
+- Textbook promotion section on home page with link to official CeMAP study materials (Amazon UK)
+- Bundle checkout includes email input and 100 Days campaign opt-in
+- Payment success page shows email campaign enrollment confirmation
 
 **Design Principles**:
 - Progressive disclosure to avoid overwhelming users
@@ -178,6 +200,12 @@ Preferred communication style: Simple, everyday language.
 - Stripe (@stripe/stripe-js, @stripe/react-stripe-js, stripe)
 - Stripe Payment Elements for secure checkout UI
 - Server-side payment verification and token generation
+
+**Email Integration**:
+- Microsoft Graph Client (@microsoft/microsoft-graph-client)
+- Outlook connector for sending transactional emails
+- Sends from ukcemap@outlook.com
+- HTML email template generation
 
 **Development Tools**:
 - Vite with React plugin

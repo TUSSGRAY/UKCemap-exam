@@ -6,7 +6,10 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Lock } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { ArrowLeft, Lock, Mail } from "lucide-react";
 
 if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
   throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
@@ -19,12 +22,26 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailOptIn, setEmailOptIn] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
       return;
+    }
+
+    // Validate email for bundle purchases
+    if (purchaseType === "bundle" && emailOptIn) {
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast({
+          title: "Invalid Email",
+          description: "Please enter a valid email address for the 100 Days campaign.",
+          variant: "destructive",
+        });
+        return;
+      }
     }
 
     setIsProcessing(true);
@@ -48,7 +65,11 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
         });
       } else if (paymentIntent && paymentIntent.status === "succeeded") {
         // Payment succeeded - navigate to success page
-        setLocation(`/payment-success?payment_intent=${paymentIntent.id}`);
+        // For bundle purchases, pass email opt-in preference to success page
+        const emailParam = (purchaseType === "bundle" && emailOptIn && email) 
+          ? `&email=${encodeURIComponent(email)}` 
+          : '';
+        setLocation(`/payment-success?payment_intent=${paymentIntent.id}${emailParam}`);
       } else {
         setIsProcessing(false);
         toast({
@@ -68,6 +89,54 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {purchaseType === "bundle" && (
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-4">
+          <div className="flex items-start gap-3">
+            <Mail className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-foreground mb-2">
+                Bonus: 100 Days to CeMAP Ready
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Get 3 practice questions delivered to your inbox every day at 8:59am for 100 days!
+              </p>
+              
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor="email" className="text-sm font-medium">
+                    Email Address
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-1.5"
+                    data-testid="input-email"
+                  />
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="emailOptIn"
+                    checked={emailOptIn}
+                    onCheckedChange={(checked) => setEmailOptIn(checked as boolean)}
+                    data-testid="checkbox-email-optin"
+                  />
+                  <label
+                    htmlFor="emailOptIn"
+                    className="text-sm text-foreground cursor-pointer"
+                  >
+                    Yes, enroll me in the 100 Days email campaign
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <PaymentElement 
         options={{
           layout: "tabs",

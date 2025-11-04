@@ -9,6 +9,9 @@ import { z } from "zod";
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
 }
+if (!process.env.INTERNAL_API_KEY) {
+  throw new Error('INTERNAL_API_KEY must be set for email endpoint security. Generate a secure random string and add it to secrets.');
+}
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-10-29.clover",
 });
@@ -67,7 +70,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { purchaseType } = req.body;
       
-      // Hardcode prices on server - never trust client input
+      // Hardcode prices on server - never trust client input for amounts or email
       let amount: number;
       let productName: string;
       
@@ -189,25 +192,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Email subscription endpoint
+  // Email subscription endpoint - SECURED
+  // Only accepts subscription for verified bundle purchases
   app.post("/api/subscribe-email", async (req, res) => {
     try {
       const emailSchema = z.object({
         email: z.string().email("Invalid email address"),
+        paymentIntentId: z.string().min(1, "Payment intent ID required"),
       });
 
-      const { email } = emailSchema.parse(req.body);
+      const { email, paymentIntentId } = emailSchema.parse(req.body);
       
-      // Check if already subscribed
-      const existing = await storage.getEmailSubscription(email);
-      if (existing) {
+      // Verify the payment intent is a valid bundle purchase
+      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+      
+      if (paymentIntent.status !== "succeeded") {
+        return res.status(400).json({ error: "Payment not completed" });
+      }
+      
+      if (paymentIntent.metadata.purchaseType !== "bundle") {
+        return res.status(400).json({ error: "Email subscription only available for bundle purchases" });
+      }
+      
+      if (paymentIntent.amount !== 149) {
+        return res.status(400).json({ error: "Invalid bundle purchase" });
+      }
+      
+      // Check if already subscribed for this payment intent
+      const existingSub = await storage.getEmailSubscription(email);
+      if (existingSub) {
         return res.json({ 
           success: true, 
           message: "Already subscribed",
-          subscription: existing 
+          subscription: existingSub 
         });
       }
 
+      // Subscribe the email
       const subscription = await storage.subscribeEmail(email);
       res.json({ 
         success: true, 
@@ -222,9 +243,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Send daily quiz to a specific subscriber (manual trigger)
+  // INTERNAL USE ONLY: Send daily quiz to a specific subscriber
+  // This endpoint requires authentication and should only be called by scheduled jobs
   app.post("/api/send-daily-quiz", async (req, res) => {
     try {
+      // Verify internal API key for security
+      const apiKey = req.headers['x-api-key'] as string;
+      const validApiKey = process.env.INTERNAL_API_KEY;
+      
+      if (!apiKey || !validApiKey || apiKey !== validApiKey) {
+        return res.status(403).json({ error: "Unauthorized: Invalid API key" });
+      }
+
       const emailSchema = z.object({
         email: z.string().email("Invalid email address"),
       });
@@ -244,9 +274,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Send daily quiz to all subscribers (manual trigger for batch)
+  // INTERNAL USE ONLY: Send daily quiz to all subscribers
+  // This endpoint requires authentication and should only be called by scheduled jobs
   app.post("/api/send-daily-quiz-all", async (req, res) => {
     try {
+      // Verify internal API key for security
+      const apiKey = req.headers['x-api-key'] as string;
+      const validApiKey = process.env.INTERNAL_API_KEY;
+      
+      if (!apiKey || !validApiKey || apiKey !== validApiKey) {
+        return res.status(403).json({ error: "Unauthorized: Invalid API key" });
+      }
+
       const result = await sendDailyQuizToAllSubscribers();
       res.json({ 
         success: true, 
