@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, all 50 realistic case studies presented in random order with 150 questions total, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. Bundle purchasers also get enrolled in the "100 Days to CeMAP Ready" email campaign, receiving 3 random scenario questions with answers daily at 8:59am for 100 days via Outlook integration. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
+This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode with immediate feedback, a paid Full Exam Mode (100 questions), and a paid Scenario Quiz Mode (150 questions from 50 case studies). A Bundle Package provides access to both paid modes at a reduced price and includes enrollment in a "100 Days to CeMAP Ready" email campaign, delivering daily scenario questions. The application integrates Stripe for payments, features weekly high-scorer leaderboards, and includes periodic advertisement breaks to maintain affordability. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
 
 ## User Preferences
 
@@ -10,220 +10,39 @@ Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
-### Frontend Architecture
+### Frontend
 
-**Framework**: React with TypeScript, using Vite as the build tool and development server
+The frontend is built with React and TypeScript, utilizing Vite for development and bundling. It employs `shadcn/ui` with Radix UI primitives for a Material Design-inspired UI, supporting light/dark modes via CSS variables. `Wouter` handles client-side routing across eight main routes, including home, quiz modes, results, certificate, and checkout. State management relies on React hooks for local state and TanStack Query for server state. Styling is managed with Tailwind CSS, custom design tokens, and a typography system using Inter and JetBrains Mono fonts.
 
-**UI Component System**: Built on shadcn/ui with Radix UI primitives
-- Material Design-inspired design system emphasizing clarity and professional polish
-- Custom theming system using CSS variables for light/dark mode support
-- Comprehensive component library including cards, buttons, dialogs, progress indicators, and form elements
+### Backend
 
-**Routing**: Wouter for client-side routing with eight main routes:
-- Home page (mode selection with branding and bundle offer)
-- Practice quiz (`/quiz/practice`) - Free access, fixed 10 questions, max 2 attempts
-- Exam quiz (`/quiz/exam`) - Requires payment (£0.99 or bundle)
-- Scenario quiz (`/quiz/scenario`) - Requires payment (£0.99 or bundle)
-- Results page (`/results`) - Shows score, handles attempt tracking, redirects to certificate on 80%+ pass
-- Certificate page (`/certificate`) - Awards certificate from JK Training on 80%+ pass for all modes
-- Checkout page (`/checkout?type={exam|scenario|bundle}`) - Stripe payment with three pricing tiers
-- Payment success page (`/payment-success`) - Confirms purchase and grants access
+The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access token generation and validation, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is currently stored in-memory using a `MemStorage` class, though an `IStorage` interface is in place for future database integration.
 
-**State Management**: 
-- React hooks for local component state
-- TanStack Query (React Query) for server state and data fetching
-- URL parameters for passing quiz results between pages
+### Data Storage
 
-**Styling**: 
-- Tailwind CSS with custom configuration
-- Design tokens defined via CSS custom properties
-- Typography system using Inter (primary) and JetBrains Mono (monospace) fonts from Google Fonts
-
-### Backend Architecture
-
-**Server Framework**: Express.js with TypeScript running on Node.js
-
-**API Design**: RESTful endpoints:
-- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode (exam and scenario modes require X-Access-Token header)
-- `GET /api/adverts/random` - Retrieves a random advertisement
-- `POST /api/create-payment-intent` - Creates Stripe payment intent with purchaseType (exam: £0.99, scenario: £0.99, bundle: £1.49)
-- `POST /api/verify-payment` - Verifies Stripe payment and generates appropriate access token based on purchase type
-- `GET /api/check-exam-access` - Validates access token for exam mode (accepts exam or bundle tokens)
-- `GET /api/check-scenario-access` - Validates access token for scenario mode (accepts scenario or bundle tokens)
-- `POST /api/subscribe-email` - Subscribes email to 100 Days campaign (body: {email})
-- `POST /api/send-daily-quiz` - Manually triggers daily quiz email to specific subscriber (body: {email})
-- `POST /api/send-daily-quiz-all` - Manually triggers daily quiz email to all active subscribers
-- `GET /api/subscription-status?email={email}` - Gets subscription status for an email address
-
-**Data Layer**: Currently using in-memory storage (MemStorage class) with an interface-based storage abstraction (IStorage) that allows for future database implementation
-
-**Development Environment**: Vite middleware integration for hot module replacement during development, with separate build process for production
-
-### Data Storage Solutions
-
-**Current Implementation**: In-memory storage with hardcoded question bank and advertisements
-- 136 challenging questions organized by 8 CeMAP topics: Financial Services Industry, Economic Policy, UK Taxation, Welfare Benefits, Mortgage Products, Protection Products, Legal Aspects of Mortgages, and Mortgage Market
-- 50 realistic scenario-based case studies with 3 related questions each (150 scenario questions total)
-- Questions feature numerically similar answer options to test genuine understanding rather than simple recall (e.g., "£12,570" vs "£11,850" for personal allowance, "183 days" vs "120 days" for residency)
-- Questions include specific textbook details: GRAM/PADS acronyms, MPC meeting frequency (8/year), IHT taper relief percentages, SDLT rate bands, Universal Credit taper rate (55%), triple lock (2.5%), NICs requirements (35 years for full pension)
-- Scenario questions cover diverse real-world situations across 50 cases: first-time buyers, remortgages, buy-to-let, self-employed, IHT planning, retirement mortgages, Help to Buy, joint borrower sole proprietor, protection insurance, shared ownership, adverse credit, offset mortgages, bridging loans, lifetime mortgages/equity release, Right to Buy, portfolio landlords, second charge mortgages, Islamic finance, green mortgages, Forces Help to Buy, new build purchases, leasehold properties, CGT calculations, income protection, transfer of equity (divorce), guarantor mortgages, let-to-buy, holiday let, HMO, non-standard construction, auction purchases, early repayment charges, porting mortgages, payment holidays, mortgage prisoners, shared equity schemes, expat/overseas buyers, limited company buy-to-let, agricultural property, retirement villages, probate properties, buildings insurance, age gap mortgages, contractor income, auction completions, multiple adverse credit, property chains, complex income assessment
-- Three static advertisement messages
-
-**Database Schema** (Drizzle ORM ready):
-- Questions table with fields: id, topic, question, optionA-D, answer
-- Configured for PostgreSQL via `@neondatabase/serverless` driver
-- Schema defined in `shared/schema.ts` using Drizzle ORM with Zod validation
-- Migration setup configured in `drizzle.config.ts`
-
-**Data Models**:
-- Question: Core quiz question with multiple choice options, optional scenario and scenarioId fields for case studies
-- QuizMode: Enum type ("practice" | "exam" | "scenario")
-- QuizSession: Client-side session tracking current progress
-- Advert: Advertisement content structure
-- EmailSubscription: Email campaign enrollment tracking (id, email, subscribedAt, isActive, daysSent)
+The current implementation uses in-memory storage for a hardcoded question bank (136 regular questions, 50 scenario case studies with 150 questions total) and static advertisements. Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations. The application is configured for Drizzle ORM with PostgreSQL via `@neondatabase/serverless`, with schema definitions and migration setup ready for a persistent database.
 
 ### Key Features
 
-**Quiz Modes**:
-- Practice Mode: Free access, fixed 10 questions, includes 2 scenario-based questions (2 questions from each of 2 random scenarios = 4 scenario questions) mixed with regular questions, immediate feedback after each answer, 80% pass threshold, maximum 2 attempts tracked via localStorage, certificate awarded on 80%+ pass
-- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions (regular questions only, no scenarios), no feedback until completion, 80% pass threshold, device-based access control, certificate awarded on 80%+ pass
-- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), all 50 realistic scenarios presented in random order (150 questions total), immediate feedback after each answer, 80% pass threshold (requires 120/150 to pass), displays case study prominently above questions, scenarios randomized each session, certificate awarded on 80%+ pass
-
-**Payment & Access Control System**:
-- Stripe integration for secure payment processing with three pricing tiers:
-  - Full Exam Only: £0.99 (100 questions)
-  - Scenario Quiz Only: £0.99 (150 questions from 50 scenarios)
-  - Bundle Package: £1.49 (both exams - save 50p)
-- Device-based access control using cryptographic tokens (UUID)
-- Payment amounts hardcoded server-side for security (99p, 99p, 149p)
-- Server-side token validation before serving exam and scenario content
-- Each successful payment generates unique access token based on purchase type:
-  - examAccessToken: Full Exam access only
-  - scenarioAccessToken: Scenario Quiz access only
-  - bundleAccessToken: Access to both Full Exam and Scenario Quiz
-- Tokens stored in localStorage for device persistence
-- All exam and scenario API requests require valid X-Access-Token header
-- Bundle tokens grant access to both endpoints
-- Unauthorized access attempts return 403 Forbidden
-- No user authentication required - simple device-based model
-
-**Advertisement System**: 
-- Practice Mode: No advertisements
-- Full Exam Mode: 30-second ads at questions 30 and 90
-- Scenario Quiz Mode: 30-second ads at questions 30 and 90
-- Random advertisement selection from predefined pool
-- Non-dismissible during countdown period
-- Progress bar visualization
-- Affordability message: "These adverts help keep the site affordable"
-
-**Review System**:
-- After question 15 in Full Exam and Scenario Quiz modes, users are prompted to rate their experience
-- 1-5 star rating modal
-- Feedback messages based on rating
-- Ratings stored in localStorage for reference
-
-**100 Days Email Campaign** (Bundle Package Bonus):
-- Automatic enrollment for bundle purchasers who provide email
-- Email opt-in checkbox on bundle checkout page
-- Sends 3 random scenario questions with answers daily at 8:59am
-- Tracks days sent (max 100 days)
-- HTML-formatted emails with:
-  - Professional template with J&K branding
-  - Question text, topic, scenario context (if applicable)
-  - All 4 answer options (A, B, C, D)
-  - Correct answers shown at bottom
-  - Progress indicator (Day X of 100)
-- Manual trigger endpoints for sending daily emails
-- Outlook integration for email delivery from ukcemap@outlook.com
-- Email subscription status tracking
-
-**User Experience**:
-- Question count selector for practice mode
-- Visual feedback for correct/incorrect answers in practice mode
-- Progress tracking with question counter
-- Results summary with percentage score and pass/fail indication
-- Topic badges on questions for content categorization
-- Textbook promotion section on home page with link to official CeMAP study materials (Amazon UK)
-- Bundle checkout includes email input and 100 Days campaign opt-in
-- Payment success page shows email campaign enrollment confirmation
-- Share functionality on home page and certificate page allowing users to share the app with friends and colleagues via Web Share API or clipboard copy
-
-**Design Principles**:
-- Progressive disclosure to avoid overwhelming users
-- Optimal reading line length (max-w-3xl) for question content
-- Consistent spacing system using Tailwind units
-- Clear visual hierarchy with purposeful typography scale
-- Professional polish reflecting the serious nature of certification
+*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 100 questions, no feedback until end), Scenario Quiz (paid, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
+*   **Payment & Access Control**: Stripe integration for secure payments (£0.99 for single modes, £1.49 for bundle). Device-based access control uses cryptographic tokens stored in `localStorage`, validated server-side for paid content.
+*   **Advertisement System**: Non-dismissible 30-second ads appear at specific points in paid quiz modes, with a message about affordability.
+*   **100 Days Email Campaign**: Bundle purchasers providing their email are enrolled to receive 3 random scenario questions with answers daily for 100 days, delivered via Outlook integration.
+*   **User Experience**: Features include question count selection, visual feedback, progress tracking, results summaries, topic badges, an optional review system, and weekly leaderboards with name prompting for top performers.
+*   **Design Principles**: Emphasizes progressive disclosure, optimal reading length, consistent spacing, and clear visual hierarchy for a professional user experience.
 
 ### Code Organization
 
-**Monorepo Structure**:
-- `/client` - React frontend application
-- `/server` - Express backend server
-- `/shared` - Shared TypeScript types and schemas
-- `/attached_assets` - Static assets and original Python prototype
-
-**Path Aliases**:
-- `@/*` maps to `client/src/*`
-- `@shared/*` maps to `shared/*`
-- `@assets/*` maps to `attached_assets/*`
-
-**Build Process**:
-- Client: Vite builds to `dist/public`
-- Server: esbuild bundles to `dist/index.js` as ESM module
-- TypeScript compilation for type checking (no emit)
+The project uses a monorepo structure with `/client` (React frontend), `/server` (Express backend), and `/shared` (shared TypeScript types). Path aliases are configured for easier imports. The build process uses Vite for the client and esbuild for the server.
 
 ## External Dependencies
 
-**UI Framework**:
-- React 18 with React DOM
-- Radix UI component primitives (20+ components including dialog, progress, radio-group, select, tabs, toast)
-- shadcn/ui design system configuration
-
-**Styling**:
-- Tailwind CSS with PostCSS
-- class-variance-authority for component variants
-- clsx and tailwind-merge for className management
-
-**State & Data Fetching**:
-- TanStack Query v5 for server state management
-- React Hook Form with Zod resolvers for form validation
-
-**Database & ORM** (configured but not actively used):
-- Drizzle ORM with Drizzle Kit for migrations
-- @neondatabase/serverless for PostgreSQL connection
-- Drizzle-Zod for schema validation
-
-**Routing**: 
-- wouter for lightweight client-side routing
-
-**Payment Processing**:
-- Stripe (@stripe/stripe-js, @stripe/react-stripe-js, stripe)
-- Stripe Payment Elements for secure checkout UI
-- Server-side payment verification and token generation
-
-**Email Integration**:
-- Microsoft Graph Client (@microsoft/microsoft-graph-client)
-- Outlook connector for sending transactional emails
-- Sends from ukcemap@outlook.com
-- HTML email template generation
-
-**Development Tools**:
-- Vite with React plugin
-- tsx for TypeScript execution in development
-- esbuild for production server bundling
-- @replit plugins for enhanced development experience (runtime error overlay, cartographer, dev banner)
-
-**Build & Tooling**:
-- TypeScript with strict mode enabled
-- ESNext module system
-- Vite with custom configuration for monorepo structure
-
-**Utilities**:
-- date-fns for date manipulation
-- nanoid for ID generation
-- Various Lucide React icons throughout the UI
-
-**Session Management** (configured):
-- express-session with connect-pg-simple for PostgreSQL session store
-- Currently not actively implemented in the codebase
+*   **UI Frameworks**: React 18, Radix UI (primitives), shadcn/ui (design system).
+*   **Styling**: Tailwind CSS, class-variance-authority, clsx, tailwind-merge.
+*   **State & Data Fetching**: TanStack Query v5, React Hook Form, Zod.
+*   **Database/ORM (Configured, not fully active)**: Drizzle ORM, Drizzle Kit, @neondatabase/serverless.
+*   **Routing**: wouter.
+*   **Payment Processing**: Stripe (stripe-js, react-stripe-js, stripe).
+*   **Email Integration**: Microsoft Graph Client, Outlook (ukcemap@outlook.com).
+*   **Development Tools**: Vite, tsx, esbuild, Replit plugins.
+*   **Utilities**: date-fns, nanoid, Lucide React (icons).

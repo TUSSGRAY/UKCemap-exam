@@ -83,6 +83,7 @@ export const highScores = pgTable("high_scores", {
 
 export const insertHighScoreSchema = createInsertSchema(highScores).omit({
   id: true,
+  timestamp: true,
 });
 
 export type InsertHighScore = z.infer<typeof insertHighScoreSchema>;

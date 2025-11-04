@@ -103,15 +103,11 @@ export default function Results() {
     setIsSavingScore(true);
 
     try {
-      await apiRequest<void>({
-        url: "/api/high-scores",
-        method: "POST",
-        body: {
-          name: playerName.trim(),
-          score,
-          total,
-          mode,
-        },
+      await apiRequest("POST", "/api/high-scores", {
+        name: playerName.trim(),
+        score,
+        total,
+        mode,
       });
 
       // Mark as saved in session storage
