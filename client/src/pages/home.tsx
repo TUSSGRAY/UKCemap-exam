@@ -310,13 +310,13 @@ export default function Home() {
                     Get the official CeMAP textbook to complement your quiz preparation
                   </p>
                   <a
-                    href="https://www.libf.ac.uk/study/professional-qualifications/financial-advice/cemap/resources"
+                    href="https://www.amazon.co.uk/Mastering-Mortgage-Advice-Definitive-Certification/dp/B0D2LC1RMZ"
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="link-buy-textbook"
                   >
                     <Button variant="outline" size="sm">
-                      View CeMAP Textbooks
+                      View CeMAP Textbook
                     </Button>
                   </a>
                 </div>
