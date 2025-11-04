@@ -2,6 +2,7 @@ import { useLocation as useWouterLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Home, ShoppingCart } from "lucide-react";
+import { ShareButton } from "@/components/share-button";
 
 export default function Certificate() {
   const [, setLocation] = useWouterLocation();
@@ -157,6 +158,13 @@ export default function Certificate() {
             <Home className="w-5 h-5 mr-2" />
             Return Home
           </Button>
+          
+          <ShareButton 
+            variant="outline" 
+            size="lg"
+            shareTitle="I passed the CeMAP quiz!"
+            shareText={`I just scored ${percentage}% on the ${certificateTitle}! Check out this CeMAP quiz app to test your knowledge.`}
+          />
           
           {mode !== 'practice' && (
             <Button

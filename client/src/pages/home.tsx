@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lock } from "lucide-react";
+import { ShareButton } from "@/components/share-button";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -78,7 +79,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="text-center mb-16">
-          <div className="mb-3">
+          <div className="mb-3 flex items-center justify-center gap-3">
             <p className="text-sm font-semibold text-primary tracking-wide uppercase" data-testid="text-company-name">
               J&K Cemap Training
             </p>
@@ -92,7 +93,7 @@ export default function Home() {
           <p className="text-xl text-muted-foreground mb-6">
             Master UK Mortgage Certification
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-questions">
               100+ Questions
             </Badge>
@@ -102,6 +103,13 @@ export default function Home() {
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-passmark">
               Pass Mark 80%
             </Badge>
+          </div>
+          <div className="flex justify-center">
+            <ShareButton 
+              variant="ghost" 
+              size="sm"
+              className="text-muted-foreground hover:text-foreground"
+            />
           </div>
         </div>
 

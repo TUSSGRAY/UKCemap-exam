@@ -146,6 +146,7 @@ Preferred communication style: Simple, everyday language.
 - Textbook promotion section on home page with link to official CeMAP study materials (Amazon UK)
 - Bundle checkout includes email input and 100 Days campaign opt-in
 - Payment success page shows email campaign enrollment confirmation
+- Share functionality on home page and certificate page allowing users to share the app with friends and colleagues via Web Share API or clipboard copy
 
 **Design Principles**:
 - Progressive disclosure to avoid overwhelming users
