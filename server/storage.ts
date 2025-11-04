@@ -1699,6 +1699,1336 @@ export class MemStorage implements IStorage {
         optionD: "The mortgage rate is always lower than standard mortgages",
         answer: "C"
       },
+
+      // Scenario 13: Bridging Loan
+      {
+        topic: "Mortgage Products",
+        scenario: "Claire has found her dream home for £450,000 but hasn't sold her current property yet (valued at £320,000 with £80,000 mortgage remaining). She needs to complete the purchase within 4 weeks. A bridging loan provider offers her a 12-month loan at 0.75% per month interest. Claire is confident she can sell her current property within 6 months.",
+        scenarioId: "scenario-13",
+        question: "If Claire borrows £450,000 for 6 months at 0.75% per month, approximately how much interest will she pay?",
+        optionA: "£16,875",
+        optionB: "£20,250",
+        optionC: "£27,000",
+        optionD: "£33,750",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Claire has found her dream home for £450,000 but hasn't sold her current property yet (valued at £320,000 with £80,000 mortgage remaining). She needs to complete the purchase within 4 weeks. A bridging loan provider offers her a 12-month loan at 0.75% per month interest. Claire is confident she can sell her current property within 6 months.",
+        scenarioId: "scenario-13",
+        question: "What is the main risk Claire faces with this bridging loan?",
+        optionA: "The interest rate is fixed",
+        optionB: "If her property doesn't sell within 12 months, she may face significant penalty charges and financial difficulty",
+        optionC: "She cannot move into the new property",
+        optionD: "The lender will own both properties",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Claire has found her dream home for £450,000 but hasn't sold her current property yet (valued at £320,000 with £80,000 mortgage remaining). She needs to complete the purchase within 4 weeks. A bridging loan provider offers her a 12-month loan at 0.75% per month interest. Claire is confident she can sell her current property within 6 months.",
+        scenarioId: "scenario-13",
+        question: "What exit strategy should Claire have in place for this bridging loan?",
+        optionA: "Hope for the best",
+        optionB: "A clear plan to repay, typically through sale of existing property or long-term mortgage",
+        optionC: "Extend the bridging loan indefinitely",
+        optionD: "Use credit cards to repay",
+        answer: "B"
+      },
+
+      // Scenario 14: Lifetime Mortgage (Equity Release)
+      {
+        topic: "Mortgage Products",
+        scenario: "Geoffrey, aged 73, owns his home worth £380,000 outright. He wants to release equity to fund home improvements and help his grandchildren. He's considering a lifetime mortgage that would lend him £95,000 at a fixed rate of 5.5% per year, with interest rolling up. Geoffrey plans to stay in the property for the rest of his life.",
+        scenarioId: "scenario-14",
+        question: "What is the Loan-to-Value (LTV) of Geoffrey's lifetime mortgage at inception?",
+        optionA: "20%",
+        optionB: "25%",
+        optionC: "30%",
+        optionD: "35%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Geoffrey, aged 73, owns his home worth £380,000 outright. He wants to release equity to fund home improvements and help his grandchildren. He's considering a lifetime mortgage that would lend him £95,000 at a fixed rate of 5.5% per year, with interest rolling up. Geoffrey plans to stay in the property for the rest of his life.",
+        scenarioId: "scenario-14",
+        question: "If Geoffrey lives for another 15 years without making any repayments, approximately how much will be owed (using compound interest at 5.5%)?",
+        optionA: "£173,625",
+        optionB: "£196,450",
+        optionC: "£213,875",
+        optionD: "£225,100",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Geoffrey, aged 73, owns his home worth £380,000 outright. He wants to release equity to fund home improvements and help his grandchildren. He's considering a lifetime mortgage that would lend him £95,000 at a fixed rate of 5.5% per year, with interest rolling up. Geoffrey plans to stay in the property for the rest of his life.",
+        scenarioId: "scenario-14",
+        question: "What is a key protection feature required in modern lifetime mortgages?",
+        optionA: "The debt can exceed the property value",
+        optionB: "A 'no negative equity guarantee' ensuring the debt never exceeds the property value",
+        optionC: "Interest rates can double after 5 years",
+        optionD: "The lender can force sale at any time",
+        answer: "B"
+      },
+
+      // Scenario 15: Right to Buy
+      {
+        topic: "Mortgage Products",
+        scenario: "Yasmin is a council tenant who has lived in her property for 8 years. The property is valued at £180,000. Under Right to Buy, she receives a 35% discount (£63,000), meaning she can purchase for £117,000. Yasmin earns £26,000 per year and has saved £6,000 for costs.",
+        scenarioId: "scenario-15",
+        question: "What LTV mortgage does Yasmin need to purchase her council property?",
+        optionA: "90% LTV (£105,300)",
+        optionB: "95% LTV (£111,150)",
+        optionC: "100% LTV (£117,000)",
+        optionD: "85% LTV (£99,450)",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Yasmin is a council tenant who has lived in her property for 8 years. The property is valued at £180,000. Under Right to Buy, she receives a 35% discount (£63,000), meaning she can purchase for £117,000. Yasmin earns £26,000 per year and has saved £6,000 for costs.",
+        scenarioId: "scenario-15",
+        question: "If Yasmin sells her Right to Buy property within 5 years, what restriction applies?",
+        optionA: "No restrictions apply",
+        optionB: "She must repay a portion of the discount on a sliding scale",
+        optionC: "She must pay double council tax",
+        optionD: "She cannot sell at all",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Yasmin is a council tenant who has lived in her property for 8 years. The property is valued at £180,000. Under Right to Buy, she receives a 35% discount (£63,000), meaning she can purchase for £117,000. Yasmin earns £26,000 per year and has saved £6,000 for costs.",
+        scenarioId: "scenario-15",
+        question: "Using a 4.5 income multiple, what is the maximum mortgage Yasmin could borrow?",
+        optionA: "£108,000",
+        optionB: "£117,000",
+        optionC: "£126,000",
+        optionD: "£135,000",
+        answer: "B"
+      },
+
+      // Scenario 16: Portfolio Landlord
+      {
+        topic: "Mortgage Products",
+        scenario: "Neil owns 5 buy-to-let properties with a total mortgage debt of £620,000. The properties are worth £1,200,000 combined and generate £4,800 per month rental income. Neil wants to purchase a 6th property for £185,000 with a £50,000 deposit. Under PRA rules, Neil is classified as a portfolio landlord.",
+        scenarioId: "scenario-16",
+        question: "What is the aggregate LTV across Neil's existing portfolio?",
+        optionA: "48.7%",
+        optionB: "51.7%",
+        optionC: "54.7%",
+        optionD: "57.7%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Neil owns 5 buy-to-let properties with a total mortgage debt of £620,000. The properties are worth £1,200,000 combined and generate £4,800 per month rental income. Neil wants to purchase a 6th property for £185,000 with a £50,000 deposit. Under PRA rules, Neil is classified as a portfolio landlord.",
+        scenarioId: "scenario-16",
+        question: "As a portfolio landlord (4 or more mortgaged properties), what additional assessment must Neil undergo?",
+        optionA: "No additional requirements",
+        optionB: "More stringent affordability assessment looking at the entire portfolio",
+        optionC: "He must use a commercial mortgage",
+        optionD: "He cannot borrow anymore",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Neil owns 5 buy-to-let properties with a total mortgage debt of £620,000. The properties are worth £1,200,000 combined and generate £4,800 per month rental income. Neil wants to purchase a 6th property for £185,000 with a £50,000 deposit. Under PRA rules, Neil is classified as a portfolio landlord.",
+        scenarioId: "scenario-16",
+        question: "Under current tax rules, how is mortgage interest relief calculated for buy-to-let landlords?",
+        optionA: "Full mortgage interest is deducted from rental income",
+        optionB: "20% tax credit on mortgage interest paid",
+        optionC: "No relief available",
+        optionD: "50% of mortgage interest is deducted",
+        answer: "B"
+      },
+
+      // Scenario 17: Second Charge Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Andrea owns a property worth £340,000 with a £190,000 first charge mortgage at 3.2% (2 years remaining on fixed term, £8,500 ERC). She needs £35,000 for a business investment. A second charge lender offers her a loan at 7.5% interest over 10 years with no ERC on her existing mortgage.",
+        scenarioId: "scenario-17",
+        question: "What is Andrea's current LTV on her first charge mortgage?",
+        optionA: "52.9%",
+        optionB: "55.9%",
+        optionC: "58.9%",
+        optionD: "61.9%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Andrea owns a property worth £340,000 with a £190,000 first charge mortgage at 3.2% (2 years remaining on fixed term, £8,500 ERC). She needs £35,000 for a business investment. A second charge lender offers her a loan at 7.5% interest over 10 years with no ERC on her existing mortgage.",
+        scenarioId: "scenario-17",
+        question: "What is the combined LTV if Andrea takes the second charge mortgage?",
+        optionA: "62.2%",
+        optionB: "66.2%",
+        optionC: "70.2%",
+        optionD: "74.2%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Andrea owns a property worth £340,000 with a £190,000 first charge mortgage at 3.2% (2 years remaining on fixed term, £8,500 ERC). She needs £35,000 for a business investment. A second charge lender offers her a loan at 7.5% interest over 10 years with no ERC on her existing mortgage.",
+        scenarioId: "scenario-17",
+        question: "Why might Andrea choose a second charge mortgage instead of remortgaging?",
+        optionA: "Second charge mortgages always have better rates",
+        optionB: "To avoid the £8,500 ERC and keep her competitive 3.2% rate on the first charge",
+        optionC: "Second charge mortgages don't require affordability checks",
+        optionD: "She doesn't need a solicitor",
+        answer: "B"
+      },
+
+      // Scenario 18: Islamic Finance (Sharia-Compliant)
+      {
+        topic: "Mortgage Products",
+        scenario: "Fatima wants to purchase a property for £275,000 using Sharia-compliant finance. She has a £55,000 deposit. The Islamic bank uses a Diminishing Musharaka structure where the bank and Fatima co-own the property, and Fatima pays rent on the bank's share while gradually buying it out over 25 years.",
+        scenarioId: "scenario-18",
+        question: "What LTV is Fatima's Islamic finance arrangement?",
+        optionA: "75%",
+        optionB: "80%",
+        optionC: "85%",
+        optionD: "90%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Fatima wants to purchase a property for £275,000 using Sharia-compliant finance. She has a £55,000 deposit. The Islamic bank uses a Diminishing Musharaka structure where the bank and Fatima co-own the property, and Fatima pays rent on the bank's share while gradually buying it out over 25 years.",
+        scenarioId: "scenario-18",
+        question: "How does Islamic finance differ from conventional mortgages?",
+        optionA: "It charges lower interest rates",
+        optionB: "It doesn't charge interest (riba); instead uses profit-sharing or rental structures",
+        optionC: "It requires no deposit",
+        optionD: "It only finances commercial properties",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Fatima wants to purchase a property for £275,000 using Sharia-compliant finance. She has a £55,000 deposit. The Islamic bank uses a Diminishing Musharaka structure where the bank and Fatima co-own the property, and Fatima pays rent on the bank's share while gradually buying it out over 25 years.",
+        scenarioId: "scenario-18",
+        question: "For SDLT purposes, how is Fatima's Islamic finance purchase treated?",
+        optionA: "She pays SDLT twice - once for the initial share and again when buying out the bank",
+        optionB: "She pays SDLT on the full purchase price upfront (£275,000) with relief provisions",
+        optionC: "Islamic finance is exempt from SDLT",
+        optionD: "She pays no SDLT until full ownership",
+        answer: "B"
+      },
+
+      // Scenario 19: Green Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Oliver is purchasing an energy-efficient new-build property for £310,000 with an EPC rating of A. His lender offers a green mortgage with a 0.15% interest rate reduction (from 4.5% to 4.35%) and £500 cashback. Oliver has a £31,000 deposit (10%) and earns £54,000 per year.",
+        scenarioId: "scenario-19",
+        question: "What is Oliver's LTV for this green mortgage?",
+        optionA: "85%",
+        optionB: "88%",
+        optionC: "90%",
+        optionD: "92%",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Oliver is purchasing an energy-efficient new-build property for £310,000 with an EPC rating of A. His lender offers a green mortgage with a 0.15% interest rate reduction (from 4.5% to 4.35%) and £500 cashback. Oliver has a £31,000 deposit (10%) and earns £54,000 per year.",
+        scenarioId: "scenario-19",
+        question: "Over a 25-year mortgage term, approximately how much will Oliver save per month due to the 0.15% rate reduction on his £279,000 mortgage?",
+        optionA: "£18 per month",
+        optionB: "£23 per month",
+        optionC: "£28 per month",
+        optionD: "£35 per month",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Oliver is purchasing an energy-efficient new-build property for £310,000 with an EPC rating of A. His lender offers a green mortgage with a 0.15% interest rate reduction (from 4.5% to 4.35%) and £500 cashback. Oliver has a £31,000 deposit (10%) and earns £54,000 per year.",
+        scenarioId: "scenario-19",
+        question: "What EPC rating typically qualifies for green mortgage incentives?",
+        optionA: "Rating D or above",
+        optionB: "Rating C or above",
+        optionC: "Rating B or above (typically A or B)",
+        optionD: "Any rating with solar panels",
+        answer: "C"
+      },
+
+      // Scenario 20: Forces Help to Buy
+      {
+        topic: "Mortgage Products",
+        scenario: "Corporal James, serving in the British Army for 6 years, wants to buy his first home for £220,000. He has saved £11,000 and is eligible for the Forces Help to Buy scheme which provides an interest-free loan of up to 50% of his salary (£28,000 base salary) for a maximum of £25,000.",
+        scenarioId: "scenario-20",
+        question: "If James uses the full Forces Help to Buy loan of £14,000 (50% of £28,000) along with his savings, what LTV mortgage will he need?",
+        optionA: "85.9%",
+        optionB: "88.6%",
+        optionC: "91.4%",
+        optionD: "94.5%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Corporal James, serving in the British Army for 6 years, wants to buy his first home for £220,000. He has saved £11,000 and is eligible for the Forces Help to Buy scheme which provides an interest-free loan of up to 50% of his salary (£28,000 base salary) for a maximum of £25,000.",
+        scenarioId: "scenario-20",
+        question: "How long is the Forces Help to Buy loan interest-free?",
+        optionA: "3 years",
+        optionB: "5 years",
+        optionC: "10 years",
+        optionD: "Interest-free for the full duration until repaid",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Corporal James, serving in the British Army for 6 years, wants to buy his first home for £220,000. He has saved £11,000 and is eligible for the Forces Help to Buy scheme which provides an interest-free loan of up to 50% of his salary (£28,000 base salary) for a maximum of £25,000.",
+        scenarioId: "scenario-20",
+        question: "When must James repay the Forces Help to Buy loan?",
+        optionA: "When he leaves the armed forces, sells the property, or after 10 years (whichever comes first)",
+        optionB: "After exactly 10 years",
+        optionC: "Never - it's a grant",
+        optionD: "Only if he sells within 5 years",
+        answer: "A"
+      },
+
+      // Scenario 21: New Build Premium
+      {
+        topic: "Mortgage Products",
+        scenario: "Sophie is purchasing a new-build apartment for £245,000 from a developer. Identical resale apartments in the same development sold for £220,000 last month. Sophie has a £37,000 deposit and the developer is offering 5% deposit contribution and paying her stamp duty. Her lender will value the property.",
+        scenarioId: "scenario-21",
+        question: "What is the typical 'new build premium' Sophie is paying compared to resale value?",
+        optionA: "8.5%",
+        optionB: "11.4%",
+        optionC: "14.3%",
+        optionD: "17.2%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Sophie is purchasing a new-build apartment for £245,000 from a developer. Identical resale apartments in the same development sold for £220,000 last month. Sophie has a £37,000 deposit and the developer is offering 5% deposit contribution and paying her stamp duty. Her lender will value the property.",
+        scenarioId: "scenario-21",
+        question: "What risk should you explain to Sophie about new build properties?",
+        optionA: "They appreciate faster than resale properties",
+        optionB: "There's a risk of negative equity if the property is valued lower than purchase price by the lender or market",
+        optionC: "New builds cannot be remortgaged",
+        optionD: "She will pay double council tax",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Sophie is purchasing a new-build apartment for £245,000 from a developer. Identical resale apartments in the same development sold for £220,000 last month. Sophie has a £37,000 deposit and the developer is offering 5% deposit contribution and paying her stamp duty. Her lender will value the property.",
+        scenarioId: "scenario-21",
+        question: "If the lender values Sophie's property at £220,000 (market value) rather than £245,000 (purchase price), what LTV will she actually have?",
+        optionA: "83.2%",
+        optionB: "89.1%",
+        optionC: "94.5%",
+        optionD: "100%+",
+        answer: "C"
+      },
+
+      // Scenario 22: Leasehold Property Purchase
+      {
+        topic: "Mortgage Law",
+        scenario: "Marcus is buying a leasehold flat for £198,000 with 85 years remaining on the lease. The annual ground rent is £250, and the service charge is £1,200 per year. Marcus has a £30,000 deposit. Most lenders require a minimum of 80 years remaining at the end of the mortgage term.",
+        scenarioId: "scenario-22",
+        question: "On a 25-year mortgage, how many years will be left on the lease at the end of the term?",
+        optionA: "50 years",
+        optionB: "55 years",
+        optionC: "60 years",
+        optionD: "65 years",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Marcus is buying a leasehold flat for £198,000 with 85 years remaining on the lease. The annual ground rent is £250, and the service charge is £1,200 per year. Marcus has a £30,000 deposit. Most lenders require a minimum of 80 years remaining at the end of the mortgage term.",
+        scenarioId: "scenario-22",
+        question: "What typically happens when a lease drops below 80 years?",
+        optionA: "Nothing changes",
+        optionB: "The property becomes harder to sell and mortgage, and lease extension costs increase significantly due to 'marriage value'",
+        optionC: "The property automatically becomes freehold",
+        optionD: "Ground rent doubles",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Marcus is buying a leasehold flat for £198,000 with 85 years remaining on the lease. The annual ground rent is £250, and the service charge is £1,200 per year. Marcus has a £30,000 deposit. Most lenders require a minimum of 80 years remaining at the end of the mortgage term.",
+        scenarioId: "scenario-22",
+        question: "What are the monthly costs Marcus must budget for in addition to his mortgage payment?",
+        optionA: "£75 per month (ground rent only)",
+        optionB: "£100 per month (service charge only)",
+        optionC: "£121 per month (ground rent and service charge)",
+        optionD: "No additional costs",
+        answer: "C"
+      },
+
+      // Scenario 23: Capital Gains Tax on Second Home
+      {
+        topic: "UK Taxation",
+        scenario: "Emma sold her buy-to-let property for £385,000 which she purchased 8 years ago for £245,000. During ownership, she spent £18,000 on improvements (new kitchen and bathroom). Emma is a higher-rate taxpayer (40%). Selling costs including estate agent fees and legal fees totaled £6,500.",
+        scenarioId: "scenario-23",
+        question: "What is Emma's chargeable gain after deducting allowable costs?",
+        optionA: "£115,500",
+        optionB: "£122,000",
+        optionC: "£133,500",
+        optionD: "£140,000",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Emma sold her buy-to-let property for £385,000 which she purchased 8 years ago for £245,000. During ownership, she spent £18,000 on improvements (new kitchen and bathroom). Emma is a higher-rate taxpayer (40%). Selling costs including estate agent fees and legal fees totaled £6,500.",
+        scenarioId: "scenario-23",
+        question: "What is the current annual CGT allowance (for tax year 2024/25)?",
+        optionA: "£3,000",
+        optionB: "£6,000",
+        optionC: "£12,300",
+        optionD: "£12,570",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Emma sold her buy-to-let property for £385,000 which she purchased 8 years ago for £245,000. During ownership, she spent £18,000 on improvements (new kitchen and bathroom). Emma is a higher-rate taxpayer (40%). Selling costs including estate agent fees and legal fees totaled £6,500.",
+        scenarioId: "scenario-23",
+        question: "As a higher-rate taxpayer, what CGT rate does Emma pay on property gains?",
+        optionA: "18%",
+        optionB: "20%",
+        optionC: "24%",
+        optionD: "28%",
+        answer: "C"
+      },
+
+      // Scenario 24: Income Protection Insurance
+      {
+        topic: "Protection Products",
+        scenario: "Ryan, aged 40, is self-employed earning £48,000 per year. He has a mortgage of £215,000 with monthly payments of £1,180. Ryan is considering income protection insurance that would pay 60% of his gross income after a 13-week deferred period until age 65 or return to work.",
+        scenarioId: "scenario-24",
+        question: "How much monthly benefit would Ryan receive from this income protection policy?",
+        optionA: "£1,800",
+        optionB: "£2,200",
+        optionC: "£2,400",
+        optionD: "£2,880",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Ryan, aged 40, is self-employed earning £48,000 per year. He has a mortgage of £215,000 with monthly payments of £1,180. Ryan is considering income protection insurance that would pay 60% of his gross income after a 13-week deferred period until age 65 or return to work.",
+        scenarioId: "scenario-24",
+        question: "What does the 13-week 'deferred period' mean?",
+        optionA: "The policy starts paying immediately",
+        optionB: "Ryan must be unable to work for 13 weeks before payments begin",
+        optionC: "The policy lasts only 13 weeks",
+        optionD: "Ryan pays premiums for 13 weeks then stops",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Ryan, aged 40, is self-employed earning £48,000 per year. He has a mortgage of £215,000 with monthly payments of £1,180. Ryan is considering income protection insurance that would pay 60% of his gross income after a 13-week deferred period until age 65 or return to work.",
+        scenarioId: "scenario-24",
+        question: "Why do insurers typically limit income protection to 50-60% of gross income?",
+        optionA: "To keep premiums low",
+        optionB: "To avoid over-insurance and maintain incentive to return to work",
+        optionC: "Because it's the legal maximum",
+        optionD: "To match mortgage payments exactly",
+        answer: "B"
+      },
+
+      // Scenario 25: Transfer of Equity (Divorce)
+      {
+        topic: "Mortgage Law",
+        scenario: "Karen and Steve are divorcing. They jointly own a property worth £320,000 with a £140,000 mortgage. As part of the divorce settlement, Steve is transferring his 50% share to Karen. Karen earns £44,000 per year and needs to pass affordability checks to take on the full mortgage solely in her name.",
+        scenarioId: "scenario-25",
+        question: "Using a 4.5 income multiple, can Karen afford to take on the £140,000 mortgage on her salary alone?",
+        optionA: "No, she can only borrow £108,000",
+        optionB: "No, she can only borrow £132,000",
+        optionC: "Yes, she can borrow up to £198,000",
+        optionD: "Yes, but only just at £140,000",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Karen and Steve are divorcing. They jointly own a property worth £320,000 with a £140,000 mortgage. As part of the divorce settlement, Steve is transferring his 50% share to Karen. Karen earns £44,000 per year and needs to pass affordability checks to take on the full mortgage solely in her name.",
+        scenarioId: "scenario-25",
+        question: "Will Karen have to pay Stamp Duty Land Tax on Steve's 50% share transfer?",
+        optionA: "Yes, full SDLT on £160,000",
+        optionB: "Yes, but only on equity above the mortgage",
+        optionC: "No, transfers between divorcing spouses are exempt from SDLT",
+        optionD: "Yes, plus the 3% surcharge",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Karen and Steve are divorcing. They jointly own a property worth £320,000 with a £140,000 mortgage. As part of the divorce settlement, Steve is transferring his 50% share to Karen. Karen earns £44,000 per year and needs to pass affordability checks to take on the full mortgage solely in her name.",
+        scenarioId: "scenario-25",
+        question: "What is the current LTV on the property?",
+        optionA: "38.5%",
+        optionB: "43.8%",
+        optionC: "47.2%",
+        optionD: "51.6%",
+        answer: "B"
+      },
+
+      // Scenario 26: Guarantor Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Lucy, aged 24, earns £25,000 per year and wants to buy a £175,000 property. She has only a £5,000 deposit. Her father has agreed to act as guarantor, pledging his own mortgage-free property (worth £280,000) as additional security. Using a 4.5 income multiple, Lucy can only borrow £112,500 on her income alone.",
+        scenarioId: "scenario-26",
+        question: "What LTV would Lucy need without the guarantor arrangement?",
+        optionA: "95.7%",
+        optionB: "97.1%",
+        optionC: "98.6%",
+        optionD: "100%+",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Lucy, aged 24, earns £25,000 per year and wants to buy a £175,000 property. She has only a £5,000 deposit. Her father has agreed to act as guarantor, pledging his own mortgage-free property (worth £280,000) as additional security. Using a 4.5 income multiple, Lucy can only borrow £112,500 on her income alone.",
+        scenarioId: "scenario-26",
+        question: "What is the key risk for Lucy's father as guarantor?",
+        optionA: "His credit score will be affected even if Lucy pays",
+        optionB: "If Lucy defaults, he is liable for the debt and his property could be repossessed",
+        optionC: "He automatically becomes joint owner of Lucy's property",
+        optionD: "He cannot remortgage his own property ever again",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Lucy, aged 24, earns £25,000 per year and wants to buy a £175,000 property. She has only a £5,000 deposit. Her father has agreed to act as guarantor, pledging his own mortgage-free property (worth £280,000) as additional security. Using a 4.5 income multiple, Lucy can only borrow £112,500 on her income alone.",
+        scenarioId: "scenario-26",
+        question: "How much would Lucy be short if borrowing on her income alone without the guarantor?",
+        optionA: "£47,500",
+        optionB: "£52,500",
+        optionC: "£57,500",
+        optionD: "£62,500",
+        answer: "C"
+      },
+
+      // Scenario 27: Let-to-Buy
+      {
+        topic: "Mortgage Products",
+        scenario: "Grace owns her home worth £265,000 with a £95,000 residential mortgage remaining. She wants to buy a new main residence for £310,000. Instead of selling, she plans to let out her current property for £1,150 per month and convert her residential mortgage to a buy-to-let mortgage. She has £40,000 saved for her new purchase deposit.",
+        scenarioId: "scenario-27",
+        question: "What will be the LTV on Grace's current property when converted to buy-to-let?",
+        optionA: "32.8%",
+        optionB: "35.8%",
+        optionC: "38.8%",
+        optionD: "41.8%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Grace owns her home worth £265,000 with a £95,000 residential mortgage remaining. She wants to buy a new main residence for £310,000. Instead of selling, she plans to let out her current property for £1,150 per month and convert her residential mortgage to a buy-to-let mortgage. She has £40,000 saved for her new purchase deposit.",
+        scenarioId: "scenario-27",
+        question: "At a stressed rate of 5.5%, the £95,000 mortgage payment would be £525/month. Does the £1,150 rental income meet a 125% interest coverage ratio?",
+        optionA: "No, she needs £656.25",
+        optionB: "Yes, comfortably exceeds the requirement",
+        optionC: "No, she needs £1,250",
+        optionD: "Exactly meets the requirement",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Grace owns her home worth £265,000 with a £95,000 residential mortgage remaining. She wants to buy a new main residence for £310,000. Instead of selling, she plans to let out her current property for £1,150 per month and convert her residential mortgage to a buy-to-let mortgage. She has £40,000 saved for her new purchase deposit.",
+        scenarioId: "scenario-27",
+        question: "Will Grace pay the 3% SDLT surcharge when purchasing her new £310,000 main residence?",
+        optionA: "No, it's her main residence",
+        optionB: "Yes, because she owns another residential property",
+        optionC: "No, if she sells within 3 years she can claim a refund",
+        optionD: "Both B and C are correct",
+        answer: "D"
+      },
+
+      // Scenario 28: Holiday Let Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Ben is purchasing a coastal cottage for £245,000 to operate as a holiday let. The property can be let for approximately 20 weeks per year at £850 per week, generating £17,000 annual income. Ben has a £75,000 deposit and earns £38,000 from employment. Holiday let mortgages typically require 25-30% deposit.",
+        scenarioId: "scenario-28",
+        question: "What LTV will Ben's holiday let mortgage be?",
+        optionA: "65.4%",
+        optionB: "69.4%",
+        optionC: "73.4%",
+        optionD: "77.4%",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Ben is purchasing a coastal cottage for £245,000 to operate as a holiday let. The property can be let for approximately 20 weeks per year at £850 per week, generating £17,000 annual income. Ben has a £75,000 deposit and earns £38,000 from employment. Holiday let mortgages typically require 25-30% deposit.",
+        scenarioId: "scenario-28",
+        question: "What is a key tax advantage of Furnished Holiday Lets (FHL) over standard buy-to-let?",
+        optionA: "No income tax on rental profits",
+        optionB: "Capital allowances on furniture and equipment, and potential business asset rollover relief",
+        optionC: "No capital gains tax when sold",
+        optionD: "Double the personal allowance",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Ben is purchasing a coastal cottage for £245,000 to operate as a holiday let. The property can be let for approximately 20 weeks per year at £850 per week, generating £17,000 annual income. Ben has a £75,000 deposit and earns £38,000 from employment. Holiday let mortgages typically require 25-30% deposit.",
+        scenarioId: "scenario-28",
+        question: "To qualify as a Furnished Holiday Let for tax purposes, the property must be available for letting for at least:",
+        optionA: "70 days per year",
+        optionB: "140 days per year",
+        optionC: "210 days per year",
+        optionD: "280 days per year",
+        answer: "C"
+      },
+
+      // Scenario 29: HMO (House in Multiple Occupation) Purchase
+      {
+        topic: "Mortgage Products",
+        scenario: "Priya is buying a 6-bedroom property for £340,000 to convert into an HMO (House in Multiple Occupation). Each room can be let for £450/month (£2,700 total). HMO mortgages typically require 25% deposit minimum and assess rental income at 145% coverage at a stressed rate of 6.5%. Priya has £90,000 deposit.",
+        scenarioId: "scenario-29",
+        question: "What LTV will Priya's HMO mortgage be?",
+        optionA: "71.5%",
+        optionB: "73.5%",
+        optionC: "75.5%",
+        optionD: "77.5%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Priya is buying a 6-bedroom property for £340,000 to convert into an HMO (House in Multiple Occupation). Each room can be let for £450/month (£2,700 total). HMO mortgages typically require 25% deposit minimum and assess rental income at 145% coverage at a stressed rate of 6.5%. Priya has £90,000 deposit.",
+        scenarioId: "scenario-29",
+        question: "At 6.5% stressed rate, the £250,000 mortgage payment would be £1,354/month. What minimum rental income is needed for 145% coverage?",
+        optionA: "£1,687",
+        optionB: "£1,854",
+        optionC: "£1,963",
+        optionD: "£2,125",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Priya is buying a 6-bedroom property for £340,000 to convert into an HMO (House in Multiple Occupation). Each room can be let for £450/month (£2,700 total). HMO mortgages typically require 25% deposit minimum and assess rental income at 145% coverage at a stressed rate of 6.5%. Priya has £90,000 deposit.",
+        scenarioId: "scenario-29",
+        question: "What additional legal requirement applies to HMOs with 5+ tenants from 2+ households?",
+        optionA: "No additional requirements",
+        optionB: "Mandatory HMO license from local authority",
+        optionC: "Must be managed by a letting agent",
+        optionD: "Cannot charge more than £400 per room",
+        answer: "B"
+      },
+
+      // Scenario 30: Non-Standard Construction
+      {
+        topic: "Mortgage Products",
+        scenario: "Daniel wants to purchase a timber-framed cottage for £210,000. The property survey reveals it's of non-standard construction with a thatched roof. Daniel has a £42,000 deposit (20%) and earns £39,000 per year. Many mainstream lenders won't lend on non-standard construction or thatched properties.",
+        scenarioId: "scenario-30",
+        question: "What LTV is Daniel's mortgage?",
+        optionA: "75%",
+        optionB: "80%",
+        optionC: "85%",
+        optionD: "90%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Daniel wants to purchase a timber-framed cottage for £210,000. The property survey reveals it's of non-standard construction with a thatched roof. Daniel has a £42,000 deposit (20%) and earns £39,000 per year. Many mainstream lenders won't lend on non-standard construction or thatched properties.",
+        scenarioId: "scenario-30",
+        question: "What challenge will Daniel face getting a mortgage on this property?",
+        optionA: "No lenders will lend at all",
+        optionB: "Limited lender choice, potentially higher rates, and stricter survey requirements",
+        optionC: "He needs 50% deposit minimum",
+        optionD: "Thatched properties are illegal",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Daniel wants to purchase a timber-framed cottage for £210,000. The property survey reveals it's of non-standard construction with a thatched roof. Daniel has a £42,000 deposit (20%) and earns £39,000 per year. Many mainstream lenders won't lend on non-standard construction or thatched properties.",
+        scenarioId: "scenario-30",
+        question: "What insurance consideration is especially important for thatched properties?",
+        optionA: "Life insurance only",
+        optionB: "Specialist buildings insurance due to higher fire risk and rebuilding costs",
+        optionC: "No insurance is required",
+        optionD: "Standard buildings insurance is fine",
+        answer: "B"
+      },
+
+      // Scenario 31: Auction Purchase with Bridging
+      {
+        topic: "Mortgage Products",
+        scenario: "Karim successfully bid £155,000 for a property at auction that needs modernization (current value £130,000, post-renovation value £195,000). Auction purchases must complete within 28 days. Karim will use a bridging loan at 0.85% per month, then refinance to a standard mortgage after 4 months of renovations (costing £25,000).",
+        scenarioId: "scenario-31",
+        question: "How much interest will Karim pay on a £155,000 bridging loan for 4 months at 0.85% per month?",
+        optionA: "£4,845",
+        optionB: "£5,270",
+        optionC: "£5,695",
+        optionD: "£6,120",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Karim successfully bid £155,000 for a property at auction that needs modernization (current value £130,000, post-renovation value £195,000). Auction purchases must complete within 28 days. Karim will use a bridging loan at 0.85% per month, then refinance to a standard mortgage after 4 months of renovations (costing £25,000).",
+        scenarioId: "scenario-31",
+        question: "What is Karim's total investment including purchase, bridging interest, and renovations?",
+        optionA: "£180,270",
+        optionB: "£185,270",
+        optionC: "£190,270",
+        optionD: "£195,270",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Karim successfully bid £155,000 for a property at auction that needs modernization (current value £130,000, post-renovation value £195,000). Auction purchases must complete within 28 days. Karim will use a bridging loan at 0.85% per month, then refinance to a standard mortgage after 4 months of renovations (costing £25,000).",
+        scenarioId: "scenario-31",
+        question: "If Karim refinances to a 75% LTV mortgage after renovation (property worth £195,000), how much can he borrow?",
+        optionA: "£136,250",
+        optionB: "£146,250",
+        optionC: "£156,250",
+        optionD: "£166,250",
+        answer: "B"
+      },
+
+      // Scenario 32: Early Repayment Charges (ERC)
+      {
+        topic: "Mortgage Products",
+        scenario: "Zoe has a £180,000 mortgage on a 5-year fixed rate at 3.8% with 2 years remaining. She wants to remortgage to a new 2-year fix at 4.2% to release £30,000 equity for home improvements. Her current lender's ERC is 3% of the outstanding balance for years 4-5.",
+        scenarioId: "scenario-32",
+        question: "How much will Zoe's early repayment charge be if she remortgages now?",
+        optionA: "£4,800",
+        optionB: "£5,400",
+        optionC: "£6,000",
+        optionD: "£6,600",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Zoe has a £180,000 mortgage on a 5-year fixed rate at 3.8% with 2 years remaining. She wants to remortgage to a new 2-year fix at 4.2% to release £30,000 equity for home improvements. Her current lender's ERC is 3% of the outstanding balance for years 4-5.",
+        scenarioId: "scenario-32",
+        question: "What alternative should you discuss with Zoe to avoid the ERC?",
+        optionA: "Never remortgage",
+        optionB: "Wait 2 years until the fixed term ends, or use a second charge mortgage, or check annual overpayment allowance",
+        optionC: "Sell the property",
+        optionD: "Declare bankruptcy",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Zoe has a £180,000 mortgage on a 5-year fixed rate at 3.8% with 2 years remaining. She wants to remortgage to a new 2-year fix at 4.2% to release £30,000 equity for home improvements. Her current lender's ERC is 3% of the outstanding balance for years 4-5.",
+        scenarioId: "scenario-32",
+        question: "What is a typical annual overpayment allowance without penalty on fixed-rate mortgages?",
+        optionA: "5% of the outstanding balance per year",
+        optionB: "10% of the outstanding balance per year",
+        optionC: "15% of the outstanding balance per year",
+        optionD: "20% of the outstanding balance per year",
+        answer: "B"
+      },
+
+      // Scenario 33: Porting a Mortgage
+      {
+        topic: "Mortgage Products",
+        scenario: "Hassan is selling his property for £265,000 (mortgage balance £140,000) and buying a new home for £315,000. He has 18 months left on a 5-year fix at 2.9% (product ERC 2%). Hassan wants to port his mortgage and borrow an additional £75,000 for the new property. His lender allows porting with additional borrowing.",
+        scenarioId: "scenario-33",
+        question: "How much additional borrowing does Hassan need beyond his existing £140,000 mortgage?",
+        optionA: "£50,000",
+        optionB: "£75,000",
+        optionC: "£100,000",
+        optionD: "£125,000",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Hassan is selling his property for £265,000 (mortgage balance £140,000) and buying a new home for £315,000. He has 18 months left on a 5-year fix at 2.9% (product ERC 2%). Hassan wants to port his mortgage and borrow an additional £75,000 for the new property. His lender allows porting with additional borrowing.",
+        scenarioId: "scenario-33",
+        question: "How will the interest rates work on Hassan's ported mortgage?",
+        optionA: "2.9% on the entire £215,000",
+        optionB: "2.9% on the existing £140,000, and a new rate (likely higher) on the additional £75,000",
+        optionC: "A completely new rate on everything",
+        optionD: "5.8% on everything (double the rate)",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Hassan is selling his property for £265,000 (mortgage balance £140,000) and buying a new home for £315,000. He has 18 months left on a 5-year fix at 2.9% (product ERC 2%). Hassan wants to port his mortgage and borrow an additional £75,000 for the new property. His lender allows porting with additional borrowing.",
+        scenarioId: "scenario-33",
+        question: "What ERC will Hassan avoid by porting his mortgage instead of remortgaging to a new lender?",
+        optionA: "£1,500",
+        optionB: "£2,100",
+        optionC: "£2,800",
+        optionD: "£3,500",
+        answer: "C"
+      },
+
+      // Scenario 34: Payment Holiday Impact
+      {
+        topic: "Mortgage Products",
+        scenario: "During financial difficulty, Amelia took a 3-month payment holiday on her £195,000 repayment mortgage at 4.5% over 20 years. The missed payments (£1,230 × 3 = £3,690) were added to the mortgage balance. Amelia has now resumed normal payments but the term wasn't extended.",
+        scenarioId: "scenario-34",
+        question: "What is Amelia's new mortgage balance after the payment holiday?",
+        optionA: "£195,000 (unchanged)",
+        optionB: "£198,690",
+        optionC: "£201,690",
+        optionD: "£205,690",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "During financial difficulty, Amelia took a 3-month payment holiday on her £195,000 repayment mortgage at 4.5% over 20 years. The missed payments (£1,230 × 3 = £3,690) were added to the mortgage balance. Amelia has now resumed normal payments but the term wasn't extended.",
+        scenarioId: "scenario-34",
+        question: "How does the payment holiday affect Amelia's mortgage?",
+        optionA: "No impact at all",
+        optionB: "Interest continues to accrue on the balance, increasing the total amount owed and overall cost",
+        optionC: "The term automatically extends by 3 months",
+        optionD: "Future interest is waived",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "During financial difficulty, Amelia took a 3-month payment holiday on her £195,000 repayment mortgage at 4.5% over 20 years. The missed payments (£1,230 × 3 = £3,690) were added to the mortgage balance. Amelia has now resumed normal payments but the term wasn't extended.",
+        scenarioId: "scenario-34",
+        question: "Will the payment holiday appear on Amelia's credit file?",
+        optionA: "No, payment holidays are never reported",
+        optionB: "Yes, it may be recorded and could affect future credit applications",
+        optionC: "Only if she takes more than one",
+        optionD: "Only for 6 months then removed",
+        answer: "B"
+      },
+
+      // Scenario 35: Mortgage Prisoner
+      {
+        topic: "Mortgage Products",
+        scenario: "Joanne has a £165,000 mortgage on a variable rate of 6.2% (SVR) with an inactive lender who no longer offers new products. Her property is worth £225,000 and she earns £36,000. She cannot remortgage because her current affordability doesn't meet new lending criteria, even though she can afford her current payments. She's been on SVR for 4 years.",
+        scenarioId: "scenario-35",
+        question: "What LTV is Joanne's current mortgage?",
+        optionA: "68.9%",
+        optionB: "71.3%",
+        optionC: "73.3%",
+        optionD: "76.7%",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Joanne has a £165,000 mortgage on a variable rate of 6.2% (SVR) with an inactive lender who no longer offers new products. Her property is worth £225,000 and she earns £36,000. She cannot remortgage because her current affordability doesn't meet new lending criteria, even though she can afford her current payments. She's been on SVR for 4 years.",
+        scenarioId: "scenario-35",
+        question: "What defines a 'mortgage prisoner' like Joanne?",
+        optionA: "Someone who doesn't pay their mortgage",
+        optionB: "Someone trapped with an inactive lender on uncompetitive rates, unable to switch due to regulatory changes or affordability rules",
+        optionC: "Someone with multiple mortgages",
+        optionD: "Someone in negative equity",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Joanne has a £165,000 mortgage on a variable rate of 6.2% (SVR) with an inactive lender who no longer offers new products. Her property is worth £225,000 and she earns £36,000. She cannot remortgage because her current affordability doesn't meet new lending criteria, even though she can afford her current payments. She's been on SVR for 4 years.",
+        scenarioId: "scenario-35",
+        question: "What FCA rule change in 2019 aimed to help mortgage prisoners?",
+        optionA: "Banned all variable rates",
+        optionB: "Modified affordability rules allowing prisoners to switch to another lender's SVR without full affordability checks",
+        optionC: "Forced all lenders to offer 2% rates",
+        optionD: "Eliminated all mortgages over 20 years old",
+        answer: "B"
+      },
+
+      // Scenario 36: Shared Equity Scheme
+      {
+        topic: "Mortgage Products",
+        scenario: "Tyler is purchasing through a shared equity scheme where a housing association provides 25% equity (£56,250) for a £225,000 new-build. Tyler provides a 5% deposit (£11,250) and needs a mortgage for the remaining 70% (£157,500). Tyler earns £29,000 per year. The housing association charges no rent on their equity share for the first 5 years.",
+        scenarioId: "scenario-36",
+        question: "What LTV is Tyler's mortgage based on the full property value?",
+        optionA: "65%",
+        optionB: "70%",
+        optionC: "75%",
+        optionD: "80%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Tyler is purchasing through a shared equity scheme where a housing association provides 25% equity (£56,250) for a £225,000 new-build. Tyler provides a 5% deposit (£11,250) and needs a mortgage for the remaining 70% (£157,500). Tyler earns £29,000 per year. The housing association charges no rent on their equity share for the first 5 years.",
+        scenarioId: "scenario-36",
+        question: "Using a 4.5 income multiple, can Tyler afford the £157,500 mortgage on his salary?",
+        optionA: "No, he can only borrow £108,000",
+        optionB: "No, he can only borrow £130,500",
+        optionC: "Yes, he can borrow exactly £157,500",
+        optionD: "Yes, he can borrow up to £174,000",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        scenario: "Tyler is purchasing through a shared equity scheme where a housing association provides 25% equity (£56,250) for a £225,000 new-build. Tyler provides a 5% deposit (£11,250) and needs a mortgage for the remaining 70% (£157,500). Tyler earns £29,000 per year. The housing association charges no rent on their equity share for the first 5 years.",
+        scenarioId: "scenario-36",
+        question: "When Tyler sells the property, how much must he repay to the housing association?",
+        optionA: "Exactly £56,250",
+        optionB: "25% of the property's value at time of sale",
+        optionC: "£56,250 plus interest",
+        optionD: "Nothing, it's a grant",
+        answer: "B"
+      },
+
+      // Scenario 37: Overseas Buyer (Expat)
+      {
+        topic: "Mortgage Products",
+        scenario: "Amir works in Dubai earning £72,000 per year (AED 340,000) but wants to purchase a UK buy-to-let property for £280,000 to generate £1,300 monthly rent. He has £70,000 deposit. As an expat, lenders typically require higher deposits (25-40%) and may apply currency exchange risk adjustments to income.",
+        scenarioId: "scenario-37",
+        question: "What LTV will Amir's expat mortgage be?",
+        optionA: "70%",
+        optionB: "75%",
+        optionC: "80%",
+        optionD: "85%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Amir works in Dubai earning £72,000 per year (AED 340,000) but wants to purchase a UK buy-to-let property for £280,000 to generate £1,300 monthly rent. He has £70,000 deposit. As an expat, lenders typically require higher deposits (25-40%) and may apply currency exchange risk adjustments to income.",
+        scenarioId: "scenario-37",
+        question: "What additional challenge do expat borrowers face?",
+        optionA: "They cannot buy UK property",
+        optionB: "Limited lender choice, higher deposit requirements, and currency exchange risk considerations",
+        optionC: "They pay double stamp duty",
+        optionD: "They can only buy commercial property",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Amir works in Dubai earning £72,000 per year (AED 340,000) but wants to purchase a UK buy-to-let property for £280,000 to generate £1,300 monthly rent. He has £70,000 deposit. As an expat, lenders typically require higher deposits (25-40%) and may apply currency exchange risk adjustments to income.",
+        scenarioId: "scenario-37",
+        question: "As a non-UK resident, what additional tax consideration applies to Amir's rental income?",
+        optionA: "No UK tax applies",
+        optionB: "20% withholding tax on gross rents unless he registers for Non-Resident Landlord scheme",
+        optionC: "Double taxation with no relief",
+        optionD: "Flat 50% tax rate",
+        answer: "B"
+      },
+
+      // Scenario 38: Limited Company Buy-to-Let
+      {
+        topic: "Mortgage Products",
+        scenario: "Sarah is a higher-rate taxpayer considering purchasing a buy-to-let property for £295,000 through a limited company rather than personally. The property would rent for £1,400/month. She has £74,000 to invest. SPV (Special Purpose Vehicle) mortgages typically have slightly higher rates but offer tax advantages for higher-rate taxpayers.",
+        scenarioId: "scenario-38",
+        question: "What LTV will the limited company mortgage be?",
+        optionA: "71.9%",
+        optionB: "74.9%",
+        optionC: "77.9%",
+        optionD: "80.9%",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Sarah is a higher-rate taxpayer considering purchasing a buy-to-let property for £295,000 through a limited company rather than personally. The property would rent for £1,400/month. She has £74,000 to invest. SPV (Special Purpose Vehicle) mortgages typically have slightly higher rates but offer tax advantages for higher-rate taxpayers.",
+        scenarioId: "scenario-38",
+        question: "What is the key tax advantage of buying through a limited company for higher-rate taxpayers?",
+        optionA: "No tax is paid at all",
+        optionB: "Mortgage interest is fully deductible as a business expense, and profits taxed at corporation tax rate (currently 19-25%)",
+        optionC: "Double the personal allowance",
+        optionD: "No stamp duty",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Sarah is a higher-rate taxpayer considering purchasing a buy-to-let property for £295,000 through a limited company rather than personally. The property would rent for £1,400/month. She has £74,000 to invest. SPV (Special Purpose Vehicle) mortgages typically have slightly higher rates but offer tax advantages for higher-rate taxpayers.",
+        scenarioId: "scenario-38",
+        question: "What is a disadvantage of holding property in a limited company?",
+        optionA: "No disadvantages exist",
+        optionB: "Additional costs (company formation, accounting, Corporation Tax returns) and extracting profits may incur income tax/dividend tax",
+        optionC: "Cannot remortgage ever",
+        optionD: "The property cannot be sold",
+        answer: "B"
+      },
+
+      // Scenario 39: Agricultural Property Purchase
+      {
+        topic: "Mortgage Products",
+        scenario: "James is purchasing a 5-acre smallholding with a farmhouse for £425,000. The property includes 3 acres of grazing land and outbuildings. James plans to keep livestock as a hobby alongside his £52,000 employment income. He has £125,000 deposit. Agricultural mortgages have different criteria than residential mortgages.",
+        scenarioId: "scenario-39",
+        question: "What LTV will James's agricultural mortgage be?",
+        optionA: "66.5%",
+        optionB: "70.6%",
+        optionC: "74.8%",
+        optionD: "78.9%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "James is purchasing a 5-acre smallholding with a farmhouse for £425,000. The property includes 3 acres of grazing land and outbuildings. James plans to keep livestock as a hobby alongside his £52,000 employment income. He has £125,000 deposit. Agricultural mortgages have different criteria than residential mortgages.",
+        scenarioId: "scenario-39",
+        question: "How do agricultural mortgage lenders typically assess affordability differently?",
+        optionA: "Only using agricultural income",
+        optionB: "They consider both employment income and potential agricultural income/land value",
+        optionC: "They don't assess affordability",
+        optionD: "Only for professional farmers",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "James is purchasing a 5-acre smallholding with a farmhouse for £425,000. The property includes 3 acres of grazing land and outbuildings. James plans to keep livestock as a hobby alongside his £52,000 employment income. He has £125,000 deposit. Agricultural mortgages have different criteria than residential mortgages.",
+        scenarioId: "scenario-39",
+        question: "What potential IHT relief might apply to genuine agricultural property?",
+        optionA: "No relief available",
+        optionB: "Agricultural Property Relief at 50% or 100% depending on occupation",
+        optionC: "Standard residential nil-rate band only",
+        optionD: "Automatic 100% exemption for all farms",
+        answer: "B"
+      },
+
+      // Scenario 40: Retirement Village Purchase
+      {
+        topic: "Mortgage Products",
+        scenario: "Barbara, aged 71, wants to purchase a retirement apartment for £185,000 in an age-restricted development (55+). She receives £24,000 annual pension income and has £55,000 in savings for deposit. The development charges £320 monthly service charge. Most standard lenders have upper age limits, but specialist later-life lending is available.",
+        scenarioId: "scenario-40",
+        question: "What LTV mortgage does Barbara need?",
+        optionA: "65.3%",
+        optionB: "70.3%",
+        optionC: "75.3%",
+        optionD: "80.3%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Barbara, aged 71, wants to purchase a retirement apartment for £185,000 in an age-restricted development (55+). She receives £24,000 annual pension income and has £55,000 in savings for deposit. The development charges £320 monthly service charge. Most standard lenders have upper age limits, but specialist later-life lending is available.",
+        scenarioId: "scenario-40",
+        question: "What is a common maximum age limit for standard residential mortgages at end of term?",
+        optionA: "70 years",
+        optionB: "75 years",
+        optionC: "80-85 years (varies by lender)",
+        optionD: "No age limit",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Barbara, aged 71, wants to purchase a retirement apartment for £185,000 in an age-restricted development (55+). She receives £24,000 annual pension income and has £55,000 in savings for deposit. The development charges £320 monthly service charge. Most standard lenders have upper age limits, but specialist later-life lending is available.",
+        scenarioId: "scenario-40",
+        question: "What should you warn Barbara about regarding retirement developments?",
+        optionA: "They always increase in value",
+        optionB: "They may be harder to sell due to age restrictions and service charges, potentially affecting resale value",
+        optionC: "She can never move out",
+        optionD: "No warnings needed",
+        answer: "B"
+      },
+
+      // Scenario 41: Probate Property Purchase
+      {
+        topic: "Mortgage Law",
+        scenario: "The Taylor siblings (3 of them) inherited a property worth £310,000 from their late mother. There's an outstanding mortgage of £45,000. They want to keep the property as a buy-to-let generating £1,250/month rent. They need to obtain probate and decide whether to keep the existing mortgage or remortgage. Each sibling will own 1/3 share.",
+        scenarioId: "scenario-41",
+        question: "What is the current LTV on the inherited property?",
+        optionA: "12.5%",
+        optionB: "14.5%",
+        optionC: "16.5%",
+        optionD: "18.5%",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "The Taylor siblings (3 of them) inherited a property worth £310,000 from their late mother. There's an outstanding mortgage of £45,000. They want to keep the property as a buy-to-let generating £1,250/month rent. They need to obtain probate and decide whether to keep the existing mortgage or remortgage. Each sibling will own 1/3 share.",
+        scenarioId: "scenario-41",
+        question: "If the estate exceeded the nil-rate band and IHT was due, on what value would IHT be calculated for this property?",
+        optionA: "£310,000 (full value)",
+        optionB: "£265,000 (value minus mortgage)",
+        optionC: "£103,333 (each sibling's share)",
+        optionD: "No IHT on inherited property",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "The Taylor siblings (3 of them) inherited a property worth £310,000 from their late mother. There's an outstanding mortgage of £45,000. They want to keep the property as a buy-to-let generating £1,250/month rent. They need to obtain probate and decide whether to keep the existing mortgage or remortgage. Each sibling will own 1/3 share.",
+        scenarioId: "scenario-41",
+        question: "If they remortgage to a buy-to-let mortgage, what type of ownership should they consider?",
+        optionA: "Each gets their own separate mortgage",
+        optionB: "Joint borrowers as 'joint tenants' or 'tenants in common' - with all liable for the full debt",
+        optionC: "Only one sibling can be on the mortgage",
+        optionD: "The lender owns everything",
+        answer: "B"
+      },
+
+      // Scenario 42: Equity Release for Home Improvements
+      {
+        topic: "Mortgage Products",
+        scenario: "Colin and Jean, both 68, own their £395,000 home outright. They want to raise £65,000 for significant home improvements (wet room, stairlift, new heating). They're considering a lifetime mortgage drawdown plan where they initially borrow £40,000 at 5.8% with £25,000 available as a reserve facility for future use.",
+        scenarioId: "scenario-42",
+        question: "What is the LTV of the initial £40,000 drawdown?",
+        optionA: "8.1%",
+        optionB: "10.1%",
+        optionC: "12.1%",
+        optionD: "14.1%",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Colin and Jean, both 68, own their £395,000 home outright. They want to raise £65,000 for significant home improvements (wet room, stairlift, new heating). They're considering a lifetime mortgage drawdown plan where they initially borrow £40,000 at 5.8% with £25,000 available as a reserve facility for future use.",
+        scenarioId: "scenario-42",
+        question: "What is the advantage of a drawdown facility over borrowing the full £65,000 upfront?",
+        optionA: "Lower interest rate",
+        optionB: "Interest only charged on amounts drawn, reducing overall interest costs",
+        optionC: "No interest is ever charged",
+        optionD: "The reserve facility is free money",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Colin and Jean, both 68, own their £395,000 home outright. They want to raise £65,000 for significant home improvements (wet room, stairlift, new heating). They're considering a lifetime mortgage drawdown plan where they initially borrow £40,000 at 5.8% with £25,000 available as a reserve facility for future use.",
+        scenarioId: "scenario-42",
+        question: "Why must Colin and Jean receive advice from an equity release specialist advisor?",
+        optionA: "It's optional",
+        optionB: "FCA regulation requires specialist qualification (CeMAP 3 plus Certificate in Equity Release) to advise on equity release products",
+        optionC: "To sell more expensive products",
+        optionD: "Only for people over 70",
+        answer: "B"
+      },
+
+      // Scenario 43: Stamp Duty Land Tax Calculation
+      {
+        topic: "UK Taxation",
+        scenario: "Emma is purchasing her first home in England for £425,000. As a first-time buyer, she benefits from first-time buyer relief on properties up to £625,000 (no SDLT on first £425,000 for FTB). Her friend John is buying a £425,000 second home and will pay the standard rates plus 3% surcharge.",
+        scenarioId: "scenario-43",
+        question: "How much SDLT will Emma pay as a first-time buyer?",
+        optionA: "£0",
+        optionB: "£6,250",
+        optionC: "£11,250",
+        optionD: "£21,250",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Emma is purchasing her first home in England for £425,000. As a first-time buyer, she benefits from first-time buyer relief on properties up to £625,000 (no SDLT on first £425,000 for FTB). Her friend John is buying a £425,000 second home and will pay the standard rates plus 3% surcharge.",
+        scenarioId: "scenario-43",
+        question: "How much SDLT will John pay on his £425,000 second home purchase (including 3% surcharge)?",
+        optionA: "£21,250",
+        optionB: "£24,000",
+        optionC: "£27,750",
+        optionD: "£33,500",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        scenario: "Emma is purchasing her first home in England for £425,000. As a first-time buyer, she benefits from first-time buyer relief on properties up to £625,000 (no SDLT on first £425,000 for FTB). Her friend John is buying a £425,000 second home and will pay the standard rates plus 3% surcharge.",
+        scenarioId: "scenario-43",
+        question: "What is the SDLT savings Emma makes compared to John by being a first-time buyer?",
+        optionA: "£21,250",
+        optionB: "£27,750",
+        optionC: "£33,500",
+        optionD: "£42,500",
+        answer: "C"
+      },
+
+      // Scenario 44: Buildings and Contents Insurance
+      {
+        topic: "Protection Products",
+        scenario: "Liam has purchased a £280,000 property with a £245,000 mortgage (£35,000 deposit). The rebuild cost is estimated at £195,000. His lender requires buildings insurance as a condition of the mortgage. Liam also has £28,000 of contents (furniture, electronics, valuables). Buildings insurance quote: £285/year, Contents insurance quote: £145/year.",
+        scenarioId: "scenario-44",
+        question: "What sum should Liam insure the buildings for?",
+        optionA: "£245,000 (mortgage amount)",
+        optionB: "£195,000 (rebuild cost)",
+        optionC: "£280,000 (purchase price)",
+        optionD: "£308,000 (purchase price plus 10%)",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Liam has purchased a £280,000 property with a £245,000 mortgage (£35,000 deposit). The rebuild cost is estimated at £195,000. His lender requires buildings insurance as a condition of the mortgage. Liam also has £28,000 of contents (furniture, electronics, valuables). Buildings insurance quote: £285/year, Contents insurance quote: £145/year.",
+        scenarioId: "scenario-44",
+        question: "Is contents insurance mandatory for Liam's mortgage?",
+        optionA: "Yes, both buildings and contents are mandatory",
+        optionB: "No, only buildings insurance is mandatory for the mortgage (but contents insurance is highly recommended)",
+        optionC: "No insurance is required",
+        optionD: "Only life insurance is required",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        scenario: "Liam has purchased a £280,000 property with a £245,000 mortgage (£35,000 deposit). The rebuild cost is estimated at £195,000. His lender requires buildings insurance as a condition of the mortgage. Liam also has £28,000 of contents (furniture, electronics, valuables). Buildings insurance quote: £285/year, Contents insurance quote: £145/year.",
+        scenarioId: "scenario-44",
+        question: "What are Liam's total annual insurance costs if he takes both policies?",
+        optionA: "£285",
+        optionB: "£360",
+        optionC: "£430",
+        optionD: "£520",
+        answer: "C"
+      },
+
+      // Scenario 45: Age Gap Joint Mortgage
+      {
+        topic: "Financial Advice Process",
+        scenario: "Isabella (28) and Marcus (52) want to buy a property together for £295,000. Isabella earns £32,000 and Marcus earns £56,000 (£88,000 combined). They have £45,000 deposit. Many lenders use the older applicant's age to determine maximum term. Marcus would reach standard retirement age (67) in 15 years.",
+        scenarioId: "scenario-45",
+        question: "Using a 4.5 income multiple on their combined income, what is the maximum they can borrow?",
+        optionA: "£352,000",
+        optionB: "£376,000",
+        optionC: "£396,000",
+        optionD: "£416,000",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Isabella (28) and Marcus (52) want to buy a property together for £295,000. Isabella earns £32,000 and Marcus earns £56,000 (£88,000 combined). They have £45,000 deposit. Many lenders use the older applicant's age to determine maximum term. Marcus would reach standard retirement age (67) in 15 years.",
+        scenarioId: "scenario-45",
+        question: "If a lender limits the term to when Marcus reaches 67, what maximum mortgage term might they offer?",
+        optionA: "10 years",
+        optionB: "15 years",
+        optionC: "20 years",
+        optionD: "25 years",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Isabella (28) and Marcus (52) want to buy a property together for £295,000. Isabella earns £32,000 and Marcus earns £56,000 (£88,000 combined). They have £45,000 deposit. Many lenders use the older applicant's age to determine maximum term. Marcus would reach standard retirement age (67) in 15 years.",
+        scenarioId: "scenario-45",
+        question: "What solution could help Isabella and Marcus obtain a longer mortgage term?",
+        optionA: "Give up and rent forever",
+        optionB: "Choose a lender with more flexible age criteria or who assesses retirement income, or consider term ending at 70-75",
+        optionC: "Only use Marcus's income",
+        optionD: "Buy a cheaper property",
+        answer: "B"
+      },
+
+      // Scenario 46: Contractor/Temp Worker Income
+      {
+        topic: "Financial Advice Process",
+        scenario: "Rachel works as an IT contractor through her own limited company. Her day rate is £450, and she typically works 220 days per year (gross £99,000). She pays herself a £12,570 salary and £35,000 in dividends, retaining profits in the company. Rachel wants to purchase a £265,000 property with £40,000 deposit. Lenders assess contractor income differently.",
+        scenarioId: "scenario-46",
+        question: "Using only her salary and dividends (£47,570), can Rachel borrow £225,000 using a 4.5 multiple?",
+        optionA: "Yes, easily - she can borrow £214,065",
+        optionB: "No, she can only borrow £189,000",
+        optionC: "No, she can only borrow £56,565",
+        optionD: "Yes, she can borrow £270,000",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Rachel works as an IT contractor through her own limited company. Her day rate is £450, and she typically works 220 days per year (gross £99,000). She pays herself a £12,570 salary and £35,000 in dividends, retaining profits in the company. Rachel wants to purchase a £265,000 property with £40,000 deposit. Lenders assess contractor income differently.",
+        scenarioId: "scenario-46",
+        question: "How might specialist contractor lenders assess Rachel's income differently?",
+        optionA: "They don't lend to contractors",
+        optionB: "They may use day rate × working days or gross contract value, potentially allowing higher borrowing",
+        optionC: "They only use salary, ignoring dividends",
+        optionD: "They require 50% deposit from contractors",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Rachel works as an IT contractor through her own limited company. Her day rate is £450, and she typically works 220 days per year (gross £99,000). She pays herself a £12,570 salary and £35,000 in dividends, retaining profits in the company. Rachel wants to purchase a £265,000 property with £40,000 deposit. Lenders assess contractor income differently.",
+        scenarioId: "scenario-46",
+        question: "What documentation will lenders typically require from Rachel as a contractor?",
+        optionA: "Just a payslip",
+        optionB: "Latest contract, company accounts, SA302, potentially 2 years' history, bank statements",
+        optionC: "Nothing special",
+        optionD: "Only a passport",
+        answer: "B"
+      },
+
+      // Scenario 47: Auction Purchase Completion Timeline
+      {
+        topic: "Mortgage Law",
+        scenario: "Scott successfully bid £168,000 at auction for a repossessed property (market value £185,000 after refurbishment). He paid a 10% deposit (£16,800) at auction and must complete within 28 days or lose his deposit. Scott needs a £151,200 mortgage but standard mortgages take 4-8 weeks. The property needs £12,000 of work before it's mortgageable.",
+        scenarioId: "scenario-47",
+        question: "What initial payment did Scott make at the auction?",
+        optionA: "£8,400",
+        optionB: "£12,600",
+        optionC: "£16,800",
+        optionD: "£21,000",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Scott successfully bid £168,000 at auction for a repossessed property (market value £185,000 after refurbishment). He paid a 10% deposit (£16,800) at auction and must complete within 28 days or lose his deposit. Scott needs a £151,200 mortgage but standard mortgages take 4-8 weeks. The property needs £12,000 of work before it's mortgageable.",
+        scenarioId: "scenario-47",
+        question: "What type of finance must Scott use to meet the 28-day completion deadline?",
+        optionA: "Standard residential mortgage",
+        optionB: "Bridging finance to complete quickly, then refurbish and refinance to standard mortgage",
+        optionC: "Personal loan",
+        optionD: "Credit card",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Scott successfully bid £168,000 at auction for a repossessed property (market value £185,000 after refurbishment). He paid a 10% deposit (£16,800) at auction and must complete within 28 days or lose his deposit. Scott needs a £151,200 mortgage but standard mortgages take 4-8 weeks. The property needs £12,000 of work before it's mortgageable.",
+        scenarioId: "scenario-47",
+        question: "What happens if Scott cannot complete within 28 days?",
+        optionA: "Nothing, the deadline is flexible",
+        optionB: "He loses the £16,800 deposit and the property is re-auctioned",
+        optionC: "He gets a full refund",
+        optionD: "The timeline automatically extends",
+        answer: "B"
+      },
+
+      // Scenario 48: Multiple Adverse Credit Issues
+      {
+        topic: "Financial Advice Process",
+        scenario: "Natalie (33) wants to buy a £210,000 property with £32,000 deposit. She earns £40,000 per year. Her credit history shows: CCJ £850 (satisfied 2 years ago), 3 missed payments on a credit card (6 months ago, now clear), defaulted mobile phone £180 (4 years ago). She's been employed for 18 months in the same role.",
+        scenarioId: "scenario-48",
+        question: "How much does Natalie need to borrow?",
+        optionA: "£168,000",
+        optionB: "£178,000",
+        optionC: "£188,000",
+        optionD: "£198,000",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Natalie (33) wants to buy a £210,000 property with £32,000 deposit. She earns £40,000 per year. Her credit history shows: CCJ £850 (satisfied 2 years ago), 3 missed payments on a credit card (6 months ago, now clear), defaulted mobile phone £180 (4 years ago). She's been employed for 18 months in the same role.",
+        scenarioId: "scenario-48",
+        question: "Which aspect of Natalie's credit history is most concerning to lenders?",
+        optionA: "The 4-year-old mobile phone default",
+        optionB: "The recent missed payments (6 months ago)",
+        optionC: "The satisfied CCJ from 2 years ago",
+        optionD: "All equally concerning",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Natalie (33) wants to buy a £210,000 property with £32,000 deposit. She earns £40,000 per year. Her credit history shows: CCJ £850 (satisfied 2 years ago), 3 missed payments on a credit card (6 months ago, now clear), defaulted mobile phone £180 (4 years ago). She's been employed for 18 months in the same role.",
+        scenarioId: "scenario-48",
+        question: "What is Natalie's likely path to obtaining a mortgage?",
+        optionA: "Standard high-street lender at best rates",
+        optionB: "Specialist adverse credit lender with higher rates and potentially lower LTV (e.g. 80-85% max)",
+        optionC: "Cannot get a mortgage for 6 years",
+        optionD: "Government guaranteed scheme only",
+        answer: "B"
+      },
+
+      // Scenario 49: Property Chain and Bridging
+      {
+        topic: "Mortgage Products",
+        scenario: "The Wilson family is selling their home for £315,000 (mortgage £115,000) and buying a new home for £445,000. Their buyer has pulled out 2 weeks before completion, but the sellers of their dream home won't wait. A bridging lender offers them a £445,000 loan at 0.75% per month for up to 12 months to secure the new property while they find a new buyer.",
+        scenarioId: "scenario-49",
+        question: "How much equity do the Wilsons have in their current home?",
+        optionA: "£180,000",
+        optionB: "£190,000",
+        optionC: "£200,000",
+        optionD: "£210,000",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "The Wilson family is selling their home for £315,000 (mortgage £115,000) and buying a new home for £445,000. Their buyer has pulled out 2 weeks before completion, but the sellers of their dream home won't wait. A bridging lender offers them a £445,000 loan at 0.75% per month for up to 12 months to secure the new property while they find a new buyer.",
+        scenarioId: "scenario-49",
+        question: "If the Wilsons use the bridging loan for 3 months, how much interest will they pay?",
+        optionA: "£9,013",
+        optionB: "£10,013",
+        optionC: "£11,013",
+        optionD: "£12,013",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "The Wilson family is selling their home for £315,000 (mortgage £115,000) and buying a new home for £445,000. Their buyer has pulled out 2 weeks before completion, but the sellers of their dream home won't wait. A bridging lender offers them a £445,000 loan at 0.75% per month for up to 12 months to secure the new property while they find a new buyer.",
+        scenarioId: "scenario-49",
+        question: "What security will the bridging lender take?",
+        optionA: "Only the new property",
+        optionB: "Only the existing property",
+        optionC: "Both properties (first charge on new, second charge on existing until sold)",
+        optionD: "No security required",
+        answer: "C"
+      },
+
+      // Scenario 50: Complex Income Assessment
+      {
+        topic: "Financial Advice Process",
+        scenario: "Chloe and Dan are buying a £385,000 property. Chloe is employed earning £45,000 basic plus £8,000 annual bonus (guaranteed). Dan is self-employed (2 years trading) with net profits: Year 1: £32,000, Year 2: £38,000. They have £58,000 deposit. Lenders typically use average of last 2 years for self-employed and may cap bonus at 50%.",
+        scenarioId: "scenario-50",
+        question: "What is Chloe's assessable income for affordability (basic salary plus 50% of bonus)?",
+        optionA: "£45,000",
+        optionB: "£49,000",
+        optionC: "£53,000",
+        optionD: "£57,000",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        scenario: "Chloe and Dan are buying a £385,000 property. Chloe is employed earning £45,000 basic plus £8,000 annual bonus (guaranteed). Dan is self-employed (2 years trading) with net profits: Year 1: £32,000, Year 2: £38,000. They have £58,000 deposit. Lenders typically use average of last 2 years for self-employed and may cap bonus at 50%.",
+        scenarioId: "scenario-50",
+        question: "What is Dan's assessable income (average of last 2 years)?",
+        optionA: "£32,000",
+        optionB: "£35,000",
+        optionC: "£38,000",
+        optionD: "£40,000",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        scenario: "Chloe and Dan are buying a £385,000 property. Chloe is employed earning £45,000 basic plus £8,000 annual bonus (guaranteed). Dan is self-employed (2 years trading) with net profits: Year 1: £32,000, Year 2: £38,000. They have £58,000 deposit. Lenders typically use average of last 2 years for self-employed and may cap bonus at 50%.",
+        scenarioId: "scenario-50",
+        question: "Using their combined assessable income (£84,000) and a 4.5 multiple, can they afford the £327,000 mortgage needed?",
+        optionA: "No, they can only borrow £252,000",
+        optionB: "No, they can only borrow £315,000",
+        optionC: "Yes, they can borrow up to £378,000",
+        optionD: "Yes, they can borrow up to £420,000",
+        answer: "C"
+      },
     ];
 
     questionBank.forEach((q) => {

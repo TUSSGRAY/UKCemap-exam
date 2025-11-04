@@ -58,10 +58,10 @@ Preferred communication style: Simple, everyday language.
 
 **Current Implementation**: In-memory storage with hardcoded question bank and advertisements
 - 136 challenging questions organized by 8 CeMAP topics: Financial Services Industry, Economic Policy, UK Taxation, Welfare Benefits, Mortgage Products, Protection Products, Legal Aspects of Mortgages, and Mortgage Market
-- 12 realistic scenario-based case studies with 3 related questions each (36 scenario questions total)
+- 50 realistic scenario-based case studies with 3 related questions each (150 scenario questions total)
 - Questions feature numerically similar answer options to test genuine understanding rather than simple recall (e.g., "£12,570" vs "£11,850" for personal allowance, "183 days" vs "120 days" for residency)
 - Questions include specific textbook details: GRAM/PADS acronyms, MPC meeting frequency (8/year), IHT taper relief percentages, SDLT rate bands, Universal Credit taper rate (55%), triple lock (2.5%), NICs requirements (35 years for full pension)
-- Scenario questions cover real-world situations: first-time buyers, remortgages, buy-to-let, self-employed clients, IHT planning, retirement mortgages, Help to Buy, joint borrower sole proprietor, protection insurance, shared ownership, adverse credit, and offset mortgages
+- Scenario questions cover diverse real-world situations across 50 cases: first-time buyers, remortgages, buy-to-let, self-employed, IHT planning, retirement mortgages, Help to Buy, joint borrower sole proprietor, protection insurance, shared ownership, adverse credit, offset mortgages, bridging loans, lifetime mortgages/equity release, Right to Buy, portfolio landlords, second charge mortgages, Islamic finance, green mortgages, Forces Help to Buy, new build purchases, leasehold properties, CGT calculations, income protection, transfer of equity (divorce), guarantor mortgages, let-to-buy, holiday let, HMO, non-standard construction, auction purchases, early repayment charges, porting mortgages, payment holidays, mortgage prisoners, shared equity schemes, expat/overseas buyers, limited company buy-to-let, agricultural property, retirement villages, probate properties, buildings insurance, age gap mortgages, contractor income, auction completions, multiple adverse credit, property chains, complex income assessment
 - Three static advertisement messages
 
 **Database Schema** (Drizzle ORM ready):
