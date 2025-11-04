@@ -11,6 +11,7 @@ import type { Question, QuizMode } from "@shared/schema";
 import AdBreakModal from "@/components/ad-break-modal";
 import ReviewModal from "@/components/review-modal";
 import QuestionCountSelector from "@/components/question-count-selector";
+import { GoogleAdSenseAd } from "@/components/google-adsense-ad";
 
 interface QuizProps {
   mode: QuizMode;
@@ -23,6 +24,7 @@ export default function Quiz({ mode }: QuizProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAdBreak, setShowAdBreak] = useState(false);
+  const [showGoogleAd, setShowGoogleAd] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(5);
@@ -189,6 +191,12 @@ export default function Quiz({ mode }: QuizProps) {
       return;
     }
 
+    // Show Google AdSense ads at questions 3, 6, and 9 for practice mode
+    if ((nextIndex === 3 || nextIndex === 6 || nextIndex === 9) && mode === "practice") {
+      setShowGoogleAd(true);
+      return;
+    }
+
     // Show ad at questions 30 and 90 for exam and scenario modes
     if ((nextIndex === 30 || nextIndex === 90) && (mode === "exam" || mode === "scenario")) {
       setShowAdBreak(true);
@@ -205,6 +213,11 @@ export default function Quiz({ mode }: QuizProps) {
 
   const handleAdBreakComplete = () => {
     setShowAdBreak(false);
+    moveToNextQuestion();
+  };
+
+  const handleGoogleAdComplete = () => {
+    setShowGoogleAd(false);
     moveToNextQuestion();
   };
 
@@ -408,6 +421,10 @@ export default function Quiz({ mode }: QuizProps) {
         onComplete={handleAdBreakComplete}
         duration={mode === "exam" || mode === "scenario" ? 30 : 10}
       />
+
+      {showGoogleAd && (
+        <GoogleAdSenseAd onComplete={handleGoogleAdComplete} />
+      )}
       
       <ReviewModal
         isOpen={showReview}
