@@ -219,7 +219,7 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">10 realistic client scenarios</span>
+                  <span className="text-sm text-foreground">50 realistic client scenarios</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -280,7 +280,7 @@ export default function Home() {
                   <div className="text-4xl font-bold text-primary">£1.49</div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Unlimited access to 100 exam questions + 10 scenario quizzes
+                  Unlimited access to 100 exam questions + 50 scenario quizzes
                 </p>
                 <Button 
                   className="w-full max-w-md mx-auto" 

@@ -156,8 +156,8 @@ export default function Checkout() {
              "Unlock Full Exam Mode"}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {purchaseType === "bundle" ? "Get access to both Full Exam (100 questions) and Scenario Quiz (10 scenarios)" :
-             purchaseType === "scenario" ? "Get access to 10 realistic scenario-based case studies" :
+            {purchaseType === "bundle" ? "Get access to both Full Exam (100 questions) and Scenario Quiz (50 scenarios)" :
+             purchaseType === "scenario" ? "Get access to 50 realistic scenario-based case studies" :
              "Get access to the complete 100-question CeMAP practice exam"}
           </p>
         </div>
@@ -180,9 +180,9 @@ export default function Checkout() {
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
             {purchaseType === "bundle" ? 
-              "Bundle includes: 100-question Full Exam + 10 Scenario Quizzes" :
+              "Bundle includes: 100-question Full Exam + 50 Scenario Quizzes" :
              purchaseType === "scenario" ?
-              "Access includes 10 realistic scenarios with 3 questions each" :
+              "Access includes 50 realistic scenarios with 3 questions each" :
               "Access includes 100 authentic CeMAP questions across all 8 topics"}
           </p>
         </div>

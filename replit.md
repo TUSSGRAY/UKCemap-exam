@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, 10 realistic case studies with 3 related questions each, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
+A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, 50 realistic case studies with 3 related questions each, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
 
 ## User Preferences
 
@@ -81,12 +81,12 @@ Preferred communication style: Simple, everyday language.
 **Quiz Modes**:
 - Practice Mode: Free access, flexible question count (5-10), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
 - Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions, no feedback until completion, 80% pass threshold, device-based access control
-- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), access to 10 realistic scenarios with 3 related questions each, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions, random scenario selection each session
+- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), access to 50 realistic scenarios with 3 related questions each, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions, random scenario selection each session
 
 **Payment & Access Control System**:
 - Stripe integration for secure payment processing with three pricing tiers:
   - Full Exam Only: £0.99 (100 questions)
-  - Scenario Quiz Only: £0.99 (10 scenarios × 3 questions)
+  - Scenario Quiz Only: £0.99 (50 scenarios × 3 questions)
   - Bundle Package: £1.49 (both exams - save 50p)
 - Device-based access control using cryptographic tokens (UUID)
 - Payment amounts hardcoded server-side for security (99p, 99p, 149p)

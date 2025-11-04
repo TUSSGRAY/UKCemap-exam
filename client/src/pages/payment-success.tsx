@@ -99,9 +99,9 @@ export default function PaymentSuccess() {
           <CardContent className="space-y-4">
             <p className="text-center text-muted-foreground">
               {purchaseType === "bundle"
-                ? "You can now access both the 100-question Full Exam and all 10 Scenario Quizzes anytime."
+                ? "You can now access both the 100-question Full Exam and all 50 Scenario Quizzes anytime."
                 : purchaseType === "scenario"
-                ? "You can now access all 10 realistic scenario-based case studies anytime."
+                ? "You can now access all 50 realistic scenario-based case studies anytime."
                 : "You can now take the full 100-question CeMAP practice exam anytime."}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
