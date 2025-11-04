@@ -19,12 +19,13 @@ Preferred communication style: Simple, everyday language.
 - Custom theming system using CSS variables for light/dark mode support
 - Comprehensive component library including cards, buttons, dialogs, progress indicators, and form elements
 
-**Routing**: Wouter for client-side routing with seven main routes:
+**Routing**: Wouter for client-side routing with eight main routes:
 - Home page (mode selection with branding and bundle offer)
-- Practice quiz (`/quiz/practice`) - Free access
+- Practice quiz (`/quiz/practice`) - Free access, fixed 10 questions, max 2 attempts
 - Exam quiz (`/quiz/exam`) - Requires payment (£0.99 or bundle)
 - Scenario quiz (`/quiz/scenario`) - Requires payment (£0.99 or bundle)
-- Results page (`/results`)
+- Results page (`/results`) - Shows score, handles attempt tracking, redirects to certificate on 80%+ pass
+- Certificate page (`/certificate`) - Awards certificate from JK Training on 80%+ pass for all modes
 - Checkout page (`/checkout?type={exam|scenario|bundle}`) - Stripe payment with three pricing tiers
 - Payment success page (`/payment-success`) - Confirms purchase and grants access
 
@@ -79,9 +80,9 @@ Preferred communication style: Simple, everyday language.
 ### Key Features
 
 **Quiz Modes**:
-- Practice Mode: Free access, flexible question count (5-10), includes 2 scenario-based questions (2 questions from each of 2 random scenarios = 4 scenario questions) mixed with regular questions, immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
-- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions (regular questions only, no scenarios), no feedback until completion, 80% pass threshold, device-based access control
-- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), all 50 realistic scenarios presented in random order (150 questions total), immediate feedback after each answer, 80% pass threshold (requires 120/150 to pass), displays case study prominently above questions, scenarios randomized each session
+- Practice Mode: Free access, fixed 10 questions, includes 2 scenario-based questions (2 questions from each of 2 random scenarios = 4 scenario questions) mixed with regular questions, immediate feedback after each answer, 80% pass threshold, maximum 2 attempts tracked via localStorage, certificate awarded on 80%+ pass
+- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions (regular questions only, no scenarios), no feedback until completion, 80% pass threshold, device-based access control, certificate awarded on 80%+ pass
+- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), all 50 realistic scenarios presented in random order (150 questions total), immediate feedback after each answer, 80% pass threshold (requires 120/150 to pass), displays case study prominently above questions, scenarios randomized each session, certificate awarded on 80%+ pass
 
 **Payment & Access Control System**:
 - Stripe integration for secure payment processing with three pricing tiers:

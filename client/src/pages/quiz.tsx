@@ -136,6 +136,9 @@ export default function Quiz({ mode }: QuizProps) {
     if (mode === "scenario") {
       setQuestionCount(150); // All 50 scenarios × 3 questions each
       setIsStarted(true);
+    } else if (mode === "practice") {
+      setQuestionCount(10); // Fixed 10 questions for practice mode
+      setIsStarted(true);
     }
   }, [mode]);
 
@@ -172,7 +175,9 @@ export default function Quiz({ mode }: QuizProps) {
         return acc + (question?.answer === answer ? 1 : 0);
       }, 0);
       
-      setLocation(`/results?mode=${mode}&score=${score}&total=${questions.length}`);
+      // Include attemptId for practice mode to track unique attempts
+      const attemptParam = mode === "practice" ? `&attemptId=${quizSessionId}` : '';
+      setLocation(`/results?mode=${mode}&score=${score}&total=${questions.length}${attemptParam}`);
       return;
     }
 
@@ -198,7 +203,7 @@ export default function Quiz({ mode }: QuizProps) {
     setLocation("/");
   };
 
-  if (!isStarted) {
+  if (!isStarted && mode === "exam") {
     return (
       <QuestionCountSelector
         mode={mode}

@@ -1,28 +1,70 @@
 import { useEffect, useState } from "react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, Home, RefreshCw, Target } from "lucide-react";
+import { Trophy, Home, RefreshCw, Target, Award, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 export default function Results() {
+  const [, setLocation] = useLocation();
   const [score, setScore] = useState(0);
   const [total, setTotal] = useState(0);
   const [mode, setMode] = useState<"practice" | "exam" | "scenario">("practice");
+  const [practiceAttempts, setPracticeAttempts] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setScore(Number(params.get("score")) || 0);
-    setTotal(Number(params.get("total")) || 0);
-    setMode((params.get("mode") as "practice" | "exam" | "scenario") || "practice");
-  }, []);
+    const currentScore = Number(params.get("score")) || 0;
+    const currentTotal = Number(params.get("total")) || 0;
+    const currentMode = (params.get("mode") as "practice" | "exam" | "scenario") || "practice";
+    const attemptId = params.get("attemptId") || '';
+    
+    setScore(currentScore);
+    setTotal(currentTotal);
+    setMode(currentMode);
+
+    // Track practice attempts - only increment if this is a new attempt
+    if (currentMode === "practice" && attemptId) {
+      const lastAttemptId = localStorage.getItem('lastPracticeAttemptId');
+      
+      // Only increment if this is a different attempt
+      if (lastAttemptId !== attemptId) {
+        const attempts = parseInt(localStorage.getItem('practiceAttempts') || '0');
+        const newAttempts = attempts + 1;
+        localStorage.setItem('practiceAttempts', newAttempts.toString());
+        localStorage.setItem('lastPracticeAttemptId', attemptId);
+        setPracticeAttempts(newAttempts);
+      } else {
+        // Same attempt, just get current count
+        setPracticeAttempts(parseInt(localStorage.getItem('practiceAttempts') || '0'));
+      }
+      
+      // Check if user passed with 80% or more - redirect to certificate
+      const percentage = currentTotal > 0 ? Math.round((currentScore / currentTotal) * 100) : 0;
+      if (percentage >= 80) {
+        setLocation(`/certificate?mode=${currentMode}&score=${currentScore}&total=${currentTotal}`);
+      }
+    }
+    
+    // For exam and scenario modes, check if passed (80%) and redirect to certificate
+    if (currentMode === "exam" || currentMode === "scenario") {
+      const percentage = currentTotal > 0 ? Math.round((currentScore / currentTotal) * 100) : 0;
+      if (percentage >= 80) {
+        setLocation(`/certificate?mode=${currentMode}&score=${currentScore}&total=${currentTotal}`);
+      }
+    }
+  }, [setLocation]);
 
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const isExamMode = mode === "exam";
   const isScenarioMode = mode === "scenario";
-  const passThreshold = (isExamMode || isScenarioMode) ? Math.ceil(total * 0.8) : Math.ceil(total * 0.6);
+  const isPracticeMode = mode === "practice";
+  // All modes now require 80% to pass
+  const passThreshold = Math.ceil(total * 0.8);
   const passed = score >= passThreshold;
+  const canRetryPractice = isPracticeMode && practiceAttempts < 2;
+  const noMoreAttempts = isPracticeMode && practiceAttempts >= 2;
 
   return (
     <div className="min-h-screen bg-background">
@@ -135,26 +177,96 @@ export default function Results() {
           </CardContent>
         </Card>
 
+        {/* Practice Mode - No More Attempts */}
+        {noMoreAttempts && (
+          <Card className="shadow-xl mb-6 border-orange-200 dark:border-orange-900" data-testid="card-no-attempts">
+            <CardContent className="p-6 space-y-4">
+              <div className="flex items-start gap-3">
+                <AlertCircle className="w-6 h-6 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Practice Test Limit Reached
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    You've completed your 2 practice attempts. Ready to fully prepare for the CeMAP 2025 Autumn Edition?
+                  </p>
+                  <p className="text-sm font-medium text-foreground mb-3">
+                    Get our Complete Bundle Package:
+                  </p>
+                  <ul className="text-sm text-muted-foreground space-y-2 mb-4">
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary">✓</span>
+                      <span>Full Exam Mode: 100 authentic questions</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary">✓</span>
+                      <span>Scenario Quiz: All 50 scenarios (150 questions)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-primary">✓</span>
+                      <span>Save 50p with the bundle</span>
+                    </li>
+                  </ul>
+                  <Button
+                    size="lg"
+                    className="w-full"
+                    onClick={() => setLocation('/checkout?type=bundle')}
+                    data-testid="button-get-bundle"
+                  >
+                    Get Complete Bundle - £1.49
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Practice Mode - Can Retry */}
+        {canRetryPractice && (
+          <Card className="shadow-xl mb-6 border-primary/30" data-testid="card-retry-available">
+            <CardContent className="p-6 space-y-4">
+              <div className="text-center">
+                <h3 className="font-semibold text-foreground mb-2">
+                  One More Attempt Available
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  You have {2 - practiceAttempts} more {2 - practiceAttempts === 1 ? 'attempt' : 'attempts'} at the practice test. Study the areas you need to improve and try again!
+                </p>
+                <Button
+                  size="lg"
+                  onClick={() => setLocation('/quiz/practice')}
+                  data-testid="button-retry-practice"
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Retry Practice Test (Final Attempt)
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/" data-testid="link-home">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              <Home className="w-4 h-4 mr-2" />
-              Back to Home
-            </Button>
-          </Link>
-          <Link href={`/quiz/${mode}`} data-testid="link-retake">
-            <Button size="lg" className="w-full sm:w-auto">
+          <Button
+            variant="outline"
+            size="lg"
+            className="w-full sm:w-auto"
+            onClick={() => setLocation('/')}
+            data-testid="button-home"
+          >
+            <Home className="w-4 h-4 mr-2" />
+            Back to Home
+          </Button>
+          
+          {!isPracticeMode && (
+            <Button
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => setLocation(`/quiz/${mode}`)}
+              data-testid="button-retake"
+            >
               <RefreshCw className="w-4 h-4 mr-2" />
               Retake Quiz
             </Button>
-          </Link>
-          {!isExamMode && (
-            <Link href="/quiz/exam" data-testid="link-try-exam">
-              <Button variant="default" size="lg" className="w-full sm:w-auto">
-                <Trophy className="w-4 h-4 mr-2" />
-                Try Full Exam
-              </Button>
-            </Link>
           )}
         </div>
       </div>
