@@ -1701,6 +1701,37 @@ export class MemStorage implements IStorage {
     });
   }
 
+  // Shuffle answer positions to prevent pattern recognition
+  private shuffleAnswerPositions(question: Question): Question {
+    // Create array of options with their original letters
+    const options = [
+      { letter: 'A', text: question.optionA },
+      { letter: 'B', text: question.optionB },
+      { letter: 'C', text: question.optionC },
+      { letter: 'D', text: question.optionD }
+    ];
+    
+    // Shuffle the options array
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [options[i], options[j]] = [options[j], options[i]];
+    }
+    
+    // Find which position the correct answer moved to
+    const correctOptionIndex = options.findIndex(opt => opt.letter === question.answer);
+    const newAnswerLetter = ['A', 'B', 'C', 'D'][correctOptionIndex];
+    
+    // Return question with shuffled positions
+    return {
+      ...question,
+      optionA: options[0].text,
+      optionB: options[1].text,
+      optionC: options[2].text,
+      optionD: options[3].text,
+      answer: newAnswerLetter
+    };
+  }
+
   async getAllQuestions(): Promise<Question[]> {
     return Array.from(this.questions.values());
   }
@@ -1727,7 +1758,8 @@ export class MemStorage implements IStorage {
         Math.floor(Math.random() * completeScenarios.length)
       ];
       
-      return randomScenario || [];
+      // Shuffle answer positions for scenario questions
+      return (randomScenario || []).map(q => this.shuffleAnswerPositions(q));
     }
     
     const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);
@@ -1735,7 +1767,8 @@ export class MemStorage implements IStorage {
     
     const questionCount = mode === "exam" ? 100 : Math.min(count, 10);
     
-    return shuffled.slice(0, questionCount);
+    // Shuffle answer positions for all questions before returning
+    return shuffled.slice(0, questionCount).map(q => this.shuffleAnswerPositions(q));
   }
 
   async getRandomAdvert(): Promise<Advert> {
