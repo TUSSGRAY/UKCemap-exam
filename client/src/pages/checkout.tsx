@@ -245,103 +245,100 @@ export default function Checkout() {
       : "Get access to the complete 100-question CeMAP practice exam";
   };
 
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-2xl mx-auto px-6 py-16">
-        <div className="mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => setLocation("/")}
-            data-testid="button-back-home"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
-        </div>
+  if (loadingError) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <Card className="max-w-md w-full">
+          <CardContent className="pt-6 text-center space-y-4">
+            <p className="text-destructive font-medium">Payment form failed to load</p>
+            <p className="text-sm text-muted-foreground">
+              There was an error connecting to the payment processor.
+            </p>
+            <Button onClick={handleRetry} data-testid="button-retry-payment">
+              Retry Payment
+            </Button>
+            <Button variant="ghost" onClick={() => setLocation("/")} className="w-full">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Home
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
-        <div className="text-center mb-8">
-          <div className="mb-3">
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-6">
+        <Card className="max-w-2xl w-full">
+          <CardContent className="pt-6 space-y-6">
+            <div className="text-center mb-4">
+              <p className="text-sm font-semibold text-primary">J&K Cemap Training</p>
+              <h2 className="text-2xl font-bold mt-2">{getTitle()}</h2>
+            </div>
+            {purchaseType === "bundle" && (
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                <Skeleton className="h-5 w-3/4 mb-3" />
+                <Skeleton className="h-4 w-full mb-4" />
+                <Skeleton className="h-10 w-full mb-3" />
+                <Skeleton className="h-4 w-2/3" />
+              </div>
+            )}
+            <div className="space-y-4">
+              <Skeleton className="h-32 w-full" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+            <p className="text-sm text-center text-muted-foreground">
+              Loading payment form...
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <Card className="max-w-2xl w-full shadow-xl" data-testid="card-checkout">
+        <CardHeader>
+          <div className="flex items-center justify-between mb-2">
             <p className="text-xs font-semibold text-primary tracking-wide uppercase">
               J&K Cemap Training
             </p>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setLocation("/")}
+              data-testid="button-back-home"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Cancel
+            </Button>
           </div>
-          <h1
-            className="text-4xl font-bold text-foreground mb-4"
-            data-testid="text-checkout-title"
-          >
+          <CardTitle className="text-2xl" data-testid="text-checkout-title">
             {getTitle()}
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            {getDescription()}
-          </p>
-        </div>
-
-        <Card className="shadow-xl" data-testid="card-checkout">
-          <CardHeader>
-            <CardTitle className="text-2xl">Complete Your Purchase</CardTitle>
-            <CardDescription>
-              {purchaseType === "bundle"
-                ? "One-time payment of £1.49 for unlimited access to both exams (Save 50p!)"
-                : "One-time payment of £0.99 for unlimited access"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {loadingError ? (
-              <div className="text-center py-8 space-y-4">
-                <p className="text-destructive font-medium">Payment form failed to load</p>
-                <p className="text-sm text-muted-foreground">
-                  There was an error connecting to the payment processor. Please try again.
-                </p>
-                <Button onClick={handleRetry} data-testid="button-retry-payment">
-                  Retry Payment
-                </Button>
-              </div>
-            ) : isLoading ? (
-              <div className="space-y-6">
-                {purchaseType === "bundle" && (
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-                    <Skeleton className="h-5 w-3/4 mb-3" />
-                    <Skeleton className="h-4 w-full mb-4" />
-                    <Skeleton className="h-10 w-full mb-3" />
-                    <Skeleton className="h-4 w-2/3" />
-                  </div>
-                )}
-                <div className="space-y-4">
-                  <Skeleton className="h-32 w-full" />
-                  <Skeleton className="h-10 w-full" />
-                  <Skeleton className="h-4 w-48 mx-auto" />
-                </div>
-                <p className="text-sm text-center text-muted-foreground">
-                  Loading secure payment form...
-                </p>
-              </div>
-            ) : (
-              <Elements
-                stripe={stripePromise}
-                options={{
-                  clientSecret,
-                  appearance: { theme: "stripe" },
-                }}
-              >
-                <CheckoutForm
-                  clientSecret={clientSecret}
-                  purchaseType={purchaseType}
-                />
-              </Elements>
-            )}
-          </CardContent>
-        </Card>
-
-        <div className="mt-8 text-center">
-          <p className="text-sm text-muted-foreground">
+          </CardTitle>
+          <CardDescription>
             {purchaseType === "bundle"
-              ? "Bundle includes: 100-question Full Exam + 150-question Scenario Quiz"
-              : purchaseType === "scenario"
-              ? "Access includes all 50 scenarios with 150 questions total"
-              : "Access includes 100 authentic CeMAP questions across all 8 topics"}
-          </p>
-        </div>
-      </div>
+              ? "One-time payment of £1.49 for unlimited access"
+              : "One-time payment of £0.99 for unlimited access"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret,
+              appearance: { theme: "stripe" },
+            }}
+          >
+            <CheckoutForm
+              clientSecret={clientSecret}
+              purchaseType={purchaseType}
+            />
+          </Elements>
+        </CardContent>
+      </Card>
     </div>
   );
 }
