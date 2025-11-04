@@ -34,16 +34,15 @@ export function GoogleAdSenseAd({ onComplete }: GoogleAdSenseAdProps) {
     // Try to load the AdSense ad
     const loadAd = () => {
       try {
-        if (window.adsbygoogle) {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-          setAdLoaded(true);
-        }
+        // Always push to the queue - this works whether the script is loaded or not
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        setAdLoaded(true);
       } catch (error) {
-        console.log("AdSense not loaded yet, showing placeholder");
+        console.log("AdSense error:", error);
       }
     };
 
-    // Attempt to load ad after a short delay
+    // Attempt to load ad after a short delay to ensure DOM is ready
     const loadTimeout = setTimeout(loadAd, 100);
 
     // Start countdown timer
