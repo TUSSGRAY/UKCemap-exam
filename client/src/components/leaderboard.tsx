@@ -103,7 +103,9 @@ export function Leaderboard({ mode, title }: LeaderboardProps) {
             {/* Weekly Top Scores */}
             {highScores && highScores.length > 0 ? (
           <div className="space-y-2">
-            {highScores.map((score, index) => {
+            {highScores
+              .filter(score => !allTimeHigh || score.id !== allTimeHigh.id)
+              .map((score, index) => {
               const percentage = Math.round((score.score / score.total) * 100);
               return (
                 <div
