@@ -1,10 +1,16 @@
-import { useStripe, Elements, PaymentElement, useElements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'wouter';
+import { useStripe, Elements, PaymentElement, useElements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useEffect, useState } from "react";
+import { useLocation } from "wouter";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,11 +18,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
 
 if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-  throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
+  throw new Error("Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY");
 }
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
+/* ✅ UPDATED CheckoutForm */
 const CheckoutForm = ({
   clientSecret,
   purchaseType,
@@ -31,39 +38,15 @@ const CheckoutForm = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [email, setEmail] = useState("");
   const [emailOptIn, setEmailOptIn] = useState(true);
-  const [elementReady, setElementReady] = useState(false);
-
-  useEffect(() => {
-    // Listen for when the PaymentElement finishes mounting
-    const paymentEl = document.querySelector("#payment-element");
-    if (paymentEl) {
-      // Small delay to ensure Stripe mount completes
-      setTimeout(() => setElementReady(true), 500);
-    }
-  }, [clientSecret]);
+  const [isReady, setIsReady] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!stripe || !elements) {
-      toast({
-        title: "Stripe not ready",
-        description: "Please wait for Stripe to finish loading.",
-        variant: "destructive",
-      });
-      return;
-    }
+    if (!stripe || !elements) return;
+    const paymentElement = elements.getElement(PaymentElement);
+    if (!paymentElement) return;
 
-    if (!elementReady) {
-      toast({
-        title: "Payment form not ready",
-        description: "Please wait a second and try again.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Validate email for bundle purchases
     if (purchaseType === "bundle" && emailOptIn) {
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         toast({
@@ -92,7 +75,7 @@ const CheckoutForm = ({
           description: error.message,
           variant: "destructive",
         });
-      } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      } else if (paymentIntent?.status === "succeeded") {
         const emailParam =
           purchaseType === "bundle" && emailOptIn && email
             ? `&email=${encodeURIComponent(email)}`
@@ -101,7 +84,7 @@ const CheckoutForm = ({
       } else {
         toast({
           title: "Payment Processing",
-          description: "Your payment is being processed. Please wait...",
+          description: "Your payment is being processed...",
         });
       }
     } catch (err: any) {
@@ -128,7 +111,6 @@ const CheckoutForm = ({
               <p className="text-sm text-muted-foreground mb-4">
                 Get 3 practice questions delivered to your inbox every day at 8:59am for 100 days!
               </p>
-
               <div className="space-y-3">
                 <div>
                   <Label htmlFor="email" className="text-sm font-medium">
@@ -141,21 +123,15 @@ const CheckoutForm = ({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="mt-1.5"
-                    data-testid="input-email"
                   />
                 </div>
-
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="emailOptIn"
                     checked={emailOptIn}
                     onCheckedChange={(checked) => setEmailOptIn(!!checked)}
-                    data-testid="checkbox-email-optin"
                   />
-                  <label
-                    htmlFor="emailOptIn"
-                    className="text-sm text-foreground cursor-pointer"
-                  >
+                  <label htmlFor="emailOptIn" className="text-sm text-foreground cursor-pointer">
                     Yes, enroll me in the 100 Days email campaign
                   </label>
                 </div>
@@ -165,24 +141,20 @@ const CheckoutForm = ({
         </div>
       )}
 
-      <div id="payment-element">
-        <PaymentElement
-          options={{
-            layout: "tabs",
-            wallets: {
-              applePay: "never",
-              googlePay: "never",
-            },
-          }}
-        />
-      </div>
+      {/* ✅ Stripe Payment Element */}
+      <PaymentElement
+        options={{
+          layout: "tabs",
+          wallets: { applePay: "never", googlePay: "never" },
+        }}
+        onReady={() => setIsReady(true)} // Stripe callback when fully mounted
+      />
 
       <Button
         type="submit"
         className="w-full"
         size="lg"
-        disabled={!stripe || isProcessing || !elementReady}
-        data-testid="button-submit-payment"
+        disabled={!stripe || !isReady || isProcessing}
       >
         {isProcessing
           ? "Processing..."
@@ -190,6 +162,10 @@ const CheckoutForm = ({
           ? "Pay £1.49"
           : "Pay £0.99"}
       </Button>
+
+      {!isReady && (
+        <p className="text-sm text-center text-muted-foreground">Loading payment form…</p>
+      )}
 
       <p className="text-xs text-center text-muted-foreground">
         <Lock className="w-3 h-3 inline mr-1" />
@@ -199,10 +175,13 @@ const CheckoutForm = ({
   );
 };
 
+/* ✅ Main Checkout Page */
 export default function Checkout() {
   const [clientSecret, setClientSecret] = useState("");
   const [, setLocation] = useLocation();
-  const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle" | null>(null);
+  const [purchaseType, setPurchaseType] = useState<
+    "exam" | "scenario" | "bundle" | null
+  >(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -216,14 +195,15 @@ export default function Checkout() {
 
   useEffect(() => {
     if (!purchaseType) return;
-
     apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret))
-      .catch((error) => console.error("Error creating payment intent:", error));
+      .catch((error) =>
+        console.error("Error creating payment intent:", error)
+      );
   }, [purchaseType]);
 
-  if (!clientSecret) {
+  if (!clientSecret || !purchaseType) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div
@@ -283,8 +263,17 @@ export default function Checkout() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <CheckoutForm clientSecret={clientSecret} purchaseType={purchaseType} />
+            <Elements
+              stripe={stripePromise}
+              options={{
+                clientSecret,
+                appearance: { theme: "stripe" },
+              }}
+            >
+              <CheckoutForm
+                clientSecret={clientSecret}
+                purchaseType={purchaseType}
+              />
             </Elements>
           </CardContent>
         </Card>
