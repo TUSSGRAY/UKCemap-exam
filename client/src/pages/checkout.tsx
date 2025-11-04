@@ -183,6 +183,8 @@ export default function Checkout() {
   const [purchaseType, setPurchaseType] = useState<
     "exam" | "scenario" | "bundle" | null
   >(null);
+  const [loadingError, setLoadingError] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -196,15 +198,48 @@ export default function Checkout() {
 
   useEffect(() => {
     if (!purchaseType) return;
+    
+    // Set a timeout to ensure payment loads within 2 seconds
+    const timeoutId = setTimeout(() => {
+      setLoadingError(true);
+      toast({
+        title: "Payment Loading Timeout",
+        description: "Payment form is taking longer than expected. Please try again.",
+        variant: "destructive",
+      });
+    }, 2000);
+
     apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-      .catch((error) =>
-        console.error("Error creating payment intent:", error)
-      );
-  }, [purchaseType]);
+      .then((data) => {
+        clearTimeout(timeoutId);
+        setClientSecret(data.clientSecret);
+        setLoadingError(false);
+      })
+      .catch((error) => {
+        clearTimeout(timeoutId);
+        console.error("Error creating payment intent:", error);
+        setLoadingError(true);
+        toast({
+          title: "Payment Error",
+          description: "Failed to initialize payment. Please try again.",
+          variant: "destructive",
+        });
+      });
+
+    return () => clearTimeout(timeoutId);
+  }, [purchaseType, toast]);
 
   const isLoading = !clientSecret || !purchaseType;
+
+  const handleRetry = () => {
+    setLoadingError(false);
+    setClientSecret("");
+    // Trigger the useEffect to re-fetch
+    const type = purchaseType;
+    setPurchaseType(null);
+    setTimeout(() => setPurchaseType(type), 10);
+  };
 
   const getTitle = () => {
     if (!purchaseType) return "Loading...";
@@ -265,7 +300,17 @@ export default function Checkout() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {isLoading ? (
+            {loadingError ? (
+              <div className="text-center py-8 space-y-4">
+                <p className="text-destructive font-medium">Payment form failed to load within 2 seconds</p>
+                <p className="text-sm text-muted-foreground">
+                  This might be due to a slow network connection. Please try again.
+                </p>
+                <Button onClick={handleRetry} data-testid="button-retry-payment">
+                  Retry Payment
+                </Button>
+              </div>
+            ) : isLoading ? (
               <div className="space-y-6">
                 {purchaseType === "bundle" && (
                   <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
@@ -280,6 +325,9 @@ export default function Checkout() {
                   <Skeleton className="h-10 w-full" />
                   <Skeleton className="h-4 w-48 mx-auto" />
                 </div>
+                <p className="text-sm text-center text-muted-foreground">
+                  Loading payment form... (max 2 seconds)
+                </p>
               </div>
             ) : (
               <Elements
