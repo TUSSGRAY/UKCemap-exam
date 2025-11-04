@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lock } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lock, Mail, Gift } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 
 export default function Home() {
@@ -282,14 +282,37 @@ export default function Home() {
                   Get both Full Exam + Scenario Quiz together
                 </CardDescription>
               </CardHeader>
-              <CardContent className="text-center space-y-4">
+              <CardContent className="text-center space-y-6">
                 <div className="flex items-center justify-center gap-4">
                   <div className="text-muted-foreground line-through text-xl">£1.98</div>
                   <div className="text-4xl font-bold text-primary">£1.49</div>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Unlimited access to 100 exam questions + 150 scenario questions
-                </p>
+                
+                <div className="text-left max-w-md mx-auto space-y-3">
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground">Full Exam Mode - 100 questions</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm text-foreground">Scenario Quiz - All 50 scenarios (150 questions)</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Gift className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-sm font-semibold text-foreground">BONUS: 100 Days Email Learning</span>
+                          <Badge variant="secondary" className="text-xs px-2 py-0">FREE</Badge>
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          Daily quiz questions sent to your inbox for 100 days
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                
                 <Button 
                   className="w-full max-w-md mx-auto" 
                   size="lg"
