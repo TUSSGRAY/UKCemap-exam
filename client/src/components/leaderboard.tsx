@@ -13,7 +13,7 @@ export function Leaderboard({ mode, title }: LeaderboardProps) {
   const { data: highScores, isLoading } = useQuery<HighScore[]>({
     queryKey: ['/api/high-scores', mode],
     queryFn: async () => {
-      const response = await fetch(`/api/high-scores?mode=${mode}&limit=10`);
+      const response = await fetch(`/api/high-scores?mode=${mode}&limit=4`);
       if (!response.ok) {
         throw new Error('Failed to fetch high scores');
       }
