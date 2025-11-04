@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { quizRequestSchema } from "@shared/schema";
+import { quizRequestSchema, insertHighScoreSchema } from "@shared/schema";
 import Stripe from "stripe";
 import { sendDailyQuizToSubscriber, sendDailyQuizToAllSubscribers } from "./email-service";
 import { z } from "zod";
@@ -371,6 +371,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: error.errors[0].message });
       }
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Save high score to weekly leaderboard
+  app.post("/api/high-scores", async (req, res) => {
+    try {
+      const highScore = insertHighScoreSchema.parse(req.body);
+      
+      // Validate mode is exam or scenario only
+      if (highScore.mode !== "exam" && highScore.mode !== "scenario") {
+        return res.status(400).json({ error: "High scores only available for exam and scenario modes" });
+      }
+      
+      const savedScore = await storage.saveHighScore(highScore);
+      res.json(savedScore);
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Get weekly high scores
+  app.get("/api/high-scores", async (req, res) => {
+    try {
+      const mode = req.query.mode as "exam" | "scenario";
+      const limit = parseInt(req.query.limit as string) || 10;
+      
+      if (!mode || (mode !== "exam" && mode !== "scenario")) {
+        return res.status(400).json({ error: "Mode parameter required (exam or scenario)" });
+      }
+      
+      const highScores = await storage.getWeeklyHighScores(mode, limit);
+      res.json(highScores);
+    } catch (error: any) {
       res.status(500).json({ error: error.message });
     }
   });
