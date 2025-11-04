@@ -3080,6 +3080,7 @@ export class MemStorage implements IStorage {
       const scenarioQuestions = allQuestions.filter(q => q.scenarioId);
       const scenarioGroups = new Map<string, Question[]>();
       
+      // Group questions by scenario
       scenarioQuestions.forEach(q => {
         if (!scenarioGroups.has(q.scenarioId!)) {
           scenarioGroups.set(q.scenarioId!, []);
@@ -3087,16 +3088,19 @@ export class MemStorage implements IStorage {
         scenarioGroups.get(q.scenarioId!)!.push(q);
       });
       
+      // Get all complete scenarios (with exactly 3 questions each)
       const completeScenarios = Array.from(scenarioGroups.values()).filter(
         group => group.length === 3
       );
       
-      const randomScenario = completeScenarios[
-        Math.floor(Math.random() * completeScenarios.length)
-      ];
+      // Shuffle the scenarios themselves randomly
+      const shuffledScenarios = completeScenarios.sort(() => Math.random() - 0.5);
       
-      // Shuffle answer positions for scenario questions
-      return (randomScenario || []).map(q => this.shuffleAnswerPositions(q));
+      // Flatten all scenarios into one array (all 150 questions in random scenario order)
+      const allScenarioQuestions = shuffledScenarios.flat();
+      
+      // Shuffle answer positions for all scenario questions
+      return allScenarioQuestions.map(q => this.shuffleAnswerPositions(q));
     }
     
     const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);

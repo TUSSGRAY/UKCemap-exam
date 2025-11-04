@@ -134,7 +134,7 @@ export default function Quiz({ mode }: QuizProps) {
 
   useEffect(() => {
     if (mode === "scenario") {
-      setQuestionCount(3);
+      setQuestionCount(150); // All 50 scenarios × 3 questions each
       setIsStarted(true);
     }
   }, [mode]);

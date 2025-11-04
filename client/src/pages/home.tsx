@@ -219,11 +219,11 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">50 realistic client scenarios</span>
+                  <span className="text-sm text-foreground">All 50 realistic scenarios (150 questions)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">3 questions per scenario</span>
+                  <span className="text-sm text-foreground">Scenarios presented in random order</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -231,7 +231,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Estimated time: 3-5 minutes per scenario</span>
+                  <span className="text-sm text-muted-foreground">Estimated time: 90-120 minutes</span>
                 </li>
               </ul>
               {hasScenarioAccess ? (
@@ -280,7 +280,7 @@ export default function Home() {
                   <div className="text-4xl font-bold text-primary">£1.49</div>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Unlimited access to 100 exam questions + 50 scenario quizzes
+                  Unlimited access to 100 exam questions + 150 scenario questions
                 </p>
                 <Button 
                   className="w-full max-w-md mx-auto" 
