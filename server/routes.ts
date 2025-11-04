@@ -9,8 +9,11 @@ import { z } from "zod";
 if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
 }
+if (process.env.NODE_ENV === 'production' && !process.env.INTERNAL_API_KEY) {
+  throw new Error('INTERNAL_API_KEY must be set in production for email endpoint security. Generate a secure random string and add it to secrets.');
+}
 if (!process.env.INTERNAL_API_KEY) {
-  throw new Error('INTERNAL_API_KEY must be set for email endpoint security. Generate a secure random string and add it to secrets.');
+  console.warn('WARNING: INTERNAL_API_KEY not set. Using development-only key. This is NOT secure for production!');
 }
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-10-29.clover",
@@ -193,7 +196,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Email subscription endpoint - SECURED
-  // Only accepts subscription for verified bundle purchases
+  // Only accepts subscription for verified bundle purchases (one subscription per payment)
   app.post("/api/subscribe-email", async (req, res) => {
     try {
       const emailSchema = z.object({
@@ -203,38 +206,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const { email, paymentIntentId } = emailSchema.parse(req.body);
       
-      // Verify the payment intent is a valid bundle purchase
-      const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-      
-      if (paymentIntent.status !== "succeeded") {
-        return res.status(400).json({ error: "Payment not completed" });
-      }
-      
-      if (paymentIntent.metadata.purchaseType !== "bundle") {
-        return res.status(400).json({ error: "Email subscription only available for bundle purchases" });
-      }
-      
-      if (paymentIntent.amount !== 149) {
-        return res.status(400).json({ error: "Invalid bundle purchase" });
-      }
-      
-      // Check if already subscribed for this payment intent
-      const existingSub = await storage.getEmailSubscription(email);
-      if (existingSub) {
-        return res.json({ 
-          success: true, 
-          message: "Already subscribed",
-          subscription: existingSub 
+      // ATOMIC: Mark payment intent as used FIRST to prevent race conditions
+      // If verification fails, we'll remove it from the set
+      const alreadyUsed = await storage.isPaymentIntentUsedForSubscription(paymentIntentId);
+      if (alreadyUsed) {
+        return res.status(400).json({ 
+          error: "This purchase has already been used to subscribe to the email campaign" 
         });
       }
+      
+      // Reserve this payment intent immediately (atomic operation)
+      await storage.markPaymentIntentUsedForSubscription(paymentIntentId);
+      
+      try {
+        // Verify the payment intent is a valid bundle purchase
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        
+        if (paymentIntent.status !== "succeeded") {
+          // Rollback: remove from used set since verification failed
+          await storage.unmarkPaymentIntentForSubscription(paymentIntentId);
+          return res.status(400).json({ error: "Payment not completed" });
+        }
+        
+        if (paymentIntent.metadata.purchaseType !== "bundle") {
+          await storage.unmarkPaymentIntentForSubscription(paymentIntentId);
+          return res.status(400).json({ error: "Email subscription only available for bundle purchases" });
+        }
+        
+        if (paymentIntent.amount !== 149) {
+          await storage.unmarkPaymentIntentForSubscription(paymentIntentId);
+          return res.status(400).json({ error: "Invalid bundle purchase" });
+        }
+        
+        // Check if email is already subscribed
+        const existingSub = await storage.getEmailSubscription(email);
+        if (existingSub) {
+          // Keep payment marked as used (don't rollback)
+          return res.json({ 
+            success: true, 
+            message: "Already subscribed",
+            subscription: existingSub 
+          });
+        }
 
-      // Subscribe the email
-      const subscription = await storage.subscribeEmail(email);
-      res.json({ 
-        success: true, 
-        message: "Successfully subscribed to 100 Days campaign",
-        subscription 
-      });
+        // Subscribe the email
+        const subscription = await storage.subscribeEmail(email);
+        
+        res.json({ 
+          success: true, 
+          message: "Successfully subscribed to 100 Days campaign",
+          subscription 
+        });
+      } catch (verificationError) {
+        // Rollback on any error during verification/subscription
+        await storage.unmarkPaymentIntentForSubscription(paymentIntentId);
+        throw verificationError;
+      }
     } catch (error: any) {
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: error.errors[0].message });
@@ -249,9 +276,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Verify internal API key for security
       const apiKey = req.headers['x-api-key'] as string;
-      const validApiKey = process.env.INTERNAL_API_KEY;
+      const validApiKey = process.env.INTERNAL_API_KEY || 'dev-test-key-only';
       
-      if (!apiKey || !validApiKey || apiKey !== validApiKey) {
+      if (!apiKey || apiKey !== validApiKey) {
         return res.status(403).json({ error: "Unauthorized: Invalid API key" });
       }
 
@@ -280,9 +307,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       // Verify internal API key for security
       const apiKey = req.headers['x-api-key'] as string;
-      const validApiKey = process.env.INTERNAL_API_KEY;
+      const validApiKey = process.env.INTERNAL_API_KEY || 'dev-test-key-only';
       
-      if (!apiKey || !validApiKey || apiKey !== validApiKey) {
+      if (!apiKey || apiKey !== validApiKey) {
         return res.status(403).json({ error: "Unauthorized: Invalid API key" });
       }
 
@@ -317,6 +344,33 @@ export async function registerRoutes(app: Express): Promise<Server> {
         subscribedAt: subscription.subscribedAt,
       });
     } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // DEVELOPMENT ONLY: Direct email subscription for testing
+  app.post("/api/dev-subscribe-email", async (req, res) => {
+    try {
+      if (process.env.NODE_ENV === 'production') {
+        return res.status(403).json({ error: "Not available in production" });
+      }
+
+      const emailSchema = z.object({
+        email: z.string().email("Invalid email address"),
+      });
+
+      const { email } = emailSchema.parse(req.body);
+      
+      const subscription = await storage.subscribeEmail(email);
+      res.json({ 
+        success: true, 
+        message: "Development test subscription created",
+        subscription 
+      });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
       res.status(500).json({ error: error.message });
     }
   });

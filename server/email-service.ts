@@ -138,7 +138,7 @@ export async function sendDailyQuizToSubscriber(email: string): Promise<void> {
   
   await sendEmail(
     email,
-    `Day ${dayNumber}/100: Your CeMAP Practice Questions`,
+    `Daily CeMap Pop Quiz - Day ${dayNumber} of 100`,
     htmlContent
   );
 

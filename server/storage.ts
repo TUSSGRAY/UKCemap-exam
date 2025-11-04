@@ -15,6 +15,9 @@ export interface IStorage {
   getAllActiveSubscriptions(): Promise<EmailSubscription[]>;
   updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void>;
   unsubscribeEmail(email: string): Promise<void>;
+  isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean>;
+  markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void>;
+  unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -24,6 +27,7 @@ export class MemStorage implements IStorage {
   private scenarioAccessTokens: Map<string, string>;
   private bundleAccessTokens: Map<string, string>;
   private emailSubscriptions: Map<string, EmailSubscription>;
+  private emailSubscriptionPayments: Set<string>;
 
   constructor() {
     this.questions = new Map();
@@ -31,6 +35,7 @@ export class MemStorage implements IStorage {
     this.scenarioAccessTokens = new Map();
     this.bundleAccessTokens = new Map();
     this.emailSubscriptions = new Map();
+    this.emailSubscriptionPayments = new Set();
     this.adverts = [
       {
         id: "1",
@@ -3237,6 +3242,18 @@ export class MemStorage implements IStorage {
       subscription.isActive = 0;
       this.emailSubscriptions.set(email.toLowerCase(), subscription);
     }
+  }
+
+  async isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean> {
+    return this.emailSubscriptionPayments.has(paymentIntentId);
+  }
+
+  async markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void> {
+    this.emailSubscriptionPayments.add(paymentIntentId);
+  }
+
+  async unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void> {
+    this.emailSubscriptionPayments.delete(paymentIntentId);
   }
 }
 
