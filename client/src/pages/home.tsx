@@ -310,7 +310,7 @@ export default function Home() {
                     Get the official CeMAP textbook to complement your quiz preparation
                   </p>
                   <a
-                    href="https://www.amazon.co.uk/Mastering-Mortgage-Advice-Definitive-Certification/dp/B0D2LC1RMZ"
+                    href="https://www.amazon.co.uk/CeMAP-1000-Practice-Questions-Module/dp/B0FCMD9WN3"
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="link-buy-textbook"
