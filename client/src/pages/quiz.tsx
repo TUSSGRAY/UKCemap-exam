@@ -30,96 +30,12 @@ export default function Quiz({ mode }: QuizProps) {
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
 
-  useEffect(() => {
-    if (mode === "exam") {
-      // Check for bundle or exam-specific access
-      const bundleToken = localStorage.getItem('bundleAccessToken');
-      const examToken = localStorage.getItem('examAccessToken');
-      const accessToken = bundleToken || examToken;
-      
-      if (!accessToken) {
-        setLocation('/checkout?type=exam');
-        return;
-      }
-      
-      // Verify access token with server (authoritative source)
-      fetch('/api/check-exam-access', {
-        headers: {
-          'X-Access-Token': accessToken
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (!data.hasAccess) {
-            if (bundleToken) localStorage.removeItem('bundleAccessToken');
-            if (examToken) localStorage.removeItem('examAccessToken');
-            setLocation('/checkout?type=exam');
-          }
-        })
-        .catch(() => {
-          setLocation('/checkout?type=exam');
-        });
-    }
-
-    if (mode === "scenario") {
-      // Check for bundle or scenario-specific access
-      const bundleToken = localStorage.getItem('bundleAccessToken');
-      const scenarioToken = localStorage.getItem('scenarioAccessToken');
-      const accessToken = bundleToken || scenarioToken;
-      
-      if (!accessToken) {
-        setLocation('/checkout?type=scenario');
-        return;
-      }
-      
-      // Verify access token with server (authoritative source)
-      fetch('/api/check-scenario-access', {
-        headers: {
-          'X-Access-Token': accessToken
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (!data.hasAccess) {
-            if (bundleToken) localStorage.removeItem('bundleAccessToken');
-            if (scenarioToken) localStorage.removeItem('scenarioAccessToken');
-            setLocation('/checkout?type=scenario');
-          }
-        })
-        .catch(() => {
-          setLocation('/checkout?type=scenario');
-        });
-    }
-  }, [mode, setLocation]);
-
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,
     queryFn: async () => {
-      const headers: Record<string, string> = {};
-      
-      // Include access token for exam and scenario modes
-      if (mode === "exam") {
-        const bundleToken = localStorage.getItem('bundleAccessToken');
-        const examToken = localStorage.getItem('examAccessToken');
-        const accessToken = bundleToken || examToken;
-        if (accessToken) {
-          headers['X-Access-Token'] = accessToken;
-        }
-      }
-      
-      if (mode === "scenario") {
-        const bundleToken = localStorage.getItem('bundleAccessToken');
-        const scenarioToken = localStorage.getItem('scenarioAccessToken');
-        const accessToken = bundleToken || scenarioToken;
-        if (accessToken) {
-          headers['X-Access-Token'] = accessToken;
-        }
-      }
-      
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
-        credentials: "include",
-        headers
+        credentials: "include"
       });
       if (!response.ok) throw new Error("Failed to fetch questions");
       return response.json();
