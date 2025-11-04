@@ -99,7 +99,7 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
 export default function Checkout() {
   const [clientSecret, setClientSecret] = useState("");
   const [, setLocation] = useLocation();
-  const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle">("exam");
+  const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle" | null>(null);
 
   useEffect(() => {
     // Get purchase type from URL query parameter
@@ -107,10 +107,16 @@ export default function Checkout() {
     const type = urlParams.get('type') as "exam" | "scenario" | "bundle";
     if (type && ["exam", "scenario", "bundle"].includes(type)) {
       setPurchaseType(type);
+    } else {
+      // Invalid or missing type, redirect to home
+      setLocation('/');
     }
-  }, []);
+  }, [setLocation]);
 
   useEffect(() => {
+    // Only create payment intent once we have the purchase type from URL
+    if (!purchaseType) return;
+    
     // Amount is hardcoded on server - no client input needed
     apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
