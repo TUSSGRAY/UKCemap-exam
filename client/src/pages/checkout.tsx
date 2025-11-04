@@ -14,9 +14,16 @@ import { ArrowLeft, Lock, Mail } from "lucide-react";
 if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
   throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
 }
+
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; purchaseType: "exam" | "scenario" | "bundle" }) => {
+const CheckoutForm = ({
+  clientSecret,
+  purchaseType,
+}: {
+  clientSecret: string;
+  purchaseType: "exam" | "scenario" | "bundle";
+}) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
@@ -24,11 +31,35 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
   const [isProcessing, setIsProcessing] = useState(false);
   const [email, setEmail] = useState("");
   const [emailOptIn, setEmailOptIn] = useState(true);
+  const [elementReady, setElementReady] = useState(false);
+
+  useEffect(() => {
+    // Listen for when the PaymentElement finishes mounting
+    const paymentEl = document.querySelector("#payment-element");
+    if (paymentEl) {
+      // Small delay to ensure Stripe mount completes
+      setTimeout(() => setElementReady(true), 500);
+    }
+  }, [clientSecret]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
+      toast({
+        title: "Stripe not ready",
+        description: "Please wait for Stripe to finish loading.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!elementReady) {
+      toast({
+        title: "Payment form not ready",
+        description: "Please wait a second and try again.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -47,43 +78,40 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
     setIsProcessing(true);
 
     try {
-      // Confirm payment without redirect (works in iframe environments like Replit)
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
-        redirect: "if_required", // Only redirect if absolutely necessary (3D Secure)
+        redirect: "if_required",
         confirmParams: {
           return_url: `${window.location.origin}/payment-success`,
         },
       });
 
       if (error) {
-        setIsProcessing(false);
         toast({
           title: "Payment Failed",
           description: error.message,
           variant: "destructive",
         });
       } else if (paymentIntent && paymentIntent.status === "succeeded") {
-        // Payment succeeded - navigate to success page
-        // For bundle purchases, pass email opt-in preference to success page
-        const emailParam = (purchaseType === "bundle" && emailOptIn && email) 
-          ? `&email=${encodeURIComponent(email)}` 
-          : '';
+        const emailParam =
+          purchaseType === "bundle" && emailOptIn && email
+            ? `&email=${encodeURIComponent(email)}`
+            : "";
         setLocation(`/payment-success?payment_intent=${paymentIntent.id}${emailParam}`);
       } else {
-        setIsProcessing(false);
         toast({
           title: "Payment Processing",
           description: "Your payment is being processed. Please wait...",
         });
       }
     } catch (err: any) {
-      setIsProcessing(false);
       toast({
         title: "Error",
-        description: err.message || "An unexpected error occurred",
+        description: err.message || "An unexpected error occurred.",
         variant: "destructive",
       });
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -100,7 +128,7 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
               <p className="text-sm text-muted-foreground mb-4">
                 Get 3 practice questions delivered to your inbox every day at 8:59am for 100 days!
               </p>
-              
+
               <div className="space-y-3">
                 <div>
                   <Label htmlFor="email" className="text-sm font-medium">
@@ -116,12 +144,12 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
                     data-testid="input-email"
                   />
                 </div>
-                
+
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="emailOptIn"
                     checked={emailOptIn}
-                    onCheckedChange={(checked) => setEmailOptIn(checked as boolean)}
+                    onCheckedChange={(checked) => setEmailOptIn(!!checked)}
                     data-testid="checkbox-email-optin"
                   />
                   <label
@@ -137,26 +165,32 @@ const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; pu
         </div>
       )}
 
-      <PaymentElement 
-        options={{
-          layout: "tabs",
-          // Disable all wallet/redirect-based payment methods
-          wallets: {
-            applePay: "never",
-            googlePay: "never"
-          }
-        }}
-      />
-      <Button 
-        type="submit" 
-        className="w-full" 
+      <div id="payment-element">
+        <PaymentElement
+          options={{
+            layout: "tabs",
+            wallets: {
+              applePay: "never",
+              googlePay: "never",
+            },
+          }}
+        />
+      </div>
+
+      <Button
+        type="submit"
+        className="w-full"
         size="lg"
-        disabled={!stripe || isProcessing}
+        disabled={!stripe || isProcessing || !elementReady}
         data-testid="button-submit-payment"
       >
-        {isProcessing ? "Processing..." : 
-         purchaseType === "bundle" ? "Pay £1.49" : "Pay £0.99"}
+        {isProcessing
+          ? "Processing..."
+          : purchaseType === "bundle"
+          ? "Pay £1.49"
+          : "Pay £0.99"}
       </Button>
+
       <p className="text-xs text-center text-muted-foreground">
         <Lock className="w-3 h-3 inline mr-1" />
         Secure payment powered by Stripe
@@ -171,36 +205,31 @@ export default function Checkout() {
   const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle" | null>(null);
 
   useEffect(() => {
-    // Get purchase type from URL query parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const type = urlParams.get('type') as "exam" | "scenario" | "bundle";
+    const type = urlParams.get("type") as "exam" | "scenario" | "bundle";
     if (type && ["exam", "scenario", "bundle"].includes(type)) {
       setPurchaseType(type);
     } else {
-      // Invalid or missing type, redirect to home
-      setLocation('/');
+      setLocation("/");
     }
   }, [setLocation]);
 
   useEffect(() => {
-    // Only create payment intent once we have the purchase type from URL
     if (!purchaseType) return;
-    
-    // Amount is hardcoded on server - no client input needed
+
     apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
-      .then((data) => {
-        setClientSecret(data.clientSecret);
-      })
-      .catch((error) => {
-        console.error("Error creating payment intent:", error);
-      });
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((error) => console.error("Error creating payment intent:", error));
   }, [purchaseType]);
 
   if (!clientSecret) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" aria-label="Loading"/>
+        <div
+          className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"
+          aria-label="Loading"
+        />
       </div>
     );
   }
@@ -209,8 +238,8 @@ export default function Checkout() {
     <div className="min-h-screen bg-background">
       <div className="max-w-2xl mx-auto px-6 py-16">
         <div className="mb-8">
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             onClick={() => setLocation("/")}
             data-testid="button-back-home"
           >
@@ -225,15 +254,22 @@ export default function Checkout() {
               J&K Cemap Training
             </p>
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-4" data-testid="text-checkout-title">
-            {purchaseType === "bundle" ? "Complete Bundle Package" :
-             purchaseType === "scenario" ? "Unlock Scenario Quiz" :
-             "Unlock Full Exam Mode"}
+          <h1
+            className="text-4xl font-bold text-foreground mb-4"
+            data-testid="text-checkout-title"
+          >
+            {purchaseType === "bundle"
+              ? "Complete Bundle Package"
+              : purchaseType === "scenario"
+              ? "Unlock Scenario Quiz"
+              : "Unlock Full Exam Mode"}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {purchaseType === "bundle" ? "Get access to both Full Exam (100 questions) and Scenario Quiz (150 questions)" :
-             purchaseType === "scenario" ? "Get access to all 50 realistic scenarios (150 questions)" :
-             "Get access to the complete 100-question CeMAP practice exam"}
+            {purchaseType === "bundle"
+              ? "Get access to both Full Exam (100 questions) and Scenario Quiz (150 questions)"
+              : purchaseType === "scenario"
+              ? "Get access to all 50 realistic scenarios (150 questions)"
+              : "Get access to the complete 100-question CeMAP practice exam"}
           </p>
         </div>
 
@@ -241,8 +277,9 @@ export default function Checkout() {
           <CardHeader>
             <CardTitle className="text-2xl">Complete Your Purchase</CardTitle>
             <CardDescription>
-              {purchaseType === "bundle" ? "One-time payment of £1.49 for unlimited access to both exams (Save 50p!)" :
-               "One-time payment of £0.99 for unlimited access"}
+              {purchaseType === "bundle"
+                ? "One-time payment of £1.49 for unlimited access to both exams (Save 50p!)"
+                : "One-time payment of £0.99 for unlimited access"}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -254,11 +291,11 @@ export default function Checkout() {
 
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            {purchaseType === "bundle" ? 
-              "Bundle includes: 100-question Full Exam + 150-question Scenario Quiz" :
-             purchaseType === "scenario" ?
-              "Access includes all 50 scenarios with 150 questions total" :
-              "Access includes 100 authentic CeMAP questions across all 8 topics"}
+            {purchaseType === "bundle"
+              ? "Bundle includes: 100-question Full Exam + 150-question Scenario Quiz"
+              : purchaseType === "scenario"
+              ? "Access includes all 50 scenarios with 150 questions total"
+              : "Access includes 100 authentic CeMAP questions across all 8 topics"}
           </p>
         </div>
       </div>
