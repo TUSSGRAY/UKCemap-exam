@@ -28,10 +28,13 @@ export default function Quiz({ mode }: QuizProps) {
 
   useEffect(() => {
     if (mode === "exam") {
-      const accessToken = localStorage.getItem('examAccessToken');
+      // Check for bundle or exam-specific access
+      const bundleToken = localStorage.getItem('bundleAccessToken');
+      const examToken = localStorage.getItem('examAccessToken');
+      const accessToken = bundleToken || examToken;
       
       if (!accessToken) {
-        setLocation('/checkout');
+        setLocation('/checkout?type=exam');
         return;
       }
       
@@ -44,12 +47,43 @@ export default function Quiz({ mode }: QuizProps) {
         .then(res => res.json())
         .then(data => {
           if (!data.hasAccess) {
-            localStorage.removeItem('examAccessToken');
-            setLocation('/checkout');
+            if (bundleToken) localStorage.removeItem('bundleAccessToken');
+            if (examToken) localStorage.removeItem('examAccessToken');
+            setLocation('/checkout?type=exam');
           }
         })
         .catch(() => {
-          setLocation('/checkout');
+          setLocation('/checkout?type=exam');
+        });
+    }
+
+    if (mode === "scenario") {
+      // Check for bundle or scenario-specific access
+      const bundleToken = localStorage.getItem('bundleAccessToken');
+      const scenarioToken = localStorage.getItem('scenarioAccessToken');
+      const accessToken = bundleToken || scenarioToken;
+      
+      if (!accessToken) {
+        setLocation('/checkout?type=scenario');
+        return;
+      }
+      
+      // Verify access token with server (authoritative source)
+      fetch('/api/check-scenario-access', {
+        headers: {
+          'X-Access-Token': accessToken
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.hasAccess) {
+            if (bundleToken) localStorage.removeItem('bundleAccessToken');
+            if (scenarioToken) localStorage.removeItem('scenarioAccessToken');
+            setLocation('/checkout?type=scenario');
+          }
+        })
+        .catch(() => {
+          setLocation('/checkout?type=scenario');
         });
     }
   }, [mode, setLocation]);
@@ -60,9 +94,20 @@ export default function Quiz({ mode }: QuizProps) {
     queryFn: async () => {
       const headers: Record<string, string> = {};
       
-      // Include access token for exam mode
+      // Include access token for exam and scenario modes
       if (mode === "exam") {
-        const accessToken = localStorage.getItem('examAccessToken');
+        const bundleToken = localStorage.getItem('bundleAccessToken');
+        const examToken = localStorage.getItem('examAccessToken');
+        const accessToken = bundleToken || examToken;
+        if (accessToken) {
+          headers['X-Access-Token'] = accessToken;
+        }
+      }
+      
+      if (mode === "scenario") {
+        const bundleToken = localStorage.getItem('bundleAccessToken');
+        const scenarioToken = localStorage.getItem('scenarioAccessToken');
+        const accessToken = bundleToken || scenarioToken;
         if (accessToken) {
           headers['X-Access-Token'] = accessToken;
         }

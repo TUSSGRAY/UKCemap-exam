@@ -13,7 +13,7 @@ if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
 }
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
+const CheckoutForm = ({ clientSecret, purchaseType }: { clientSecret: string; purchaseType: "exam" | "scenario" | "bundle" }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
@@ -85,7 +85,8 @@ const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
         disabled={!stripe || isProcessing}
         data-testid="button-submit-payment"
       >
-        {isProcessing ? "Processing..." : "Pay £0.99"}
+        {isProcessing ? "Processing..." : 
+         purchaseType === "bundle" ? "Pay £1.49" : "Pay £0.99"}
       </Button>
       <p className="text-xs text-center text-muted-foreground">
         <Lock className="w-3 h-3 inline mr-1" />
@@ -98,10 +99,20 @@ const CheckoutForm = ({ clientSecret }: { clientSecret: string }) => {
 export default function Checkout() {
   const [clientSecret, setClientSecret] = useState("");
   const [, setLocation] = useLocation();
+  const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle">("exam");
+
+  useEffect(() => {
+    // Get purchase type from URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const type = urlParams.get('type') as "exam" | "scenario" | "bundle";
+    if (type && ["exam", "scenario", "bundle"].includes(type)) {
+      setPurchaseType(type);
+    }
+  }, []);
 
   useEffect(() => {
     // Amount is hardcoded on server - no client input needed
-    apiRequest("POST", "/api/create-payment-intent", {})
+    apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
       .then((data) => {
         setClientSecret(data.clientSecret);
@@ -109,7 +120,7 @@ export default function Checkout() {
       .catch((error) => {
         console.error("Error creating payment intent:", error);
       });
-  }, []);
+  }, [purchaseType]);
 
   if (!clientSecret) {
     return (
@@ -140,10 +151,14 @@ export default function Checkout() {
             </p>
           </div>
           <h1 className="text-4xl font-bold text-foreground mb-4" data-testid="text-checkout-title">
-            Unlock Full Exam Mode
+            {purchaseType === "bundle" ? "Complete Bundle Package" :
+             purchaseType === "scenario" ? "Unlock Scenario Quiz" :
+             "Unlock Full Exam Mode"}
           </h1>
           <p className="text-lg text-muted-foreground">
-            Get access to the complete 100-question CeMAP practice exam
+            {purchaseType === "bundle" ? "Get access to both Full Exam (100 questions) and Scenario Quiz (10 scenarios)" :
+             purchaseType === "scenario" ? "Get access to 10 realistic scenario-based case studies" :
+             "Get access to the complete 100-question CeMAP practice exam"}
           </p>
         </div>
 
@@ -151,19 +166,24 @@ export default function Checkout() {
           <CardHeader>
             <CardTitle className="text-2xl">Complete Your Purchase</CardTitle>
             <CardDescription>
-              One-time payment of £0.99 for unlimited access to exam mode
+              {purchaseType === "bundle" ? "One-time payment of £1.49 for unlimited access to both exams (Save 50p!)" :
+               "One-time payment of £0.99 for unlimited access"}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <CheckoutForm clientSecret={clientSecret} />
+              <CheckoutForm clientSecret={clientSecret} purchaseType={purchaseType} />
             </Elements>
           </CardContent>
         </Card>
 
         <div className="mt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            Access includes 100 authentic CeMAP questions across all 8 topics
+            {purchaseType === "bundle" ? 
+              "Bundle includes: 100-question Full Exam + 10 Scenario Quizzes" :
+             purchaseType === "scenario" ?
+              "Access includes 10 realistic scenarios with 3 questions each" :
+              "Access includes 100 authentic CeMAP questions across all 8 topics"}
           </p>
         </div>
       </div>

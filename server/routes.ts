@@ -31,6 +31,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
+      // Enforce access control for scenario mode
+      if (mode === "scenario") {
+        const accessToken = req.headers['x-access-token'] as string;
+        
+        if (!accessToken) {
+          return res.status(403).json({ error: "Scenario quiz requires payment. Access token missing." });
+        }
+        
+        const hasAccess = await storage.checkScenarioAccess(accessToken);
+        if (!hasAccess) {
+          return res.status(403).json({ error: "Invalid or expired access token. Please purchase scenario quiz access." });
+        }
+      }
+
       const questions = await storage.getQuestionsByMode(mode, count);
       res.json(questions);
     } catch (error: any) {
@@ -49,16 +63,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/create-payment-intent", async (req, res) => {
     try {
-      // Hardcode the amount on the server - never trust client input for payment amounts
-      const EXAM_PRICE_GBP = 0.99;
+      const { purchaseType } = req.body;
+      
+      // Hardcode prices on server - never trust client input
+      let amount: number;
+      let productName: string;
+      
+      switch (purchaseType) {
+        case "exam":
+          amount = 99; // £0.99
+          productName = "cemap_full_exam";
+          break;
+        case "scenario":
+          amount = 99; // £0.99
+          productName = "cemap_scenario_quiz";
+          break;
+        case "bundle":
+          amount = 149; // £1.49
+          productName = "cemap_bundle";
+          break;
+        default:
+          return res.status(400).json({ error: "Invalid purchase type" });
+      }
+      
       const paymentIntent = await stripe.paymentIntents.create({
-        amount: 99, // £0.99 in pence (hardcoded)
+        amount,
         currency: "gbp",
         // Explicitly specify card as the only payment method (no automatic methods)
         // This prevents redirect-based payment methods in iframe environments
         payment_method_types: ["card"],
         metadata: {
-          product: "cemap_full_exam"
+          product: productName,
+          purchaseType
         }
       });
       res.json({ clientSecret: paymentIntent.client_secret });
@@ -77,11 +113,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
       
-      if (paymentIntent.status === "succeeded" && paymentIntent.amount === 99) {
-        const accessToken = await storage.recordExamPurchase(paymentIntentId);
-        res.json({ verified: true, hasAccess: true, accessToken });
-      } else {
-        res.json({ verified: false, hasAccess: false });
+      if (paymentIntent.status !== "succeeded") {
+        return res.json({ verified: false, hasAccess: false });
+      }
+
+      const purchaseType = paymentIntent.metadata.purchaseType;
+      let accessToken: string;
+      let expectedAmount: number;
+
+      switch (purchaseType) {
+        case "exam":
+          expectedAmount = 99;
+          if (paymentIntent.amount === expectedAmount) {
+            accessToken = await storage.recordExamPurchase(paymentIntentId);
+            res.json({ verified: true, purchaseType: "exam", accessToken });
+          } else {
+            res.json({ verified: false, hasAccess: false });
+          }
+          break;
+        case "scenario":
+          expectedAmount = 99;
+          if (paymentIntent.amount === expectedAmount) {
+            accessToken = await storage.recordScenarioPurchase(paymentIntentId);
+            res.json({ verified: true, purchaseType: "scenario", accessToken });
+          } else {
+            res.json({ verified: false, hasAccess: false });
+          }
+          break;
+        case "bundle":
+          expectedAmount = 149;
+          if (paymentIntent.amount === expectedAmount) {
+            accessToken = await storage.recordBundlePurchase(paymentIntentId);
+            res.json({ verified: true, purchaseType: "bundle", accessToken });
+          } else {
+            res.json({ verified: false, hasAccess: false });
+          }
+          break;
+        default:
+          res.status(400).json({ error: "Invalid purchase type" });
       }
     } catch (error: any) {
       res.status(500).json({ message: "Error verifying payment: " + error.message });
@@ -97,6 +166,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const hasAccess = await storage.checkExamAccess(accessToken);
+      res.json({ hasAccess });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/check-scenario-access", async (req, res) => {
+    try {
+      const accessToken = req.headers['x-access-token'] as string;
+      
+      if (!accessToken) {
+        return res.json({ hasAccess: false });
+      }
+      
+      const hasAccess = await storage.checkScenarioAccess(accessToken);
       res.json({ hasAccess });
     } catch (error: any) {
       res.status(500).json({ error: error.message });

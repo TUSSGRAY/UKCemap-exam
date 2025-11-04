@@ -6,17 +6,24 @@ export interface IStorage {
   getQuestionsByMode(mode: QuizMode, count: number): Promise<Question[]>;
   getRandomAdvert(): Promise<Advert>;
   recordExamPurchase(paymentIntentId: string): Promise<string>;
+  recordScenarioPurchase(paymentIntentId: string): Promise<string>;
+  recordBundlePurchase(paymentIntentId: string): Promise<string>;
   checkExamAccess(accessToken: string): Promise<boolean>;
+  checkScenarioAccess(accessToken: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
   private questions: Map<string, Question>;
   private adverts: Advert[];
   private examAccessTokens: Map<string, string>;
+  private scenarioAccessTokens: Map<string, string>;
+  private bundleAccessTokens: Map<string, string>;
 
   constructor() {
     this.questions = new Map();
     this.examAccessTokens = new Map();
+    this.scenarioAccessTokens = new Map();
+    this.bundleAccessTokens = new Map();
     this.adverts = [
       {
         id: "1",
@@ -1782,8 +1789,26 @@ export class MemStorage implements IStorage {
     return accessToken;
   }
 
+  async recordScenarioPurchase(paymentIntentId: string): Promise<string> {
+    const accessToken = randomUUID();
+    this.scenarioAccessTokens.set(accessToken, paymentIntentId);
+    return accessToken;
+  }
+
+  async recordBundlePurchase(paymentIntentId: string): Promise<string> {
+    const accessToken = randomUUID();
+    this.bundleAccessTokens.set(accessToken, paymentIntentId);
+    return accessToken;
+  }
+
   async checkExamAccess(accessToken: string): Promise<boolean> {
-    return this.examAccessTokens.has(accessToken);
+    // Bundle gives access to exam too
+    return this.examAccessTokens.has(accessToken) || this.bundleAccessTokens.has(accessToken);
+  }
+
+  async checkScenarioAccess(accessToken: string): Promise<boolean> {
+    // Bundle gives access to scenarios too
+    return this.scenarioAccessTokens.has(accessToken) || this.bundleAccessTokens.has(accessToken);
   }
 }
 

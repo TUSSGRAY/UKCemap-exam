@@ -8,6 +8,7 @@ import { apiRequest } from "@/lib/queryClient";
 export default function PaymentSuccess() {
   const [, setLocation] = useLocation();
   const [isVerifying, setIsVerifying] = useState(true);
+  const [purchaseType, setPurchaseType] = useState<"exam" | "scenario" | "bundle">("exam");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,9 +19,17 @@ export default function PaymentSuccess() {
       apiRequest("POST", "/api/verify-payment", { paymentIntentId })
         .then((res) => res.json())
         .then((data) => {
-          if (data.verified && data.hasAccess && data.accessToken) {
-            // Payment verified - store unique access token for this device
-            localStorage.setItem('examAccessToken', data.accessToken);
+          if (data.verified && data.accessToken) {
+            // Payment verified - store access token based on purchase type
+            setPurchaseType(data.purchaseType);
+            
+            if (data.purchaseType === "exam") {
+              localStorage.setItem('examAccessToken', data.accessToken);
+            } else if (data.purchaseType === "scenario") {
+              localStorage.setItem('scenarioAccessToken', data.accessToken);
+            } else if (data.purchaseType === "bundle") {
+              localStorage.setItem('bundleAccessToken', data.accessToken);
+            }
             setIsVerifying(false);
           } else {
             setLocation('/');
@@ -36,6 +45,10 @@ export default function PaymentSuccess() {
 
   const handleStartExam = () => {
     setLocation('/quiz/exam');
+  };
+
+  const handleStartScenario = () => {
+    setLocation('/quiz/scenario');
   };
 
   const handleGoHome = () => {
@@ -71,7 +84,11 @@ export default function PaymentSuccess() {
             Payment Successful!
           </h1>
           <p className="text-lg text-muted-foreground">
-            Thank you for your purchase. You now have full access to the exam mode.
+            {purchaseType === "bundle" 
+              ? "Thank you for your purchase. You now have access to both the Full Exam and Scenario Quiz!"
+              : purchaseType === "scenario"
+              ? "Thank you for your purchase. You now have access to the Scenario Quiz!"
+              : "Thank you for your purchase. You now have access to the Full Exam!"}
           </p>
         </div>
 
@@ -81,26 +98,73 @@ export default function PaymentSuccess() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-center text-muted-foreground">
-              You can now take the full 100-question CeMAP practice exam anytime.
+              {purchaseType === "bundle"
+                ? "You can now access both the 100-question Full Exam and all 10 Scenario Quizzes anytime."
+                : purchaseType === "scenario"
+                ? "You can now access all 10 realistic scenario-based case studies anytime."
+                : "You can now take the full 100-question CeMAP practice exam anytime."}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                onClick={handleStartExam} 
-                className="flex-1" 
-                size="lg"
-                data-testid="button-start-exam"
-              >
-                Start Full Exam Now
-              </Button>
-              <Button 
-                onClick={handleGoHome} 
-                variant="outline" 
-                className="flex-1" 
-                size="lg"
-                data-testid="button-go-home"
-              >
-                Back to Home
-              </Button>
+              {purchaseType === "bundle" ? (
+                <>
+                  <Button 
+                    onClick={handleStartExam} 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-start-exam"
+                  >
+                    Start Full Exam
+                  </Button>
+                  <Button 
+                    onClick={handleStartScenario} 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-start-scenario"
+                  >
+                    Start Scenario Quiz
+                  </Button>
+                </>
+              ) : purchaseType === "scenario" ? (
+                <>
+                  <Button 
+                    onClick={handleStartScenario} 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-start-scenario"
+                  >
+                    Start Scenario Quiz Now
+                  </Button>
+                  <Button 
+                    onClick={handleGoHome} 
+                    variant="outline" 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-go-home"
+                  >
+                    Back to Home
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    onClick={handleStartExam} 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-start-exam"
+                  >
+                    Start Full Exam Now
+                  </Button>
+                  <Button 
+                    onClick={handleGoHome} 
+                    variant="outline" 
+                    className="flex-1" 
+                    size="lg"
+                    data-testid="button-go-home"
+                  >
+                    Back to Home
+                  </Button>
+                </>
+              )}
             </div>
           </CardContent>
         </Card>

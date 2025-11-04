@@ -2,7 +2,7 @@
 
 ## Overview
 
-A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (free, realistic case studies with 3 related questions per scenario). The system includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
+A professional certification quiz application designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination branded as "J&K Cemap Training". The application features three distinct modes: Practice Mode (free, with immediate feedback and flexible question counts), Full Exam Mode (£0.99 purchase, 100 questions with results shown at the end, behind a secure paywall), and Scenario Quiz Mode (£0.99 purchase, 10 realistic case studies with 3 related questions each, behind a secure paywall). The system includes a Bundle Package (£1.49) that provides access to both paid exam modes, saving users 50p. All pricing includes periodic advertisement breaks during quiz sessions, Stripe payment integration, and device-based access control for paid content.
 
 ## User Preferences
 
@@ -20,12 +20,12 @@ Preferred communication style: Simple, everyday language.
 - Comprehensive component library including cards, buttons, dialogs, progress indicators, and form elements
 
 **Routing**: Wouter for client-side routing with seven main routes:
-- Home page (mode selection with branding)
+- Home page (mode selection with branding and bundle offer)
 - Practice quiz (`/quiz/practice`) - Free access
-- Exam quiz (`/quiz/exam`) - Requires payment
-- Scenario quiz (`/quiz/scenario`) - Free access
+- Exam quiz (`/quiz/exam`) - Requires payment (£0.99 or bundle)
+- Scenario quiz (`/quiz/scenario`) - Requires payment (£0.99 or bundle)
 - Results page (`/results`)
-- Checkout page (`/checkout`) - Stripe payment for exam access
+- Checkout page (`/checkout?type={exam|scenario|bundle}`) - Stripe payment with three pricing tiers
 - Payment success page (`/payment-success`) - Confirms purchase and grants access
 
 **State Management**: 
@@ -43,11 +43,12 @@ Preferred communication style: Simple, everyday language.
 **Server Framework**: Express.js with TypeScript running on Node.js
 
 **API Design**: RESTful endpoints:
-- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode (exam mode requires X-Access-Token header)
+- `GET /api/questions?mode={practice|exam|scenario}&count={number}` - Fetches questions based on quiz mode (exam and scenario modes require X-Access-Token header)
 - `GET /api/adverts/random` - Retrieves a random advertisement
-- `POST /api/create-payment-intent` - Creates Stripe payment intent for £0.99 exam access
-- `POST /api/verify-payment` - Verifies Stripe payment and generates access token
-- `GET /api/check-exam-access` - Validates access token for exam mode
+- `POST /api/create-payment-intent` - Creates Stripe payment intent with purchaseType (exam: £0.99, scenario: £0.99, bundle: £1.49)
+- `POST /api/verify-payment` - Verifies Stripe payment and generates appropriate access token based on purchase type
+- `GET /api/check-exam-access` - Validates access token for exam mode (accepts exam or bundle tokens)
+- `GET /api/check-scenario-access` - Validates access token for scenario mode (accepts scenario or bundle tokens)
 
 **Data Layer**: Currently using in-memory storage (MemStorage class) with an interface-based storage abstraction (IStorage) that allows for future database implementation
 
@@ -78,18 +79,25 @@ Preferred communication style: Simple, everyday language.
 ### Key Features
 
 **Quiz Modes**:
-- Practice Mode: Free access, flexible question count (5-100), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
-- Full Exam Mode: £0.99 purchase required, fixed 100 questions, no feedback until completion, 80% pass threshold, device-based access control
-- Scenario Quiz Mode: Free access, one complete scenario with 3 related questions, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions
+- Practice Mode: Free access, flexible question count (5-10), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
+- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions, no feedback until completion, 80% pass threshold, device-based access control
+- Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), access to 10 realistic scenarios with 3 related questions each, immediate feedback after each answer, 80% pass threshold (requires 3/3 to pass), displays case study prominently above questions, random scenario selection each session
 
 **Payment & Access Control System**:
-- Stripe integration for secure payment processing (£0.99 for Full Exam access)
+- Stripe integration for secure payment processing with three pricing tiers:
+  - Full Exam Only: £0.99 (100 questions)
+  - Scenario Quiz Only: £0.99 (10 scenarios × 3 questions)
+  - Bundle Package: £1.49 (both exams - save 50p)
 - Device-based access control using cryptographic tokens (UUID)
-- Payment amount hardcoded server-side for security
-- Server-side token validation before serving exam content
-- Each successful payment generates unique access token
+- Payment amounts hardcoded server-side for security (99p, 99p, 149p)
+- Server-side token validation before serving exam and scenario content
+- Each successful payment generates unique access token based on purchase type:
+  - examAccessToken: Full Exam access only
+  - scenarioAccessToken: Scenario Quiz access only
+  - bundleAccessToken: Access to both Full Exam and Scenario Quiz
 - Tokens stored in localStorage for device persistence
-- All exam API requests require valid X-Access-Token header
+- All exam and scenario API requests require valid X-Access-Token header
+- Bundle tokens grant access to both endpoints
 - Unauthorized access attempts return 403 Forbidden
 - No user authentication required - simple device-based model
 

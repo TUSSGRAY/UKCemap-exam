@@ -8,36 +8,71 @@ import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, Lo
 export default function Home() {
   const [, setLocation] = useLocation();
   const [hasExamAccess, setHasExamAccess] = useState(false);
+  const [hasScenarioAccess, setHasScenarioAccess] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    // Get access token from localStorage
-    const accessToken = localStorage.getItem('examAccessToken');
-    
-    if (!accessToken) {
-      setHasExamAccess(false);
-      setIsChecking(false);
-      return;
-    }
-    
-    // Verify token with server (authoritative source)
-    fetch('/api/check-exam-access', {
-      headers: {
-        'X-Access-Token': accessToken
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setHasExamAccess(data.hasAccess);
-        // Remove token if invalid
-        if (!data.hasAccess) {
-          localStorage.removeItem('examAccessToken');
+    const checkAccess = async () => {
+      // Check for bundle access first (gives access to both)
+      const bundleToken = localStorage.getItem('bundleAccessToken');
+      const examToken = localStorage.getItem('examAccessToken');
+      const scenarioToken = localStorage.getItem('scenarioAccessToken');
+
+      if (bundleToken) {
+        // Bundle gives access to both
+        try {
+          const examRes = await fetch('/api/check-exam-access', {
+            headers: { 'X-Access-Token': bundleToken }
+          });
+          const examData = await examRes.json();
+          
+          const scenarioRes = await fetch('/api/check-scenario-access', {
+            headers: { 'X-Access-Token': bundleToken }
+          });
+          const scenarioData = await scenarioRes.json();
+
+          setHasExamAccess(examData.hasAccess);
+          setHasScenarioAccess(scenarioData.hasAccess);
+        } catch (error) {
+          console.error('Error checking bundle access:', error);
         }
-        setIsChecking(false);
-      })
-      .catch(() => {
-        setIsChecking(false);
-      });
+      } else {
+        // Check individual access tokens
+        if (examToken) {
+          try {
+            const res = await fetch('/api/check-exam-access', {
+              headers: { 'X-Access-Token': examToken }
+            });
+            const data = await res.json();
+            setHasExamAccess(data.hasAccess);
+            if (!data.hasAccess) {
+              localStorage.removeItem('examAccessToken');
+            }
+          } catch (error) {
+            console.error('Error checking exam access:', error);
+          }
+        }
+
+        if (scenarioToken) {
+          try {
+            const res = await fetch('/api/check-scenario-access', {
+              headers: { 'X-Access-Token': scenarioToken }
+            });
+            const data = await res.json();
+            setHasScenarioAccess(data.hasAccess);
+            if (!data.hasAccess) {
+              localStorage.removeItem('scenarioAccessToken');
+            }
+          } catch (error) {
+            console.error('Error checking scenario access:', error);
+          }
+        }
+      }
+
+      setIsChecking(false);
+    };
+
+    checkAccess();
   }, []);
   return (
     <div className="min-h-screen bg-background">
@@ -157,7 +192,7 @@ export default function Home() {
                     className="w-full" 
                     size="lg" 
                     variant="default"
-                    onClick={() => setLocation('/checkout')}
+                    onClick={() => setLocation('/checkout?type=exam')}
                     data-testid="button-purchase-exam"
                   >
                     <Lock className="w-4 h-4 mr-2" />
@@ -168,7 +203,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="hover-elevate transition-all duration-300" data-testid="card-mode-scenario">
+          <Card className="hover-elevate transition-all duration-300 border-primary/20" data-testid="card-mode-scenario">
             <CardHeader className="space-y-4">
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
                 <Users className="w-8 h-8 text-primary" />
@@ -184,11 +219,11 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">1 realistic client scenario</span>
+                  <span className="text-sm text-foreground">10 realistic client scenarios</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">3 scenario-based questions</span>
+                  <span className="text-sm text-foreground">3 questions per scenario</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -196,17 +231,69 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Estimated time: 3-5 minutes</span>
+                  <span className="text-sm text-muted-foreground">Estimated time: 3-5 minutes per scenario</span>
                 </li>
               </ul>
-              <Link href="/quiz/scenario" data-testid="link-start-scenario">
-                <Button className="w-full" size="lg">
-                  Start Scenario Quiz
-                </Button>
-              </Link>
+              {hasScenarioAccess ? (
+                <Link href="/quiz/scenario" data-testid="link-start-scenario">
+                  <Button className="w-full" size="lg" variant="default">
+                    Start Scenario Quiz
+                  </Button>
+                </Link>
+              ) : (
+                <div className="space-y-3">
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 text-center">
+                    <p className="text-2xl font-bold text-foreground mb-1">£0.99</p>
+                    <p className="text-xs text-muted-foreground">One-time payment</p>
+                  </div>
+                  <Button 
+                    className="w-full" 
+                    size="lg" 
+                    variant="default"
+                    onClick={() => setLocation('/checkout?type=scenario')}
+                    data-testid="button-purchase-scenario"
+                  >
+                    <Lock className="w-4 h-4 mr-2" />
+                    Purchase Scenario Quiz
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
+
+        {!hasExamAccess && !hasScenarioAccess && (
+          <div className="mt-12 max-w-3xl mx-auto">
+            <Card className="border-2 border-primary/30 bg-primary/5" data-testid="card-bundle-offer">
+              <CardHeader className="text-center">
+                <Badge variant="default" className="mx-auto mb-3 text-sm font-semibold px-4 py-1">
+                  BEST VALUE - SAVE 50p!
+                </Badge>
+                <CardTitle className="text-3xl font-bold">Complete Bundle Package</CardTitle>
+                <CardDescription className="text-lg mt-2">
+                  Get both Full Exam + Scenario Quiz together
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-4">
+                  <div className="text-muted-foreground line-through text-xl">£1.98</div>
+                  <div className="text-4xl font-bold text-primary">£1.49</div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Unlimited access to 100 exam questions + 10 scenario quizzes
+                </p>
+                <Button 
+                  className="w-full max-w-md mx-auto" 
+                  size="lg"
+                  onClick={() => setLocation('/checkout?type=bundle')}
+                  data-testid="button-purchase-bundle"
+                >
+                  Get Bundle Package
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
