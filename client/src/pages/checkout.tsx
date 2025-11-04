@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
   throw new Error("Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY");
@@ -203,16 +204,25 @@ export default function Checkout() {
       );
   }, [purchaseType]);
 
-  if (!clientSecret || !purchaseType) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div
-          className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"
-          aria-label="Loading"
-        />
-      </div>
-    );
-  }
+  const isLoading = !clientSecret || !purchaseType;
+
+  const getTitle = () => {
+    if (!purchaseType) return "Loading...";
+    return purchaseType === "bundle"
+      ? "Complete Bundle Package"
+      : purchaseType === "scenario"
+      ? "Unlock Scenario Quiz"
+      : "Unlock Full Exam Mode";
+  };
+
+  const getDescription = () => {
+    if (!purchaseType) return "";
+    return purchaseType === "bundle"
+      ? "Get access to both Full Exam (100 questions) and Scenario Quiz (150 questions)"
+      : purchaseType === "scenario"
+      ? "Get access to all 50 realistic scenarios (150 questions)"
+      : "Get access to the complete 100-question CeMAP practice exam";
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -238,18 +248,10 @@ export default function Checkout() {
             className="text-4xl font-bold text-foreground mb-4"
             data-testid="text-checkout-title"
           >
-            {purchaseType === "bundle"
-              ? "Complete Bundle Package"
-              : purchaseType === "scenario"
-              ? "Unlock Scenario Quiz"
-              : "Unlock Full Exam Mode"}
+            {getTitle()}
           </h1>
           <p className="text-lg text-muted-foreground">
-            {purchaseType === "bundle"
-              ? "Get access to both Full Exam (100 questions) and Scenario Quiz (150 questions)"
-              : purchaseType === "scenario"
-              ? "Get access to all 50 realistic scenarios (150 questions)"
-              : "Get access to the complete 100-question CeMAP practice exam"}
+            {getDescription()}
           </p>
         </div>
 
@@ -263,18 +265,36 @@ export default function Checkout() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Elements
-              stripe={stripePromise}
-              options={{
-                clientSecret,
-                appearance: { theme: "stripe" },
-              }}
-            >
-              <CheckoutForm
-                clientSecret={clientSecret}
-                purchaseType={purchaseType}
-              />
-            </Elements>
+            {isLoading ? (
+              <div className="space-y-6">
+                {purchaseType === "bundle" && (
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <Skeleton className="h-5 w-3/4 mb-3" />
+                    <Skeleton className="h-4 w-full mb-4" />
+                    <Skeleton className="h-10 w-full mb-3" />
+                    <Skeleton className="h-4 w-2/3" />
+                  </div>
+                )}
+                <div className="space-y-4">
+                  <Skeleton className="h-32 w-full" />
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-4 w-48 mx-auto" />
+                </div>
+              </div>
+            ) : (
+              <Elements
+                stripe={stripePromise}
+                options={{
+                  clientSecret,
+                  appearance: { theme: "stripe" },
+                }}
+              >
+                <CheckoutForm
+                  clientSecret={clientSecret}
+                  purchaseType={purchaseType}
+                />
+              </Elements>
+            )}
           </CardContent>
         </Card>
 
