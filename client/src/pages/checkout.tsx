@@ -198,26 +198,14 @@ export default function Checkout() {
 
   useEffect(() => {
     if (!purchaseType) return;
-    
-    // Set a timeout to ensure payment loads within 2 seconds
-    const timeoutId = setTimeout(() => {
-      setLoadingError(true);
-      toast({
-        title: "Payment Loading Timeout",
-        description: "Payment form is taking longer than expected. Please try again.",
-        variant: "destructive",
-      });
-    }, 2000);
 
     apiRequest("POST", "/api/create-payment-intent", { purchaseType })
       .then((res) => res.json())
       .then((data) => {
-        clearTimeout(timeoutId);
         setClientSecret(data.clientSecret);
         setLoadingError(false);
       })
       .catch((error) => {
-        clearTimeout(timeoutId);
         console.error("Error creating payment intent:", error);
         setLoadingError(true);
         toast({
@@ -226,8 +214,6 @@ export default function Checkout() {
           variant: "destructive",
         });
       });
-
-    return () => clearTimeout(timeoutId);
   }, [purchaseType, toast]);
 
   const isLoading = !clientSecret || !purchaseType;
@@ -302,9 +288,9 @@ export default function Checkout() {
           <CardContent>
             {loadingError ? (
               <div className="text-center py-8 space-y-4">
-                <p className="text-destructive font-medium">Payment form failed to load within 2 seconds</p>
+                <p className="text-destructive font-medium">Payment form failed to load</p>
                 <p className="text-sm text-muted-foreground">
-                  This might be due to a slow network connection. Please try again.
+                  There was an error connecting to the payment processor. Please try again.
                 </p>
                 <Button onClick={handleRetry} data-testid="button-retry-payment">
                   Retry Payment
@@ -326,7 +312,7 @@ export default function Checkout() {
                   <Skeleton className="h-4 w-48 mx-auto" />
                 </div>
                 <p className="text-sm text-center text-muted-foreground">
-                  Loading payment form... (max 2 seconds)
+                  Loading secure payment form...
                 </p>
               </div>
             ) : (
