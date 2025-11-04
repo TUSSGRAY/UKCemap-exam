@@ -70,3 +70,20 @@ export const insertEmailSubscriptionSchema = createInsertSchema(emailSubscriptio
 
 export type InsertEmailSubscription = z.infer<typeof insertEmailSubscriptionSchema>;
 export type EmailSubscription = typeof emailSubscriptions.$inferSelect;
+
+// High score schema for weekly leaderboard
+export const highScores = pgTable("high_scores", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  score: integer("score").notNull(),
+  total: integer("total").notNull(),
+  mode: text("mode").notNull(), // "exam" or "scenario"
+  timestamp: text("timestamp").notNull(),
+});
+
+export const insertHighScoreSchema = createInsertSchema(highScores).omit({
+  id: true,
+});
+
+export type InsertHighScore = z.infer<typeof insertHighScoreSchema>;
+export type HighScore = typeof highScores.$inferSelect;

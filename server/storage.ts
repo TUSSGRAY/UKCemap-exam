@@ -1,4 +1,4 @@
-import type { Question, InsertQuestion, QuizMode, Advert, EmailSubscription, InsertEmailSubscription } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, EmailSubscription, InsertEmailSubscription, HighScore, InsertHighScore } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -18,6 +18,8 @@ export interface IStorage {
   isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean>;
   markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void>;
   unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void>;
+  saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
+  getWeeklyHighScores(mode: "exam" | "scenario", limit: number): Promise<HighScore[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -28,6 +30,7 @@ export class MemStorage implements IStorage {
   private bundleAccessTokens: Map<string, string>;
   private emailSubscriptions: Map<string, EmailSubscription>;
   private emailSubscriptionPayments: Set<string>;
+  private highScores: Map<string, HighScore>;
 
   constructor() {
     this.questions = new Map();
@@ -36,6 +39,7 @@ export class MemStorage implements IStorage {
     this.bundleAccessTokens = new Map();
     this.emailSubscriptions = new Map();
     this.emailSubscriptionPayments = new Set();
+    this.highScores = new Map();
     this.adverts = [
       {
         id: "1",
@@ -3254,6 +3258,42 @@ export class MemStorage implements IStorage {
 
   async unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void> {
     this.emailSubscriptionPayments.delete(paymentIntentId);
+  }
+
+  async saveHighScore(highScore: InsertHighScore): Promise<HighScore> {
+    const id = randomUUID();
+    const timestamp = new Date().toISOString();
+    const newHighScore: HighScore = {
+      id,
+      ...highScore,
+      timestamp,
+    };
+    this.highScores.set(id, newHighScore);
+    return newHighScore;
+  }
+
+  async getWeeklyHighScores(mode: "exam" | "scenario", limit: number = 10): Promise<HighScore[]> {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    
+    // Filter scores by mode and within the last week
+    const weeklyScores = Array.from(this.highScores.values())
+      .filter(score => 
+        score.mode === mode && 
+        new Date(score.timestamp) >= oneWeekAgo
+      )
+      .sort((a, b) => {
+        // Sort by percentage score (descending), then by timestamp (most recent first)
+        const percentA = (a.score / a.total) * 100;
+        const percentB = (b.score / b.total) * 100;
+        if (percentB !== percentA) {
+          return percentB - percentA;
+        }
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+      })
+      .slice(0, limit);
+    
+    return weeklyScores;
   }
 }
 
