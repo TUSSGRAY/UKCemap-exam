@@ -25,7 +25,16 @@ The current implementation uses in-memory storage for a hardcoded question bank 
 ### Key Features
 
 *   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 100 questions, no feedback until end), Scenario Quiz (paid, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
-*   **Payment & Access Control**: Stripe integration for secure payments (£0.99 for single modes, £1.49 for bundle). Device-based access control uses cryptographic tokens stored in `localStorage`, validated server-side for paid content.
+*   **Payment & Access Control**: Stripe integration with comprehensive security hardening:
+    - **Secure Payments**: £0.99 for single modes (exam/scenario), £1.49 for bundle package
+    - **Device-Based Access**: Cryptographic UUID tokens stored in `localStorage`, validated server-side
+    - **Security Hardening** (November 2025):
+      - Product derived exclusively from Stripe payment metadata (zero client trust)
+      - Amount and currency validation (99p/149p GBP enforcement)
+      - Replay attack prevention via bidirectional payment intent ↔ token mapping
+      - Access tokens transmitted via POST body (not URL parameters) to prevent log/history leakage
+      - Input validation with Zod to prevent DoS from malformed requests
+      - Generic error messages to prevent information disclosure
 *   **Advertisement System**: 
     - **Practice Mode**: 20-second non-dismissible Google AdSense ads at questions 3, 6, and 9 to help monetize the free tier and cover hosting costs
     - **Paid Modes**: 30-second custom ads at questions 30 and 90 for exam/scenario modes
