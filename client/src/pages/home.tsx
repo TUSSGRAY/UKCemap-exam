@@ -295,6 +295,36 @@ export default function Home() {
           </div>
         )}
 
+        <div className="mt-16 max-w-2xl mx-auto">
+          <Card className="bg-muted/30" data-testid="card-textbook-promo">
+            <CardContent className="py-6">
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 flex-shrink-0">
+                  <BookOpen className="w-8 h-8 text-primary" />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Need Study Materials?
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Get the official CeMAP textbook to complement your quiz preparation
+                  </p>
+                  <a
+                    href="https://www.libf.ac.uk/study/professional-qualifications/financial-advice/cemap/resources"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="link-buy-textbook"
+                  >
+                    <Button variant="outline" size="sm">
+                      View CeMAP Textbooks
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground">
             Covering all CeMAP topics: Regulation & Ethics, Mortgage Law, Financial Advice, Products, Protection, Property Valuation, Legal Aspects, and Financial Conduct

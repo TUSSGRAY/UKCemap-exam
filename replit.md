@@ -123,6 +123,7 @@ Preferred communication style: Simple, everyday language.
 - Progress tracking with question counter
 - Results summary with percentage score and pass/fail indication
 - Topic badges on questions for content categorization
+- Textbook promotion section on home page with link to official CeMAP study materials
 
 **Design Principles**:
 - Progressive disclosure to avoid overwhelming users
