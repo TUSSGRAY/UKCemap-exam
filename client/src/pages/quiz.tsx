@@ -9,6 +9,7 @@ import { Home, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Question, QuizMode } from "@shared/schema";
 import AdBreakModal from "@/components/ad-break-modal";
+import ReviewModal from "@/components/review-modal";
 import QuestionCountSelector from "@/components/question-count-selector";
 
 interface QuizProps {
@@ -22,6 +23,7 @@ export default function Quiz({ mode }: QuizProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showFeedback, setShowFeedback] = useState(false);
   const [showAdBreak, setShowAdBreak] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
@@ -181,7 +183,14 @@ export default function Quiz({ mode }: QuizProps) {
       return;
     }
 
-    if ((nextIndex) % 9 === 0 && mode !== "scenario") {
+    // Show review modal after question 15 (for exam and scenario modes only)
+    if (nextIndex === 15 && (mode === "exam" || mode === "scenario")) {
+      setShowReview(true);
+      return;
+    }
+
+    // Show ad at questions 30 and 90 for exam and scenario modes
+    if ((nextIndex === 30 || nextIndex === 90) && (mode === "exam" || mode === "scenario")) {
       setShowAdBreak(true);
     } else {
       moveToNextQuestion();
@@ -196,6 +205,11 @@ export default function Quiz({ mode }: QuizProps) {
 
   const handleAdBreakComplete = () => {
     setShowAdBreak(false);
+    moveToNextQuestion();
+  };
+
+  const handleReviewComplete = () => {
+    setShowReview(false);
     moveToNextQuestion();
   };
 
@@ -392,6 +406,13 @@ export default function Quiz({ mode }: QuizProps) {
       <AdBreakModal
         isOpen={showAdBreak}
         onComplete={handleAdBreakComplete}
+        duration={mode === "exam" || mode === "scenario" ? 30 : 10}
+      />
+      
+      <ReviewModal
+        isOpen={showReview}
+        onClose={handleReviewComplete}
+        questionNumber={currentIndex + 1}
       />
     </div>
   );

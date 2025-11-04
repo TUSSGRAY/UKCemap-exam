@@ -103,10 +103,19 @@ Preferred communication style: Simple, everyday language.
 - No user authentication required - simple device-based model
 
 **Advertisement System**: 
-- Modal displays every 9th question with 10-second countdown timer
+- Practice Mode: No advertisements
+- Full Exam Mode: 30-second ads at questions 30 and 90
+- Scenario Quiz Mode: 30-second ads at questions 30 and 90
 - Random advertisement selection from predefined pool
 - Non-dismissible during countdown period
 - Progress bar visualization
+- Affordability message: "These adverts help keep the site affordable"
+
+**Review System**:
+- After question 15 in Full Exam and Scenario Quiz modes, users are prompted to rate their experience
+- 1-5 star rating modal
+- Feedback messages based on rating
+- Ratings stored in localStorage for reference
 
 **User Experience**:
 - Question count selector for practice mode

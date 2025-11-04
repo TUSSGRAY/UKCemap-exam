@@ -6,6 +6,7 @@ import { Megaphone } from "lucide-react";
 interface AdBreakModalProps {
   isOpen: boolean;
   onComplete: () => void;
+  duration?: number; // Duration in seconds (10 for practice, 30 for exam/scenario)
 }
 
 const adverts = [
@@ -14,13 +15,13 @@ const adverts = [
   "Refresh your knowledge with CeMAP Pro's 2025 syllabus updates!",
 ];
 
-export default function AdBreakModal({ isOpen, onComplete }: AdBreakModalProps) {
-  const [countdown, setCountdown] = useState(10);
+export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBreakModalProps) {
+  const [countdown, setCountdown] = useState(duration);
   const [adMessage] = useState(() => adverts[Math.floor(Math.random() * adverts.length)]);
 
   useEffect(() => {
     if (!isOpen) {
-      setCountdown(10);
+      setCountdown(duration);
       return;
     }
 
@@ -36,9 +37,9 @@ export default function AdBreakModal({ isOpen, onComplete }: AdBreakModalProps) 
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isOpen, onComplete]);
+  }, [isOpen, onComplete, duration]);
 
-  const progress = ((10 - countdown) / 10) * 100;
+  const progress = ((duration - countdown) / duration) * 100;
 
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
@@ -72,9 +73,14 @@ export default function AdBreakModal({ isOpen, onComplete }: AdBreakModalProps) 
             <Progress value={progress} className="h-2" data-testid="progress-countdown" />
           </div>
 
-          <p className="text-xs text-center text-muted-foreground">
-            Thank you for your patience. Your quiz will continue automatically.
-          </p>
+          <div className="space-y-2">
+            <p className="text-sm text-center font-medium text-foreground">
+              These adverts help keep the site affordable
+            </p>
+            <p className="text-xs text-center text-muted-foreground">
+              Thank you for your patience. Your quiz will continue automatically.
+            </p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
