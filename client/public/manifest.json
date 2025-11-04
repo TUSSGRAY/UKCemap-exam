@@ -6,7 +6,7 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#ffffff",
+  "theme_color": "#1e4c7a",
   "background_color": "#ffffff",
   "dir": "ltr",
   "id": "/ukcemap.training",
@@ -14,7 +14,7 @@
     {
       "src": "/favicon.png",
       "type": "image/png",
-      "sizes": "128x128",
+      "sizes": "1024x1024",
       "purpose": "any"
     },
     {
@@ -27,6 +27,12 @@
       "src": "/icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-1024.png",
+      "type": "image/png",
+      "sizes": "1024x1024",
       "purpose": "any"
     }
   ],
