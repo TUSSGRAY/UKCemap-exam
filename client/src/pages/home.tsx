@@ -94,9 +94,14 @@ export default function Home() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
                 <Trophy className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl font-semibold text-center">
-                Full Exam
-              </CardTitle>
+              <div className="flex items-center justify-center gap-2">
+                <CardTitle className="text-3xl font-semibold text-center">
+                  Full Exam
+                </CardTitle>
+                <Badge variant="outline" className="text-sm font-bold" data-testid="badge-exam-price">
+                  £0.99
+                </Badge>
+              </div>
               <CardDescription className="text-center text-base">
                 Complete certification practice test
               </CardDescription>
@@ -120,9 +125,9 @@ export default function Home() {
                   <span className="text-sm text-muted-foreground">Estimated time: 60-90 minutes</span>
                 </li>
               </ul>
-              <Link href="/quiz/exam" data-testid="link-start-exam">
+              <Link href="/checkout?product=exam" data-testid="link-purchase-exam">
                 <Button className="w-full" size="lg" variant="default">
-                  Start Full Exam
+                  Purchase for £0.99
                 </Button>
               </Link>
             </CardContent>
@@ -133,9 +138,14 @@ export default function Home() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <CardTitle className="text-3xl font-semibold text-center">
-                Scenario Quiz
-              </CardTitle>
+              <div className="flex items-center justify-center gap-2">
+                <CardTitle className="text-3xl font-semibold text-center">
+                  Scenario Quiz
+                </CardTitle>
+                <Badge variant="outline" className="text-sm font-bold" data-testid="badge-scenario-price">
+                  £0.99
+                </Badge>
+              </div>
               <CardDescription className="text-center text-base">
                 Real-world case studies and applications
               </CardDescription>
@@ -159,12 +169,75 @@ export default function Home() {
                   <span className="text-sm text-muted-foreground">Estimated time: 90-120 minutes</span>
                 </li>
               </ul>
-              <Link href="/quiz/scenario" data-testid="link-start-scenario">
+              <Link href="/checkout?product=scenario" data-testid="link-purchase-scenario">
                 <Button className="w-full" size="lg" variant="default">
-                  Start Scenario Quiz
+                  Purchase for £0.99
                 </Button>
               </Link>
             </CardContent>
+          </Card>
+        </div>
+
+        <div className="mt-12 max-w-3xl mx-auto">
+          <Card className="hover-elevate transition-all duration-300 border-primary bg-primary/5" data-testid="card-bundle">
+            <CardHeader className="text-center space-y-4">
+              <Badge variant="default" className="mx-auto text-sm font-bold px-4 py-1" data-testid="badge-bundle-savings">
+                Save 50p!
+              </Badge>
+              <CardTitle className="text-4xl font-bold">
+                Bundle Package
+              </CardTitle>
+              <div className="flex items-baseline justify-center gap-3">
+                <span className="text-5xl font-bold text-primary" data-testid="text-bundle-price">£1.49</span>
+                <span className="text-2xl text-muted-foreground line-through" data-testid="text-bundle-original">£1.98</span>
+              </div>
+              <CardDescription className="text-base">
+                Full Exam + Scenario Quiz + 100 Days Email Campaign
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-sm text-primary">Full Exam Included:</h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">100 mixed-topic questions</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">Certificate upon 80% pass</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="font-semibold text-sm text-primary">Scenario Quiz Included:</h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">50 scenarios (150 questions)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span className="text-sm">Real-world case studies</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-background p-4 rounded-lg border-2 border-primary/20">
+                <h4 className="font-semibold text-sm text-primary mb-2">🎁 Bonus: 100 Days to CeMAP Ready</h4>
+                <p className="text-sm text-muted-foreground">
+                  Receive 3 scenario questions with answers via email every day for 100 days. Perfect for consistent learning!
+                </p>
+              </div>
+            </CardContent>
+            <CardFooter>
+              <Link href="/checkout?product=bundle" className="w-full" data-testid="link-purchase-bundle">
+                <Button className="w-full" size="lg" variant="default">
+                  Purchase Bundle for £1.49
+                </Button>
+              </Link>
+            </CardFooter>
           </Card>
         </div>
 

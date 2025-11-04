@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes, all completely free: Practice Mode (10 questions with immediate feedback), Full Exam Mode (100 questions with no feedback until end), and Scenario Quiz Mode (150 questions from 50 case studies with immediate feedback). The application features weekly top-4 leaderboards with all-time high scores displayed in green, and includes Google AdSense advertisements in Practice mode. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
+This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode (10 questions with immediate feedback and Google AdSense ads), a paid Full Exam Mode (£0.99, 100 questions), and a paid Scenario Quiz Mode (£0.99, 150 questions from 50 case studies). A Bundle Package (£1.49) provides access to both paid modes at a discounted price and includes enrollment in a "100 Days to CeMAP Ready" email campaign, delivering daily scenario questions. The application integrates Stripe for secure payments, features weekly top-4 leaderboards with all-time high scores displayed in green, and uses device-based access control via localStorage tokens. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
 
 ## User Preferences
 
@@ -16,7 +16,7 @@ The frontend is built with React and TypeScript, utilizing Vite for development 
 
 ### Backend
 
-The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is currently stored in-memory using a `MemStorage` class, though an `IStorage` interface is in place for future database integration.
+The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access token generation and validation, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is currently stored in-memory using a `MemStorage` class, though an `IStorage` interface is in place for future database integration.
 
 ### Data Storage
 
@@ -24,7 +24,8 @@ The current implementation uses in-memory storage for a hardcoded question bank 
 
 ### Key Features
 
-*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (free, 100 questions, no feedback until end), Scenario Quiz (free, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
+*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 100 questions, no feedback until end), Scenario Quiz (paid, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
+*   **Payment & Access Control**: Stripe integration for secure payments (£0.99 for single modes, £1.49 for bundle). Device-based access control uses cryptographic tokens stored in `localStorage`, validated server-side for paid content.
 *   **Advertisement System**: 
     - **Practice Mode**: 20-second non-dismissible Google AdSense ads at questions 3, 6, and 9 to help monetize the free tier and cover hosting costs
     - **Paid Modes**: 30-second custom ads at questions 30 and 90 for exam/scenario modes
@@ -43,6 +44,7 @@ The project uses a monorepo structure with `/client` (React frontend), `/server`
 *   **State & Data Fetching**: TanStack Query v5, React Hook Form, Zod.
 *   **Database/ORM (Configured, not fully active)**: Drizzle ORM, Drizzle Kit, @neondatabase/serverless.
 *   **Routing**: wouter.
+*   **Payment Processing**: Stripe (stripe-js, react-stripe-js, stripe).
 *   **Email Integration**: Microsoft Graph Client, Outlook (ukcemap@outlook.com).
 *   **Development Tools**: Vite, tsx, esbuild, Replit plugins.
 *   **Utilities**: date-fns, nanoid, Lucide React (icons).

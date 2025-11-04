@@ -26,9 +26,13 @@ export interface IStorage {
 export class MemStorage implements IStorage {
   private questions: Map<string, Question>;
   private adverts: Advert[];
-  private examAccessTokens: Map<string, string>;
-  private scenarioAccessTokens: Map<string, string>;
-  private bundleAccessTokens: Map<string, string>;
+  private examAccessTokens: Map<string, string>; // token -> paymentIntentId
+  private scenarioAccessTokens: Map<string, string>; // token -> paymentIntentId
+  private bundleAccessTokens: Map<string, string>; // token -> paymentIntentId
+  // SECURITY: Reverse mappings to prevent replay attacks
+  private examPaymentIntents: Map<string, string>; // paymentIntentId -> token
+  private scenarioPaymentIntents: Map<string, string>; // paymentIntentId -> token
+  private bundlePaymentIntents: Map<string, string>; // paymentIntentId -> token
   private emailSubscriptions: Map<string, EmailSubscription>;
   private emailSubscriptionPayments: Set<string>;
   private highScores: Map<string, HighScore>;
@@ -39,6 +43,9 @@ export class MemStorage implements IStorage {
     this.examAccessTokens = new Map();
     this.scenarioAccessTokens = new Map();
     this.bundleAccessTokens = new Map();
+    this.examPaymentIntents = new Map();
+    this.scenarioPaymentIntents = new Map();
+    this.bundlePaymentIntents = new Map();
     this.emailSubscriptions = new Map();
     this.emailSubscriptionPayments = new Set();
     this.highScores = new Map();
@@ -3184,20 +3191,41 @@ export class MemStorage implements IStorage {
   }
 
   async recordExamPurchase(paymentIntentId: string): Promise<string> {
+    // SECURITY: Check if this payment intent was already processed
+    const existingToken = this.examPaymentIntents.get(paymentIntentId);
+    if (existingToken) {
+      return existingToken; // Return existing token, prevent replay
+    }
+    
     const accessToken = randomUUID();
     this.examAccessTokens.set(accessToken, paymentIntentId);
+    this.examPaymentIntents.set(paymentIntentId, accessToken); // Reverse mapping
     return accessToken;
   }
 
   async recordScenarioPurchase(paymentIntentId: string): Promise<string> {
+    // SECURITY: Check if this payment intent was already processed
+    const existingToken = this.scenarioPaymentIntents.get(paymentIntentId);
+    if (existingToken) {
+      return existingToken; // Return existing token, prevent replay
+    }
+    
     const accessToken = randomUUID();
     this.scenarioAccessTokens.set(accessToken, paymentIntentId);
+    this.scenarioPaymentIntents.set(paymentIntentId, accessToken); // Reverse mapping
     return accessToken;
   }
 
   async recordBundlePurchase(paymentIntentId: string): Promise<string> {
+    // SECURITY: Check if this payment intent was already processed
+    const existingToken = this.bundlePaymentIntents.get(paymentIntentId);
+    if (existingToken) {
+      return existingToken; // Return existing token, prevent replay
+    }
+    
     const accessToken = randomUUID();
     this.bundleAccessTokens.set(accessToken, paymentIntentId);
+    this.bundlePaymentIntents.set(paymentIntentId, accessToken); // Reverse mapping
     return accessToken;
   }
 

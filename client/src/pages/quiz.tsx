@@ -29,6 +29,52 @@ export default function Quiz({ mode }: QuizProps) {
   const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
+  const [checkingAccess, setCheckingAccess] = useState(mode === "exam" || mode === "scenario");
+
+  // Check access for paid modes
+  useEffect(() => {
+    const checkAccess = async () => {
+      if (mode === "practice") {
+        setCheckingAccess(false);
+        return;
+      }
+
+      const accessToken = localStorage.getItem(
+        mode === "exam" ? "examAccessToken" : "scenarioAccessToken"
+      );
+
+      if (!accessToken) {
+        setLocation(`/checkout?product=${mode}`);
+        return;
+      }
+
+      try {
+        // SECURITY: Send token in POST body, not URL query parameter
+        const endpoint = mode === "exam" ? "/api/check-exam-access" : "/api/check-scenario-access";
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ accessToken }),
+        });
+        const data = await response.json();
+
+        if (!data.hasAccess) {
+          localStorage.removeItem(mode === "exam" ? "examAccessToken" : "scenarioAccessToken");
+          setLocation(`/checkout?product=${mode}`);
+          return;
+        }
+
+        setCheckingAccess(false);
+      } catch (error) {
+        console.error("Access check error:", error);
+        setLocation(`/checkout?product=${mode}`);
+      }
+    };
+
+    checkAccess();
+  }, [mode, setLocation]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
@@ -145,6 +191,16 @@ export default function Quiz({ mode }: QuizProps) {
   const handleExitQuiz = () => {
     setLocation("/");
   };
+
+  if (checkingAccess) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg text-muted-foreground">Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!isStarted && mode === "exam") {
     return (

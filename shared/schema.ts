@@ -88,3 +88,20 @@ export const insertHighScoreSchema = createInsertSchema(highScores).omit({
 
 export type InsertHighScore = z.infer<typeof insertHighScoreSchema>;
 export type HighScore = typeof highScores.$inferSelect;
+
+// Payment schemas
+export const paymentProductSchema = z.enum(["exam", "scenario", "bundle"]);
+export type PaymentProduct = z.infer<typeof paymentProductSchema>;
+
+export const createPaymentIntentSchema = z.object({
+  product: paymentProductSchema,
+});
+
+export type CreatePaymentIntent = z.infer<typeof createPaymentIntentSchema>;
+
+export const verifyPaymentSchema = z.object({
+  paymentIntentId: z.string().min(1, "Payment intent ID is required"),
+  email: z.string().email().optional(), // For bundle purchases to subscribe to 100 Days campaign
+});
+
+export type VerifyPayment = z.infer<typeof verifyPaymentSchema>;
