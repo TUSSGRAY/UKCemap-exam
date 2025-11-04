@@ -104,11 +104,15 @@ export default function Home() {
               Pass Mark 80%
             </Badge>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-6">
             <ShareButton 
-              variant="ghost" 
-              size="sm"
-              className="text-muted-foreground hover:text-foreground"
+              variant="default" 
+              size="lg"
+              className="px-8 py-6 text-lg animate-elegant-pulse hover:animate-none hover:scale-105 transition-transform duration-300"
+              showText={true}
+              shareTitle="J&K CeMAP Training"
+              shareText="Check out this CeMAP quiz app - Master UK Mortgage Certification with practice questions and full exams!"
+              buttonText="Share with Friends"
             />
           </div>
         </div>

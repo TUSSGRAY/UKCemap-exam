@@ -10,6 +10,7 @@ interface ShareButtonProps {
   showText?: boolean;
   shareTitle?: string;
   shareText?: string;
+  buttonText?: string;
 }
 
 export function ShareButton({ 
@@ -18,7 +19,8 @@ export function ShareButton({
   className = "",
   showText = true,
   shareTitle = "J&K CeMAP Training",
-  shareText = "Check out this CeMAP quiz app - Master UK Mortgage Certification with practice questions and full exams!"
+  shareText = "Check out this CeMAP quiz app - Master UK Mortgage Certification with practice questions and full exams!",
+  buttonText = "Share App"
 }: ShareButtonProps) {
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
@@ -80,17 +82,17 @@ export function ShareButton({
     >
       {copied ? (
         <>
-          <Check className="w-4 h-4" />
+          <Check className="w-5 h-5" />
           {showText && <span className="ml-2">Copied!</span>}
         </>
       ) : (
         <>
           {'share' in navigator ? (
-            <Share2 className="w-4 h-4" />
+            <Share2 className="w-5 h-5" />
           ) : (
-            <Copy className="w-4 h-4" />
+            <Copy className="w-5 h-5" />
           )}
-          {showText && <span className="ml-2">Share App</span>}
+          {showText && <span className="ml-2">{buttonText}</span>}
         </>
       )}
     </Button>
