@@ -1,14 +1,15 @@
 {
-  "name": "J&K Cemap Training - CeMAP Quiz",
-  "short_name": "CeMAP Quiz",
-  "description": "Prepare for your CeMAP certification with our comprehensive quiz platform. Practice with 100+ questions covering UK mortgage advice, regulation, and financial services.",
+  "name": "ukcemap.co.uk",
+  "short_name": "ukcemap.co.uk",
+  "description": "Professional CeMAP training and quiz app to help you master UK mortgage advice exams. Paced learning functionality with daily email scenario based questions.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",
-  "theme_color": "#0f172a",
+  "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "dir": "ltr",
+  "id": "/ukcemap.training",
   "icons": [
     {
       "src": "/favicon.png",

@@ -81,3 +81,41 @@ The application uses Google AdSense to monetize the free practice mode with 20-s
 - Shows placeholder when ad slot is not configured
 - Progress bar indicates time remaining
 - Continues to next question automatically when timer expires
+
+## Progressive Web App (PWA) Implementation
+
+The application is a fully functional Progressive Web App with offline capabilities and installability.
+
+### Service Worker
+- **Location**: `client/public/sw.js`
+- **Registration**: Automatic on page load via `client/index.html`
+- **Status**: Successfully registered and active
+
+### Caching Strategy
+- **Static Assets**: Cache-first with background updates for improved performance
+- **API Calls**: Network-first to always fetch fresh data
+- **Offline Fallback**: Serves cached content when network is unavailable
+
+### PWA Manifest
+- **Location**: `client/public/manifest.json`
+- **Branding**: ukcemap.co.uk
+- **Description**: Professional CeMAP training and quiz app
+- **Display Mode**: Standalone (appears like a native app)
+- **Theme Colors**: White background and theme color
+
+### Features
+- **Installability**: Users can install the app on mobile devices and desktop
+- **Offline Support**: Quiz content and static assets work offline after first visit
+- **Auto-Updates**: Service worker checks for updates every minute
+- **Performance**: Cached assets load instantly on repeat visits
+
+### Installation
+- **Mobile (iOS)**: Safari > Share > Add to Home Screen
+- **Mobile (Android)**: Chrome > Menu > Install App
+- **Desktop**: Chrome/Edge > Install icon in address bar
+
+### Payment Integration Enhancement
+- **Apple Pay**: Automatically available on Safari (iOS/macOS) for supported devices
+- **Google Pay**: Automatically available on Chrome for configured accounts
+- **Payment Request Button**: Shows digital wallet options when available
+- **Fallback**: Traditional card payment form always available

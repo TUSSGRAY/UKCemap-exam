@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "ukcemap.co.uk",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "ukcemap.co.uk",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "/ukcemap.training",
+  "description": "Professional CeMAP training and quiz app to help you master UK mortgage advice exams.  Paced learning functionality with daily email scenario based questions."
+}
