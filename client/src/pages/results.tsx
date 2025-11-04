@@ -5,6 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Home, RefreshCw, Target, Award, AlertCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 export default function Results() {
   const [, setLocation] = useLocation();
@@ -12,6 +23,10 @@ export default function Results() {
   const [total, setTotal] = useState(0);
   const [mode, setMode] = useState<"practice" | "exam" | "scenario">("practice");
   const [practiceAttempts, setPracticeAttempts] = useState(0);
+  const [showNameDialog, setShowNameDialog] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [isSavingScore, setIsSavingScore] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -47,11 +62,20 @@ export default function Results() {
       }
     }
     
-    // For exam and scenario modes, check if passed (80%) and redirect to certificate
+    // For exam and scenario modes, show name dialog to save to leaderboard
     if (currentMode === "exam" || currentMode === "scenario") {
-      const percentage = currentTotal > 0 ? Math.round((currentScore / currentTotal) * 100) : 0;
-      if (percentage >= 80) {
-        setLocation(`/certificate?mode=${currentMode}&score=${currentScore}&total=${currentTotal}`);
+      // Check if we've already saved the score for this session
+      const savedScoreKey = `highScoreSaved_${currentMode}_${attemptId}`;
+      const alreadySaved = sessionStorage.getItem(savedScoreKey);
+      
+      if (!alreadySaved) {
+        setShowNameDialog(true);
+      } else {
+        // Already saved, check if passed and redirect to certificate
+        const percentage = currentTotal > 0 ? Math.round((currentScore / currentTotal) * 100) : 0;
+        if (percentage >= 80) {
+          setLocation(`/certificate?mode=${currentMode}&score=${currentScore}&total=${currentTotal}`);
+        }
       }
     }
   }, [setLocation]);
@@ -66,8 +90,122 @@ export default function Results() {
   const canRetryPractice = isPracticeMode && practiceAttempts < 2;
   const noMoreAttempts = isPracticeMode && practiceAttempts >= 2;
 
+  const handleSaveScore = async () => {
+    if (!playerName.trim()) {
+      toast({
+        title: "Name required",
+        description: "Please enter your name for the leaderboard",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSavingScore(true);
+
+    try {
+      await apiRequest("/api/high-scores", {
+        method: "POST",
+        body: JSON.stringify({
+          name: playerName.trim(),
+          score,
+          total,
+          mode,
+        }),
+      });
+
+      // Mark as saved in session storage
+      const params = new URLSearchParams(window.location.search);
+      const attemptId = params.get("attemptId") || '';
+      const savedScoreKey = `highScoreSaved_${mode}_${attemptId}`;
+      sessionStorage.setItem(savedScoreKey, "true");
+
+      toast({
+        title: "Score saved!",
+        description: "Your score has been added to the leaderboard",
+      });
+
+      setShowNameDialog(false);
+
+      // If passed, redirect to certificate
+      if (passed) {
+        setLocation(`/certificate?mode=${mode}&score=${score}&total=${total}`);
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save score. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSavingScore(false);
+    }
+  };
+
+  const handleSkipLeaderboard = () => {
+    // Mark as saved (skipped) in session storage
+    const params = new URLSearchParams(window.location.search);
+    const attemptId = params.get("attemptId") || '';
+    const savedScoreKey = `highScoreSaved_${mode}_${attemptId}`;
+    sessionStorage.setItem(savedScoreKey, "true");
+
+    setShowNameDialog(false);
+
+    // If passed, redirect to certificate
+    if (passed) {
+      setLocation(`/certificate?mode=${mode}&score=${score}&total=${total}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Name Dialog for Leaderboard */}
+      <Dialog open={showNameDialog} onOpenChange={setShowNameDialog}>
+        <DialogContent data-testid="dialog-leaderboard-name">
+          <DialogHeader>
+            <DialogTitle>Join the Weekly Leaderboard!</DialogTitle>
+            <DialogDescription>
+              Enter your name to add your score to this week's top performers
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="player-name">Your Name</Label>
+              <Input
+                id="player-name"
+                placeholder="Enter your name"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSaveScore();
+                  }
+                }}
+                data-testid="input-player-name"
+                maxLength={50}
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSaveScore}
+                disabled={isSavingScore}
+                className="flex-1"
+                data-testid="button-save-score"
+              >
+                {isSavingScore ? "Saving..." : "Save to Leaderboard"}
+              </Button>
+              <Button
+                onClick={handleSkipLeaderboard}
+                variant="outline"
+                disabled={isSavingScore}
+                data-testid="button-skip-leaderboard"
+              >
+                Skip
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className="max-w-4xl mx-auto px-6 py-16">
         <div className="text-center mb-12">
           <div className="mb-3">
