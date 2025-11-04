@@ -45,5 +45,46 @@
       "form_factor": "narrow",
       "label": "Scenario Quiz Mode - Real-world mortgage advice case study with detailed questions"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Daily Scenario Question",
+      "short_name": "Daily Q",
+      "description": "Practice with today's scenario-based CeMAP question",
+      "url": "/?mode=daily",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Practice Quiz",
+      "short_name": "Practice",
+      "description": "Start a free 10-question practice quiz",
+      "url": "/?mode=practice",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Full Exam",
+      "short_name": "Exam",
+      "description": "Take the 100-question full exam",
+      "url": "/?mode=exam",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ]
 }
