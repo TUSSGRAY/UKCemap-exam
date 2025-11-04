@@ -1,5 +1,5 @@
-import { useStripe, Elements, PaymentElement, useElements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { useStripe, Elements, PaymentElement, useElements, PaymentRequestButtonElement } from '@stripe/react-stripe-js';
+import { loadStripe, PaymentRequest } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import type { PaymentProduct } from "@shared/schema";
 
 if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
@@ -16,13 +17,68 @@ if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
 }
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
-const CheckoutForm = ({ product, email: initialEmail }: { product: PaymentProduct; email?: string }) => {
+const CheckoutForm = ({ product, email: initialEmail, clientSecret }: { product: PaymentProduct; email?: string; clientSecret: string }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isProcessing, setIsProcessing] = useState(false);
   const [email, setEmail] = useState(initialEmail || "");
+  const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(null);
+
+  const productInfo = {
+    exam: { name: "Full Exam Mode", price: "£0.99", amount: 99, description: "100 questions with certificate" },
+    scenario: { name: "Scenario Quiz Mode", price: "£0.99", amount: 99, description: "50 scenarios with 150 questions" },
+    bundle: { name: "Bundle Package", price: "£1.49", amount: 149, description: "Both exams + 100 Days email campaign" },
+  };
+
+  const info = productInfo[product];
+
+  useEffect(() => {
+    if (!stripe) {
+      return;
+    }
+
+    const pr = stripe.paymentRequest({
+      country: 'GB',
+      currency: 'gbp',
+      total: {
+        label: info.name,
+        amount: info.amount,
+      },
+      requestPayerEmail: product === "bundle",
+    });
+
+    // Check if Payment Request is available (Apple Pay, Google Pay, etc.)
+    pr.canMakePayment().then(result => {
+      if (result) {
+        setPaymentRequest(pr);
+      }
+    });
+
+    pr.on('paymentmethod', async (ev) => {
+      // Confirm the payment intent with the payment method from Apple Pay/Google Pay
+      const { error: confirmError } = await stripe.confirmCardPayment(
+        clientSecret,
+        { payment_method: ev.paymentMethod.id },
+        { handleActions: false }
+      );
+
+      if (confirmError) {
+        ev.complete('fail');
+        toast({
+          title: "Payment Failed",
+          description: confirmError.message,
+          variant: "destructive",
+        });
+      } else {
+        ev.complete('success');
+        // Redirect to success page with payment intent ID
+        const paymentIntentId = clientSecret.split('_secret_')[0];
+        setLocation(`/payment-success?payment_intent=${paymentIntentId}${email ? `&email=${encodeURIComponent(email)}` : ''}`);
+      }
+    });
+  }, [stripe, clientSecret, email, info.name, info.amount, toast, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +92,7 @@ const CheckoutForm = ({ product, email: initialEmail }: { product: PaymentProduc
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/payment-success?product=${product}${email ? `&email=${encodeURIComponent(email)}` : ''}`,
+        return_url: `${window.location.origin}/payment-success${email ? `?email=${encodeURIComponent(email)}` : ''}`,
       },
     });
 
@@ -49,14 +105,6 @@ const CheckoutForm = ({ product, email: initialEmail }: { product: PaymentProduc
       setIsProcessing(false);
     }
   };
-
-  const productInfo = {
-    exam: { name: "Full Exam Mode", price: "£0.99", description: "100 questions with certificate" },
-    scenario: { name: "Scenario Quiz Mode", price: "£0.99", description: "50 scenarios with 150 questions" },
-    bundle: { name: "Bundle Package", price: "£1.49", description: "Both exams + 100 Days email campaign" },
-  };
-
-  const info = productInfo[product];
 
   return (
     <form onSubmit={handleSubmit} data-testid="form-checkout">
@@ -86,6 +134,28 @@ const CheckoutForm = ({ product, email: initialEmail }: { product: PaymentProduc
                 Get 3 scenario questions daily for 100 days
               </p>
             </div>
+          )}
+
+          {paymentRequest && (
+            <>
+              <div className="space-y-4">
+                <PaymentRequestButtonElement 
+                  options={{ paymentRequest }}
+                  className="w-full"
+                />
+              </div>
+              
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or pay with card
+                  </span>
+                </div>
+              </div>
+            </>
           )}
 
           <PaymentElement />
@@ -171,7 +241,7 @@ export default function Checkout() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-8" data-testid="heading-checkout">Checkout</h1>
         <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm product={product} email={email} />
+          <CheckoutForm product={product} email={email} clientSecret={clientSecret} />
         </Elements>
         <div className="text-center mt-6">
           <Button 
