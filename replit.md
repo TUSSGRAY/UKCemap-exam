@@ -79,8 +79,8 @@ Preferred communication style: Simple, everyday language.
 ### Key Features
 
 **Quiz Modes**:
-- Practice Mode: Free access, flexible question count (5-10), immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
-- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions, no feedback until completion, 80% pass threshold, device-based access control
+- Practice Mode: Free access, flexible question count (5-10), includes 2 scenario-based questions (2 questions from each of 2 random scenarios = 4 scenario questions) mixed with regular questions, immediate feedback after each answer, supports returning home mid-quiz, 60% pass threshold
+- Full Exam Mode: £0.99 purchase required (or £1.49 bundle), fixed 100 questions (regular questions only, no scenarios), no feedback until completion, 80% pass threshold, device-based access control
 - Scenario Quiz Mode: £0.99 purchase required (or £1.49 bundle), all 50 realistic scenarios presented in random order (150 questions total), immediate feedback after each answer, 80% pass threshold (requires 120/150 to pass), displays case study prominently above questions, scenarios randomized each session
 
 **Payment & Access Control System**:

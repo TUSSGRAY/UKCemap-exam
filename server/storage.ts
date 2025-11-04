@@ -3103,13 +3103,60 @@ export class MemStorage implements IStorage {
       return allScenarioQuestions.map(q => this.shuffleAnswerPositions(q));
     }
     
+    if (mode === "practice") {
+      // Get scenario questions for practice mode
+      const scenarioQuestions = allQuestions.filter(q => q.scenarioId);
+      const scenarioGroups = new Map<string, Question[]>();
+      
+      // Group questions by scenario
+      scenarioQuestions.forEach(q => {
+        if (!scenarioGroups.has(q.scenarioId!)) {
+          scenarioGroups.set(q.scenarioId!, []);
+        }
+        scenarioGroups.get(q.scenarioId!)!.push(q);
+      });
+      
+      // Get all complete scenarios (with exactly 3 questions each)
+      const completeScenarios = Array.from(scenarioGroups.values()).filter(
+        group => group.length === 3
+      );
+      
+      // Shuffle scenarios and pick 2 random scenarios
+      const shuffledScenarios = completeScenarios.sort(() => Math.random() - 0.5);
+      const twoScenarios = shuffledScenarios.slice(0, 2);
+      
+      // Take 2 questions from each scenario (4 questions total)
+      const practiceScenarioQuestions = twoScenarios.flatMap(scenario => 
+        scenario.slice(0, 2)
+      );
+      
+      // Get regular non-scenario questions
+      const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);
+      const shuffledRegular = nonScenarioQuestions.sort(() => Math.random() - 0.5);
+      
+      // Calculate how many regular questions we need
+      const requestedCount = Math.min(count, 10);
+      const regularQuestionsNeeded = Math.max(0, requestedCount - 4);
+      
+      // Combine scenario questions with regular questions
+      const finalQuestions = [
+        ...practiceScenarioQuestions,
+        ...shuffledRegular.slice(0, regularQuestionsNeeded)
+      ];
+      
+      // Shuffle the combined array so scenarios aren't always first
+      const mixedQuestions = finalQuestions.sort(() => Math.random() - 0.5);
+      
+      // Shuffle answer positions for all questions before returning
+      return mixedQuestions.map(q => this.shuffleAnswerPositions(q));
+    }
+    
+    // Exam mode: 100 regular questions only
     const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);
     const shuffled = nonScenarioQuestions.sort(() => Math.random() - 0.5);
     
-    const questionCount = mode === "exam" ? 100 : Math.min(count, 10);
-    
     // Shuffle answer positions for all questions before returning
-    return shuffled.slice(0, questionCount).map(q => this.shuffleAnswerPositions(q));
+    return shuffled.slice(0, 100).map(q => this.shuffleAnswerPositions(q));
   }
 
   async getRandomAdvert(): Promise<Advert> {
