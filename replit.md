@@ -26,7 +26,9 @@ The current implementation uses in-memory storage for a hardcoded question bank 
 
 *   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 100 questions, no feedback until end), Scenario Quiz (paid, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
 *   **Payment & Access Control**: Stripe integration for secure payments (£0.99 for single modes, £1.49 for bundle). Device-based access control uses cryptographic tokens stored in `localStorage`, validated server-side for paid content.
-*   **Advertisement System**: Non-dismissible 30-second ads appear at specific points in paid quiz modes, with a message about affordability.
+*   **Advertisement System**: 
+    - **Practice Mode**: 20-second non-dismissible Google AdSense ads at questions 3, 6, and 9 to help monetize the free tier and cover hosting costs
+    - **Paid Modes**: 30-second custom ads at questions 30 and 90 for exam/scenario modes
 *   **100 Days Email Campaign**: Bundle purchasers providing their email are enrolled to receive 3 random scenario questions with answers daily for 100 days, delivered via Outlook integration.
 *   **User Experience**: Features include question count selection, visual feedback, progress tracking, results summaries, topic badges, an optional review system, and weekly leaderboards with name prompting for top performers.
 *   **Design Principles**: Emphasizes progressive disclosure, optimal reading length, consistent spacing, and clear visual hierarchy for a professional user experience.
@@ -46,3 +48,27 @@ The project uses a monorepo structure with `/client` (React frontend), `/server`
 *   **Email Integration**: Microsoft Graph Client, Outlook (ukcemap@outlook.com).
 *   **Development Tools**: Vite, tsx, esbuild, Replit plugins.
 *   **Utilities**: date-fns, nanoid, Lucide React (icons).
+*   **Monetization**: Google AdSense (Publisher ID: ca-pub-4127314844320855) for practice mode advertisements.
+
+## Google AdSense Setup
+
+The application uses Google AdSense to monetize the free practice mode with 20-second ads at questions 3, 6, and 9.
+
+### Current Configuration
+- **Publisher ID**: ca-pub-4127314844320855 (configured in `client/index.html`)
+- **Ad Slot ID**: Needs to be created in Google AdSense dashboard
+- **Component**: `client/src/components/google-adsense-ad.tsx`
+
+### To Enable Real Ads
+1. Log into your Google AdSense account
+2. Create a new ad unit (recommended: responsive display ad)
+3. Copy the ad slot ID (format: `1234567890`)
+4. Update `GOOGLE_ADSENSE_SLOT_ID` in `client/src/components/google-adsense-ad.tsx`
+5. The ads will automatically start showing in practice mode
+
+### Ad Display Behavior
+- Appears at questions 3, 6, and 9 in practice mode
+- Non-dismissible 20-second timer
+- Shows placeholder when ad slot is not configured
+- Progress bar indicates time remaining
+- Continues to next question automatically when timer expires
