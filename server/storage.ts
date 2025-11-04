@@ -20,6 +20,7 @@ export interface IStorage {
   unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void>;
   saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
   getWeeklyHighScores(mode: "exam" | "scenario", limit: number): Promise<HighScore[]>;
+  getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null>;
 }
 
 export class MemStorage implements IStorage {
@@ -31,6 +32,7 @@ export class MemStorage implements IStorage {
   private emailSubscriptions: Map<string, EmailSubscription>;
   private emailSubscriptionPayments: Set<string>;
   private highScores: Map<string, HighScore>;
+  private allTimeHighScores: Map<"exam" | "scenario", HighScore>;
 
   constructor() {
     this.questions = new Map();
@@ -40,6 +42,7 @@ export class MemStorage implements IStorage {
     this.emailSubscriptions = new Map();
     this.emailSubscriptionPayments = new Set();
     this.highScores = new Map();
+    this.allTimeHighScores = new Map();
     this.adverts = [
       {
         id: "1",
@@ -3269,6 +3272,23 @@ export class MemStorage implements IStorage {
       timestamp,
     };
     this.highScores.set(id, newHighScore);
+    
+    // Check if this is an all-time high score
+    const mode = highScore.mode as "exam" | "scenario";
+    const currentAllTime = this.allTimeHighScores.get(mode);
+    const newPercentage = (highScore.score / highScore.total) * 100;
+    
+    if (!currentAllTime) {
+      // No all-time high score yet, so this is it
+      this.allTimeHighScores.set(mode, newHighScore);
+    } else {
+      const currentPercentage = (currentAllTime.score / currentAllTime.total) * 100;
+      if (newPercentage > currentPercentage) {
+        // New all-time high score!
+        this.allTimeHighScores.set(mode, newHighScore);
+      }
+    }
+    
     return newHighScore;
   }
 
@@ -3276,11 +3296,15 @@ export class MemStorage implements IStorage {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     
-    // Filter scores by mode and within the last week
+    // Get the all-time high score for this mode
+    const allTimeHigh = this.allTimeHighScores.get(mode);
+    
+    // Filter scores by mode and within the last week, excluding the all-time high
     const weeklyScores = Array.from(this.highScores.values())
       .filter(score => 
         score.mode === mode && 
-        new Date(score.timestamp) >= oneWeekAgo
+        new Date(score.timestamp) >= oneWeekAgo &&
+        score.id !== allTimeHigh?.id // Exclude all-time high from weekly list
       )
       .sort((a, b) => {
         // Sort by percentage score (descending), then by timestamp (most recent first)
@@ -3294,6 +3318,10 @@ export class MemStorage implements IStorage {
       .slice(0, limit);
     
     return weeklyScores;
+  }
+
+  async getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null> {
+    return this.allTimeHighScores.get(mode) || null;
   }
 }
 
