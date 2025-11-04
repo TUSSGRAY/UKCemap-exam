@@ -412,6 +412,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get all-time high score
+  app.get("/api/all-time-high-score", async (req, res) => {
+    try {
+      const mode = req.query.mode as "exam" | "scenario";
+      
+      if (!mode || (mode !== "exam" && mode !== "scenario")) {
+        return res.status(400).json({ error: "Mode parameter required (exam or scenario)" });
+      }
+      
+      const allTimeHigh = await storage.getAllTimeHighScore(mode);
+      res.json(allTimeHigh);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
