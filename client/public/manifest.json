@@ -16,5 +16,21 @@
       "type": "image/png",
       "sizes": "128x128"
     }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/exam-question.png",
+      "type": "image/png",
+      "sizes": "1024x1820",
+      "form_factor": "narrow",
+      "label": "Full Exam Mode - Multiple choice question testing CeMAP knowledge with progress tracking"
+    },
+    {
+      "src": "/screenshots/scenario-question.png",
+      "type": "image/png",
+      "sizes": "1024x1820",
+      "form_factor": "narrow",
+      "label": "Scenario Quiz Mode - Real-world mortgage advice case study with detailed questions"
+    }
   ]
 }
