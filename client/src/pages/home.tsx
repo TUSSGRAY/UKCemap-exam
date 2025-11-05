@@ -27,13 +27,13 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 mb-4">
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-questions">
-              100+ Questions
+              180+ Questions
             </Badge>
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-topics">
               8 Topics
             </Badge>
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-passmark">
-              Pass Mark 80%
+              80% Pass Rate
             </Badge>
           </div>
           <div className="flex justify-center mt-6">
