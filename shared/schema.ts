@@ -105,3 +105,36 @@ export const verifyPaymentSchema = z.object({
 });
 
 export type VerifyPayment = z.infer<typeof verifyPaymentSchema>;
+
+// Access tokens table for exam/scenario/bundle purchases
+export const accessTokens = pgTable("access_tokens", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  token: text("token").notNull().unique(),
+  paymentIntentId: text("payment_intent_id").notNull().unique(),
+  product: text("product").notNull(), // "exam", "scenario", or "bundle"
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertAccessTokenSchema = createInsertSchema(accessTokens).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertAccessToken = z.infer<typeof insertAccessTokenSchema>;
+export type AccessToken = typeof accessTokens.$inferSelect;
+
+// Email subscription payments tracking (to prevent duplicate subscriptions)
+export const emailSubscriptionPayments = pgTable("email_subscription_payments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  paymentIntentId: text("payment_intent_id").notNull().unique(),
+  email: text("email").notNull(),
+  createdAt: text("created_at").notNull(),
+});
+
+export const insertEmailSubscriptionPaymentSchema = createInsertSchema(emailSubscriptionPayments).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertEmailSubscriptionPayment = z.infer<typeof insertEmailSubscriptionPaymentSchema>;
+export type EmailSubscriptionPayment = typeof emailSubscriptionPayments.$inferSelect;
