@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode (10 questions with immediate feedback and Google AdSense ads), a paid Full Exam Mode (£0.99, 100 questions), and a paid Scenario Quiz Mode (£0.99, 150 questions from 50 case studies). A Bundle Package (£1.49) provides access to both paid modes at a discounted price and includes enrollment in a "100 Days to CeMAP Ready" email campaign, delivering daily scenario questions. The application integrates Stripe for secure payments, features weekly top-4 leaderboards with all-time high scores displayed in green, and uses device-based access control via localStorage tokens. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
+This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode (10 questions with immediate feedback and Google AdSense ads), a paid Full Exam Mode (£0.99, 50 questions), and a paid Scenario Quiz Mode (£0.99, 50 questions from 10 case studies). A Bundle Package (£1.49) provides access to both paid modes at a discounted price and includes enrollment in a "100 Days to CeMAP Ready" email campaign, delivering daily scenario questions. The application integrates Stripe for secure payments, features weekly top-4 leaderboards with all-time high scores displayed in green, and uses device-based access control via localStorage tokens. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
 
 ## User Preferences
 
@@ -16,15 +16,15 @@ The frontend is built with React and TypeScript, utilizing Vite for development 
 
 ### Backend
 
-The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access token generation and validation, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is currently stored in-memory using a `MemStorage` class, though an `IStorage` interface is in place for future database integration.
+The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access token generation and validation, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is stored in PostgreSQL database using Drizzle ORM via `@neondatabase/serverless`, with access tokens, email subscriptions, and high scores persisted in the database.
 
 ### Data Storage
 
-The current implementation uses in-memory storage for a hardcoded question bank (136 regular questions, 50 scenario case studies with 150 questions total) and static advertisements. Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations. The application is configured for Drizzle ORM with PostgreSQL via `@neondatabase/serverless`, with schema definitions and migration setup ready for a persistent database.
+The application uses PostgreSQL database for persistent storage of access tokens, email subscriptions, and high scores via Drizzle ORM. The question bank uses in-memory storage with a hardcoded bank of 136 regular questions and 10 scenario case studies with 5 questions each (50 questions total). Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations.
 
 ### Key Features
 
-*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 100 questions, no feedback until end), Scenario Quiz (paid, 50 scenarios/150 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
+*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 50 questions, no feedback until end), Scenario Quiz (paid, 10 scenarios/50 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
 *   **Payment & Access Control**: Stripe integration with comprehensive security hardening:
     - **Secure Payments**: £0.99 for single modes (exam/scenario), £1.49 for bundle package
     - **Device-Based Access**: Cryptographic UUID tokens stored in `localStorage`, validated server-side
@@ -37,7 +37,7 @@ The current implementation uses in-memory storage for a hardcoded question bank 
       - Generic error messages to prevent information disclosure
 *   **Advertisement System**: 
     - **Practice Mode**: 20-second non-dismissible Google AdSense ads at questions 3, 6, and 9 to help monetize the free tier and cover hosting costs
-    - **Paid Modes**: 30-second custom ads at questions 30 and 90 for exam/scenario modes
+    - **Paid Modes**: 30-second custom ads at questions 25 and 45 for exam mode, questions 25 and 45 for scenario mode
 *   **100 Days Email Campaign**: Bundle purchasers providing their email are enrolled to receive 3 random scenario questions with answers daily for 100 days, delivered via Outlook integration.
 *   **User Experience**: Features include question count selection, visual feedback, progress tracking, results summaries, topic badges, an optional review system, and weekly leaderboards with name prompting for top performers.
 *   **Design Principles**: Emphasizes progressive disclosure, optimal reading length, consistent spacing, and clear visual hierarchy for a professional user experience.
