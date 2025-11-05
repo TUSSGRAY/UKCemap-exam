@@ -32,15 +32,15 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
             <div className="bg-muted/50 rounded-lg p-6 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Total Questions</span>
-                <Badge variant="secondary" className="font-semibold">100</Badge>
+                <Badge variant="secondary" className="font-semibold">50</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Pass Mark</span>
-                <Badge variant="secondary" className="font-semibold">80/100</Badge>
+                <Badge variant="secondary" className="font-semibold">40/50</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Time Estimate</span>
-                <Badge variant="secondary">60-90 mins</Badge>
+                <Badge variant="secondary">30-60 mins</Badge>
               </div>
             </div>
 
@@ -60,7 +60,7 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
                 Cancel
               </Button>
               <Button
-                onClick={() => onStart(100)}
+                onClick={() => onStart(50)}
                 className="flex-1"
                 data-testid="button-begin-exam"
               >
