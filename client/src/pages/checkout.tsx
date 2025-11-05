@@ -27,8 +27,8 @@ const CheckoutForm = ({ product, email: initialEmail, clientSecret }: { product:
   const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(null);
 
   const productInfo = {
-    exam: { name: "Full Exam Mode", price: "£0.99", amount: 99, description: "100 questions with certificate" },
-    scenario: { name: "Scenario Quiz Mode", price: "£0.99", amount: 99, description: "50 scenarios with 150 questions" },
+    exam: { name: "Full Exam Mode", price: "£0.99", amount: 99, description: "50 questions with certificate" },
+    scenario: { name: "Scenario Quiz Mode", price: "£0.99", amount: 99, description: "10 scenarios with 50 questions" },
     bundle: { name: "Bundle Package", price: "£1.49", amount: 149, description: "Both exams + 100 Days email campaign" },
   };
 

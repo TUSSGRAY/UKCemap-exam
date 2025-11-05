@@ -331,11 +331,11 @@ export default function Results() {
                   <ul className="text-sm text-muted-foreground space-y-2 mb-4">
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>
-                      <span>Full Exam Mode: 100 authentic questions</span>
+                      <span>Full Exam Mode: 50 authentic questions</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>
-                      <span>Scenario Quiz: All 50 scenarios (150 questions)</span>
+                      <span>Scenario Quiz: 10 scenarios (50 questions)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>

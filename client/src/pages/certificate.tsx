@@ -114,13 +114,13 @@ export default function Certificate() {
                 <div className="bg-accent/50 rounded-lg p-4 space-y-2">
                   <h3 className="font-semibold text-foreground">Full Exam Mode</h3>
                   <p className="text-sm text-muted-foreground">
-                    100 authentic CeMAP questions with 80% pass threshold
+                    50 authentic CeMAP questions with 80% pass threshold
                   </p>
                 </div>
                 <div className="bg-accent/50 rounded-lg p-4 space-y-2">
                   <h3 className="font-semibold text-foreground">Scenario Quiz</h3>
                   <p className="text-sm text-muted-foreground">
-                    All 50 realistic scenarios with 150 questions total
+                    10 realistic scenarios with 50 questions total
                   </p>
                 </div>
               </div>
