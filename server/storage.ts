@@ -1,5 +1,9 @@
 import type { Question, InsertQuestion, QuizMode, Advert, EmailSubscription, InsertEmailSubscription, HighScore, InsertHighScore } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
+import { eq, desc, and, gte, ne, lt } from "drizzle-orm";
+import { questions, emailSubscriptions, highScores, accessTokens, emailSubscriptionPayments } from "@shared/schema";
 
 export interface IStorage {
   getAllQuestions(): Promise<Question[]>;
@@ -3353,4 +3357,275 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Database-backed storage implementation
+class DatabaseStorage implements IStorage {
+  private db;
+  private memStorage: MemStorage; // Fallback for questions (use hardcoded bank)
+
+  constructor() {
+    const sql = neon(process.env.DATABASE_URL!);
+    this.db = drizzle(sql);
+    this.memStorage = new MemStorage();
+  }
+
+  async getAllQuestions(): Promise<Question[]> {
+    // Use in-memory question bank
+    return this.memStorage.getAllQuestions();
+  }
+
+  async getQuestionsByMode(mode: QuizMode, count: number): Promise<Question[]> {
+    // Use in-memory question bank
+    return this.memStorage.getQuestionsByMode(mode, count);
+  }
+
+  async getRandomAdvert(): Promise<Advert> {
+    // Use in-memory adverts
+    return this.memStorage.getRandomAdvert();
+  }
+
+  async recordExamPurchase(paymentIntentId: string): Promise<string> {
+    // Check if this payment intent was already processed
+    const existing = await this.db
+      .select()
+      .from(accessTokens)
+      .where(eq(accessTokens.paymentIntentId, paymentIntentId))
+      .limit(1);
+
+    if (existing.length > 0) {
+      return existing[0].token; // Return existing token, prevent replay
+    }
+
+    const token = randomUUID();
+    await this.db.insert(accessTokens).values({
+      token,
+      paymentIntentId,
+      product: "exam",
+      createdAt: new Date().toISOString(),
+    });
+
+    return token;
+  }
+
+  async recordScenarioPurchase(paymentIntentId: string): Promise<string> {
+    // Check if this payment intent was already processed
+    const existing = await this.db
+      .select()
+      .from(accessTokens)
+      .where(eq(accessTokens.paymentIntentId, paymentIntentId))
+      .limit(1);
+
+    if (existing.length > 0) {
+      return existing[0].token; // Return existing token, prevent replay
+    }
+
+    const token = randomUUID();
+    await this.db.insert(accessTokens).values({
+      token,
+      paymentIntentId,
+      product: "scenario",
+      createdAt: new Date().toISOString(),
+    });
+
+    return token;
+  }
+
+  async recordBundlePurchase(paymentIntentId: string): Promise<string> {
+    // Check if this payment intent was already processed
+    const existing = await this.db
+      .select()
+      .from(accessTokens)
+      .where(eq(accessTokens.paymentIntentId, paymentIntentId))
+      .limit(1);
+
+    if (existing.length > 0) {
+      return existing[0].token; // Return existing token, prevent replay
+    }
+
+    const token = randomUUID();
+    await this.db.insert(accessTokens).values({
+      token,
+      paymentIntentId,
+      product: "bundle",
+      createdAt: new Date().toISOString(),
+    });
+
+    return token;
+  }
+
+  async checkExamAccess(accessToken: string): Promise<boolean> {
+    // Bundle gives access to exam too
+    const tokens = await this.db
+      .select()
+      .from(accessTokens)
+      .where(
+        and(
+          eq(accessTokens.token, accessToken),
+          // Product is either exam or bundle
+        )
+      )
+      .limit(1);
+
+    if (tokens.length === 0) return false;
+    return tokens[0].product === "exam" || tokens[0].product === "bundle";
+  }
+
+  async checkScenarioAccess(accessToken: string): Promise<boolean> {
+    // Bundle gives access to scenarios too
+    const tokens = await this.db
+      .select()
+      .from(accessTokens)
+      .where(
+        and(
+          eq(accessTokens.token, accessToken),
+          // Product is either scenario or bundle
+        )
+      )
+      .limit(1);
+
+    if (tokens.length === 0) return false;
+    return tokens[0].product === "scenario" || tokens[0].product === "bundle";
+  }
+
+  async subscribeEmail(email: string): Promise<EmailSubscription> {
+    const normalizedEmail = email.toLowerCase();
+
+    // Check if already subscribed
+    const existing = await this.db
+      .select()
+      .from(emailSubscriptions)
+      .where(eq(emailSubscriptions.email, normalizedEmail))
+      .limit(1);
+
+    if (existing.length > 0) {
+      return existing[0];
+    }
+
+    const [subscription] = await this.db
+      .insert(emailSubscriptions)
+      .values({
+        email: normalizedEmail,
+        subscribedAt: new Date().toISOString(),
+        isActive: 1,
+        daysSent: 0,
+      })
+      .returning();
+
+    return subscription;
+  }
+
+  async getEmailSubscription(email: string): Promise<EmailSubscription | null> {
+    const results = await this.db
+      .select()
+      .from(emailSubscriptions)
+      .where(eq(emailSubscriptions.email, email.toLowerCase()))
+      .limit(1);
+
+    return results.length > 0 ? results[0] : null;
+  }
+
+  async getAllActiveSubscriptions(): Promise<EmailSubscription[]> {
+    return await this.db
+      .select()
+      .from(emailSubscriptions)
+      .where(
+        and(
+          eq(emailSubscriptions.isActive, 1),
+          lt(emailSubscriptions.daysSent, 100)
+        )
+      );
+  }
+
+  async updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void> {
+    await this.db
+      .update(emailSubscriptions)
+      .set({ daysSent })
+      .where(eq(emailSubscriptions.id, id));
+  }
+
+  async unsubscribeEmail(email: string): Promise<void> {
+    await this.db
+      .update(emailSubscriptions)
+      .set({ isActive: 0 })
+      .where(eq(emailSubscriptions.email, email.toLowerCase()));
+  }
+
+  async isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean> {
+    const results = await this.db
+      .select()
+      .from(emailSubscriptionPayments)
+      .where(eq(emailSubscriptionPayments.paymentIntentId, paymentIntentId))
+      .limit(1);
+
+    return results.length > 0;
+  }
+
+  async markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void> {
+    // Get the email from the access token with this payment intent
+    const token = await this.db
+      .select()
+      .from(accessTokens)
+      .where(eq(accessTokens.paymentIntentId, paymentIntentId))
+      .limit(1);
+
+    await this.db.insert(emailSubscriptionPayments).values({
+      paymentIntentId,
+      email: token.length > 0 ? "bundle-purchase" : "unknown", // Email stored elsewhere
+      createdAt: new Date().toISOString(),
+    });
+  }
+
+  async unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void> {
+    await this.db
+      .delete(emailSubscriptionPayments)
+      .where(eq(emailSubscriptionPayments.paymentIntentId, paymentIntentId));
+  }
+
+  async saveHighScore(highScore: InsertHighScore): Promise<HighScore> {
+    const [newScore] = await this.db
+      .insert(highScores)
+      .values({
+        ...highScore,
+        timestamp: new Date().toISOString(),
+      })
+      .returning();
+
+    return newScore;
+  }
+
+  async getWeeklyHighScores(mode: "exam" | "scenario", limit: number = 10): Promise<HighScore[]> {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    // Get all-time high score to exclude it
+    const allTimeHigh = await this.getAllTimeHighScore(mode);
+
+    const weeklyScores = await this.db
+      .select()
+      .from(highScores)
+      .where(
+        and(
+          eq(highScores.mode, mode),
+          gte(highScores.timestamp, oneWeekAgo.toISOString()),
+          allTimeHigh ? ne(highScores.id, allTimeHigh.id) : undefined
+        )
+      )
+      .orderBy(desc(highScores.score), desc(highScores.timestamp))
+      .limit(limit);
+
+    return weeklyScores;
+  }
+
+  async getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null> {
+    const scores = await this.db
+      .select()
+      .from(highScores)
+      .where(eq(highScores.mode, mode))
+      .orderBy(desc(highScores.score))
+      .limit(1);
+
+    return scores.length > 0 ? scores[0] : null;
+  }
+}
+
+// Use DatabaseStorage for persistent storage
+export const storage = new DatabaseStorage();
