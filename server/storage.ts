@@ -3118,16 +3118,17 @@ export class MemStorage implements IStorage {
         scenarioGroups.get(q.scenarioId!)!.push(q);
       });
       
-      // Get all complete scenarios (with exactly 3 questions each)
+      // Get all complete scenarios (with exactly 5 questions each)
       const completeScenarios = Array.from(scenarioGroups.values()).filter(
-        group => group.length === 3
+        group => group.length === 5
       );
       
-      // Shuffle the scenarios themselves randomly
+      // Shuffle the scenarios themselves randomly and select 10 scenarios
       const shuffledScenarios = completeScenarios.sort(() => Math.random() - 0.5);
+      const selectedScenarios = shuffledScenarios.slice(0, 10);
       
-      // Flatten all scenarios into one array (all 150 questions in random scenario order)
-      const allScenarioQuestions = shuffledScenarios.flat();
+      // Flatten selected scenarios into one array (50 questions from 10 scenarios)
+      const allScenarioQuestions = selectedScenarios.flat();
       
       // Shuffle answer positions for all scenario questions
       return allScenarioQuestions.map(q => this.shuffleAnswerPositions(q));
@@ -3146,9 +3147,9 @@ export class MemStorage implements IStorage {
         scenarioGroups.get(q.scenarioId!)!.push(q);
       });
       
-      // Get all complete scenarios (with exactly 3 questions each)
+      // Get all complete scenarios (with exactly 5 questions each)
       const completeScenarios = Array.from(scenarioGroups.values()).filter(
-        group => group.length === 3
+        group => group.length === 5
       );
       
       // Shuffle scenarios and pick 2 random scenarios
@@ -3181,12 +3182,12 @@ export class MemStorage implements IStorage {
       return mixedQuestions.map(q => this.shuffleAnswerPositions(q));
     }
     
-    // Exam mode: 100 regular questions only
+    // Exam mode: 50 regular questions only
     const nonScenarioQuestions = allQuestions.filter(q => !q.scenarioId);
     const shuffled = nonScenarioQuestions.sort(() => Math.random() - 0.5);
     
     // Shuffle answer positions for all questions before returning
-    return shuffled.slice(0, 100).map(q => this.shuffleAnswerPositions(q));
+    return shuffled.slice(0, 50).map(q => this.shuffleAnswerPositions(q));
   }
 
   async getRandomAdvert(): Promise<Advert> {
