@@ -110,11 +110,11 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">100 mixed-topic questions</span>
+                  <span className="text-sm text-foreground">50 mixed-topic questions</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">Pass mark: 80/100 (80%)</span>
+                  <span className="text-sm text-foreground">Pass mark: 40/50 (80%)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -122,7 +122,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Estimated time: 60-90 minutes</span>
+                  <span className="text-sm text-muted-foreground">Estimated time: 30-60 minutes</span>
                 </li>
               </ul>
               <Link href="/checkout?product=exam" data-testid="link-purchase-exam">
@@ -154,7 +154,7 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">All 50 realistic scenarios (150 questions)</span>
+                  <span className="text-sm text-foreground">10 realistic scenarios (50 questions)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -166,7 +166,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Estimated time: 90-120 minutes</span>
+                  <span className="text-sm text-muted-foreground">Estimated time: 30-60 minutes</span>
                 </li>
               </ul>
               <Link href="/checkout?product=scenario" data-testid="link-purchase-scenario">
@@ -202,7 +202,7 @@ export default function Home() {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">100 mixed-topic questions</span>
+                      <span className="text-sm">50 mixed-topic questions</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -215,7 +215,7 @@ export default function Home() {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">50 scenarios (150 questions)</span>
+                      <span className="text-sm">10 scenarios (50 questions)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
