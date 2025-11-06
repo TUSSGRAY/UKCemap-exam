@@ -3,9 +3,8 @@ import { Client } from '@microsoft/microsoft-graph-client';
 let connectionSettings: any;
 
 async function getAccessToken() {
-  if (connectionSettings && connectionSettings.settings.expires_at && new Date(connectionSettings.settings.expires_at).getTime() > Date.now()) {
-    return connectionSettings.settings.access_token;
-  }
+  // Force refresh connection settings every time to avoid stale tokens
+  connectionSettings = null;
   
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME
   const xReplitToken = process.env.REPL_IDENTITY 
@@ -18,7 +17,7 @@ async function getAccessToken() {
     throw new Error('X_REPLIT_TOKEN not found for repl/depl');
   }
 
-  connectionSettings = await fetch(
+  const response = await fetch(
     'https://' + hostname + '/api/v2/connection?include_secrets=true&connector_names=outlook',
     {
       headers: {
@@ -26,13 +25,28 @@ async function getAccessToken() {
         'X_REPLIT_TOKEN': xReplitToken
       }
     }
-  ).then(res => res.json()).then(data => data.items?.[0]);
+  );
 
-  const accessToken = connectionSettings?.settings?.access_token || connectionSettings.settings?.oauth?.credentials?.access_token;
+  const data = await response.json();
+  connectionSettings = data.items?.[0];
+
+  console.log('Connection settings retrieved:', {
+    hasSettings: !!connectionSettings,
+    hasOAuth: !!connectionSettings?.settings?.oauth,
+    hasCredentials: !!connectionSettings?.settings?.oauth?.credentials,
+    hasAccessToken: !!connectionSettings?.settings?.oauth?.credentials?.access_token
+  });
+
+  // Try multiple paths to find the access token
+  const accessToken = 
+    connectionSettings?.settings?.oauth?.credentials?.access_token ||
+    connectionSettings?.settings?.access_token;
 
   if (!connectionSettings || !accessToken) {
-    throw new Error('Outlook not connected');
+    console.error('Failed to retrieve Outlook connection. Settings:', JSON.stringify(connectionSettings, null, 2));
+    throw new Error('Outlook not connected or access token not found');
   }
+  
   return accessToken;
 }
 
