@@ -6,10 +6,11 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 channel = "stable-24_05"
 
 [deployment]
-deploymentTarget = "scheduled"
+deploymentTarget = "gce"
 build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 publicDir = "dist"
+ignorePorts = true
 
 [[ports]]
 localPort = 5000
