@@ -1,14 +1,87 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { Leaderboard } from "@/components/leaderboard";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest, queryClient, getQueryFn } from "@/lib/queryClient";
+import type { User as UserType } from "@shared/schema";
 
 export default function Home() {
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
+
+  const { data: user } = useQuery<UserType | null>({
+    queryKey: ["/api/me"],
+    queryFn: getQueryFn({ on401: "returnNull" }),
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      await apiRequest("POST", "/api/logout", {});
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(["/api/me"], null);
+      toast({
+        title: "Logged Out",
+        description: "You have been successfully logged out.",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Logout Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
   return (
     <div className="min-h-screen bg-background">
+      <header className="border-b border-border">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <GraduationCap className="w-6 h-6 text-primary" />
+              <span className="font-semibold text-foreground">CeMAP Quiz</span>
+            </div>
+            <div className="flex items-center gap-3">
+              {user ? (
+                <>
+                  <Link href="/profile">
+                    <Button variant="ghost" data-testid="button-profile">
+                      <User className="w-4 h-4 mr-2" />
+                      Profile
+                    </Button>
+                  </Link>
+                  <Button
+                    variant="outline"
+                    onClick={handleLogout}
+                    disabled={logoutMutation.isPending}
+                    data-testid="button-logout-header"
+                  >
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Link href="/login">
+                  <Button data-testid="button-login-header">
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
       <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="text-center mb-16">
           <div className="mb-3 flex items-center justify-center gap-3">

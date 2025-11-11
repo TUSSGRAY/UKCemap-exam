@@ -9,12 +9,18 @@ import Results from "@/pages/results";
 import Certificate from "@/pages/certificate";
 import Checkout from "@/pages/checkout";
 import PaymentSuccess from "@/pages/payment-success";
+import Login from "@/pages/login";
+import Register from "@/pages/register";
+import Profile from "@/pages/profile";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/profile" component={Profile} />
       <Route path="/quiz/practice">
         {() => <Quiz mode="practice" />}
       </Route>

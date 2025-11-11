@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode (10 questions with immediate feedback and Google AdSense ads), a paid Full Exam Mode (£0.99, 50 questions), and a paid Scenario Quiz Mode (£0.99, 50 questions from 10 case studies). A Bundle Package (£1.49) provides access to both paid modes at a discounted price and includes enrollment in a "100 Days to CeMAP Ready" email campaign, delivering daily scenario questions. The application integrates Stripe for secure payments, features weekly top-4 leaderboards with all-time high scores displayed in green, and uses device-based access control via localStorage tokens. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
+This project is a professional certification quiz application, "J&K Cemap Training," designed to help users prepare for the UK Certificate in Mortgage Advice and Practice (CeMAP) examination. It offers three distinct quiz modes: a free Practice Mode (10 questions with immediate feedback and Google AdSense ads), a paid Full Exam Mode (£0.99, 50 questions), and a paid Scenario Quiz Mode (£0.99, 50 questions from 10 case studies). A Bundle Package (£1.49) provides access to both paid modes at a discounted price with 30-day expiration. The application integrates Stripe for secure payments, features weekly top-4 leaderboards with all-time high scores displayed in green, and uses session-based user authentication for access control. The overarching goal is to provide a comprehensive, accessible, and engaging platform for CeMAP exam preparation, leveraging a strong market need for specialized certification training.
 
 ## User Preferences
 
@@ -16,29 +16,29 @@ The frontend is built with React and TypeScript, utilizing Vite for development 
 
 ### Backend
 
-The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access token generation and validation, email subscription for the "100 Days" campaign, and high score management for leaderboards. Data is stored in PostgreSQL database using Drizzle ORM via `@neondatabase/serverless`, with access tokens, email subscriptions, and high scores persisted in the database.
+The backend is an Express.js server with TypeScript, exposing a RESTful API. Key endpoints manage user authentication (registration, login, logout), question fetching, advertisement retrieval, Stripe payment processing (creating intents, verifying payments), access control validation, and high score management for leaderboards. Data is stored in PostgreSQL database using Drizzle ORM via `@neondatabase/serverless`, with users, access tokens, and high scores persisted in the database. Sessions are managed with express-session for authentication state.
 
 ### Data Storage
 
-The application uses PostgreSQL database for persistent storage of access tokens, email subscriptions, and high scores via Drizzle ORM. The question bank uses in-memory storage with a hardcoded bank of 136 regular questions and 10 scenario case studies with 5 questions each (50 questions total). Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations.
+The application uses PostgreSQL database for persistent storage of users, access tokens, and high scores via Drizzle ORM. The question bank uses in-memory storage with a hardcoded bank of 136 regular questions and 10 scenario case studies with 5 questions each (50 questions total). Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations.
 
 ### Key Features
 
 *   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 50 questions, no feedback until end), Scenario Quiz (paid, 10 scenarios/50 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
-*   **Payment & Access Control**: Stripe integration with comprehensive security hardening:
-    - **Secure Payments**: £0.99 for single modes (exam/scenario), £1.49 for bundle package
-    - **Device-Based Access**: Cryptographic UUID tokens stored in `localStorage`, validated server-side
+*   **Payment & Access Control**: User authentication and Stripe integration with comprehensive security:
+    - **User Authentication**: Email/password authentication with bcrypt password hashing, session-based authentication with express-session
+    - **Secure Payments**: £0.99 for single modes (exam/scenario), £1.49 for bundle package (30-day expiration)
+    - **Access Control**: All purchases linked to user accounts, access validated via session authentication
     - **Security Hardening** (November 2025):
       - Product derived exclusively from Stripe payment metadata (zero client trust)
       - Amount and currency validation (99p/149p GBP enforcement)
       - Replay attack prevention via bidirectional payment intent ↔ token mapping
-      - Access tokens transmitted via POST body (not URL parameters) to prevent log/history leakage
+      - Payments require authenticated session
       - Input validation with Zod to prevent DoS from malformed requests
       - Generic error messages to prevent information disclosure
 *   **Advertisement System**: 
     - **Practice Mode**: 20-second non-dismissible Google AdSense ads at questions 3, 6, and 9 to help monetize the free tier and cover hosting costs
     - **Paid Modes**: 30-second custom ads at questions 25 and 45 for exam mode, questions 25 and 45 for scenario mode
-*   **100 Days Email Campaign**: Bundle purchasers providing their email are enrolled to receive 3 random scenario questions with answers daily for 100 days, delivered via Outlook integration.
 *   **User Experience**: Features include question count selection, visual feedback, progress tracking, results summaries, topic badges, an optional review system, and weekly leaderboards with name prompting for top performers.
 *   **Design Principles**: Emphasizes progressive disclosure, optimal reading length, consistent spacing, and clear visual hierarchy for a professional user experience.
 
@@ -54,7 +54,7 @@ The project uses a monorepo structure with `/client` (React frontend), `/server`
 *   **Database/ORM (Configured, not fully active)**: Drizzle ORM, Drizzle Kit, @neondatabase/serverless.
 *   **Routing**: wouter.
 *   **Payment Processing**: Stripe (stripe-js, react-stripe-js, stripe).
-*   **Email Integration**: Microsoft Graph Client, Outlook (ukcemap@outlook.com).
+*   **Authentication**: bcrypt for password hashing, express-session for session management.
 *   **Development Tools**: Vite, tsx, esbuild, Replit plugins.
 *   **Utilities**: date-fns, nanoid, Lucide React (icons).
 *   **Monetization**: Google AdSense (Publisher ID: ca-pub-4127314844320855) for practice mode advertisements.

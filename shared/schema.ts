@@ -55,21 +55,22 @@ export const advertSchema = z.object({
 
 export type Advert = z.infer<typeof advertSchema>;
 
-// Email subscription schema for 100 Days campaign
-export const emailSubscriptions = pgTable("email_subscriptions", {
+// Users table for authentication
+export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   email: text("email").notNull().unique(),
-  subscribedAt: text("subscribed_at").notNull(),
-  isActive: integer("is_active").notNull().default(1), // 1 = active, 0 = unsubscribed
-  daysSent: integer("days_sent").notNull().default(0), // Track how many days have been sent (max 100)
+  passwordHash: text("password_hash").notNull(),
+  name: text("name").notNull(),
+  createdAt: text("created_at").notNull(),
 });
 
-export const insertEmailSubscriptionSchema = createInsertSchema(emailSubscriptions).omit({
+export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
+  createdAt: true,
 });
 
-export type InsertEmailSubscription = z.infer<typeof insertEmailSubscriptionSchema>;
-export type EmailSubscription = typeof emailSubscriptions.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
 
 // High score schema for weekly leaderboard
 export const highScores = pgTable("high_scores", {
@@ -101,7 +102,6 @@ export type CreatePaymentIntent = z.infer<typeof createPaymentIntentSchema>;
 
 export const verifyPaymentSchema = z.object({
   paymentIntentId: z.string().min(1, "Payment intent ID is required"),
-  email: z.string().email().optional(), // For bundle purchases to subscribe to 100 Days campaign
 });
 
 export type VerifyPayment = z.infer<typeof verifyPaymentSchema>;
@@ -112,6 +112,8 @@ export const accessTokens = pgTable("access_tokens", {
   token: text("token").notNull().unique(),
   paymentIntentId: text("payment_intent_id").notNull().unique(),
   product: text("product").notNull(), // "exam", "scenario", or "bundle"
+  userId: varchar("user_id").references(() => users.id), // Link to user account
+  expiresAt: text("expires_at"), // For bundle: 30 days from purchase, null for exam/scenario (lifetime)
   createdAt: text("created_at").notNull(),
 });
 
@@ -123,18 +125,18 @@ export const insertAccessTokenSchema = createInsertSchema(accessTokens).omit({
 export type InsertAccessToken = z.infer<typeof insertAccessTokenSchema>;
 export type AccessToken = typeof accessTokens.$inferSelect;
 
-// Email subscription payments tracking (to prevent duplicate subscriptions)
-export const emailSubscriptionPayments = pgTable("email_subscription_payments", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  paymentIntentId: text("payment_intent_id").notNull().unique(),
-  email: text("email").notNull(),
-  createdAt: text("created_at").notNull(),
+// Authentication schemas
+export const registerSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  name: z.string().min(2, "Name must be at least 2 characters"),
 });
 
-export const insertEmailSubscriptionPaymentSchema = createInsertSchema(emailSubscriptionPayments).omit({
-  id: true,
-  createdAt: true,
+export type RegisterInput = z.infer<typeof registerSchema>;
+
+export const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
 });
 
-export type InsertEmailSubscriptionPayment = z.infer<typeof insertEmailSubscriptionPaymentSchema>;
-export type EmailSubscriptionPayment = typeof emailSubscriptionPayments.$inferSelect;
+export type LoginInput = z.infer<typeof loginSchema>;

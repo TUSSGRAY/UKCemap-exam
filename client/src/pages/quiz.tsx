@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Home, CheckCircle2, XCircle } from "lucide-react";
+import { Home, CheckCircle2, XCircle, LogIn, ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Question, QuizMode } from "@shared/schema";
+import { getQueryFn } from "@/lib/queryClient";
+import type { Question, QuizMode, User } from "@shared/schema";
 import AdBreakModal from "@/components/ad-break-modal";
 import ReviewModal from "@/components/review-modal";
 import QuestionCountSelector from "@/components/question-count-selector";
@@ -30,6 +31,13 @@ export default function Quiz({ mode }: QuizProps) {
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
   const [checkingAccess, setCheckingAccess] = useState(mode === "exam" || mode === "scenario");
+  const [accessError, setAccessError] = useState<string | null>(null);
+
+  const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
+    queryKey: ["/api/me"],
+    queryFn: getQueryFn({ on401: "returnNull" }),
+    enabled: mode !== "practice",
+  });
 
   // Check access for paid modes
   useEffect(() => {
@@ -39,42 +47,43 @@ export default function Quiz({ mode }: QuizProps) {
         return;
       }
 
-      const accessToken = localStorage.getItem(
-        mode === "exam" ? "examAccessToken" : "scenarioAccessToken"
-      );
+      // Wait for user data to load
+      if (isLoadingUser) {
+        return;
+      }
 
-      if (!accessToken) {
-        setLocation(`/checkout?product=${mode}`);
+      // User must be logged in for exam/scenario modes
+      if (!user) {
+        setCheckingAccess(false);
+        setAccessError("login_required");
         return;
       }
 
       try {
-        // SECURITY: Send token in POST body, not URL query parameter
         const endpoint = mode === "exam" ? "/api/check-exam-access" : "/api/check-scenario-access";
         const response = await fetch(endpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ accessToken }),
+          method: "GET",
+          credentials: "include",
         });
         const data = await response.json();
 
         if (!data.hasAccess) {
-          localStorage.removeItem(mode === "exam" ? "examAccessToken" : "scenarioAccessToken");
-          setLocation(`/checkout?product=${mode}`);
+          setCheckingAccess(false);
+          setAccessError("no_access");
           return;
         }
 
         setCheckingAccess(false);
+        setAccessError(null);
       } catch (error) {
         console.error("Access check error:", error);
-        setLocation(`/checkout?product=${mode}`);
+        setCheckingAccess(false);
+        setAccessError("error");
       }
     };
 
     checkAccess();
-  }, [mode, setLocation]);
+  }, [mode, user, isLoadingUser]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
@@ -198,6 +207,102 @@ export default function Quiz({ mode }: QuizProps) {
         <div className="text-center">
           <p className="text-lg text-muted-foreground">Verifying access...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (accessError === "login_required") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <Card className="max-w-md" data-testid="card-login-required">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Login Required</CardTitle>
+            <CardDescription className="text-center">
+              Please login to access this quiz mode
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-center text-muted-foreground" data-testid="text-login-required-message">
+              You need to be logged in to access {mode === "exam" ? "Full Exam" : "Scenario Quiz"} mode.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link href="/login">
+                <Button className="w-full" data-testid="button-goto-login">
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Login
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button variant="outline" className="w-full" data-testid="button-goto-register">
+                  Create Account
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (accessError === "no_access") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <Card className="max-w-md" data-testid="card-no-access">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Access Required</CardTitle>
+            <CardDescription className="text-center">
+              Purchase required to access this quiz mode
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-center text-muted-foreground" data-testid="text-no-access-message">
+              You need to purchase {mode === "exam" ? "Full Exam" : "Scenario Quiz"} mode to access this content.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Link href={`/checkout?product=${mode}`}>
+                <Button className="w-full" data-testid="button-goto-checkout">
+                  <ShoppingBag className="w-4 h-4 mr-2" />
+                  Purchase Now
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button variant="outline" className="w-full" data-testid="button-back-home">
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (accessError === "error") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <Card className="max-w-md" data-testid="card-access-error">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Access Error</CardTitle>
+            <CardDescription className="text-center">
+              Unable to verify access
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-center text-muted-foreground" data-testid="text-access-error-message">
+              There was an error verifying your access. Please try again.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Button onClick={() => window.location.reload()} className="w-full" data-testid="button-retry">
+                Try Again
+              </Button>
+              <Link href="/">
+                <Button variant="outline" className="w-full" data-testid="button-back-home">
+                  Back to Home
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }

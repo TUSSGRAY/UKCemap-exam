@@ -1,8 +1,14 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { quizRequestSchema, insertHighScoreSchema, createPaymentIntentSchema, verifyPaymentSchema } from "@shared/schema";
-import { sendDailyQuizToSubscriber, sendDailyQuizToAllSubscribers } from "./email-service";
+import { 
+  quizRequestSchema, 
+  insertHighScoreSchema, 
+  createPaymentIntentSchema, 
+  verifyPaymentSchema,
+  registerSchema,
+  loginSchema 
+} from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
 
@@ -12,6 +18,14 @@ if (!process.env.STRIPE_SECRET_KEY) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: "2025-10-29.clover",
 });
+
+// Auth middleware
+function requireAuth(req: Request, res: Response, next: NextFunction) {
+  if (!req.session?.userId) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+  next();
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/questions", async (req, res) => {
@@ -35,108 +49,84 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // INTERNAL USE ONLY: Send daily quiz to a specific subscriber
-  // This endpoint requires authentication and should only be called by scheduled jobs
-  app.post("/api/send-daily-quiz", async (req, res) => {
+  // Authentication endpoints
+  app.post("/api/register", async (req, res) => {
     try {
-      // Verify internal API key for security
-      const apiKey = req.headers['x-api-key'] as string;
-      const validApiKey = process.env.INTERNAL_API_KEY || 'dev-test-key-only';
+      const { password, ...rest } = registerSchema.parse(req.body);
       
-      if (!apiKey || apiKey !== validApiKey) {
-        return res.status(403).json({ error: "Unauthorized: Invalid API key" });
-      }
-
-      const emailSchema = z.object({
-        email: z.string().email("Invalid email address"),
+      // Storage expects passwordHash field (even though it contains raw password)
+      const user = await storage.createUser({
+        ...rest,
+        passwordHash: password,
       });
-
-      const { email } = emailSchema.parse(req.body);
       
-      await sendDailyQuizToSubscriber(email);
-      res.json({ 
-        success: true, 
-        message: `Daily quiz sent to ${email}` 
-      });
+      // Set session
+      req.session.userId = user.id;
+      
+      // Return user without password hash
+      const { passwordHash, ...userWithoutPassword } = user;
+      res.json(userWithoutPassword);
     } catch (error: any) {
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: error.errors[0].message });
       }
-      res.status(500).json({ error: error.message });
+      if (error.message.includes("already exists")) {
+        return res.status(409).json({ error: error.message });
+      }
+      res.status(500).json({ error: "Error creating user: " + error.message });
     }
   });
 
-  // INTERNAL USE ONLY: Send daily quiz to all subscribers
-  // This endpoint requires authentication and should only be called by scheduled jobs
-  app.post("/api/send-daily-quiz-all", async (req, res) => {
+  app.post("/api/login", async (req, res) => {
     try {
-      // Verify internal API key for security
-      const apiKey = req.headers['x-api-key'] as string;
-      const validApiKey = process.env.INTERNAL_API_KEY || 'dev-test-key-only';
+      const credentials = loginSchema.parse(req.body);
       
-      if (!apiKey || apiKey !== validApiKey) {
-        return res.status(403).json({ error: "Unauthorized: Invalid API key" });
-      }
-
-      const result = await sendDailyQuizToAllSubscribers();
-      res.json({ 
-        success: true, 
-        ...result 
-      });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  // Get subscription status
-  app.get("/api/subscription-status", async (req, res) => {
-    try {
-      const email = req.query.email as string;
+      const user = await storage.verifyPassword(credentials.email, credentials.password);
       
-      if (!email) {
-        return res.status(400).json({ error: "Email parameter required" });
+      if (!user) {
+        return res.status(401).json({ error: "Invalid email or password" });
       }
-
-      const subscription = await storage.getEmailSubscription(email);
-      if (!subscription) {
-        return res.json({ subscribed: false });
-      }
-
-      res.json({
-        subscribed: true,
-        isActive: subscription.isActive === 1,
-        daysSent: subscription.daysSent,
-        subscribedAt: subscription.subscribedAt,
-      });
-    } catch (error: any) {
-      res.status(500).json({ error: error.message });
-    }
-  });
-
-  // DEVELOPMENT ONLY: Direct email subscription for testing
-  app.post("/api/dev-subscribe-email", async (req, res) => {
-    try {
-      if (process.env.NODE_ENV === 'production') {
-        return res.status(403).json({ error: "Not available in production" });
-      }
-
-      const emailSchema = z.object({
-        email: z.string().email("Invalid email address"),
-      });
-
-      const { email } = emailSchema.parse(req.body);
       
-      const subscription = await storage.subscribeEmail(email);
-      res.json({ 
-        success: true, 
-        message: "Development test subscription created",
-        subscription 
-      });
+      // Set session
+      req.session.userId = user.id;
+      
+      // Return user without password hash
+      const { passwordHash, ...userWithoutPassword } = user;
+      res.json(userWithoutPassword);
     } catch (error: any) {
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: error.errors[0].message });
       }
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: "Error logging in: " + error.message });
+    }
+  });
+
+  app.post("/api/logout", async (req, res) => {
+    try {
+      req.session.destroy((err) => {
+        if (err) {
+          return res.status(500).json({ error: "Error logging out" });
+        }
+        res.json({ success: true, message: "Logged out successfully" });
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error logging out: " + error.message });
+    }
+  });
+
+  app.get("/api/me", requireAuth, async (req, res) => {
+    try {
+      const user = await storage.getUserById(req.session.userId!);
+      
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      // Return user without password hash
+      const { passwordHash, ...userWithoutPassword } = user;
+      res.json(userWithoutPassword);
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching user: " + error.message });
     }
   });
 
@@ -238,10 +228,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Verify payment and generate access token
-  app.post("/api/verify-payment", async (req, res) => {
+  app.post("/api/verify-payment", requireAuth, async (req, res) => {
     try {
       // SECURITY: Validate input to prevent DoS from malformed requests
-      const { paymentIntentId, email } = verifyPaymentSchema.parse(req.body);
+      const { paymentIntentId } = verifyPaymentSchema.parse(req.body);
       
       // Verify payment with Stripe
       const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
@@ -270,34 +260,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
+      // Get user ID from session
+      const userId = req.session.userId!;
+      
       // Generate access token(s) based on verified product (from Stripe only)
       let accessToken: string;
       
       switch (product) {
         case "exam":
-          accessToken = await storage.recordExamPurchase(paymentIntentId);
+          accessToken = await storage.recordExamPurchase(paymentIntentId, userId);
           break;
         case "scenario":
-          accessToken = await storage.recordScenarioPurchase(paymentIntentId);
+          accessToken = await storage.recordScenarioPurchase(paymentIntentId, userId);
           break;
         case "bundle":
-          accessToken = await storage.recordBundlePurchase(paymentIntentId);
-          
-          // If email provided for bundle, subscribe to 100 Days campaign
-          if (email) {
-            try {
-              // Check if payment intent already used for subscription
-              const alreadyUsed = await storage.isPaymentIntentUsedForSubscription(paymentIntentId);
-              
-              if (!alreadyUsed) {
-                await storage.subscribeEmail(email);
-                await storage.markPaymentIntentUsedForSubscription(paymentIntentId);
-              }
-            } catch (emailError: any) {
-              // Don't fail the whole payment if email subscription fails
-              console.error("Email subscription error:", emailError);
-            }
-          }
+          accessToken = await storage.recordBundlePurchase(paymentIntentId, userId);
           break;
         default:
           return res.status(400).json({ error: "Invalid product" });
@@ -306,7 +283,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ 
         success: true, 
         accessToken,
-        product, // Return the verified product from Stripe metadata
+        product,
         message: "Payment verified successfully" 
       });
     } catch (error: any) {
@@ -317,35 +294,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // SECURITY: Check exam access - accepts token in POST body, not URL
-  app.post("/api/check-exam-access", async (req, res) => {
+  // Check exam access
+  app.get("/api/check-exam-access", requireAuth, async (req, res) => {
     try {
-      const { accessToken } = req.body;
-      
-      if (!accessToken || typeof accessToken !== "string") {
-        return res.json({ hasAccess: false });
-      }
-      
-      const hasAccess = await storage.checkExamAccess(accessToken);
+      const userId = req.session.userId!;
+      const hasAccess = await storage.checkExamAccess(userId);
       res.json({ hasAccess });
     } catch (error: any) {
       res.status(500).json({ error: "Access check failed" });
     }
   });
 
-  // SECURITY: Check scenario access - accepts token in POST body, not URL
-  app.post("/api/check-scenario-access", async (req, res) => {
+  // Check scenario access
+  app.get("/api/check-scenario-access", requireAuth, async (req, res) => {
     try {
-      const { accessToken } = req.body;
-      
-      if (!accessToken || typeof accessToken !== "string") {
-        return res.json({ hasAccess: false });
-      }
-      
-      const hasAccess = await storage.checkScenarioAccess(accessToken);
+      const userId = req.session.userId!;
+      const hasAccess = await storage.checkScenarioAccess(userId);
       res.json({ hasAccess });
     } catch (error: any) {
       res.status(500).json({ error: "Access check failed" });
+    }
+  });
+
+  // Get user profile with access tokens
+  app.get("/api/profile", requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      const tokens = await storage.getUserAccessTokens(userId);
+      
+      // Format tokens with product and expiration info
+      const formattedTokens = tokens.map(token => ({
+        id: token.id,
+        product: token.product,
+        expiresAt: token.expiresAt,
+        createdAt: token.createdAt,
+      }));
+      
+      res.json({ tokens: formattedTokens });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching profile: " + error.message });
     }
   });
 

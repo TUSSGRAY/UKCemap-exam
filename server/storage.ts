@@ -1,27 +1,25 @@
-import type { Question, InsertQuestion, QuizMode, Advert, EmailSubscription, InsertEmailSubscription, HighScore, InsertHighScore } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
 import { eq, desc, and, gte, ne, lt } from "drizzle-orm";
-import { questions, emailSubscriptions, highScores, accessTokens, emailSubscriptionPayments } from "@shared/schema";
+import { questions, highScores, accessTokens, users } from "@shared/schema";
+import bcrypt from "bcrypt";
 
 export interface IStorage {
   getAllQuestions(): Promise<Question[]>;
   getQuestionsByMode(mode: QuizMode, count: number): Promise<Question[]>;
   getRandomAdvert(): Promise<Advert>;
-  recordExamPurchase(paymentIntentId: string): Promise<string>;
-  recordScenarioPurchase(paymentIntentId: string): Promise<string>;
-  recordBundlePurchase(paymentIntentId: string): Promise<string>;
-  checkExamAccess(accessToken: string): Promise<boolean>;
-  checkScenarioAccess(accessToken: string): Promise<boolean>;
-  subscribeEmail(email: string): Promise<EmailSubscription>;
-  getEmailSubscription(email: string): Promise<EmailSubscription | null>;
-  getAllActiveSubscriptions(): Promise<EmailSubscription[]>;
-  updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void>;
-  unsubscribeEmail(email: string): Promise<void>;
-  isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean>;
-  markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void>;
-  unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void>;
+  createUser(user: InsertUser): Promise<User>;
+  getUserByEmail(email: string): Promise<User | null>;
+  getUserById(id: string): Promise<User | null>;
+  verifyPassword(email: string, password: string): Promise<User | null>;
+  recordExamPurchase(paymentIntentId: string, userId: string): Promise<string>;
+  recordScenarioPurchase(paymentIntentId: string, userId: string): Promise<string>;
+  recordBundlePurchase(paymentIntentId: string, userId: string): Promise<string>;
+  checkExamAccess(userId: string): Promise<boolean>;
+  checkScenarioAccess(userId: string): Promise<boolean>;
+  getUserAccessTokens(userId: string): Promise<AccessToken[]>;
   saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
   getWeeklyHighScores(mode: "exam" | "scenario", limit: number): Promise<HighScore[]>;
   getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null>;
@@ -37,8 +35,6 @@ export class MemStorage implements IStorage {
   private examPaymentIntents: Map<string, string>; // paymentIntentId -> token
   private scenarioPaymentIntents: Map<string, string>; // paymentIntentId -> token
   private bundlePaymentIntents: Map<string, string>; // paymentIntentId -> token
-  private emailSubscriptions: Map<string, EmailSubscription>;
-  private emailSubscriptionPayments: Set<string>;
   private highScores: Map<string, HighScore>;
   private allTimeHighScores: Map<"exam" | "scenario", HighScore>;
 
@@ -50,8 +46,6 @@ export class MemStorage implements IStorage {
     this.examPaymentIntents = new Map();
     this.scenarioPaymentIntents = new Map();
     this.bundlePaymentIntents = new Map();
-    this.emailSubscriptions = new Map();
-    this.emailSubscriptionPayments = new Set();
     this.highScores = new Map();
     this.allTimeHighScores = new Map();
     this.adverts = [
@@ -3195,7 +3189,23 @@ export class MemStorage implements IStorage {
     return this.adverts[randomIndex];
   }
 
-  async recordExamPurchase(paymentIntentId: string): Promise<string> {
+  async createUser(user: InsertUser): Promise<User> {
+    throw new Error("Not implemented");
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    throw new Error("Not implemented");
+  }
+
+  async getUserById(id: string): Promise<User | null> {
+    throw new Error("Not implemented");
+  }
+
+  async verifyPassword(email: string, password: string): Promise<User | null> {
+    throw new Error("Not implemented");
+  }
+
+  async recordExamPurchase(paymentIntentId: string, userId: string): Promise<string> {
     // SECURITY: Check if this payment intent was already processed
     const existingToken = this.examPaymentIntents.get(paymentIntentId);
     if (existingToken) {
@@ -3208,7 +3218,7 @@ export class MemStorage implements IStorage {
     return accessToken;
   }
 
-  async recordScenarioPurchase(paymentIntentId: string): Promise<string> {
+  async recordScenarioPurchase(paymentIntentId: string, userId: string): Promise<string> {
     // SECURITY: Check if this payment intent was already processed
     const existingToken = this.scenarioPaymentIntents.get(paymentIntentId);
     if (existingToken) {
@@ -3221,7 +3231,7 @@ export class MemStorage implements IStorage {
     return accessToken;
   }
 
-  async recordBundlePurchase(paymentIntentId: string): Promise<string> {
+  async recordBundlePurchase(paymentIntentId: string, userId: string): Promise<string> {
     // SECURITY: Check if this payment intent was already processed
     const existingToken = this.bundlePaymentIntents.get(paymentIntentId);
     if (existingToken) {
@@ -3234,66 +3244,16 @@ export class MemStorage implements IStorage {
     return accessToken;
   }
 
-  async checkExamAccess(accessToken: string): Promise<boolean> {
-    // Bundle gives access to exam too
-    return this.examAccessTokens.has(accessToken) || this.bundleAccessTokens.has(accessToken);
+  async checkExamAccess(userId: string): Promise<boolean> {
+    throw new Error("Not implemented");
   }
 
-  async checkScenarioAccess(accessToken: string): Promise<boolean> {
-    // Bundle gives access to scenarios too
-    return this.scenarioAccessTokens.has(accessToken) || this.bundleAccessTokens.has(accessToken);
+  async checkScenarioAccess(userId: string): Promise<boolean> {
+    throw new Error("Not implemented");
   }
 
-  async subscribeEmail(email: string): Promise<EmailSubscription> {
-    const subscription: EmailSubscription = {
-      id: randomUUID(),
-      email: email.toLowerCase(),
-      subscribedAt: new Date().toISOString(),
-      isActive: 1,
-      daysSent: 0,
-    };
-    this.emailSubscriptions.set(email.toLowerCase(), subscription);
-    return subscription;
-  }
-
-  async getEmailSubscription(email: string): Promise<EmailSubscription | null> {
-    return this.emailSubscriptions.get(email.toLowerCase()) || null;
-  }
-
-  async getAllActiveSubscriptions(): Promise<EmailSubscription[]> {
-    return Array.from(this.emailSubscriptions.values()).filter(
-      sub => sub.isActive === 1 && sub.daysSent < 100
-    );
-  }
-
-  async updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void> {
-    const subscription = Array.from(this.emailSubscriptions.values()).find(
-      sub => sub.id === id
-    );
-    if (subscription) {
-      subscription.daysSent = daysSent;
-      this.emailSubscriptions.set(subscription.email, subscription);
-    }
-  }
-
-  async unsubscribeEmail(email: string): Promise<void> {
-    const subscription = this.emailSubscriptions.get(email.toLowerCase());
-    if (subscription) {
-      subscription.isActive = 0;
-      this.emailSubscriptions.set(email.toLowerCase(), subscription);
-    }
-  }
-
-  async isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean> {
-    return this.emailSubscriptionPayments.has(paymentIntentId);
-  }
-
-  async markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void> {
-    this.emailSubscriptionPayments.add(paymentIntentId);
-  }
-
-  async unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void> {
-    this.emailSubscriptionPayments.delete(paymentIntentId);
+  async getUserAccessTokens(userId: string): Promise<AccessToken[]> {
+    throw new Error("Not implemented");
   }
 
   async saveHighScore(highScore: InsertHighScore): Promise<HighScore> {
@@ -3384,7 +3344,46 @@ class DatabaseStorage implements IStorage {
     return this.memStorage.getRandomAdvert();
   }
 
-  async recordExamPurchase(paymentIntentId: string): Promise<string> {
+  async createUser(user: InsertUser): Promise<User> {
+    const hashedPassword = await bcrypt.hash(user.passwordHash, 10);
+    const [newUser] = await this.db
+      .insert(users)
+      .values({
+        ...user,
+        passwordHash: hashedPassword,
+        createdAt: new Date().toISOString(),
+      })
+      .returning();
+    return newUser;
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    const results = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.email, email.toLowerCase()))
+      .limit(1);
+    return results.length > 0 ? results[0] : null;
+  }
+
+  async getUserById(id: string): Promise<User | null> {
+    const results = await this.db
+      .select()
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+    return results.length > 0 ? results[0] : null;
+  }
+
+  async verifyPassword(email: string, password: string): Promise<User | null> {
+    const user = await this.getUserByEmail(email);
+    if (!user) return null;
+    
+    const isValid = await bcrypt.compare(password, user.passwordHash);
+    return isValid ? user : null;
+  }
+
+  async recordExamPurchase(paymentIntentId: string, userId: string): Promise<string> {
     // Check if this payment intent was already processed
     const existing = await this.db
       .select()
@@ -3401,13 +3400,15 @@ class DatabaseStorage implements IStorage {
       token,
       paymentIntentId,
       product: "exam",
+      userId,
+      expiresAt: null, // Lifetime access
       createdAt: new Date().toISOString(),
     });
 
     return token;
   }
 
-  async recordScenarioPurchase(paymentIntentId: string): Promise<string> {
+  async recordScenarioPurchase(paymentIntentId: string, userId: string): Promise<string> {
     // Check if this payment intent was already processed
     const existing = await this.db
       .select()
@@ -3424,13 +3425,15 @@ class DatabaseStorage implements IStorage {
       token,
       paymentIntentId,
       product: "scenario",
+      userId,
+      expiresAt: null, // Lifetime access
       createdAt: new Date().toISOString(),
     });
 
     return token;
   }
 
-  async recordBundlePurchase(paymentIntentId: string): Promise<string> {
+  async recordBundlePurchase(paymentIntentId: string, userId: string): Promise<string> {
     // Check if this payment intent was already processed
     const existing = await this.db
       .select()
@@ -3443,142 +3446,55 @@ class DatabaseStorage implements IStorage {
     }
 
     const token = randomUUID();
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30); // 30 days from now
+
     await this.db.insert(accessTokens).values({
       token,
       paymentIntentId,
       product: "bundle",
+      userId,
+      expiresAt: expiresAt.toISOString(),
       createdAt: new Date().toISOString(),
     });
 
     return token;
   }
 
-  async checkExamAccess(accessToken: string): Promise<boolean> {
-    // Bundle gives access to exam too
+  async checkExamAccess(userId: string): Promise<boolean> {
+    // Check if user has exam or active bundle access
     const tokens = await this.db
       .select()
       .from(accessTokens)
-      .where(
-        and(
-          eq(accessTokens.token, accessToken),
-          // Product is either exam or bundle
-        )
-      )
-      .limit(1);
+      .where(eq(accessTokens.userId, userId));
 
-    if (tokens.length === 0) return false;
-    return tokens[0].product === "exam" || tokens[0].product === "bundle";
+    const now = new Date().toISOString();
+    return tokens.some(token => 
+      (token.product === "exam" && token.expiresAt === null) ||
+      (token.product === "bundle" && (token.expiresAt === null || token.expiresAt > now))
+    );
   }
 
-  async checkScenarioAccess(accessToken: string): Promise<boolean> {
-    // Bundle gives access to scenarios too
+  async checkScenarioAccess(userId: string): Promise<boolean> {
+    // Check if user has scenario or active bundle access
     const tokens = await this.db
       .select()
       .from(accessTokens)
-      .where(
-        and(
-          eq(accessTokens.token, accessToken),
-          // Product is either scenario or bundle
-        )
-      )
-      .limit(1);
+      .where(eq(accessTokens.userId, userId));
 
-    if (tokens.length === 0) return false;
-    return tokens[0].product === "scenario" || tokens[0].product === "bundle";
+    const now = new Date().toISOString();
+    return tokens.some(token => 
+      (token.product === "scenario" && token.expiresAt === null) ||
+      (token.product === "bundle" && (token.expiresAt === null || token.expiresAt > now))
+    );
   }
 
-  async subscribeEmail(email: string): Promise<EmailSubscription> {
-    const normalizedEmail = email.toLowerCase();
-
-    // Check if already subscribed
-    const existing = await this.db
-      .select()
-      .from(emailSubscriptions)
-      .where(eq(emailSubscriptions.email, normalizedEmail))
-      .limit(1);
-
-    if (existing.length > 0) {
-      return existing[0];
-    }
-
-    const [subscription] = await this.db
-      .insert(emailSubscriptions)
-      .values({
-        email: normalizedEmail,
-        subscribedAt: new Date().toISOString(),
-        isActive: 1,
-        daysSent: 0,
-      })
-      .returning();
-
-    return subscription;
-  }
-
-  async getEmailSubscription(email: string): Promise<EmailSubscription | null> {
-    const results = await this.db
-      .select()
-      .from(emailSubscriptions)
-      .where(eq(emailSubscriptions.email, email.toLowerCase()))
-      .limit(1);
-
-    return results.length > 0 ? results[0] : null;
-  }
-
-  async getAllActiveSubscriptions(): Promise<EmailSubscription[]> {
+  async getUserAccessTokens(userId: string): Promise<AccessToken[]> {
     return await this.db
       .select()
-      .from(emailSubscriptions)
-      .where(
-        and(
-          eq(emailSubscriptions.isActive, 1),
-          lt(emailSubscriptions.daysSent, 100)
-        )
-      );
-  }
-
-  async updateSubscriptionDaysSent(id: string, daysSent: number): Promise<void> {
-    await this.db
-      .update(emailSubscriptions)
-      .set({ daysSent })
-      .where(eq(emailSubscriptions.id, id));
-  }
-
-  async unsubscribeEmail(email: string): Promise<void> {
-    await this.db
-      .update(emailSubscriptions)
-      .set({ isActive: 0 })
-      .where(eq(emailSubscriptions.email, email.toLowerCase()));
-  }
-
-  async isPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<boolean> {
-    const results = await this.db
-      .select()
-      .from(emailSubscriptionPayments)
-      .where(eq(emailSubscriptionPayments.paymentIntentId, paymentIntentId))
-      .limit(1);
-
-    return results.length > 0;
-  }
-
-  async markPaymentIntentUsedForSubscription(paymentIntentId: string): Promise<void> {
-    // Get the email from the access token with this payment intent
-    const token = await this.db
-      .select()
       .from(accessTokens)
-      .where(eq(accessTokens.paymentIntentId, paymentIntentId))
-      .limit(1);
-
-    await this.db.insert(emailSubscriptionPayments).values({
-      paymentIntentId,
-      email: token.length > 0 ? "bundle-purchase" : "unknown", // Email stored elsewhere
-      createdAt: new Date().toISOString(),
-    });
-  }
-
-  async unmarkPaymentIntentForSubscription(paymentIntentId: string): Promise<void> {
-    await this.db
-      .delete(emailSubscriptionPayments)
-      .where(eq(emailSubscriptionPayments.paymentIntentId, paymentIntentId));
+      .where(eq(accessTokens.userId, userId))
+      .orderBy(desc(accessTokens.createdAt));
   }
 
   async saveHighScore(highScore: InsertHighScore): Promise<HighScore> {
