@@ -16,9 +16,10 @@ import { GoogleAdSenseAd } from "@/components/google-adsense-ad";
 
 interface QuizProps {
   mode: QuizMode;
+  topicSlug?: string;
 }
 
-export default function Quiz({ mode }: QuizProps) {
+export default function Quiz({ mode, topicSlug }: QuizProps) {
   const [, setLocation] = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -32,17 +33,19 @@ export default function Quiz({ mode }: QuizProps) {
   const [quizSessionId] = useState(() => Date.now());
   const [checkingAccess, setCheckingAccess] = useState(mode === "exam" || mode === "scenario");
   const [accessError, setAccessError] = useState<string | null>(null);
+  const [topicConfig, setTopicConfig] = useState<any>(null);
 
   const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
     queryKey: ["/api/me"],
     queryFn: getQueryFn({ on401: "returnNull" }),
-    enabled: mode !== "practice",
+    enabled: mode !== "practice" && mode !== "topic",
   });
 
   // Check access for paid modes
   useEffect(() => {
     const checkAccess = async () => {
-      if (mode === "practice") {
+      // Skip access check for practice and topic modes (both free)
+      if (mode === "practice" || mode === "topic") {
         setCheckingAccess(false);
         return;
       }
@@ -86,9 +89,19 @@ export default function Quiz({ mode }: QuizProps) {
   }, [mode, user, isLoadingUser]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
+    queryKey: mode === "topic" ? ["/api/topic-exams", topicSlug] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,
     queryFn: async () => {
+      if (mode === "topic" && topicSlug) {
+        const response = await fetch(`/api/topic-exams/${topicSlug}`, {
+          credentials: "include"
+        });
+        if (!response.ok) throw new Error("Failed to fetch topic exam");
+        const data = await response.json();
+        setTopicConfig(data.config);
+        return data.questions;
+      }
+      
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
         credentials: "include"
       });
@@ -99,7 +112,7 @@ export default function Quiz({ mode }: QuizProps) {
 
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
-  const isPracticeMode = mode === "practice" || mode === "scenario";
+  const isPracticeMode = mode === "practice" || mode === "scenario" || mode === "topic";
   const isCorrect = selectedAnswer === currentQuestion?.answer;
 
   const handleStartQuiz = async (count: number) => {
@@ -113,6 +126,9 @@ export default function Quiz({ mode }: QuizProps) {
       setIsStarted(true);
     } else if (mode === "practice") {
       setQuestionCount(10); // Fixed 10 questions for practice mode
+      setIsStarted(true);
+    } else if (mode === "topic") {
+      setQuestionCount(16); // Fixed 16 questions for topic exam
       setIsStarted(true);
     }
   }, [mode]);
@@ -152,23 +168,25 @@ export default function Quiz({ mode }: QuizProps) {
       
       // Include attemptId for practice mode to track unique attempts
       const attemptParam = mode === "practice" ? `&attemptId=${quizSessionId}` : '';
-      setLocation(`/results?mode=${mode}&score=${score}&total=${questions.length}${attemptParam}`);
+      // Include topicSlug for topic mode
+      const modeParam = mode === "topic" && topicSlug ? `topic:${topicSlug}` : mode;
+      setLocation(`/results?mode=${modeParam}&score=${score}&total=${questions.length}${attemptParam}`);
       return;
     }
 
-    // Show review modal after question 15 (for exam and scenario modes only)
+    // Show review modal after question 15 (for exam and scenario modes only, not topic)
     if (nextIndex === 15 && (mode === "exam" || mode === "scenario")) {
       setShowReview(true);
       return;
     }
 
-    // Show Google AdSense ads at questions 3, 6, and 9 for practice mode
+    // Show Google AdSense ads at questions 3, 6, and 9 for practice mode only (not topic)
     if ((nextIndex === 3 || nextIndex === 6 || nextIndex === 9) && mode === "practice") {
       setShowGoogleAd(true);
       return;
     }
 
-    // Show ad at questions 30 and 90 for exam and scenario modes
+    // Show ad at questions 30 and 90 for exam and scenario modes only (not topic)
     if ((nextIndex === 30 || nextIndex === 90) && (mode === "exam" || mode === "scenario")) {
       setShowAdBreak(true);
     } else {

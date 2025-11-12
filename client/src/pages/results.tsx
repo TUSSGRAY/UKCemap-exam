@@ -21,7 +21,7 @@ export default function Results() {
   const [, setLocation] = useLocation();
   const [score, setScore] = useState(0);
   const [total, setTotal] = useState(0);
-  const [mode, setMode] = useState<"practice" | "exam" | "scenario">("practice");
+  const [mode, setMode] = useState<string>("practice");
   const [practiceAttempts, setPracticeAttempts] = useState(0);
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [playerName, setPlayerName] = useState("");
@@ -32,7 +32,7 @@ export default function Results() {
     const params = new URLSearchParams(window.location.search);
     const currentScore = Number(params.get("score")) || 0;
     const currentTotal = Number(params.get("total")) || 0;
-    const currentMode = (params.get("mode") as "practice" | "exam" | "scenario") || "practice";
+    const currentMode = params.get("mode") || "practice";
     const attemptId = params.get("attemptId") || '';
     
     setScore(currentScore);
@@ -62,8 +62,8 @@ export default function Results() {
       }
     }
     
-    // For exam and scenario modes, show name dialog to save to leaderboard
-    if (currentMode === "exam" || currentMode === "scenario") {
+    // For exam, scenario, and topic modes, show name dialog to save to leaderboard
+    if (currentMode === "exam" || currentMode === "scenario" || currentMode.startsWith("topic:")) {
       // Check if we've already saved the score for this session
       const savedScoreKey = `highScoreSaved_${currentMode}_${attemptId}`;
       const alreadySaved = sessionStorage.getItem(savedScoreKey);
@@ -84,11 +84,15 @@ export default function Results() {
   const isExamMode = mode === "exam";
   const isScenarioMode = mode === "scenario";
   const isPracticeMode = mode === "practice";
+  const isTopicMode = mode.startsWith("topic:");
   // All modes now require 80% to pass
   const passThreshold = Math.ceil(total * 0.8);
   const passed = score >= passThreshold;
   const canRetryPractice = isPracticeMode && practiceAttempts < 2;
   const noMoreAttempts = isPracticeMode && practiceAttempts >= 2;
+  
+  // Extract topic display name from mode string
+  const topicName = isTopicMode ? mode.split(":")[1].split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
 
   const handleSaveScore = async () => {
     if (!playerName.trim()) {
@@ -286,24 +290,28 @@ export default function Results() {
               {passed ? (
                 <div className="text-center">
                   <p className="text-lg font-medium text-foreground mb-2">
-                    {isExamMode ? "🌟 Excellent! You're CeMAP-ready." : isScenarioMode ? "💼 Great work! You've mastered this scenario." : "👍 Good job! Keep revising."}
+                    {isExamMode ? "Excellent! You're CeMAP-ready." : isScenarioMode ? "Great work! You've mastered this scenario." : isTopicMode ? `Great work! You've mastered ${topicName}.` : "Good job! Keep revising."}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {isExamMode
                       ? "You've demonstrated a strong understanding of CeMAP topics."
                       : isScenarioMode
                       ? "You've shown strong application of CeMAP knowledge to real-world situations."
+                      : isTopicMode
+                      ? `You've demonstrated strong knowledge of ${topicName}.`
                       : "You're making great progress. Consider taking the full exam when ready."}
                   </p>
                 </div>
               ) : (
                 <div className="text-center">
                   <p className="text-lg font-medium text-foreground mb-2">
-                    📘 Keep studying - you're getting there!
+                    Keep studying - you're getting there!
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {isScenarioMode 
                       ? "Review this scenario carefully and try again. Focus on applying CeMAP principles to real-world situations."
+                      : isTopicMode
+                      ? `Review ${topicName} carefully and try again.`
                       : "Review the key CeMAP topics and try again. Practice makes perfect!"}
                   </p>
                 </div>
