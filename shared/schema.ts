@@ -25,8 +25,12 @@ export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 export type Question = typeof questions.$inferSelect;
 
 // Quiz mode type
-export const quizModeSchema = z.enum(["practice", "exam", "scenario"]);
+export const quizModeSchema = z.enum(["practice", "exam", "scenario", "topic"]);
 export type QuizMode = z.infer<typeof quizModeSchema>;
+
+// Topic slug for topic-specific exams
+export const topicSlugSchema = z.enum(["collective-investments"]);
+export type TopicSlug = z.infer<typeof topicSlugSchema>;
 
 // Quiz request schema
 export const quizRequestSchema = z.object({
@@ -55,6 +59,18 @@ export const advertSchema = z.object({
 
 export type Advert = z.infer<typeof advertSchema>;
 
+// Topic exam configuration
+export const topicExamConfigSchema = z.object({
+  slug: topicSlugSchema,
+  title: z.string(),
+  description: z.string(),
+  questionCount: z.number(),
+  passThreshold: z.number(),
+  topics: z.array(z.string()),
+});
+
+export type TopicExamConfig = z.infer<typeof topicExamConfigSchema>;
+
 // Users table for authentication
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -78,7 +94,7 @@ export const highScores = pgTable("high_scores", {
   name: text("name").notNull(),
   score: integer("score").notNull(),
   total: integer("total").notNull(),
-  mode: text("mode").notNull(), // "exam" or "scenario"
+  mode: text("mode").notNull(), // "exam", "scenario", or "topic:collective-investments"
   timestamp: text("timestamp").notNull(),
 });
 

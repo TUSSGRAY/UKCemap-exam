@@ -1,4 +1,4 @@
-import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken, TopicSlug, TopicExamConfig } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
@@ -21,8 +21,10 @@ export interface IStorage {
   checkScenarioAccess(userId: string): Promise<boolean>;
   getUserAccessTokens(userId: string): Promise<AccessToken[]>;
   saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
-  getWeeklyHighScores(mode: "exam" | "scenario", limit: number): Promise<HighScore[]>;
-  getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null>;
+  getWeeklyHighScores(mode: string, limit: number): Promise<HighScore[]>;
+  getAllTimeHighScore(mode: string): Promise<HighScore | null>;
+  getTopicExamConfig(slug: TopicSlug): Promise<TopicExamConfig | null>;
+  getTopicQuestions(slug: TopicSlug): Promise<Question[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -3459,8 +3461,35 @@ export class MemStorage implements IStorage {
     return weeklyScores;
   }
 
-  async getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null> {
-    return this.allTimeHighScores.get(mode) || null;
+  async getAllTimeHighScore(mode: string): Promise<HighScore | null> {
+    return this.allTimeHighScores.get(mode as "exam" | "scenario") || null;
+  }
+
+  async getTopicExamConfig(slug: TopicSlug): Promise<TopicExamConfig | null> {
+    const topicConfigs: Record<TopicSlug, TopicExamConfig> = {
+      "collective-investments": {
+        slug: "collective-investments",
+        title: "Collective Investments & Investment Bonds",
+        description: "Test your knowledge on unit trusts, investment trusts, OEICs, and investment bonds",
+        questionCount: 16,
+        passThreshold: 13,
+        topics: ["Collective Investments", "Investment Bonds"]
+      }
+    };
+    
+    return topicConfigs[slug] || null;
+  }
+
+  async getTopicQuestions(slug: TopicSlug): Promise<Question[]> {
+    const config = await this.getTopicExamConfig(slug);
+    if (!config) return [];
+    
+    const allQuestions = Array.from(this.questions.values());
+    const topicQuestions = allQuestions.filter(q => 
+      config.topics.includes(q.topic || "")
+    );
+    
+    return topicQuestions.map(q => this.shuffleAnswerPositions(q));
   }
 }
 
@@ -3655,7 +3684,7 @@ class DatabaseStorage implements IStorage {
     return newScore;
   }
 
-  async getWeeklyHighScores(mode: "exam" | "scenario", limit: number = 10): Promise<HighScore[]> {
+  async getWeeklyHighScores(mode: string, limit: number = 10): Promise<HighScore[]> {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
@@ -3678,7 +3707,7 @@ class DatabaseStorage implements IStorage {
     return weeklyScores;
   }
 
-  async getAllTimeHighScore(mode: "exam" | "scenario"): Promise<HighScore | null> {
+  async getAllTimeHighScore(mode: string): Promise<HighScore | null> {
     const scores = await this.db
       .select()
       .from(highScores)
@@ -3687,6 +3716,14 @@ class DatabaseStorage implements IStorage {
       .limit(1);
 
     return scores.length > 0 ? scores[0] : null;
+  }
+
+  async getTopicExamConfig(slug: TopicSlug): Promise<TopicExamConfig | null> {
+    return this.memStorage.getTopicExamConfig(slug);
+  }
+
+  async getTopicQuestions(slug: TopicSlug): Promise<Question[]> {
+    return this.memStorage.getTopicQuestions(slug);
   }
 }
 
