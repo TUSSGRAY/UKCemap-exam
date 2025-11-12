@@ -19,7 +19,7 @@ interface QuizProps {
   topicSlug?: string;
 }
 
-export default function Quiz({ mode, topicSlug }: QuizProps) {
+export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }: QuizProps) {
   const [, setLocation] = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -31,7 +31,9 @@ export default function Quiz({ mode, topicSlug }: QuizProps) {
   const [isStarted, setIsStarted] = useState(false);
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
-  const [checkingAccess, setCheckingAccess] = useState(mode === "exam" || mode === "scenario");
+  const [mode, setMode] = useState<QuizMode>(initialMode);
+  const [topicSlug, setTopicSlug] = useState<string | undefined>(initialTopicSlug);
+  const [checkingAccess, setCheckingAccess] = useState(initialMode === "exam" || initialMode === "scenario");
   const [accessError, setAccessError] = useState<string | null>(null);
   const [topicConfig, setTopicConfig] = useState<any>(null);
 
@@ -41,11 +43,19 @@ export default function Quiz({ mode, topicSlug }: QuizProps) {
     enabled: mode !== "practice" && mode !== "topic",
   });
 
-  // Check access for paid modes
+  // Check access for paid modes (but only after quiz is started)
   useEffect(() => {
     const checkAccess = async () => {
       // Skip access check for practice and topic modes (both free)
       if (mode === "practice" || mode === "topic") {
+        setCheckingAccess(false);
+        setAccessError(null);
+        return;
+      }
+
+      // For exam mode, defer access check until quiz is started
+      // This allows users to see the topic selector first
+      if (mode === "exam" && !isStarted) {
         setCheckingAccess(false);
         return;
       }
@@ -86,7 +96,7 @@ export default function Quiz({ mode, topicSlug }: QuizProps) {
     };
 
     checkAccess();
-  }, [mode, user, isLoadingUser]);
+  }, [mode, user, isLoadingUser, isStarted]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: mode === "topic" ? ["/api/topic-exams", topicSlug] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
@@ -115,8 +125,17 @@ export default function Quiz({ mode, topicSlug }: QuizProps) {
   const isPracticeMode = mode === "practice" || mode === "scenario" || mode === "topic";
   const isCorrect = selectedAnswer === currentQuestion?.answer;
 
-  const handleStartQuiz = async (count: number) => {
+  const handleStartQuiz = async (count: number, selectedTopicSlug?: string) => {
     setQuestionCount(count);
+    
+    // If a topic is selected, switch to topic mode
+    if (selectedTopicSlug) {
+      setMode("topic");
+      setTopicSlug(selectedTopicSlug);
+      setCheckingAccess(false); // Topic exams are free, no access check needed
+      setAccessError(null); // Clear any previous access errors
+    }
+    
     setIsStarted(true);
   };
 
@@ -374,7 +393,7 @@ export default function Quiz({ mode, topicSlug }: QuizProps) {
               J&K Cemap Training
             </p>
             <Badge variant="secondary" className="text-xs font-medium" data-testid="badge-mode-indicator">
-              {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : "Full Exam"}
+              {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : mode === "topic" ? "Topic Exam" : "Full Exam"}
             </Badge>
           </div>
           <div className="w-10" />

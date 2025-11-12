@@ -2,20 +2,39 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { BookOpen, Trophy } from "lucide-react";
 import type { QuizMode } from "@shared/schema";
 
 interface QuestionCountSelectorProps {
   mode: QuizMode;
-  onStart: (count: number) => void;
+  onStart: (count: number, topicSlug?: string) => void;
   onCancel: () => void;
 }
 
 export default function QuestionCountSelector({ mode, onStart, onCancel }: QuestionCountSelectorProps) {
   const [selectedCount, setSelectedCount] = useState(5);
+  const [selectedExamType, setSelectedExamType] = useState<string>("full");
   const isExamMode = mode === "exam";
 
+  // Topic exam configurations
+  const topicExams = [
+    {
+      value: "collective-investments",
+      label: "Collective Investments & Investment Bonds",
+      questionCount: 16,
+      passThreshold: 13,
+      timeEstimate: "10-20 mins"
+    }
+  ];
+
   if (isExamMode) {
+    const isTopic = selectedExamType !== "full";
+    const selectedTopic = topicExams.find(t => t.value === selectedExamType);
+    const questionCount = isTopic && selectedTopic ? selectedTopic.questionCount : 50;
+    const passThreshold = isTopic && selectedTopic ? selectedTopic.passThreshold : 40;
+    const timeEstimate = isTopic && selectedTopic ? selectedTopic.timeEstimate : "30-60 mins";
+
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
         <Card className="max-w-lg w-full shadow-xl" data-testid="card-exam-confirm">
@@ -23,30 +42,61 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
               <Trophy className="w-8 h-8 text-primary" />
             </div>
-            <CardTitle className="text-3xl">Full CeMAP Exam</CardTitle>
+            <CardTitle className="text-3xl">CeMAP Exam</CardTitle>
             <CardDescription className="text-base">
-              You're about to start the complete certification practice test
+              Select your exam type and begin when ready
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="exam-type" className="text-sm font-medium">
+                Exam Type
+              </label>
+              <Select value={selectedExamType} onValueChange={setSelectedExamType}>
+                <SelectTrigger id="exam-type" data-testid="select-exam-type">
+                  <SelectValue placeholder="Select exam type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="full" data-testid="select-item-full">
+                    Full Exam (50 questions)
+                  </SelectItem>
+                  {topicExams.map(topic => (
+                    <SelectItem 
+                      key={topic.value} 
+                      value={topic.value}
+                      data-testid={`select-item-${topic.value}`}
+                    >
+                      {topic.label} ({topic.questionCount} questions)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
             <div className="bg-muted/50 rounded-lg p-6 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Total Questions</span>
-                <Badge variant="secondary" className="font-semibold">50</Badge>
+                <Badge variant="secondary" className="font-semibold">{questionCount}</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Pass Mark</span>
-                <Badge variant="secondary" className="font-semibold">40/50</Badge>
+                <Badge variant="secondary" className="font-semibold">{passThreshold}/{questionCount}</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Time Estimate</span>
-                <Badge variant="secondary">30-60 mins</Badge>
+                <Badge variant="secondary">{timeEstimate}</Badge>
               </div>
+              {isTopic && (
+                <div className="flex items-center justify-between pt-2 border-t">
+                  <span className="text-sm font-medium">Type</span>
+                  <Badge variant="default" className="text-xs">FREE TOPIC EXAM</Badge>
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground text-center">
-                Results will be shown at the end. Good luck!
+                {isTopic ? "Immediate feedback after each answer. Good luck!" : "Results will be shown at the end. Good luck!"}
               </p>
             </div>
 
@@ -60,7 +110,7 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
                 Cancel
               </Button>
               <Button
-                onClick={() => onStart(50)}
+                onClick={() => onStart(questionCount, isTopic ? selectedExamType : undefined)}
                 className="flex-1"
                 data-testid="button-begin-exam"
               >
