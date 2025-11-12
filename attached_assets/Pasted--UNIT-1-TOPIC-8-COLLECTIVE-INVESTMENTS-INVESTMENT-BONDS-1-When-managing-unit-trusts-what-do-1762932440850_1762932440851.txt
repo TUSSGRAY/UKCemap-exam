@@ -1,0 +1,113 @@
+💼 UNIT 1 – TOPIC 8: COLLECTIVE INVESTMENTS & INVESTMENT BONDS
+
+1. When managing unit trusts what does the term ‘open-ended’ mean?
+A. That clients can buy more units ❌
+✅ B. That the fund manager can create more units
+C. That the fund manager does not need to value the units ❌
+D. That there is flexibility in the taxation arrangements of units ❌
+🧠 Explanation: “Open-ended” means units are created or cancelled to match investor demand — fund size changes as investors buy/sell.
+
+2. Which of the following statements is correct in respect of a unit trust?
+✅ A. Any gain made on the sale of units by an investor may be liable to capital gains tax
+B. The fund manager is able to borrow ❌
+C. An investor who requires mainly capital growth will be best advised to purchase distribution units ❌
+D. The price at which an investor purchases units in the fund is referred to as the bid price ❌
+🧠 Explanation: Gains are subject to CGT for the investor, not the trust. Fund borrowing is restricted; “offer price” is the purchase price.
+
+3. Historically, charges on unit trusts have generally comprised:
+A. A bid-offer spread only ❌
+B. An annual management charge only ❌
+C. An annual management charge and a policy fee ❌
+✅ D. A bid-offer spread and an annual or monthly management charge
+🧠 Explanation: The initial spread covers entry cost; an AMC applies yearly.
+
+4. Under a unit trust what does the cancellation price represent?
+A. The maximum price at which a full encashment of the units may be made ❌
+✅ B. The minimum price at which investors may cash in their units
+C. The price applicable to investors if they cancel during the cooling off period ❌
+D. The price at which the manager will buy back units if underlying assets do not have to be traded ❌
+🧠 Explanation: The cancellation price is the lowest redemption value when units are cancelled.
+
+5. Who is responsible for paying capital gains tax from unit trusts to HMRC?
+✅ A. The unit holder
+B. The trustees ❌
+C. The unit trust company ❌
+D. The fund managers ❌
+🧠 Explanation: The trust is exempt; each investor handles their own CGT liability.
+
+6. Which one of the following best describes an investment trust?
+A. A unit linked single premium non-qualifying whole-of-life policy investing solely in shares ❌
+B. A trust which invests solely in shares in the alternative investment market ❌
+✅ C. A company which invests in shares of other companies
+D. A partnership which invests in gilt-edged securities ❌
+🧠 Explanation: Investment trusts are closed-ended companies investing in a portfolio of other firms.
+
+7. If the shares of an investment trust stand at a discount below the net asset value per share, which one of the following is correct?
+✅ A. Capital growth is potentially higher than direct investment
+B. A minimum level of capital growth is guaranteed ❌
+C. Capital growth will be negligible ❌
+D. Income growth is forsaken for capital growth ❌
+🧠 Explanation: Buying at a discount means greater upside if the discount narrows.
+
+8. Which one of the following is true of open-ended investment companies (OEICs)?
+A. Switches are made on a mid-price basis ❌
+✅ B. Shares are bought and sold at the same price on any given day
+C. There is no initial charge ❌
+D. The initial charge is included in the bid/offer spread ❌
+🧠 Explanation: OEICs use a single “forward” price, unlike the bid/offer system of unit trusts.
+
+9. Non-Structured Capital at risk products may be able to provide a minimum return of:
+✅ A. Nothing
+B. 85% of the initial capital invested ❌
+C. 50% of the initial capital invested ❌
+D. 100% of the initial capital invested ❌
+🧠 Explanation: “Capital at risk” = no guarantee; total loss possible.
+
+10. Unit trusts, investment trusts and open-ended investment company shares are suitable for which profile of investor?
+✅ A. A long-term investor who would still like reasonably easy access to funds
+B. A long-term investor who is happy to give notice to withdraw funds ❌
+C. A low-risk investor who requires a guaranteed income ❌
+D. A high-risk investor who likes to play the stock market ❌
+🧠 Explanation: Designed for medium/long-term growth with easy access via share/unit sales.
+
+11. Why does investment in a collective investment scheme carry a reduced risk when compared with direct investment in equities?
+✅ A. Because collective investment schemes invest in many different companies
+B. Because fund managers can negotiate higher dividend payments ❌
+C. Collective investment schemes invest in equities that are not available to individuals ❌
+D. Collective investments must guarantee the return of capital ❌
+🧠 Explanation: Diversification lowers unsystematic risk.
+
+12. Which of the following is true in relation to the manager of an investment trust?
+A. They cannot borrow funds to invest ❌
+✅ B. They can borrow to improve income and capital growth
+C. They can issue more units or repurchase units according to demand ❌
+D. They can cancel units if the fund grows sharply ❌
+🧠 Explanation: Investment trusts are closed-ended companies that can “gear” by borrowing.
+
+13. Jo has an investment bond issued by a life office, invested in their managed fund. At what rate is the provider’s underlying fund taxed?
+A. 18% ❌
+✅ B. 20%
+C. 22% ❌
+D. 40% ❌
+🧠 Explanation: Life funds taxed at the corporation tax rate (~20%) before payouts.
+
+14. Which one of the following describes most investment bonds?
+✅ A. A single premium, unit linked, non-qualifying whole-of-life assurance
+B. A regular premium, unit linked, qualifying whole-of-life assurance ❌
+C. A single premium, unit linked, qualifying whole-of-life assurance ❌
+D. A regular premium, unit-linked, non-qualifying whole-of-life assurance ❌
+🧠 Explanation: Bonds are typically single-premium, non-qualifying policies taxed under chargeable event rules.
+
+15. Jaz, a higher-rate taxpayer, has a single premium investment bond. How will any capital gains be treated?
+A. Jaz will pay inheritance tax at 20% on taxable gains ❌
+✅ B. Jaz will pay an extra 20% income tax on encashment of the bond
+C. The insurance company bears the entire capital gain tax burden ❌
+D. The insurance company charges Jaz for the gain ❌
+🧠 Explanation: Gains are taxed as income; higher-rate taxpayers pay 20% on top of the basic rate treated as paid.
+
+16. Miros is currently a higher rate taxpayer with 5 years to go before retirement. He has an investment bond that he is using to save for his retirement when he expects his income to drop significantly. What feature of this product might he find especially useful when he has retired?
+✅ A. The 5% annual allowance for withdrawals can be carried forward to future years.
+B. Withdrawals of any amount can be made free of tax, at any time ❌
+C. He can switch investment funds within the bond at low or no cost ❌
+D. He can split the bond into smaller policies for tax-free encashment at any stage ❌
+🧠 Explanation: The 5% cumulative withdrawal allowance gives flexibility for tax deferral.
