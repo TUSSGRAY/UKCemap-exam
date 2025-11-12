@@ -30,9 +30,6 @@ function Router() {
       <Route path="/quiz/scenario">
         {() => <Quiz mode="scenario" />}
       </Route>
-      <Route path="/quiz/topic/:slug">
-        {(params) => <Quiz mode="topic" topicSlug={params.slug} />}
-      </Route>
       <Route path="/results" component={Results} />
       <Route path="/certificate" component={Certificate} />
       <Route path="/checkout" component={Checkout} />
