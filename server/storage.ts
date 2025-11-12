@@ -3053,6 +3053,152 @@ export class MemStorage implements IStorage {
         optionD: "Yes, they can borrow up to £420,000",
         answer: "C"
       },
+
+      // Collective Investments & Investment Bonds (16 questions)
+      {
+        topic: "Collective Investments",
+        question: "When managing unit trusts what does the term 'open-ended' mean?",
+        optionA: "That clients can buy more units",
+        optionB: "That the fund manager can create more units",
+        optionC: "That the fund manager does not need to value the units",
+        optionD: "That there is flexibility in the taxation arrangements of units",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which of the following statements is correct in respect of a unit trust?",
+        optionA: "Any gain made on the sale of units by an investor may be liable to capital gains tax",
+        optionB: "The fund manager is able to borrow",
+        optionC: "An investor who requires mainly capital growth will be best advised to purchase distribution units",
+        optionD: "The price at which an investor purchases units in the fund is referred to as the bid price",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Historically, charges on unit trusts have generally comprised:",
+        optionA: "A bid-offer spread only",
+        optionB: "An annual management charge only",
+        optionC: "An annual management charge and a policy fee",
+        optionD: "A bid-offer spread and an annual or monthly management charge",
+        answer: "D"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Under a unit trust what does the cancellation price represent?",
+        optionA: "The maximum price at which a full encashment of the units may be made",
+        optionB: "The minimum price at which investors may cash in their units",
+        optionC: "The price applicable to investors if they cancel during the cooling off period",
+        optionD: "The price at which the manager will buy back units if underlying assets do not have to be traded",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Who is responsible for paying capital gains tax from unit trusts to HMRC?",
+        optionA: "The unit holder",
+        optionB: "The trustees",
+        optionC: "The unit trust company",
+        optionD: "The fund managers",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which one of the following best describes an investment trust?",
+        optionA: "A unit linked single premium non-qualifying whole-of-life policy investing solely in shares",
+        optionB: "A trust which invests solely in shares in the alternative investment market",
+        optionC: "A company which invests in shares of other companies",
+        optionD: "A partnership which invests in gilt-edged securities",
+        answer: "C"
+      },
+      {
+        topic: "Collective Investments",
+        question: "If the shares of an investment trust stand at a discount below the net asset value per share, which one of the following is correct?",
+        optionA: "Capital growth is potentially higher than direct investment",
+        optionB: "A minimum level of capital growth is guaranteed",
+        optionC: "Capital growth will be negligible",
+        optionD: "Income growth is forsaken for capital growth",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which one of the following is true of open-ended investment companies (OEICs)?",
+        optionA: "Switches are made on a mid-price basis",
+        optionB: "Shares are bought and sold at the same price on any given day",
+        optionC: "There is no initial charge",
+        optionD: "The initial charge is included in the bid/offer spread",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Non-Structured Capital at risk products may be able to provide a minimum return of:",
+        optionA: "Nothing",
+        optionB: "85% of the initial capital invested",
+        optionC: "50% of the initial capital invested",
+        optionD: "100% of the initial capital invested",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Unit trusts, investment trusts and open-ended investment company shares are suitable for which profile of investor?",
+        optionA: "A long-term investor who would still like reasonably easy access to funds",
+        optionB: "A long-term investor who is happy to give notice to withdraw funds",
+        optionC: "A low-risk investor who requires a guaranteed income",
+        optionD: "A high-risk investor who likes to play the stock market",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Why does investment in a collective investment scheme carry a reduced risk when compared with direct investment in equities?",
+        optionA: "Because collective investment schemes invest in many different companies",
+        optionB: "Because fund managers can negotiate higher dividend payments",
+        optionC: "Collective investment schemes invest in equities that are not available to individuals",
+        optionD: "Collective investments must guarantee the return of capital",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which of the following is true in relation to the manager of an investment trust?",
+        optionA: "They cannot borrow funds to invest",
+        optionB: "They can borrow to improve income and capital growth",
+        optionC: "They can issue more units or repurchase units according to demand",
+        optionD: "They can cancel units if the fund grows sharply",
+        answer: "B"
+      },
+      {
+        topic: "Investment Bonds",
+        question: "Jo has an investment bond issued by a life office, invested in their managed fund. At what rate is the provider's underlying fund taxed?",
+        optionA: "18%",
+        optionB: "20%",
+        optionC: "22%",
+        optionD: "40%",
+        answer: "B"
+      },
+      {
+        topic: "Investment Bonds",
+        question: "Which one of the following describes most investment bonds?",
+        optionA: "A single premium, unit linked, non-qualifying whole-of-life assurance",
+        optionB: "A regular premium, unit linked, qualifying whole-of-life assurance",
+        optionC: "A single premium, unit linked, qualifying whole-of-life assurance",
+        optionD: "A regular premium, unit-linked, non-qualifying whole-of-life assurance",
+        answer: "A"
+      },
+      {
+        topic: "Investment Bonds",
+        question: "Jaz, a higher-rate taxpayer, has a single premium investment bond. How will any capital gains be treated?",
+        optionA: "Jaz will pay inheritance tax at 20% on taxable gains",
+        optionB: "Jaz will pay an extra 20% income tax on encashment of the bond",
+        optionC: "The insurance company bears the entire capital gain tax burden",
+        optionD: "The insurance company charges Jaz for the gain",
+        answer: "B"
+      },
+      {
+        topic: "Investment Bonds",
+        question: "Miros is currently a higher rate taxpayer with 5 years to go before retirement. He has an investment bond that he is using to save for his retirement when he expects his income to drop significantly. What feature of this product might he find especially useful when he has retired?",
+        optionA: "The 5% annual allowance for withdrawals can be carried forward to future years.",
+        optionB: "Withdrawals of any amount can be made free of tax, at any time",
+        optionC: "He can switch investment funds within the bond at low or no cost",
+        optionD: "He can split the bond into smaller policies for tax-free encashment at any stage",
+        answer: "A"
+      },
     ];
 
     questionBank.forEach((q) => {
