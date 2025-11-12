@@ -7,7 +7,8 @@ import {
   createPaymentIntentSchema, 
   verifyPaymentSchema,
   registerSchema,
-  loginSchema 
+  loginSchema,
+  topicSlugSchema
 } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
@@ -45,6 +46,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const advert = await storage.getRandomAdvert();
       res.json(advert);
     } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  // Topic exam routes
+  app.get("/api/topic-exams/:slug", async (req, res) => {
+    try {
+      const slug = topicSlugSchema.parse(req.params.slug);
+      const config = await storage.getTopicExamConfig(slug);
+      
+      if (!config) {
+        return res.status(404).json({ error: "Topic exam not found" });
+      }
+
+      const questions = await storage.getTopicQuestions(slug);
+      
+      res.json({
+        config,
+        questions
+      });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid topic slug" });
+      }
       res.status(500).json({ error: error.message });
     }
   });
