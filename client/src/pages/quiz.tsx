@@ -99,17 +99,15 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   }, [mode, user, isLoadingUser, isStarted]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: mode === "topic" ? ["/api/topic-exams", topicSlug] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
+    queryKey: mode === "topic" ? ["/api/questions/topic", topicSlug] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
     enabled: isStarted,
     queryFn: async () => {
       if (mode === "topic" && topicSlug) {
-        const response = await fetch(`/api/topic-exams/${topicSlug}`, {
+        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(topicSlug)}&count=10`, {
           credentials: "include"
         });
-        if (!response.ok) throw new Error("Failed to fetch topic exam");
-        const data = await response.json();
-        setTopicConfig(data.config);
-        return data.questions;
+        if (!response.ok) throw new Error("Failed to fetch topic questions");
+        return response.json();
       }
       
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
@@ -147,7 +145,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
       setQuestionCount(10); // Fixed 10 questions for practice mode
       setIsStarted(true);
     } else if (mode === "topic") {
-      setQuestionCount(16); // Fixed 16 questions for topic exam
+      setQuestionCount(10); // Fixed 10 questions for topic exam
       setIsStarted(true);
     }
   }, [mode]);
