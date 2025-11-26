@@ -1,0 +1,401 @@
+[
+  {
+    "question": "Which of the following ought to be a priority consideration when assessing the needs of retired couples?",
+    "options": {
+      "A": "Pension planning",
+      "B": "Protection advice",
+      "C": "Inheritance tax planning",
+      "D": "Mortgage advice"
+    },
+    "answer": "C",
+    "correct_text": "Inheritance tax planning"
+  },
+  {
+    "question": "A client wants to invest actively into equities for capital growth. Which one is least important?",
+    "options": {
+      "A": "Regular fixed income",
+      "B": "Favourable tax treatment",
+      "C": "Fund managers with a good track record",
+      "D": "Low dealing costs when buying/selling"
+    },
+    "answer": "A",
+    "correct_text": "Regular fixed income"
+  },
+  {
+    "question": "The concept of ‘know your client’ means:",
+    "options": {
+      "A": "Understanding a client’s assets and liabilities",
+      "B": "Identifying all existing life and pension policies",
+      "C": "Gaining detailed knowledge of their personal and financial circumstances",
+      "D": "Establishing income and expenditure"
+    },
+    "answer": "C",
+    "correct_text": "Gaining a detailed knowledge of personal and financial circumstances"
+  },
+  {
+    "question": "When gathering fact-find information, which is a fundamental consideration?",
+    "options": {
+      "A": "Level of indebtedness",
+      "B": "Attitude to risk",
+      "C": "Employment details",
+      "D": "Mortgage arrangements"
+    },
+    "answer": "B",
+    "correct_text": "Attitude to risk"
+  },
+  {
+    "question": "A self-employed building contractor is considering a personal pension plan. What is most important?",
+    "options": {
+      "A": "Ability to find out the value of the fund",
+      "B": "Ability to transfer in money from other schemes",
+      "C": "Ability to increase or decrease contributions conveniently",
+      "D": "An explicit set of policy charges"
+    },
+    "answer": "C",
+    "correct_text": "Flexibility to increase or decrease contributions"
+  },
+  {
+    "question": "Which would be important to a customer when considering protection needs?",
+    "options": {
+      "A": "Interest rate suitable for budgeting",
+      "B": "Benefits keeping pace with inflation",
+      "C": "Immediate access to money",
+      "D": "Track record of fund managers"
+    },
+    "answer": "B",
+    "correct_text": "Money payable under the policy that keeps pace with inflation"
+  },
+  {
+    "question": "If a client disagrees with your priority of needs, what should you do?",
+    "options": {
+      "A": "Tell them they are wrong",
+      "B": "Explain the risks arising from not addressing those needs",
+      "C": "Insist that you are right",
+      "D": "Say nothing to avoid upsetting them"
+    },
+    "answer": "B",
+    "correct_text": "Advise them of the risks of not addressing the identified needs"
+  },
+  {
+    "question": "How can you check a client understands your recommendations?",
+    "options": {
+      "A": "Watch their body language",
+      "B": "Count the number of questions asked",
+      "C": "Ask them questions",
+      "D": "Ensure they sign all forms"
+    },
+    "answer": "C",
+    "correct_text": "By asking them questions"
+  },
+  {
+    "question": "If an adviser fills out an application form on behalf of a client, the client should:",
+    "options": {
+      "A": "Read it and confirm the adviser may sign",
+      "B": "Sign after the adviser reads the answers",
+      "C": "Check it for accuracy and sign the declaration",
+      "D": "Sign an execution-only form"
+    },
+    "answer": "C",
+    "correct_text": "Check the form for accuracy and sign the declaration"
+  },
+  {
+    "question": "Which is a reactive service call?",
+    "options": {
+      "A": "Calling after non-payment of premiums",
+      "B": "Calling to check if circumstances have changed",
+      "C": "Visiting to discuss a new product",
+      "D": "Visiting following a diary note prompt"
+    },
+    "answer": "A",
+    "correct_text": "Calling after the non-payment of premiums"
+  },
+  {
+    "question": "Which item represents a hard fact about Alice?",
+    "options": {
+      "A": "Investment portfolio performance below expectations",
+      "B": "Savings account balance has fallen to £5000",
+      "C": "She intends to increase pension contributions",
+      "D": "She plans to retire at 60"
+    },
+    "answer": "B",
+    "correct_text": "Savings account balance has fallen to £5000"
+  },
+  {
+    "question": "Advantage of including benefit statements in a presentation?",
+    "options": {
+      "A": "Ensures FCA point-of-sale rules are met",
+      "B": "Helps client understand how the product meets their needs",
+      "C": "Ensures understanding of product risks",
+      "D": "Helps adviser focus on the sale"
+    },
+    "answer": "B",
+    "correct_text": "Helps client understand how the product meets their needs"
+  },
+  {
+    "question": "Priority need for young people taking out their first mortgage?",
+    "options": {
+      "A": "An emergency fund",
+      "B": "Medium-term investments",
+      "C": "Income protection",
+      "D": "Pension planning"
+    },
+    "answer": "C",
+    "correct_text": "Income protection"
+  },
+  {
+    "question": "A programme of proactive servicing is designed to ensure the client:",
+    "options": {
+      "A": "Can take early advantage of market opportunities",
+      "B": "Destroys records early",
+      "C": "Needs no further meetings",
+      "D": "Will not cancel during cooling-off"
+    },
+    "answer": "A",
+    "correct_text": "Can take early advantage of market opportunities"
+  },
+  {
+    "question": "Which factor affects your ability to improve the client’s situation on an ongoing basis?",
+    "options": {
+      "A": "Client’s attitude to risk",
+      "B": "Willingness to review objectives as circumstances change",
+      "C": "Current financial circumstances",
+      "D": "Job prospects"
+    },
+    "answer": "B",
+    "correct_text": "Willingness to review objectives as circumstances change"
+  },
+  {
+    "question": "What is the usual financial priority of a retired individual?",
+    "options": {
+      "A": "Build up capital",
+      "B": "Minimise CGT liability",
+      "C": "Increase investment income",
+      "D": "Maintain standard of living"
+    },
+    "answer": "D",
+    "correct_text": "Maintain their standard of living"
+  },
+  {
+    "question": "Ethel’s savings are failing to keep pace with inflation because:",
+    "options": {
+      "A": "Sterling is strong against the dollar",
+      "B": "She receives gross interest",
+      "C": "Her savings interest rate has been reduced",
+      "D": "Government borrowing has increased"
+    },
+    "answer": "C",
+    "correct_text": "Her savings interest rate has recently been reduced"
+  },
+  {
+    "question": "Which usually becomes the priority need when becoming a parent?",
+    "options": {
+      "A": "Savings",
+      "B": "Investments",
+      "C": "Protection",
+      "D": "Pensions"
+    },
+    "answer": "C",
+    "correct_text": "Protection"
+  },
+  {
+    "question": "Which could be described as proactive servicing?",
+    "options": {
+      "A": "Telephone call to arrange a pre-agreed review after a salary increase",
+      "B": "Strongly worded letter about unit trust charges",
+      "C": "Call to client’s wife following death notification",
+      "D": "Letter asking about non-payment of premiums"
+    },
+    "answer": "A",
+    "correct_text": "A pre-agreed review call after a salary increase"
+  },
+  {
+    "question": "The main advantage of writing a life assurance policy in trust is:",
+    "options": {
+      "A": "Create a tax-exempt fund",
+      "B": "Ensure qualifying status",
+      "C": "Ring-fence proceeds outside the estate",
+      "D": "Increase personal allowances"
+    },
+    "answer": "C",
+    "correct_text": "Ring-fence the proceeds outside the individual’s estate"
+  }
+]
+
+[
+  {
+    "question": "What is the benefit of a ‘deed of variation’ to a beneficiary under a will?",
+    "options": {
+      "A": "That tax advantages can be obtained",
+      "B": "That a person can reject a gift given to them",
+      "C": "It is a way of avoiding intestacy",
+      "D": "It is a way of meeting the deceased’s wishes"
+    },
+    "answer": "A",
+    "correct_text": "A deed of variation can be used to obtain tax advantages"
+  },
+  {
+    "question": "When a single person dies intestate without any children and with an estate of £150,000, which applies?",
+    "options": {
+      "A": "Shared equally between brothers and sisters",
+      "B": "Shared equally between parents and grandparents",
+      "C": "Shared equally between the parents",
+      "D": "Everything goes to the crown"
+    },
+    "answer": "C",
+    "correct_text": "Shared equally between the parents"
+  },
+  {
+    "question": "If a person dies intestate leaving a widow and children with an estate of £550,000, what is the maximum cash sum the widow receives?",
+    "options": {
+      "A": "£275,000",
+      "B": "£325,000",
+      "C": "£385,000",
+      "D": "£436,000"
+    },
+    "answer": "B",
+    "correct_text": "£325,000"
+  },
+  {
+    "question": "If a person dies intestate, what document will the legal representatives require to deal with the estate?",
+    "options": {
+      "A": "Grant of probate",
+      "B": "Letters of administration",
+      "C": "Deed of variation",
+      "D": "Codicil"
+    },
+    "answer": "B",
+    "correct_text": "Letters of administration"
+  },
+  {
+    "question": "If there is a valid will, the insurer determines the personal representatives by:",
+    "options": {
+      "A": "Obtaining a copy of letters of administration",
+      "B": "Obtaining a copy of a grant of probate",
+      "C": "Requesting clarification of succession laws",
+      "D": "Requesting a solicitor declaration"
+    },
+    "answer": "B",
+    "correct_text": "Obtaining a copy of a grant of probate"
+  },
+  {
+    "question": "Martin sets up a trust for his grandchildren and appoints two discretionary trustees. In these circumstances:",
+    "options": {
+      "A": "Martin is known as a testator",
+      "B": "Trustees must obtain advice under the Trustee Act 2000",
+      "C": "The trustees have no legal interest in the trust property",
+      "D": "Both trustees must agree before exercising discretion"
+    },
+    "answer": "D",
+    "correct_text": "Both trustees must agree when exercising discretionary powers"
+  },
+  {
+    "question": "Under the Consumer Insurance Disclosure Act 2012, the basis of ‘utmost good faith’ is that:",
+    "options": {
+      "A": "The proposer must answer honestly and truthfully on the application",
+      "B": "The insurer must manage money ethically",
+      "C": "Life assurance is based on financial loss",
+      "D": "Underwriting is based on information, not prejudice"
+    },
+    "answer": "A",
+    "correct_text": "The proposer must answer all questions honestly and truthfully"
+  },
+  {
+    "question": "When acting as an agent of a principal, a fundamental rule is that:",
+    "options": {
+      "A": "A principal must ratify all acts",
+      "B": "A principal must act within apparent authority",
+      "C": "A principal is always responsible for agent’s acts",
+      "D": "An agent can conclude contracts on behalf of the principal"
+    },
+    "answer": "D",
+    "correct_text": "An agent can conclude contracts on behalf of the principal"
+  },
+  {
+    "question": "Walter and Winnie own their house as joint tenants. If Walter dies:",
+    "options": {
+      "A": "His share passes automatically to Winnie",
+      "B": "Winnie must purchase his share",
+      "C": "His share passes to whoever is in his will",
+      "D": "Winnie retains only her 50% share"
+    },
+    "answer": "A",
+    "correct_text": "His share passes automatically to Winnie"
+  },
+  {
+    "question": "Tom was declared bankrupt in June 2018. For how long will his bankruptcy order remain?",
+    "options": {
+      "A": "Until June 2022",
+      "B": "Until June 2024",
+      "C": "Until June 2019",
+      "D": "Until June 2020"
+    },
+    "answer": "C",
+    "correct_text": "Until June 2019 (12 months typical duration)"
+  },
+  {
+    "question": "Despite his recent marriage to Katrina, John's existing will has remained in force. Why?",
+    "options": {
+      "A": "The will was written with the wedding in mind",
+      "B": "The will was witnessed by Katrina and her father",
+      "C": "John has no children or dependants",
+      "D": "John’s estate is valued at £199,000"
+    },
+    "answer": "A",
+    "correct_text": "The will was written in contemplation of marriage"
+  },
+  {
+    "question": "Under intestacy rules, which ranks highest if a divorced person dies intestate?",
+    "options": {
+      "A": "Brother and sister",
+      "B": "Ex-wife",
+      "C": "Father",
+      "D": "Son and daughter"
+    },
+    "answer": "D",
+    "correct_text": "Children rank highest"
+  },
+  {
+    "question": "Peter, Paul, and Pamela own a house as tenants in common, each with 1/3. On Paul's death:",
+    "options": {
+      "A": "Peter and Pamela automatically increase to 50%",
+      "B": "His estate must sell his share",
+      "C": "His beneficiary inherits according to will or intestacy",
+      "D": "Peter and Pamela must purchase his share"
+    },
+    "answer": "C",
+    "correct_text": "Paul's share passes according to will or intestacy"
+  },
+  {
+    "question": "What role does the Court of Protection play with lasting powers of attorney?",
+    "options": {
+      "A": "LPA can only be revoked with Court of Protection consent",
+      "B": "LPAs must be registered with the Court of Protection",
+      "C": "All attorney actions must be approved by the Court",
+      "D": "The Court keeps a list of those qualified to act"
+    },
+    "answer": "B",
+    "correct_text": "LPAs must be registered with the Court of Protection"
+  },
+  {
+    "question": "What requirement rests on a discharged bankrupt when applying for a mortgage?",
+    "options": {
+      "A": "No requirement",
+      "B": "Disclose previous bankruptcy to the lender",
+      "C": "Disclose bankruptcy to credit agencies",
+      "D": "Ensure the lender conducts a credit search"
+    },
+    "answer": "B",
+    "correct_text": "They must disclose the previous bankruptcy to the lender"
+  },
+  {
+    "question": "Which of the following is classified as personalty?",
+    "options": {
+      "A": "A collection of vintage wines",
+      "B": "A detached house",
+      "C": "A paddock for grazing horses",
+      "D": "A Victorian factory building"
+    },
+    "answer": "A",
+    "correct_text": "A collection of vintage wines is personal (movable) property"
+  }
+]

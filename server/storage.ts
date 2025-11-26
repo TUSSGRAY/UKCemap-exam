@@ -1482,8 +1482,98 @@ export class MemStorage implements IStorage {
         optionD: "The mortgage term ends",
         answer: "B"
       },
+      {
+        topic: "Mortgage Law",
+        question: "What is the benefit of a 'deed of variation' to a beneficiary under a will?",
+        optionA: "That tax advantages can be obtained",
+        optionB: "That a person can reject a gift given to them",
+        optionC: "It is a way of avoiding intestacy",
+        optionD: "It is a way of meeting the deceased's wishes",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "When a single person dies intestate without any children and with an estate of £150,000, which applies?",
+        optionA: "Shared equally between brothers and sisters",
+        optionB: "Shared equally between parents and grandparents",
+        optionC: "Shared equally between the parents",
+        optionD: "Everything goes to the crown",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "If a person dies intestate leaving a widow and children with an estate of £550,000, what is the maximum cash sum the widow receives?",
+        optionA: "£275,000",
+        optionB: "£325,000",
+        optionC: "£385,000",
+        optionD: "£436,000",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "If a person dies intestate, what document will the legal representatives require to deal with the estate?",
+        optionA: "Grant of probate",
+        optionB: "Letters of administration",
+        optionC: "Deed of variation",
+        optionD: "Codicil",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "If there is a valid will, the insurer determines the personal representatives by:",
+        optionA: "Obtaining a copy of letters of administration",
+        optionB: "Obtaining a copy of a grant of probate",
+        optionC: "Requesting clarification of succession laws",
+        optionD: "Requesting a solicitor declaration",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "Martin sets up a trust for his grandchildren and appoints two discretionary trustees. In these circumstances:",
+        optionA: "Martin is known as a testator",
+        optionB: "Trustees must obtain advice under the Trustee Act 2000",
+        optionC: "The trustees have no legal interest in the trust property",
+        optionD: "Both trustees must agree before exercising discretion",
+        answer: "D"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "Under the Consumer Insurance Disclosure Act 2012, the basis of 'utmost good faith' is that:",
+        optionA: "The proposer must answer honestly and truthfully on the application",
+        optionB: "The insurer must manage money ethically",
+        optionC: "Life assurance is based on financial loss",
+        optionD: "Underwriting is based on information, not prejudice",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "When acting as an agent of a principal, a fundamental rule is that:",
+        optionA: "A principal must ratify all acts",
+        optionB: "A principal must act within apparent authority",
+        optionC: "A principal is always responsible for agent's acts",
+        optionD: "An agent can conclude contracts on behalf of the principal",
+        answer: "D"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "Walter and Winnie own their house as joint tenants. If Walter dies:",
+        optionA: "His share passes automatically to Winnie",
+        optionB: "Winnie must purchase his share",
+        optionC: "His share passes to whoever is in his will",
+        optionD: "Winnie retains only her 50% share",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Law",
+        question: "Tom was declared bankrupt in June 2018. For how long will his bankruptcy order remain?",
+        optionA: "Until June 2022",
+        optionB: "Until June 2024",
+        optionC: "Until June 2019",
+        optionD: "Until June 2020",
+        answer: "C"
+      },
 
-      // Financial Advice Process & Regulation (10 questions)
+      // Financial Advice Process & Regulation (30 questions)
       {
         topic: "Financial Advice Process",
         question: "A Key Facts Illustration (KFI) must be provided:",
@@ -1573,6 +1663,186 @@ export class MemStorage implements IStorage {
         optionC: "A small fixed penalty",
         optionD: "Mandatory retraining",
         answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which of the following ought to be a priority consideration when assessing the needs of retired couples?",
+        optionA: "Pension planning",
+        optionB: "Protection advice",
+        optionC: "Inheritance tax planning",
+        optionD: "Mortgage advice",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "A client wants to invest actively into equities for capital growth. Which one is least important?",
+        optionA: "Regular fixed income",
+        optionB: "Favourable tax treatment",
+        optionC: "Fund managers with a good track record",
+        optionD: "Low dealing costs when buying/selling",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "The concept of 'know your client' means:",
+        optionA: "Understanding a client's assets and liabilities",
+        optionB: "Identifying all existing life and pension policies",
+        optionC: "Gaining detailed knowledge of their personal and financial circumstances",
+        optionD: "Establishing income and expenditure",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "When gathering fact-find information, which is a fundamental consideration?",
+        optionA: "Level of indebtedness",
+        optionB: "Attitude to risk",
+        optionC: "Employment details",
+        optionD: "Mortgage arrangements",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "A self-employed building contractor is considering a personal pension plan. What is most important?",
+        optionA: "Ability to find out the value of the fund",
+        optionB: "Ability to transfer in money from other schemes",
+        optionC: "Ability to increase or decrease contributions conveniently",
+        optionD: "An explicit set of policy charges",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which would be important to a customer when considering protection needs?",
+        optionA: "Interest rate suitable for budgeting",
+        optionB: "Benefits keeping pace with inflation",
+        optionC: "Immediate access to money",
+        optionD: "Track record of fund managers",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "If a client disagrees with your priority of needs, what should you do?",
+        optionA: "Tell them they are wrong",
+        optionB: "Explain the risks arising from not addressing those needs",
+        optionC: "Insist that you are right",
+        optionD: "Say nothing to avoid upsetting them",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "How can you check a client understands your recommendations?",
+        optionA: "Watch their body language",
+        optionB: "Count the number of questions asked",
+        optionC: "Ask them questions",
+        optionD: "Ensure they sign all forms",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "If an adviser fills out an application form on behalf of a client, the client should:",
+        optionA: "Read it and confirm the adviser may sign",
+        optionB: "Sign after the adviser reads the answers",
+        optionC: "Check it for accuracy and sign the declaration",
+        optionD: "Sign an execution-only form",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which is a reactive service call?",
+        optionA: "Calling after non-payment of premiums",
+        optionB: "Calling to check if circumstances have changed",
+        optionC: "Visiting to discuss a new product",
+        optionD: "Visiting following a diary note prompt",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which item represents a hard fact about Alice?",
+        optionA: "Investment portfolio performance below expectations",
+        optionB: "Savings account balance has fallen to £5000",
+        optionC: "She intends to increase pension contributions",
+        optionD: "She plans to retire at 60",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Advantage of including benefit statements in a presentation?",
+        optionA: "Ensures FCA point-of-sale rules are met",
+        optionB: "Helps client understand how the product meets their needs",
+        optionC: "Ensures understanding of product risks",
+        optionD: "Helps adviser focus on the sale",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Priority need for young people taking out their first mortgage?",
+        optionA: "An emergency fund",
+        optionB: "Medium-term investments",
+        optionC: "Income protection",
+        optionD: "Pension planning",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "A programme of proactive servicing is designed to ensure the client:",
+        optionA: "Can take early advantage of market opportunities",
+        optionB: "Destroys records early",
+        optionC: "Needs no further meetings",
+        optionD: "Will not cancel during cooling-off",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which factor affects your ability to improve the client's situation on an ongoing basis?",
+        optionA: "Client's attitude to risk",
+        optionB: "Willingness to review objectives as circumstances change",
+        optionC: "Current financial circumstances",
+        optionD: "Job prospects",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "What is the usual financial priority of a retired individual?",
+        optionA: "Build up capital",
+        optionB: "Minimise CGT liability",
+        optionC: "Increase investment income",
+        optionD: "Maintain standard of living",
+        answer: "D"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Ethel's savings are failing to keep pace with inflation because:",
+        optionA: "Sterling is strong against the dollar",
+        optionB: "She receives gross interest",
+        optionC: "Her savings interest rate has been reduced",
+        optionD: "Government borrowing has increased",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which usually becomes the priority need when becoming a parent?",
+        optionA: "Savings",
+        optionB: "Investments",
+        optionC: "Protection",
+        optionD: "Pensions",
+        answer: "C"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which could be described as proactive servicing?",
+        optionA: "Telephone call to arrange a pre-agreed review after a salary increase",
+        optionB: "Strongly worded letter about unit trust charges",
+        optionC: "Call to client's wife following death notification",
+        optionD: "Letter asking about non-payment of premiums",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "The main advantage of writing a life assurance policy in trust is:",
+        optionA: "Create a tax-exempt fund",
+        optionB: "Ensure qualifying status",
+        optionC: "Ring-fence proceeds outside the estate",
+        optionD: "Increase personal allowances",
+        answer: "C"
       },
 
       // SCENARIO-BASED QUESTIONS (12 scenarios with 3 questions each)
