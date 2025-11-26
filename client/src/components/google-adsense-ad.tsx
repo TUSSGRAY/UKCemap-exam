@@ -7,10 +7,11 @@ import { Zap, TrendingUp, BookOpen } from "lucide-react";
 
 interface UpgradePromptProps {
   onComplete: () => void;
+  attemptNumber?: number;
 }
 
-export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
-  const [timeRemaining, setTimeRemaining] = useState(8);
+export function GoogleAdSenseAd({ onComplete, attemptNumber = 1 }: UpgradePromptProps) {
+  const [timeRemaining, setTimeRemaining] = useState(15);
 
   useEffect(() => {
     const interval = setInterval(() => {

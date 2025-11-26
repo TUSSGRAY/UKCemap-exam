@@ -88,8 +88,8 @@ export default function Results() {
   // All modes now require 80% to pass
   const passThreshold = Math.ceil(total * 0.8);
   const passed = score >= passThreshold;
-  const canRetryPractice = isPracticeMode && practiceAttempts < 2;
-  const noMoreAttempts = isPracticeMode && practiceAttempts >= 2;
+  const canRetryPractice = isPracticeMode && practiceAttempts < 5;
+  const noMoreAttempts = isPracticeMode && practiceAttempts >= 5;
   
   // Extract topic display name from mode string
   const topicName = isTopicMode ? mode.split(":")[1].split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
@@ -331,15 +331,15 @@ export default function Results() {
                     Practice Test Limit Reached
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    You've completed your 2 practice attempts. Ready to fully prepare for the CeMAP 2025 Autumn Edition?
+                    You've completed your 5 practice attempts. Ready to fully prepare for the CeMAP 2025 Autumn Edition?
                   </p>
                   <p className="text-sm font-medium text-foreground mb-3">
-                    Get our Complete Bundle Package:
+                    Unlock 30-day premium access:
                   </p>
                   <ul className="text-sm text-muted-foreground space-y-2 mb-4">
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>
-                      <span>Full Exam Mode: 50 authentic questions</span>
+                      <span>Specimen Exam: 50 authentic questions</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>
@@ -347,16 +347,16 @@ export default function Results() {
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">✓</span>
-                      <span>Save 50p with the bundle</span>
+                      <span>Performance analytics dashboard</span>
                     </li>
                   </ul>
                   <Button
                     size="lg"
                     className="w-full"
-                    onClick={() => setLocation('/checkout?type=bundle')}
+                    onClick={() => setLocation('/checkout?product=subscription')}
                     data-testid="button-get-bundle"
                   >
-                    Get Complete Bundle - £1.49
+                    Get Premium Access - £4.99
                   </Button>
                 </div>
               </div>
@@ -373,7 +373,7 @@ export default function Results() {
                   One More Attempt Available
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  You have {2 - practiceAttempts} more {2 - practiceAttempts === 1 ? 'attempt' : 'attempts'} at the practice test. Study the areas you need to improve and try again!
+                  You have {5 - practiceAttempts} more {5 - practiceAttempts === 1 ? 'attempt' : 'attempts'} at the practice test. Study the areas you need to improve and try again!
                 </p>
                 <Button
                   size="lg"
