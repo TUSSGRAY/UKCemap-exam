@@ -44,7 +44,12 @@ export default function Results() {
     const topicPerfKey = `topicPerformance_${attemptId}`;
     const storedPerformance = sessionStorage.getItem(topicPerfKey);
     if (storedPerformance) {
-      setTopicPerformance(JSON.parse(storedPerformance));
+      try {
+        const parsed = JSON.parse(storedPerformance);
+        setTopicPerformance(parsed);
+      } catch (e) {
+        console.error("Failed to parse topic performance:", e);
+      }
     }
     
     setScore(currentScore);

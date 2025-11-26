@@ -203,8 +203,8 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
       // Store topic performance in sessionStorage for results page
       sessionStorage.setItem(`topicPerformance_${quizSessionId}`, JSON.stringify(topicPerformance));
       
-      // Include attemptId for practice mode to track unique attempts
-      const attemptParam = mode === "practice" ? `&attemptId=${quizSessionId}` : '';
+      // Include attemptId for all modes (for practice to track attempts, for others to retrieve topic performance)
+      const attemptParam = `&attemptId=${quizSessionId}`;
       // Include topicSlug for topic mode
       const modeParam = mode === "topic" && topicSlug ? `topic:${topicSlug}` : mode;
       setLocation(`/results?mode=${modeParam}&score=${score}&total=${questions.length}${attemptParam}`);
