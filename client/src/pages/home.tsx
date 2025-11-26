@@ -1,4 +1,5 @@
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -382,20 +383,26 @@ export default function Home() {
       <footer className="border-t border-border mt-20 bg-muted/30">
         <div className="max-w-6xl mx-auto px-6 py-12">
           <div className="mb-8">
-            <Link href="/cemap-qualification">
-              <Button variant="outline" size="lg" className="w-full" data-testid="button-cemap-qualification">
-                Learn About CeMAP Qualification Structure
-              </Button>
-            </Link>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="w-full" 
+              onClick={() => setLocation("/cemap-qualification")}
+              data-testid="button-cemap-qualification"
+            >
+              Learn About CeMAP Qualification Structure
+            </Button>
           </div>
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <p>© 2025 J&K CeMAP Training. All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <Link href="/privacy-policy">
-                <a className="hover:text-foreground transition-colors" data-testid="link-privacy-footer">
-                  Privacy Policy
-                </a>
-              </Link>
+              <a 
+                onClick={() => setLocation("/privacy-policy")}
+                className="hover:text-foreground transition-colors cursor-pointer" 
+                data-testid="link-privacy-footer"
+              >
+                Privacy Policy
+              </a>
               <span>•</span>
               <a href="mailto:training@ukcemap.co.uk" className="hover:text-foreground transition-colors" data-testid="link-contact-privacy">
                 Contact
