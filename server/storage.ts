@@ -26,6 +26,8 @@ export interface IStorage {
   getAllTimeHighScore(mode: string): Promise<HighScore | null>;
   getTopicExamConfig(slug: TopicSlug): Promise<TopicExamConfig | null>;
   getTopicQuestions(slug: TopicSlug): Promise<Question[]>;
+  getAvailableTopics(): Promise<string[]>;
+  getQuestionsByTopic(topic: string, count: number): Promise<Question[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -4036,6 +4038,25 @@ export class MemStorage implements IStorage {
     
     return topicQuestions.map(q => this.shuffleAnswerPositions(q));
   }
+
+  async getAvailableTopics(): Promise<string[]> {
+    const allQuestions = Array.from(this.questions.values());
+    const topics = [...new Set(allQuestions.map(q => q.topic).filter(Boolean))] as string[];
+    return topics.sort();
+  }
+
+  async getQuestionsByTopic(topic: string, count: number): Promise<Question[]> {
+    const allQuestions = Array.from(this.questions.values());
+    const topicQuestions = allQuestions.filter(q => q.topic === topic);
+    
+    // Shuffle and return requested count
+    for (let i = topicQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [topicQuestions[i], topicQuestions[j]] = [topicQuestions[j], topicQuestions[i]];
+    }
+    
+    return topicQuestions.slice(0, Math.min(count, 10)).map(q => this.shuffleAnswerPositions(q));
+  }
 }
 
 // Database-backed storage implementation
@@ -4269,6 +4290,14 @@ class DatabaseStorage implements IStorage {
 
   async getTopicQuestions(slug: TopicSlug): Promise<Question[]> {
     return this.memStorage.getTopicQuestions(slug);
+  }
+
+  async getAvailableTopics(): Promise<string[]> {
+    return this.memStorage.getAvailableTopics();
+  }
+
+  async getQuestionsByTopic(topic: string, count: number): Promise<Question[]> {
+    return this.memStorage.getQuestionsByTopic(topic, count);
   }
 }
 
