@@ -97,7 +97,7 @@ export default function Certificate() {
           </CardContent>
         </Card>
 
-        {/* Bundle Promotion (Practice Mode Only) */}
+        {/* Premium Promotion (Practice Mode Only) */}
         {mode === 'practice' && (
           <Card className="shadow-xl border-primary/30" data-testid="card-bundle-promo">
             <CardContent className="p-6 space-y-4">
@@ -106,13 +106,13 @@ export default function Certificate() {
                   Ready for the Full CeMAP 2025 Autumn Edition?
                 </h2>
                 <p className="text-muted-foreground mb-4">
-                  Fully prepare with our Complete Bundle Package
+                  Unlock 30 days of premium access to all exam modes
                 </p>
               </div>
               
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="bg-accent/50 rounded-lg p-4 space-y-2">
-                  <h3 className="font-semibold text-foreground">Full Exam Mode</h3>
+                  <h3 className="font-semibold text-foreground">Specimen Exam</h3>
                   <p className="text-sm text-muted-foreground">
                     50 authentic CeMAP questions with 80% pass threshold
                   </p>
@@ -127,20 +127,20 @@ export default function Certificate() {
               
               <div className="text-center space-y-3">
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-muted-foreground line-through text-xl">£1.98</span>
-                  <span className="text-3xl font-bold text-primary">£1.49</span>
+                  <span className="text-3xl font-bold text-primary">£4.99</span>
+                  <span className="text-sm text-muted-foreground">one-time payment</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Save 50p with the bundle package
+                  30-day access to all premium features
                 </p>
                 <Button 
                   size="lg" 
                   className="w-full max-w-md"
-                  onClick={() => setLocation('/checkout?type=bundle')}
+                  onClick={() => setLocation('/checkout?product=subscription')}
                   data-testid="button-get-bundle"
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
-                  Get Complete Bundle Package
+                  Get Premium Access
                 </Button>
               </div>
             </CardContent>

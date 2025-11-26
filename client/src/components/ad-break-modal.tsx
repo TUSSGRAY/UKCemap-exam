@@ -87,9 +87,9 @@ export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBr
           </div>
 
           <div className="flex gap-2">
-            <Link href="/checkout?product=bundle" className="flex-1">
+            <Link href="/checkout?product=subscription" className="flex-1">
               <Button className="w-full" size="lg" data-testid="button-modal-upgrade">
-                Get Bundle - £1.49
+                Get Premium Access - £4.99
               </Button>
             </Link>
             <Button
