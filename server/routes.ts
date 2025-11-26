@@ -259,15 +259,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // SECURITY: Only trust the product from Stripe metadata, ignore client input
       const product = paymentIntent.metadata?.product;
-      if (!product || !["exam", "scenario", "bundle"].includes(product)) {
+      if (!product || !["subscription"].includes(product)) {
         return res.status(400).json({ error: "Invalid payment: missing or invalid product metadata" });
       }
 
       // SECURITY: Validate amount and currency match expected values
       const expectedAmounts = {
-        exam: 99,
-        scenario: 99,
-        bundle: 149,
+        subscription: 499,
       };
 
       const expectedAmount = expectedAmounts[product as keyof typeof expectedAmounts];
@@ -280,17 +278,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Get user ID from session
       const userId = req.session.userId!;
       
-      // Generate access token(s) based on verified product (from Stripe only)
+      // Generate access token for subscription (30-day access to both exam and scenario modes)
       let accessToken: string;
       
       switch (product) {
-        case "exam":
-          accessToken = await storage.recordExamPurchase(paymentIntentId, userId);
-          break;
-        case "scenario":
-          accessToken = await storage.recordScenarioPurchase(paymentIntentId, userId);
-          break;
-        case "bundle":
+        case "subscription":
           accessToken = await storage.recordBundlePurchase(paymentIntentId, userId);
           break;
         default:
