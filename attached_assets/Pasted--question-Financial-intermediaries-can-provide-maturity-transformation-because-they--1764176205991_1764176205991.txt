@@ -1,0 +1,336 @@
+{
+    "question": "Financial intermediaries can provide maturity transformation because they:",
+    "options": {
+      "A": "Offer a wide range of deposit accounts to a wide range of depositors",
+      "B": "Aggregate many small deposits from many clients",
+      "C": "Provide services to clients from many different geographical locations",
+      "D": "Reduce the risk of default or fraud by lending to a wide variety of borrowers"
+    },
+    "answer": "B",
+    "correct_text": "Aggregate many small deposits from many clients"
+  },
+  {
+    "question": "A key difference between a mutual organisation and a proprietary organisation is that a mutual organisation:",
+    "options": {
+      "A": "Can issue shares on the stock market",
+      "B": "Is owned by members not shareholders",
+      "C": "Shares its profits in the form of dividends",
+      "D": "Is only allowed to lend to other financial institutions"
+    },
+    "answer": "B",
+    "correct_text": "Is owned by members not shareholders"
+  },
+  {
+    "question": "How can a bank involved in wholesale banking quickly raise money to finance business activities?",
+    "options": {
+      "A": "By a further issue of shares",
+      "B": "By borrowing from the Bank of England",
+      "C": "From the interbank market",
+      "D": "By issuing gilts"
+    },
+    "answer": "C",
+    "correct_text": "From the interbank market"
+  },
+  {
+    "question": "What is the role of the Bank of England’s Monetary Policy Committee?",
+    "options": {
+      "A": "To veto undesirable takeovers",
+      "B": "To set capital adequacy levels",
+      "C": "To set the Bank of England base rate",
+      "D": "To set inflation targets"
+    },
+    "answer": "C",
+    "correct_text": "To set the Bank of England base rate"
+  },
+  {
+    "question": "In order to be acceptable as a medium of exchange, money must have all except which one of the following?",
+    "options": {
+      "A": "It must be divisible into small units",
+      "B": "It must be generally acceptable to all parties in all transactions",
+      "C": "It must be free from the effects of inflation",
+      "D": "It must be sufficient in quantity"
+    },
+    "answer": "C",
+    "correct_text": "It must be free from the effects of inflation (this is NOT required)"
+  },
+  {
+    "question": "Jon has notes and coins that are accepted as legal tender. This is because they have:",
+    "options": {
+      "A": "Been approved by the Treasury",
+      "B": "The backing of the government and the central bank",
+      "C": "The International Monetary Fund’s backing and are issued by the government"
+    },
+    "answer": "B",
+    "correct_text": "The backing of the government and the central bank"
+  },
+  {
+    "question": "What is the target range of inflation that the government hopes to achieve as measured by the Consumer Price Index?",
+    "options": {
+      "A": "3–5%",
+      "B": "2–4%",
+      "C": "1–3%",
+      "D": "2.5–5%"
+    },
+    "answer": "C",
+    "correct_text": "1–3%"
+  },
+  {
+    "question": "The European Union has issued a new Directive. This means that each member state:",
+    "options": {
+      "A": "Must implement the Directive in its entirety within the specified timescale",
+      "B": "Can choose whether or not to adopt the Directive",
+      "C": "Has the choice of how to meet the Directive’s objectives",
+      "D": "Must implement the Directive provided the state is in the Eurozone"
+    },
+    "answer": "C",
+    "correct_text": "Member states choose how to meet the Directive’s objectives"
+  },
+  {
+    "question": "The UK regulatory framework is a four-tier process. Which body has taken over the activities in the second tier?",
+    "options": {
+      "A": "The Financial Ombudsman Service",
+      "B": "The Building Societies Commission",
+      "C": "The PRA and FCA",
+      "D": "The Lenders Code"
+    },
+    "answer": "C",
+    "correct_text": "The PRA and FCA"
+  },
+  {
+    "question": "What is Gross Domestic Product? A measure of the value of:",
+    "options": {
+      "A": "Demand within a country over a specified period",
+      "B": "Goods and services within a country over a specified period of time",
+      "C": "Money supply within a country over a specified period of time",
+      "D": "National average earnings within a country over a specified period of time"
+    },
+    "answer": "B",
+    "correct_text": "The value of goods and services within a country over a specified period"
+  }
+]
+
+
+
+[
+  {
+    "question": "Which one of the following is normally exempt from capital gains tax on disposal?",
+    "options": {
+      "A": "A holiday home",
+      "B": "Shares in UK companies",
+      "C": "A unit trust",
+      "D": "An antique table worth £5,000"
+    },
+    "answer": "D",
+    "correct_text": "An antique table worth £5,000"
+  },
+  {
+    "question": "Which one of the following statements in respect of capital gains tax (CGT) is correct?",
+    "options": {
+      "A": "Chargeable assets held within and outside the UK may be subject to CGT on disposal",
+      "B": "Premium Bond and Lottery winnings are subject to CGT",
+      "C": "The annual exemption may be carried forward",
+      "D": "CGT may be payable on a deceased’s estate in addition to inheritance tax"
+    },
+    "answer": "A",
+    "correct_text": "Chargeable assets held within and outside the UK may be subject to CGT"
+  },
+  {
+    "question": "Suzy bought an antique vase in 1985 and sold it at a profit. Which one can she NOT offset against CGT liability?",
+    "options": {
+      "A": "Cost of acquiring the vase",
+      "B": "Cost of repairing a hairline crack",
+      "C": "Advertising costs",
+      "D": "Auctioneer’s commission"
+    },
+    "answer": "B",
+    "correct_text": "Repairs cannot be offset against CGT"
+  },
+  {
+    "question": "Which transaction could be subject to capital gains tax?",
+    "options": {
+      "A": "An antique bought for £20,000 and sold for a profit",
+      "B": "A painting sold by a self-employed dealer",
+      "C": "An insurance bond surrendered at a profit",
+      "D": "Government stocks sold at a profit"
+    },
+    "answer": "A",
+    "correct_text": "Antique sold for a profit"
+  },
+  {
+    "question": "What exactly are ‘allowable deductions’ in calculating CGT liability?",
+    "options": {
+      "A": "Government fixed allowances",
+      "B": "The annual exemption only",
+      "C": "Costs of acquiring, enhancing, and disposing of an asset",
+      "D": "The annual exemption and indexation"
+    },
+    "answer": "C",
+    "correct_text": "Costs of acquisition, enhancement, and disposal"
+  },
+  {
+    "question": "What is the position when a capital loss is made on disposal?",
+    "options": {
+      "A": "Not relevant to CGT",
+      "B": "Must be carried forward",
+      "C": "Offset against gains made in the same year first",
+      "D": "Carried back to previous year"
+    },
+    "answer": "C",
+    "correct_text": "Offset first against gains of the same year"
+  },
+  {
+    "question": "A capital gains tax liability could arise in which circumstance?",
+    "options": {
+      "A": "A corporation sells some investments",
+      "B": "A partnership’s daily trading",
+      "C": "A PLC’s daily trading",
+      "D": "Disposal of assets when a sole trader retires"
+    },
+    "answer": "D",
+    "correct_text": "Disposal of assets on retirement of a sole trader"
+  },
+  {
+    "question": "Which asset would be exempt from capital gains tax?",
+    "options": {
+      "A": "Personal jewellery worth £20,000",
+      "B": "Spanish holiday property",
+      "C": "Euros held for foreign holidays",
+      "D": "Shares purchased on the UK stock market"
+    },
+    "answer": "C",
+    "correct_text": "Foreign currency for personal use is exempt from CGT"
+  },
+  {
+    "question": "Peter gifted £500,000 to his son in May 2019. He died in June 2022. What IHT rate applies to the gift?",
+    "options": {
+      "A": "0%",
+      "B": "24%",
+      "C": "32%",
+      "D": "40%"
+    },
+    "answer": "B",
+    "correct_text": "Taper relief applies: 24%"
+  },
+  {
+    "question": "Julian died with an estate worth £350,000; half to his son, half to his wife. No prior gifts. What is the IHT liability?",
+    "options": {
+      "A": "Nil",
+      "B": "£43,200",
+      "C": "£30,000",
+      "D": "£140,000"
+    },
+    "answer": "A",
+    "correct_text": "Nil (spouse exemption + below threshold)"
+  },
+  {
+    "question": "On which is inheritance tax charged at 40%?",
+    "options": {
+      "A": "Total estate value",
+      "B": "Amount above the threshold",
+      "C": "Full estate if UK-domiciled",
+      "D": "Estate after spouse’s share deducted"
+    },
+    "answer": "B",
+    "correct_text": "40% is charged only on the value above the nil-rate band"
+  },
+  {
+    "question": "A potentially exempt transfer is best described as:",
+    "options": {
+      "A": "A small gift under £250",
+      "B": "A transfer with deferred IHT if made 7 years before death",
+      "C": "Any transfer between spouses",
+      "D": "A transfer bearing no immediate inheritance tax"
+    },
+    "answer": "D",
+    "correct_text": "A transfer with no immediate IHT charge"
+  },
+  {
+    "question": "When is tax due following a chargeable lifetime transfer?",
+    "options": {
+      "A": "Immediately",
+      "B": "After 6 years",
+      "C": "After 7 years",
+      "D": "After donor's death"
+    },
+    "answer": "A",
+    "correct_text": "Immediately"
+  },
+  {
+    "question": "If an individual is UK-domiciled at death, his estate includes assets:",
+    "options": {
+      "A": "In the UK only",
+      "B": "In the EC only",
+      "C": "In countries with double-tax treaties only",
+      "D": "Wherever situated"
+    },
+    "answer": "D",
+    "correct_text": "Worldwide assets"
+  },
+  {
+    "question": "Which one is NOT zero-rated for VAT?",
+    "options": {
+      "A": "Meals in restaurants",
+      "B": "Food in supermarkets",
+      "C": "Children's clothing",
+      "D": "Supplies of medicine"
+    },
+    "answer": "A",
+    "correct_text": "Meals in restaurants"
+  },
+  {
+    "question": "Which business does NOT have a VAT exemption?",
+    "options": {
+      "A": "Doctors",
+      "B": "Opticians",
+      "C": "Dentists",
+      "D": "Accountants"
+    },
+    "answer": "D",
+    "correct_text": "Accountants"
+  },
+  {
+    "question": "What rate of withholding tax is levied on non-resident entertainers and sportspeople in the UK?",
+    "options": {
+      "A": "22%",
+      "B": "20%",
+      "C": "40%",
+      "D": "0%"
+    },
+    "answer": "B",
+    "correct_text": "20%"
+  },
+  {
+    "question": "In the event of a transfer on death, who pays the inheritance tax?",
+    "options": {
+      "A": "The donor",
+      "B": "The spouse or next of kin",
+      "C": "The deceased’s estate",
+      "D": "The life assurance company"
+    },
+    "answer": "C",
+    "correct_text": "The deceased's estate"
+  },
+  {
+    "question": "If the £3,000 annual gift exemption was unused for 3 years, what exemption applies in year four?",
+    "options": {
+      "A": "None",
+      "B": "£3,000",
+      "C": "£6,000",
+      "D": "£12,000"
+    },
+    "answer": "C",
+    "correct_text": "£6,000 (one year can be carried forward)"
+  },
+  {
+    "question": "Which one would NOT be considered a liability when calculating an estate at death?",
+    "options": {
+      "A": "Mortgages",
+      "B": "Loans",
+      "C": "Hire purchase",
+      "D": "Jointly held assets"
+    },
+    "answer": "D",
+    "correct_text": "Jointly held assets are not liabilities"
+  }
+]
+
