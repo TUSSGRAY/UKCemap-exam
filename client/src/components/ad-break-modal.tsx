@@ -11,7 +11,7 @@ interface AdBreakModalProps {
   duration?: number;
 }
 
-export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBreakModalProps) {
+export default function AdBreakModal({ isOpen, onComplete, duration = 15 }: AdBreakModalProps) {
   const [countdown, setCountdown] = useState(duration);
 
   useEffect(() => {

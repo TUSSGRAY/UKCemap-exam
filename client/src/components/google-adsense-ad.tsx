@@ -27,7 +27,7 @@ export function GoogleAdSenseAd({ onComplete, attemptNumber = 1 }: UpgradePrompt
     return () => clearInterval(interval);
   }, []);
 
-  const progress = ((8 - timeRemaining) / 8) * 100;
+  const progress = ((15 - timeRemaining) / 15) * 100;
 
   return (
     <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
