@@ -360,6 +360,26 @@ export default function Home() {
           </p>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t border-border mt-20 bg-muted/30">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <p>© 2025 J&K CeMAP Training. All rights reserved.</p>
+            <div className="flex items-center gap-4">
+              <Link href="/privacy-policy">
+                <a className="hover:text-foreground transition-colors" data-testid="link-privacy-footer">
+                  Privacy Policy
+                </a>
+              </Link>
+              <span>•</span>
+              <a href="mailto:privacy@ukcemap.co.uk" className="hover:text-foreground transition-colors" data-testid="link-contact-privacy">
+                Contact
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
