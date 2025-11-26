@@ -343,6 +343,96 @@ export class MemStorage implements IStorage {
         optionD: "Reduced consumer confidence",
         answer: "B"
       },
+      {
+        topic: "Economic Policy",
+        question: "Financial intermediaries can provide maturity transformation because they:",
+        optionA: "Offer a wide range of deposit accounts to a wide range of depositors",
+        optionB: "Aggregate many small deposits from many clients",
+        optionC: "Provide services to clients from many different geographical locations",
+        optionD: "Reduce the risk of default or fraud by lending to a wide variety of borrowers",
+        answer: "B"
+      },
+      {
+        topic: "Economic Policy",
+        question: "A key difference between a mutual organisation and a proprietary organisation is that a mutual organisation:",
+        optionA: "Can issue shares on the stock market",
+        optionB: "Is owned by members not shareholders",
+        optionC: "Shares its profits in the form of dividends",
+        optionD: "Is only allowed to lend to other financial institutions",
+        answer: "B"
+      },
+      {
+        topic: "Economic Policy",
+        question: "How can a bank involved in wholesale banking quickly raise money to finance business activities?",
+        optionA: "By a further issue of shares",
+        optionB: "By borrowing from the Bank of England",
+        optionC: "From the interbank market",
+        optionD: "By issuing gilts",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "What is the role of the Bank of England's Monetary Policy Committee?",
+        optionA: "To veto undesirable takeovers",
+        optionB: "To set capital adequacy levels",
+        optionC: "To set the Bank of England base rate",
+        optionD: "To set inflation targets",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "In order to be acceptable as a medium of exchange, money must have all except which one of the following?",
+        optionA: "It must be divisible into small units",
+        optionB: "It must be generally acceptable to all parties in all transactions",
+        optionC: "It must be free from the effects of inflation",
+        optionD: "It must be sufficient in quantity",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "Jon has notes and coins that are accepted as legal tender. This is because they have:",
+        optionA: "Been approved by the Treasury",
+        optionB: "The backing of the government and the central bank",
+        optionC: "The International Monetary Fund's backing and are issued by the government",
+        optionD: "Government approval only",
+        answer: "B"
+      },
+      {
+        topic: "Economic Policy",
+        question: "What is the target range of inflation that the government hopes to achieve as measured by the Consumer Price Index?",
+        optionA: "3–5%",
+        optionB: "2–4%",
+        optionC: "1–3%",
+        optionD: "2.5–5%",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "The European Union has issued a new Directive. This means that each member state:",
+        optionA: "Must implement the Directive in its entirety within the specified timescale",
+        optionB: "Can choose whether or not to adopt the Directive",
+        optionC: "Has the choice of how to meet the Directive's objectives",
+        optionD: "Must implement the Directive provided the state is in the Eurozone",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "The UK regulatory framework is a four-tier process. Which body has taken over the activities in the second tier?",
+        optionA: "The Financial Ombudsman Service",
+        optionB: "The Building Societies Commission",
+        optionC: "The PRA and FCA",
+        optionD: "The Lenders Code",
+        answer: "C"
+      },
+      {
+        topic: "Economic Policy",
+        question: "What is Gross Domestic Product? A measure of the value of:",
+        optionA: "Demand within a country over a specified period",
+        optionB: "Goods and services within a country over a specified period of time",
+        optionC: "Money supply within a country over a specified period of time",
+        optionD: "National average earnings within a country over a specified period of time",
+        answer: "B"
+      },
 
       // UK Taxation - Income Tax (18 questions)
       {
@@ -688,6 +778,186 @@ export class MemStorage implements IStorage {
         optionC: "Interest in possession trust",
         optionD: "Accumulation trust",
         answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which one of the following is normally exempt from capital gains tax on disposal?",
+        optionA: "A holiday home",
+        optionB: "Shares in UK companies",
+        optionC: "A unit trust",
+        optionD: "An antique table worth £5,000",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which one of the following statements in respect of capital gains tax (CGT) is correct?",
+        optionA: "Chargeable assets held within and outside the UK may be subject to CGT on disposal",
+        optionB: "Premium Bond and Lottery winnings are subject to CGT",
+        optionC: "The annual exemption may be carried forward",
+        optionD: "CGT may be payable on a deceased's estate in addition to inheritance tax",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Suzy bought an antique vase in 1985 and sold it at a profit. Which one can she NOT offset against CGT liability?",
+        optionA: "Cost of acquiring the vase",
+        optionB: "Cost of repairing a hairline crack",
+        optionC: "Advertising costs",
+        optionD: "Auctioneer's commission",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which transaction could be subject to capital gains tax?",
+        optionA: "An antique bought for £20,000 and sold for a profit",
+        optionB: "A painting sold by a self-employed dealer",
+        optionC: "An insurance bond surrendered at a profit",
+        optionD: "Government stocks sold at a profit",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        question: "What exactly are 'allowable deductions' in calculating CGT liability?",
+        optionA: "Government fixed allowances",
+        optionB: "The annual exemption only",
+        optionC: "Costs of acquiring, enhancing, and disposing of an asset",
+        optionD: "The annual exemption and indexation",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        question: "What is the position when a capital loss is made on disposal?",
+        optionA: "Not relevant to CGT",
+        optionB: "Must be carried forward",
+        optionC: "Offset against gains made in the same year first",
+        optionD: "Carried back to previous year",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        question: "A capital gains tax liability could arise in which circumstance?",
+        optionA: "A corporation sells some investments",
+        optionB: "A partnership's daily trading",
+        optionC: "A PLC's daily trading",
+        optionD: "Disposal of assets when a sole trader retires",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which asset would be exempt from capital gains tax?",
+        optionA: "Personal jewellery worth £20,000",
+        optionB: "Spanish holiday property",
+        optionC: "Euros held for foreign holidays",
+        optionD: "Shares purchased on the UK stock market",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Peter gifted £500,000 to his son in May 2019. He died in June 2022. What IHT rate applies to the gift?",
+        optionA: "0%",
+        optionB: "24%",
+        optionC: "32%",
+        optionD: "40%",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Julian died with an estate worth £350,000; half to his son, half to his wife. No prior gifts. What is the IHT liability?",
+        optionA: "Nil",
+        optionB: "£43,200",
+        optionC: "£30,000",
+        optionD: "£140,000",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        question: "On which is inheritance tax charged at 40%?",
+        optionA: "Total estate value",
+        optionB: "Amount above the threshold",
+        optionC: "Full estate if UK-domiciled",
+        optionD: "Estate after spouse's share deducted",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        question: "A potentially exempt transfer is best described as:",
+        optionA: "A small gift under £250",
+        optionB: "A transfer with deferred IHT if made 7 years before death",
+        optionC: "Any transfer between spouses",
+        optionD: "A transfer bearing no immediate inheritance tax",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        question: "When is tax due following a chargeable lifetime transfer?",
+        optionA: "Immediately",
+        optionB: "After 6 years",
+        optionC: "After 7 years",
+        optionD: "After donor's death",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        question: "If an individual is UK-domiciled at death, his estate includes assets:",
+        optionA: "In the UK only",
+        optionB: "In the EC only",
+        optionC: "In countries with double-tax treaties only",
+        optionD: "Wherever situated",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which one is NOT zero-rated for VAT?",
+        optionA: "Meals in restaurants",
+        optionB: "Food in supermarkets",
+        optionC: "Children's clothing",
+        optionD: "Supplies of medicine",
+        answer: "A"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which business does NOT have a VAT exemption?",
+        optionA: "Doctors",
+        optionB: "Opticians",
+        optionC: "Dentists",
+        optionD: "Accountants",
+        answer: "D"
+      },
+      {
+        topic: "UK Taxation",
+        question: "What rate of withholding tax is levied on non-resident entertainers and sportspeople in the UK?",
+        optionA: "22%",
+        optionB: "20%",
+        optionC: "40%",
+        optionD: "0%",
+        answer: "B"
+      },
+      {
+        topic: "UK Taxation",
+        question: "In the event of a transfer on death, who pays the inheritance tax?",
+        optionA: "The donor",
+        optionB: "The spouse or next of kin",
+        optionC: "The deceased's estate",
+        optionD: "The life assurance company",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        question: "If the £3,000 annual gift exemption was unused for 3 years, what exemption applies in year four?",
+        optionA: "None",
+        optionB: "£3,000",
+        optionC: "£6,000",
+        optionD: "£12,000",
+        answer: "C"
+      },
+      {
+        topic: "UK Taxation",
+        question: "Which one would NOT be considered a liability when calculating an estate at death?",
+        optionA: "Mortgages",
+        optionB: "Loans",
+        optionC: "Hire purchase",
+        optionD: "Jointly held assets",
+        answer: "D"
       },
 
       // UK Taxation - Stamp Duty & VAT (12 questions)
