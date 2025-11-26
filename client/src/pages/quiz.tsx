@@ -12,7 +12,7 @@ import type { Question, QuizMode, User } from "@shared/schema";
 import AdBreakModal from "@/components/ad-break-modal";
 import ReviewModal from "@/components/review-modal";
 import QuestionCountSelector from "@/components/question-count-selector";
-import { GoogleAdSenseAd } from "@/components/google-adsense-ad";
+import { GoogleAdSenseAd as UpgradePrompt } from "@/components/google-adsense-ad";
 
 interface QuizProps {
   mode: QuizMode;
@@ -537,7 +537,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
       />
 
       {showGoogleAd && (
-        <GoogleAdSenseAd onComplete={handleGoogleAdComplete} />
+        <UpgradePrompt onComplete={handleGoogleAdComplete} />
       )}
       
       <ReviewModal

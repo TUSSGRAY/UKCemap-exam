@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
-import { Megaphone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "wouter";
+import { Star } from "lucide-react";
 
 interface AdBreakModalProps {
   isOpen: boolean;
   onComplete: () => void;
-  duration?: number; // Duration in seconds (10 for practice, 30 for exam/scenario)
+  duration?: number;
 }
-
-const adverts = [
-  "Get 20% off your CeMAP revision materials at StudySmart UK!",
-  "Ready to boost your mortgage career? Join CeMAP Masterclass Online today!",
-  "Refresh your knowledge with CeMAP Pro's 2025 syllabus updates!",
-];
 
 export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBreakModalProps) {
   const [countdown, setCountdown] = useState(duration);
-  const [adMessage] = useState(() => adverts[Math.floor(Math.random() * adverts.length)]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -46,21 +41,39 @@ export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBr
       <DialogContent
         className="sm:max-w-lg"
         onInteractOutside={(e) => e.preventDefault()}
-        data-testid="modal-ad-break"
+        data-testid="modal-upgrade-prompt"
       >
         <DialogHeader className="space-y-4">
           <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
-            <Megaphone className="w-8 h-8 text-primary" />
+            <Star className="w-8 h-8 text-primary" />
           </div>
           <DialogTitle className="text-center text-2xl">
-            Ad Break
+            Unlock Premium Features
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-6 py-6">
-          <div className="bg-muted/50 rounded-lg p-6 text-center">
-            <p className="text-lg font-semibold text-foreground" data-testid="text-ad-message">
-              {adMessage}
+          <div className="bg-muted/50 rounded-lg p-6 space-y-4">
+            <p className="text-lg font-semibold text-foreground">
+              Ready to master CeMAP?
             </p>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                <span className="text-sm text-foreground">Access Full Exam (50 questions) + Scenario Quiz</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                <span className="text-sm text-foreground">2025 syllabus questions updated regularly</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                <span className="text-sm text-foreground">Analytics dashboard to track weak areas</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-primary font-bold">✓</span>
+                <span className="text-sm text-foreground">Free Topic Exams to practice specific areas</span>
+              </li>
+            </ul>
           </div>
 
           <div className="space-y-3">
@@ -73,13 +86,21 @@ export default function AdBreakModal({ isOpen, onComplete, duration = 10 }: AdBr
             <Progress value={progress} className="h-2" data-testid="progress-countdown" />
           </div>
 
-          <div className="space-y-2">
-            <p className="text-sm text-center font-medium text-foreground">
-              These adverts help keep the site affordable
-            </p>
-            <p className="text-xs text-center text-muted-foreground">
-              Thank you for your patience. Your quiz will continue automatically.
-            </p>
+          <div className="flex gap-2">
+            <Link href="/checkout?product=bundle" className="flex-1">
+              <Button className="w-full" size="lg" data-testid="button-modal-upgrade">
+                Get Bundle - £1.49
+              </Button>
+            </Link>
+            <Button
+              variant="outline"
+              size="lg"
+              className="flex-1"
+              onClick={onComplete}
+              data-testid="button-modal-skip"
+            >
+              Continue
+            </Button>
           </div>
         </div>
       </DialogContent>

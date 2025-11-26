@@ -103,10 +103,10 @@ export default function Home() {
               150+ Questions
             </Badge>
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-topics">
-              Topic Exams Available
+              2025 Syllabus
             </Badge>
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-passmark">
-              80% Pass Rate
+              Analytics Included
             </Badge>
           </div>
           <div className="flex justify-center mt-6">

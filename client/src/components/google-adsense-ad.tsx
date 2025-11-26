@@ -2,50 +2,17 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { Clock } from "lucide-react";
+import { Link } from "wouter";
+import { Zap, TrendingUp, BookOpen } from "lucide-react";
 
-/**
- * Google AdSense Component for Practice Mode
- * 
- * SETUP INSTRUCTIONS:
- * 1. Sign up for Google AdSense at https://adsense.google.com
- * 2. Get your publisher ID (format: ca-pub-XXXXXXXXXXXXXXXX)
- * 3. Create an ad unit and get your ad slot ID
- * 4. Replace GOOGLE_ADSENSE_CLIENT_ID and GOOGLE_ADSENSE_SLOT_ID in this file
- * 5. Add the AdSense script to client/index.html (see comments in that file)
- * 
- * For now, this displays a placeholder ad with proper timing.
- */
-
-// Google AdSense credentials - Update GOOGLE_ADSENSE_SLOT_ID with your ad unit slot ID
-const GOOGLE_ADSENSE_CLIENT_ID = "ca-pub-4127314844320855"; // Your publisher ID
-const GOOGLE_ADSENSE_SLOT_ID = "0000000000"; // TODO: Replace with your ad slot ID from AdSense dashboard
-const AD_DISPLAY_TIME = 20; // 20 seconds
-
-interface GoogleAdSenseAdProps {
+interface UpgradePromptProps {
   onComplete: () => void;
 }
 
-export function GoogleAdSenseAd({ onComplete }: GoogleAdSenseAdProps) {
-  const [timeRemaining, setTimeRemaining] = useState(AD_DISPLAY_TIME);
-  const [adLoaded, setAdLoaded] = useState(false);
+export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
+  const [timeRemaining, setTimeRemaining] = useState(8);
 
   useEffect(() => {
-    // Try to load the AdSense ad
-    const loadAd = () => {
-      try {
-        // Always push to the queue - this works whether the script is loaded or not
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        setAdLoaded(true);
-      } catch (error) {
-        console.log("AdSense error:", error);
-      }
-    };
-
-    // Attempt to load ad after a short delay to ensure DOM is ready
-    const loadTimeout = setTimeout(loadAd, 100);
-
-    // Start countdown timer
     const interval = setInterval(() => {
       setTimeRemaining((prev) => {
         if (prev <= 1) {
@@ -56,96 +23,80 @@ export function GoogleAdSenseAd({ onComplete }: GoogleAdSenseAdProps) {
       });
     }, 1000);
 
-    return () => {
-      clearTimeout(loadTimeout);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
-  const progress = ((AD_DISPLAY_TIME - timeRemaining) / AD_DISPLAY_TIME) * 100;
+  const progress = ((8 - timeRemaining) / 8) * 100;
 
   return (
     <div className="fixed inset-0 bg-background/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl shadow-2xl">
         <CardContent className="p-8">
-          {/* Header */}
-          <div className="text-center mb-6">
-            <h2 className="text-2xl font-bold text-foreground mb-2">
-              Supporting Free Practice Mode
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              Unlock Your CeMAP Success
             </h2>
-            <p className="text-muted-foreground">
-              Please wait {timeRemaining} seconds while we show a brief advertisement to help cover hosting costs
+            <p className="text-lg text-muted-foreground">
+              Upgrade to the Bundle Package for advanced features
             </p>
           </div>
 
-          {/* Ad Container */}
-          <div className="mb-6 min-h-[250px] bg-muted/30 rounded-lg border-2 border-dashed border-border flex items-center justify-center relative overflow-hidden">
-            {/* Google AdSense Ad Unit */}
-            {GOOGLE_ADSENSE_SLOT_ID !== "0000000000" ? (
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block", width: "100%", minHeight: "250px" }}
-                data-ad-client={GOOGLE_ADSENSE_CLIENT_ID}
-                data-ad-slot={GOOGLE_ADSENSE_SLOT_ID}
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-                data-testid="adsense-ad-unit"
-              />
-            ) : (
-              /* Placeholder Ad - Shown when AdSense slot is not configured */
-              <div className="text-center p-8" data-testid="ad-placeholder">
-                <div className="text-6xl mb-4">📢</div>
-                <p className="text-xl font-semibold text-foreground mb-2">
-                  Advertisement Space
-                </p>
-                <p className="text-sm text-muted-foreground mb-4">
-                  This is where your Google AdSense ad will appear
-                </p>
-                <p className="text-xs text-muted-foreground/60 max-w-md mx-auto">
-                  To enable real ads, create an ad unit in your Google AdSense dashboard and update
-                  the GOOGLE_ADSENSE_SLOT_ID in client/src/components/google-adsense-ad.tsx
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Timer Progress Bar */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                Time remaining
-              </span>
-              <span className="text-sm font-semibold text-foreground" data-testid="text-timer">
-                {timeRemaining}s
-              </span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
+              <BookOpen className="w-6 h-6 text-primary mb-2" />
+              <h3 className="font-semibold text-foreground mb-1">2025 Syllabus</h3>
+              <p className="text-sm text-muted-foreground">New questions covering latest regulations</p>
             </div>
-            <Progress value={progress} className="h-2" data-testid="progress-ad-timer" />
+            <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
+              <TrendingUp className="w-6 h-6 text-primary mb-2" />
+              <h3 className="font-semibold text-foreground mb-1">Analytics</h3>
+              <p className="text-sm text-muted-foreground">Track your progress and weak areas</p>
+            </div>
+            <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
+              <Zap className="w-6 h-6 text-primary mb-2" />
+              <h3 className="font-semibold text-foreground mb-1">Topic Exams</h3>
+              <p className="text-sm text-muted-foreground">Master specific topics with focused practice</p>
+            </div>
           </div>
 
-          {/* Continue Button - Only enabled after timer expires */}
-          <Button
-            onClick={onComplete}
-            disabled={timeRemaining > 0}
-            className="w-full"
-            size="lg"
-            data-testid="button-continue-after-ad"
-          >
-            {timeRemaining > 0 ? `Continue in ${timeRemaining}s` : "Continue to Next Question"}
-          </Button>
+          <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
+            <div className="flex items-baseline justify-center gap-3">
+              <span className="text-4xl font-bold text-primary">£1.49</span>
+              <span className="text-xl text-muted-foreground line-through">£1.98</span>
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-2">Save 50p on Full Exam + Scenario Quiz</p>
+          </div>
+
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Continuing in</span>
+              <span className="font-mono font-semibold text-lg">{timeRemaining}s</span>
+            </div>
+            <Progress value={progress} className="h-2" />
+          </div>
+
+          <div className="flex gap-3">
+            <Link href="/checkout?product=bundle" className="flex-1">
+              <Button className="w-full" size="lg" data-testid="button-upgrade-bundle">
+                Get Bundle Package
+              </Button>
+            </Link>
+            <Button
+              onClick={onComplete}
+              variant="outline"
+              size="lg"
+              className="flex-1"
+              data-testid="button-continue-free"
+            >
+              Continue Free Practice
+            </Button>
+          </div>
 
           <p className="text-xs text-center text-muted-foreground mt-4">
-            Thank you for supporting free access to CeMAP practice questions
+            All features included: Full Exam + Scenario Quiz + 100 Days Email Campaign
           </p>
         </CardContent>
       </Card>
     </div>
   );
-}
-
-// TypeScript declaration for window.adsbygoogle
-declare global {
-  interface Window {
-    adsbygoogle: any[];
-  }
 }
