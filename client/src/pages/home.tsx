@@ -341,7 +341,14 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t border-border mt-20 bg-muted/30">
-        <div className="max-w-6xl mx-auto px-6 py-8">
+        <div className="max-w-6xl mx-auto px-6 py-12">
+          <div className="mb-8">
+            <Link href="/cemap-qualification">
+              <Button variant="outline" size="lg" className="w-full" data-testid="button-cemap-qualification">
+                Learn About CeMAP Qualification Structure
+              </Button>
+            </Link>
+          </div>
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <p>© 2025 J&K CeMAP Training. All rights reserved.</p>
             <div className="flex items-center gap-4">
