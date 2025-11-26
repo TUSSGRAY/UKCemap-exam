@@ -1,0 +1,1518 @@
+Cemap spec 1
+
+[
+  {
+    "question": "The specialist sourcebooks section within the FCA Handbook includes arrangements for:",
+    "options": {
+      "A": "individual responsibilities.",
+      "B": "international trading.",
+      "C": "product derivatives.",
+      "D": "professional firms."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "In seeking to promote competition, the FCA uses its powers to ensure all except which of the following?",
+    "options": {
+      "A": "Customers are empowered to engage in such a way as to drive competition.",
+      "B": "There are no undue barriers preventing new providers entering the market.",
+      "C": "Prevention of any single firm or small group of firms from dominating the market.",
+      "D": "‘Light touch’ regulation for providers that show a strong track record in product innovation."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "The FCA is a concurrent regulator with which body under competition law?",
+    "options": {
+      "A": "Competition and Markets Authority.",
+      "B": "Competition Commission.",
+      "C": "Financial Policy Committee.",
+      "D": "Prudential Regulation Authority."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which principle does NOT specifically apply to a senior manager like Miranda?",
+    "options": {
+      "A": "act to avoid situations that could lead to risks.",
+      "B": "disclose information regulators expect notice of.",
+      "C": "take steps to ensure business complies with requirements.",
+      "D": "take steps to ensure the business is controlled effectively."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Minimum retention period for competence records of a pension transfer specialist?",
+    "options": {
+      "A": "Three years.",
+      "B": "Five years.",
+      "C": "Ten years.",
+      "D": "Indefinitely."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "The FCA Training and Competence Sourcebook applies to:",
+    "options": {
+      "A": "financial advisers, supervisors of advisers and supervisors of certain back office functions.",
+      "B": "supervisors of advisers, supervisors of back office functions and clerical staff.",
+      "C": "supervisors of back office functions, clerical claims staff and supervisors of advisers.",
+      "D": "company accountants, financial advisers and supervisors."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Simon has trained but not passed the regulatory module. When may he advise?",
+    "options": {
+      "A": "He may do so under close supervision.",
+      "B": "He may do so for small investments.",
+      "C": "He may do so if FCA double-checks advice.",
+      "D": "Under no circumstances."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Under the FCA suitability rules, advisers must:",
+    "options": {
+      "A": "offer advice to all client types.",
+      "B": "ensure clients have more than basic understanding.",
+      "C": "only explain risks to eligible counterparties.",
+      "D": "offer the highest level of protection to retail clients."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Mortgage arrears information must be provided within:",
+    "options": {
+      "A": "Immediately.",
+      "B": "7 working days.",
+      "C": "15 working days.",
+      "D": "30 working days."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Required risk warning for past performance advertising:",
+    "options": {
+      "A": "is not necessarily a reliable indicator of future performance.",
+      "B": "is not necessarily better than future performance.",
+      "C": "is only a general guide.",
+      "D": "is reasonable over 5+ years."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which mortgage type became FCA regulated in 2016?",
+    "options": {
+      "A": "Second charge loans.",
+      "B": "Business buy-to-let.",
+      "C": "Further advances.",
+      "D": "Lifetime mortgages."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which group reviews financial statements before publication?",
+    "options": {
+      "A": "Compliance officers.",
+      "B": "External auditors.",
+      "C": "Internal auditors.",
+      "D": "Trustees."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which mortgage arrangement is outside FCA regulation?",
+    "options": {
+      "A": "Second charge for home improvements.",
+      "B": "Business buy-to-let mortgages.",
+      "C": "Home reversion plans.",
+      "D": "Lifetime mortgages."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Rights and obligations for investment business are normally disclosed in:",
+    "options": {
+      "A": "Client agreement.",
+      "B": "Key features document.",
+      "C": "Cancellation notice.",
+      "D": "Suitability report."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Independent advice must be based on:",
+    "options": {
+      "A": "a sufficiently diverse range of relevant products.",
+      "B": "all areas of advice.",
+      "C": "all client needs.",
+      "D": "all products on the market."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "When adviser charges are payable over time, what is NOT required?",
+    "options": {
+      "A": "The amount due.",
+      "B": "Benefits of paying this way.",
+      "C": "Frequency.",
+      "D": "Implications if cancelled early."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Robo-advisers primarily use:",
+    "options": {
+      "A": "algorithms.",
+      "B": "case studies.",
+      "C": "human intervention.",
+      "D": "web analytics."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Latest date a suitability report may be sent (no urgent cover needed):",
+    "options": {
+      "A": "Before the transaction.",
+      "B": "Five days after cooling-off ends.",
+      "C": "Five days after final interview.",
+      "D": "Five days after initial interview."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Suitability rules require advisers to follow which principle?",
+    "options": {
+      "A": "Client knows best.",
+      "B": "Offer cheapest product.",
+      "C": "Offer top-performing product.",
+      "D": "Serve the client's best interests."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "'Execution-only' means the adviser must:",
+    "options": {
+      "A": "transact at their discretion.",
+      "B": "give no advice, only execute.",
+      "C": "make recommendations.",
+      "D": "confirm customer’s choice."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which is NOT required in initial mortgage disclosures?",
+    "options": {
+      "A": "Arrears arrangements.",
+      "B": "Compensation arrangements.",
+      "C": "Complaints information.",
+      "D": "Fees associated with the service."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Cooling-off cancellation of £12,000 unit-linked bond during a market fall:",
+    "options": {
+      "A": "£12,000.",
+      "B": "£12,000 less charges.",
+      "C": "95% of surrender value.",
+      "D": "Market value on encashment."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "A KID must provide:",
+    "options": {
+      "A": "summary of personal circumstances.",
+      "B": "all T&Cs.",
+      "C": "concise info up to 3 pages.",
+      "D": "key info no longer than 1 page."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Beneficial ownership threshold under EU 4MLD:",
+    "options": {
+      "A": "5%",
+      "B": "10%",
+      "C": "25%",
+      "D": "50%"
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Definition of ‘property’ under 3MLD:",
+    "options": {
+      "A": "Cash within EU.",
+      "B": "Assets of every kind including legal documents.",
+      "C": "Intangible assets only.",
+      "D": "Tangible assets only."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "‘Arranging’ under POCA means:",
+    "options": {
+      "A": "involved in acquiring or controlling criminal property.",
+      "B": "personally owning proceeds.",
+      "C": "personally using proceeds.",
+      "D": "failing to report."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Telling a customer their deposits may be reported is:",
+    "options": {
+      "A": "Breaching data protection.",
+      "B": "Failing to disclose.",
+      "C": "None.",
+      "D": "Tipping off."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "No ID needed for ISA because:",
+    "options": {
+      "A": "Under £10k exempt.",
+      "B": "ISAs exempt.",
+      "C": "Client is temporary UK resident.",
+      "D": "Intermediary verified identity."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Tarah reports to MLRO when:",
+    "options": {
+      "A": "she suspects colleague involvement.",
+      "B": "she knows for certain.",
+      "C": "she knows or suspects money laundering.",
+      "D": "transaction > €15k."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Why was FATF set up?",
+    "options": {
+      "A": "advise FCA.",
+      "B": "co-ordinate fight against money laundering.",
+      "C": "ensure financial inclusion.",
+      "D": "reduce insider dealing risk."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Max prison sentence for bribery offence:",
+    "options": {
+      "A": "3 years.",
+      "B": "5 years.",
+      "C": "10 years.",
+      "D": "14 years."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "FCA complaint-handling aims to resolve within:",
+    "options": {
+      "A": "3 days.",
+      "B": "1 month.",
+      "C": "8 weeks.",
+      "D": "3 months."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "FSCS is responsibility of:",
+    "options": {
+      "A": "FCA only.",
+      "B": "FCA and PRA.",
+      "C": "FOS.",
+      "D": "PRA only."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which FOS statement is false?",
+    "options": {
+      "A": "Firm should investigate before Ombudsman.",
+      "B": "Firm charged for cases beyond third.",
+      "C": "Decision is binding on firm and client.",
+      "D": "Decision is binding on firm only."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Special categories of data exclude:",
+    "options": {
+      "A": "correspondence address.",
+      "B": "health.",
+      "C": "political persuasion.",
+      "D": "religious beliefs."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Data breach must be reported to:",
+    "options": {
+      "A": "FCA.",
+      "B": "FOS.",
+      "C": "Information Commissioner.",
+      "D": "PRA."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "FCA strategic objective:",
+    "options": {
+      "A": "make relevant markets function well.",
+      "B": "govern investment managers.",
+      "C": "oversee all investment admin.",
+      "D": "regulate marketing of life assurance."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "FCA requires systems and controls to:",
+    "options": {
+      "A": "be agreed by FCA.",
+      "B": "be notified to customers.",
+      "C": "be regularly reviewed.",
+      "D": "meet industry standard."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Certification regime approvals:",
+    "options": {
+      "A": "FCA and employer.",
+      "B": "FCA or employer.",
+      "C": "FCA only.",
+      "D": "employer only."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "FCA individually vets which roles?",
+    "options": {
+      "A": "Certified and senior management.",
+      "B": "Customer-facing.",
+      "C": "Certified only.",
+      "D": "Senior management only."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Which is NOT a financial crime?",
+    "options": {
+      "A": "Insider dealing.",
+      "B": "Market manipulation.",
+      "C": "Mis-selling investments.",
+      "D": "Money laundering."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Responsibility for fair treatment of customers lies with:",
+    "options": {
+      "A": "all employees.",
+      "B": "the advisers.",
+      "C": "senior management.",
+      "D": "operational managers."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Which is exempt from Consumer Credit Act?",
+    "options": {
+      "A": "Credit card £5,000.",
+      "B": "Further advance £15,000.",
+      "C": "Authorised overdraft £20,000.",
+      "D": "Personal loan £10,000."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Maximum size of loan regulated by CCA 2006:",
+    "options": {
+      "A": "£15,000.",
+      "B": "£20,000.",
+      "C": "£25,000.",
+      "D": "Unlimited."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Quotations for loans must include:",
+    "options": {
+      "A": "APR.",
+      "B": "Bank of England rate.",
+      "C": "Purpose.",
+      "D": "Security address."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Dual-regulated firms are regulated by:",
+    "options": {
+      "A": "FCA and FPC.",
+      "B": "FCA and PRA.",
+      "C": "PRA and FPC.",
+      "D": "PRA and Bank of England."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "A commercial debt counselling firm must be authorised by:",
+    "options": {
+      "A": "FCA for specific permission.",
+      "B": "PRA for specific permission.",
+      "C": "PRA for all credit activities.",
+      "D": "MoneyHelper."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "According to Basel, capital/risk-adjusted assets ratio is:",
+    "options": {
+      "A": "capital adequacy margin.",
+      "B": "liquidity ratio.",
+      "C": "prudential standard.",
+      "D": "solvency ratio."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "If a bank disciplines a senior manager for conduct rules breach, it must:",
+    "options": {
+      "A": "report to FCA within 7 days.",
+      "B": "report to FCA within 14 days.",
+      "C": "revoke statement of responsibilities.",
+      "D": "suspend manager."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Varying a firm's permissions means:",
+    "options": {
+      "A": "authorisation withdrawn.",
+      "B": "one regulated activity restricted or removed.",
+      "C": "all business checked temporarily.",
+      "D": "injunction prevents profit."
+    },
+    "correct": "B"
+  }
+]
+
+
+
+
+Coma spec 2
+
+[
+  {
+    "question": "The FCA Handbook contains both rules and guidance. Rules are best described as being:",
+    "options": {
+      "A": "binding obligations.",
+      "B": "indications of how to comply.",
+      "C": "best practice standards.",
+      "D": "the optimal way of conducting business."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Under the Senior Managers and Certification Regime, individuals are required to obtain approval from the FCA to carry out certain roles, which are referred to as:",
+    "options": {
+      "A": "authorised functions.",
+      "B": "certified functions.",
+      "C": "controlled functions.",
+      "D": "senior management functions."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Which of the following is not one of the Financial Conduct Authority’s Principles for Businesses?",
+    "options": {
+      "A": "Customers: relationships of trust.",
+      "B": "Facilitation of competition.",
+      "C": "Management and control.",
+      "D": "Relations with regulators."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Minimum retention period for T&C records for a MiFID-role individual after stopping regulated activity:",
+    "options": {
+      "A": "Three years.",
+      "B": "Four years.",
+      "C": "Five years.",
+      "D": "Six years."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Before an investment adviser may advise without close supervision, they must:",
+    "options": {
+      "A": "be assessed as competent and pass an appropriate examination.",
+      "B": "be assessed on technical knowledge only.",
+      "C": "complete required CPD hours.",
+      "D": "complete their probation period."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which statement is true regarding Training & Competence rules?",
+    "options": {
+      "A": "All employees must pass an appropriate exam.",
+      "B": "All new entrants must attain competence within 12 months.",
+      "C": "Firms must monitor ongoing competence of employees.",
+      "D": "Records of assessment criteria must be kept for 1 year."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Which is NOT one of the three COBS client types?",
+    "options": {
+      "A": "A corporate client.",
+      "B": "A professional client.",
+      "C": "A retail client.",
+      "D": "An eligible counterparty."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which information would NOT appear in a key features document?",
+    "options": {
+      "A": "Summary of the client's data protection rights.",
+      "B": "Information on FSCS.",
+      "C": "Right to cancel.",
+      "D": "Consequences of failing to maintain contributions."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Postal campaign for a new equity fund must include:",
+    "options": {
+      "A": "Balanced benefits and prominent risks.",
+      "B": "Maximum investment loss amount.",
+      "C": "Warning that funds underperform early.",
+      "D": "Ten-year minimum investment requirement."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "For which mortgage must a suitability report be issued?",
+    "options": {
+      "A": "Buy-to-let only.",
+      "B": "Commercial only.",
+      "C": "Residential only.",
+      "D": "None."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Who is responsible for ensuring a mortgage is affordable?",
+    "options": {
+      "A": "Adviser.",
+      "B": "Compliance department.",
+      "C": "Client.",
+      "D": "Lender."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Glyn joining ACCA or ICAEW — which requires adherence to a code of ethics?",
+    "options": {
+      "A": "Both.",
+      "B": "Neither.",
+      "C": "ACCA only.",
+      "D": "ICAEW only."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "For designated investment business (not packaged products), firms must provide:",
+    "options": {
+      "A": "Business card.",
+      "B": "Client agreement.",
+      "C": "Suitability letter.",
+      "D": "Initial disclosure document (IDD)."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Theo is a pension transfer specialist. Which is true?",
+    "options": {
+      "A": "He can still give independent advice if he meets the independence rule.",
+      "B": "He can only offer restricted advice outside pension transfers.",
+      "C": "He cannot describe any advice as independent.",
+      "D": "His firm must have specialists for ALL advice areas."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "A restricted adviser is one who:",
+    "options": {
+      "A": "does not meet the FCA definition of independent or basic advice.",
+      "B": "advises only in one area of the market.",
+      "C": "provides only basic advice on stakeholder products.",
+      "D": "only advises on pension transfers."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "A financial institution needing advice from another institution is categorised as:",
+    "options": {
+      "A": "a professional client.",
+      "B": "a retail client.",
+      "C": "an eligible counterparty.",
+      "D": "an independent client."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Adviser assessing suitability must consider attitude to risk and:",
+    "options": {
+      "A": "returns on current investments.",
+      "B": "investment amount.",
+      "C": "capacity for loss.",
+      "D": "potential returns."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Suitability assessment excludes:",
+    "options": {
+      "A": "current/future needs.",
+      "B": "affordability.",
+      "C": "risk profile consistency.",
+      "D": "researching lowest charges only."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Execution-only purchase means:",
+    "options": {
+      "A": "best execution does not apply.",
+      "B": "no product charges.",
+      "C": "no advice required.",
+      "D": "suitability rules still apply."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Adviser charge disclosure for life assurance advice must be provided:",
+    "options": {
+      "A": "when cancellation notice is sent.",
+      "B": "in writing before any business is discussed.",
+      "C": "within 5 days after transaction.",
+      "D": "verbally before transaction."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Janice cancels within cooling-off but gets less money back because:",
+    "options": {
+      "A": "a surrender charge applied.",
+      "B": "a withdrawal charge applied.",
+      "C": "unit-linked plan fell in value.",
+      "D": "regular premium endowment rules."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "A KID does not need to be provided if the customer is:",
+    "options": {
+      "A": "buying investment trusts.",
+      "B": "buying unit trusts.",
+      "C": "opening a savings account.",
+      "D": "taking out an investment bond."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Adviser suspects money laundering — required action:",
+    "options": {
+      "A": "discuss with customer.",
+      "B": "monitor themselves.",
+      "C": "report to MLRO.",
+      "D": "report to NCA."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Not one of the three principal POCA offences:",
+    "options": {
+      "A": "Acquiring criminal property.",
+      "B": "Arranging.",
+      "C": "Concealing.",
+      "D": "Disclosing criminal property."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "POCA offence with max 5-year sentence:",
+    "options": {
+      "A": "Acquiring.",
+      "B": "Arranging.",
+      "C": "Concealing.",
+      "D": "Tipping off."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Telling a customer mortgage repayment may be reported is:",
+    "options": {
+      "A": "Data Protection breach.",
+      "B": "Failure to disclose.",
+      "C": "None.",
+      "D": "Tipping off."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Money-laundering rules may create financial exclusion because:",
+    "options": {
+      "A": "non-residents cannot get banking.",
+      "B": "bankrupts cannot open accounts.",
+      "C": "firms wary of cash deposit accounts.",
+      "D": "not everyone can provide ID."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Main reason senior management must obtain annual MLRO report:",
+    "options": {
+      "A": "comply with FSMA.",
+      "B": "comply with POCA.",
+      "C": "monitor activities and suspicions.",
+      "D": "review issues and strengthen controls."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "One MLRO duty is to:",
+    "options": {
+      "A": "detail FATF findings used.",
+      "B": "train all staff.",
+      "C": "review all suspicious reports.",
+      "D": "prepare annual report for NCA."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Max UK penalty for bribery:",
+    "options": {
+      "A": "£50,000 + 5 years.",
+      "B": "Unlimited fine + 5 years.",
+      "C": "£100,000 + 10 years.",
+      "D": "Unlimited fine + 10 years."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Time to refer occupational pension complaint to Pensions Ombudsman:",
+    "options": {
+      "A": "8 weeks.",
+      "B": "3 years.",
+      "C": "5 years.",
+      "D": "6 years."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "After 8 weeks of no response to complaint, customer may:",
+    "options": {
+      "A": "contact CMC.",
+      "B": "refer to FOS.",
+      "C": "contact FSCS.",
+      "D": "request CEO intervention."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which claim is covered by FSCS?",
+    "options": {
+      "A": "PPI advice claim against bank.",
+      "B": "Car insurance uninsured driver issue.",
+      "C": "Investment advice upheld but adviser defaulted.",
+      "D": "Offshore Isle of Man bank issue."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Incorrect data protection statement:",
+    "options": {
+      "A": "apply only to electronic records.",
+      "B": "apply to paper and electronic records.",
+      "C": "give right of access.",
+      "D": "require accuracy/updating."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "The person determining data processing purposes is:",
+    "options": {
+      "A": "data controller.",
+      "B": "data processor.",
+      "C": "Information Commissioner.",
+      "D": "information controller."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Body responsible for FOS:",
+    "options": {
+      "A": "CMA.",
+      "B": "FCA.",
+      "C": "FPC.",
+      "D": "PRA."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "NOT an FCA operational objective:",
+    "options": {
+      "A": "Promote competition.",
+      "B": "Protect integrity of financial system.",
+      "C": "Remove all risk from UK system.",
+      "D": "Consumer protection."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Individuals needing FCA approval are those performing:",
+    "options": {
+      "A": "authorised functions.",
+      "B": "certification functions.",
+      "C": "responsible functions.",
+      "D": "senior management functions."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "NOT part of the FCA 'fit and proper' test:",
+    "options": {
+      "A": "Complaints received.",
+      "B": "Criminal record.",
+      "C": "Current earnings.",
+      "D": "Director disqualification."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Code of Conduct rules apply to:",
+    "options": {
+      "A": "All staff.",
+      "B": "All staff except ancillary.",
+      "C": "Senior managers only.",
+      "D": "Senior managers and certified staff only."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Market abuse specifically covers:",
+    "options": {
+      "A": "Bribery.",
+      "B": "Dishonesty.",
+      "C": "Insider dealing.",
+      "D": "Money laundering."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Product literature must be clear and:",
+    "options": {
+      "A": "appropriate for sophistication of target group.",
+      "B": "available in all EU languages.",
+      "C": "contain competitor comparisons.",
+      "D": "suitable for all customers."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "If a contract contains an unfair term under the Consumer Rights Act:",
+    "options": {
+      "A": "business may still bind the consumer.",
+      "B": "contract continues unchanged.",
+      "C": "unfair term not binding; rest continues.",
+      "D": "whole contract invalid."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Pension schemes must do all except:",
+    "options": {
+      "A": "inform regulator if funding unmet.",
+      "B": "make regular returns.",
+      "C": "provide changes to key info.",
+      "D": "provide details of every transfer out."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Consumers have rights EXCEPT:",
+    "options": {
+      "A": "clear information.",
+      "B": "goods fit for purpose.",
+      "C": "get what they paid for.",
+      "D": "pay a fair market-reflective price."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "NOT a criterion for FCA senior management 'fit and proper':",
+    "options": {
+      "A": "Relevant training completed.",
+      "B": "Financial soundness.",
+      "C": "Honesty and integrity.",
+      "D": "10-year employer references."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "A debt-collecting-only firm must be authorised by:",
+    "options": {
+      "A": "Citizens Advice.",
+      "B": "MoneyHelper.",
+      "C": "FCA.",
+      "D": "PRA."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Liquidity is a measure of:",
+    "options": {
+      "A": "insurance exposure to claims.",
+      "B": "ease/speed assets become cash.",
+      "C": "excess of assets over liabilities.",
+      "D": "level of notice account savings."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Investment business client charges should reflect:",
+    "options": {
+      "A": "provider recommended.",
+      "B": "service provided, representing fair value.",
+      "C": "status of adviser.",
+      "D": "type of product recommended."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "FCA NOT permitted action:",
+    "options": {
+      "A": "Applying for an injunction.",
+      "B": "Awarding compensation.",
+      "C": "Disciplinary action.",
+      "D": "Enhanced supervision."
+    },
+    "correct": "B"
+  }
+]
+
+Spec 3
+
+[
+  {
+    "question": "Customer due diligence does not need to be undertaken when a:",
+    "options": {
+      "A": "customer opens a new account.",
+      "B": "customer undertakes a transaction exceeding €15,000.",
+      "C": "new life policy is started.",
+      "D": "well-known customer makes a cash deposit of £1,000 after selling his car."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "The Prudential Regulation Authority (PRA) is responsible for the prudential regulation of which types of financial firms?",
+    "options": {
+      "A": "All firms that provide financial advice only.",
+      "B": "Banks and building societies only.",
+      "C": "Deposit takers and significant investment firms only.",
+      "D": "Deposit takers, significant investment firms and insurers."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Staff training on anti-money laundering must cover all of the following requirements except:",
+    "options": {
+      "A": "how to liaise with the National Crime Agency.",
+      "B": "the law relating to anti-money laundering.",
+      "C": "the firm's anti-money-laundering procedures.",
+      "D": "the responsibilities of the firm's money laundering reporting officer (MLRO)."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "The inter-governmental organisation established to co-ordinate the international fight against money laundering is the:",
+    "options": {
+      "A": "Financial Action Task Force.",
+      "B": "National Crime Agency.",
+      "C": "International Monetary Fund.",
+      "D": "Joint Money Laundering Steering Group."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Christo undertakes a certified role for a bank. To undertake this role he must have:",
+    "options": {
+      "A": "confirmed his personal financial status to the Financial Conduct Authority.",
+      "B": "been deemed to be fit and proper by his firm.",
+      "C": "obtained approval from the Prudential Regulation Authority.",
+      "D": "passed the Financial Conduct Authority's conduct and ethics test."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Under the FCA Senior Managers Regime, where a senior manager is found guilty of reckless misconduct, what maximum prison sentence may apply?",
+    "options": {
+      "A": "5 years.",
+      "B": "7 years.",
+      "C": "10 years.",
+      "D": "12 years."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "For what minimum period must the training and competence records of an individual carrying out non-MiFID business be retained after they have stopped carrying out regulated activities?",
+    "options": {
+      "A": "Three years.",
+      "B": "Five years.",
+      "C": "Seven years.",
+      "D": "Ten years."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "For what minimum period must the training and competence records of a stockbroker conducting MiFID business be retained after they have left that role?",
+    "options": {
+      "A": "Three years.",
+      "B": "Five years.",
+      "C": "Six years.",
+      "D": "Indefinitely."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "An offence by a UK individual under the Bribery Act can only occur in which geographical area?",
+    "options": {
+      "A": "Anywhere in the world.",
+      "B": "England, Wales and Northern Ireland only.",
+      "C": "In the UK only.",
+      "D": "In the UK or EEA only."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "An authorised firm has not given a final response to a complaint after eight weeks. What is the firm obliged to do at this point?",
+    "options": {
+      "A": "Inform the client that they can refer the complaint to the Financial Ombudsman Service.",
+      "B": "Refer the complaint to the Financial Ombudsman Service.",
+      "C": "Inform the client that they can refer the complaint to the Financial Services Compensation Scheme.",
+      "D": "Refer the complaint to the Financial Services Compensation Scheme."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Paula has complained about treatment from her occupational pension scheme but cannot resolve it internally. To which body should she refer her complaint for a binding decision?",
+    "options": {
+      "A": "Financial Conduct Authority.",
+      "B": "Pensions Ombudsman.",
+      "C": "Financial Ombudsman Service.",
+      "D": "Pensions Regulator."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Under the Money Laundering Regulations 2017, the maximum jail sentence for making a reckless false or misleading statement is:",
+    "options": {
+      "A": "2 years.",
+      "B": "5 years.",
+      "C": "10 years.",
+      "D": "14 years."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which of the following is NOT classed as structured CPD?",
+    "options": {
+      "A": "A coaching session.",
+      "B": "Attending a conference.",
+      "C": "Attending a course.",
+      "D": "Undertaking e-learning activities."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which of the following is most likely to be classed as an eligible counterparty?",
+    "options": {
+      "A": "A firm acting on behalf of a retail client.",
+      "B": "A private individual.",
+      "C": "A small business.",
+      "D": "An authorised insurance company."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "'Caveat emptor' means:",
+    "options": {
+      "A": "let the buyer beware.",
+      "B": "utmost good faith.",
+      "C": "take reasonable care.",
+      "D": "careless misrepresentation."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which of the following criteria is NOT required for a financial promotion to comply with FCA rules?",
+    "options": {
+      "A": "Information about past performance must be based on a period of at least five years.",
+      "B": "It must be approved by the FCA.",
+      "C": "It must be clear, fair and not misleading.",
+      "D": "It must include a clear and adequate description of the product or service."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which is NOT a permitted method of attracting new mortgage customers under FCA regulations?",
+    "options": {
+      "A": "Mortgage introducers.",
+      "B": "Radio advertising.",
+      "C": "Unsolicited non-real-time promotions.",
+      "D": "Unsolicited real-time promotions."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "For MCOB rules to apply to a residential mortgage, what minimum percentage of land must be used as a dwelling?",
+    "options": {
+      "A": "10%",
+      "B": "40%",
+      "C": "60%",
+      "D": "100%"
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Prior to any business discussions, advisers must provide:",
+    "options": {
+      "A": "A guarantee of investment returns.",
+      "B": "A list of products the adviser can recommend.",
+      "C": "Details of measures the firm takes to ensure good consumer outcomes.",
+      "D": "Details of the adviser's charges, including structure and total charges."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Which is NOT required before any business is discussed?",
+    "options": {
+      "A": "Confirmation they consider products from every provider.",
+      "B": "Firm's address and contact details.",
+      "C": "Disclosure of independent or restricted status.",
+      "D": "Disclosure of charging structure."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which is NOT typically included in initial disclosure documentation?",
+    "options": {
+      "A": "A statement that the firm is authorised and regulator name.",
+      "B": "Details of charging structure.",
+      "C": "Qualifications of every adviser.",
+      "D": "Whether the adviser is independent or restricted."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "An insurance company receiving advice from a bank will be categorised as:",
+    "options": {
+      "A": "Corporate client.",
+      "B": "Eligible counterparty.",
+      "C": "Professional client.",
+      "D": "Retail client."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "A customer is making an execution-only transaction. What must the firm consider?",
+    "options": {
+      "A": "Future needs.",
+      "B": "Affordability.",
+      "C": "Risk tolerance.",
+      "D": "None."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "A suitability report is NOT required for which sale?",
+    "options": {
+      "A": "Mortgage.",
+      "B": "Life policy.",
+      "C": "Unit trust.",
+      "D": "Pension policy."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Responsibility for product selection in execution-only business rests with:",
+    "options": {
+      "A": "The adviser.",
+      "B": "The customer.",
+      "C": "The product provider.",
+      "D": "The regulator."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which product allows an IFA to receive commission for new arrangements?",
+    "options": {
+      "A": "Income protection insurance.",
+      "B": "Investment bond.",
+      "C": "Stocks and shares ISA.",
+      "D": "Unit trust."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Jeremiah cancelled a £10,000 unit-linked bond and received £9,500. The reduction represents:",
+    "options": {
+      "A": "adviser's fee.",
+      "B": "cancellation charge.",
+      "C": "handling charge.",
+      "D": "reduction in investment value."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "A KID must be issued before sale for all except:",
+    "options": {
+      "A": "gilt-edged securities.",
+      "B": "investment trusts.",
+      "C": "unit-linked endowments.",
+      "D": "unit trusts."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "New customer identification would NOT include:",
+    "options": {
+      "A": "driving licence with photograph.",
+      "B": "mobile phone bill.",
+      "C": "passport.",
+      "D": "recent utility bill."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which is NOT typically a sign of money laundering?",
+    "options": {
+      "A": "Quick encashment of a collective investment.",
+      "B": "Small deposit followed by large cash deposits.",
+      "C": "Regular small transfers between same-bank accounts.",
+      "D": "Quick repayment of a loan with cash."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Which action constitutes 'tipping off'?",
+    "options": {
+      "A": "Advising MLRO of suspicious activity.",
+      "B": "Telling a customer they may be under investigation.",
+      "C": "Providing evidence to police.",
+      "D": "Reporting failures to management."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Paul received the maximum 5-year sentence. Which offence did he commit?",
+    "options": {
+      "A": "Acquiring.",
+      "B": "Arranging.",
+      "C": "Concealing.",
+      "D": "Tipping off."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "FSCS paid more for Bank A because:",
+    "options": {
+      "A": "Bank B recently paid interest.",
+      "B": "Manny and wife held £164,000 joint in A; £80,000 sole in B.",
+      "C": "Manny had £70,000 joint in A; £35,000 sole in B.",
+      "D": "£100k in A and £90k in B."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Aisha lost £2,000 on a compulsory third-party policy. How much does FSCS cover?",
+    "options": {
+      "A": "None.",
+      "B": "£1,000.",
+      "C": "£1,800.",
+      "D": "£2,000."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Which FCA sourcebook specifies how long factfind data must be kept?",
+    "options": {
+      "A": "Conduct of Business sourcebook.",
+      "B": "Prudential sourcebook.",
+      "C": "Systems and Controls sourcebook.",
+      "D": "Training and Competence sourcebook."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "The legal person that processes personal data on behalf of a firm is:",
+    "options": {
+      "A": "Data controller.",
+      "B": "Data processor.",
+      "C": "Data subject.",
+      "D": "Information Commissioner."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "The FCA Market Conduct Sourcebook applies primarily to:",
+    "options": {
+      "A": "financial advice firms.",
+      "B": "insurance providers.",
+      "C": "investment firms.",
+      "D": "mortgage providers."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Which is NOT defined within FCA Principles for Businesses?",
+    "options": {
+      "A": "deal with regulators in a co-operative way.",
+      "B": "disclose all data regularly.",
+      "C": "deal with regulators in an open way.",
+      "D": "disclose anything the regulator would expect notice of."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Under Senior Managers Regime, the Money Laundering Reporting Function is:",
+    "options": {
+      "A": "Customer function.",
+      "B": "Governing function.",
+      "C": "Risk function.",
+      "D": "Senior management function."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "The Certification Regime does NOT apply to:",
+    "options": {
+      "A": "a supervisor of a certified function.",
+      "B": "ancillary staff.",
+      "C": "financial advisers.",
+      "D": "material risk takers."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Approval of the appointment of a chair to a building society falls under:",
+    "options": {
+      "A": "Senior Managers Regime.",
+      "B": "Certification Regime.",
+      "C": "principles for supervision.",
+      "D": "supervision model."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which is most likely to be initial evidence of insider dealing?",
+    "options": {
+      "A": "Person in a position of trust.",
+      "B": "Access to restricted information.",
+      "C": "Significant degree of trading.",
+      "D": "Transmission of information."
+    },
+    "correct": "C"
+  },
+  {
+    "question": "Product literature must be clear and:",
+    "options": {
+      "A": "appropriate to expected financial sophistication.",
+      "B": "available in all EU languages.",
+      "C": "contain competitor comparisons.",
+      "D": "suitable for all customers."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Consumers have a right to all EXCEPT:",
+    "options": {
+      "A": "clear and honest information before they buy.",
+      "B": "goods fit for purpose.",
+      "C": "get what they paid for.",
+      "D": "pay a fair price reflecting market rates."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Loan quotations must include:",
+    "options": {
+      "A": "annual percentage rate.",
+      "B": "Bank of England base rate.",
+      "C": "purpose of the loan.",
+      "D": "security address."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "A dual-regulated institution is regulated by:",
+    "options": {
+      "A": "FCA and FPC.",
+      "B": "FCA and PRA.",
+      "C": "PRA and FPC.",
+      "D": "PRA and Bank of England."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "A firm providing debt counselling services on a commercial basis must be authorised by:",
+    "options": {
+      "A": "FCA and for specific permission.",
+      "B": "PRA and all consumer credit activities.",
+      "C": "Office of Fair Trading.",
+      "D": "FCA and all consumer credit activities."
+    },
+    "correct": "A"
+  },
+  {
+    "question": "Which risk arises from the way a business is run and managed?",
+    "options": {
+      "A": "Capital adequacy risk.",
+      "B": "Internal risk.",
+      "C": "Liquidity risk.",
+      "D": "Operational risk."
+    },
+    "correct": "D"
+  },
+  {
+    "question": "Client charges for investment business should reflect:",
+    "options": {
+      "A": "the provider recommended.",
+      "B": "the service provided.",
+      "C": "the status of the adviser.",
+      "D": "the type of product recommended."
+    },
+    "correct": "B"
+  },
+  {
+    "question": "Which is NOT an FCA disciplinary option?",
+    "options": {
+      "A": "Imposing a financial penalty.",
+      "B": "Imprisonment.",
+      "C": "Issuing a warning notice.",
+      "D": "Publishing a statement of misconduct."
+    },
+    "correct": "B"
+  }
+]
+
