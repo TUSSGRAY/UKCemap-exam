@@ -41,22 +41,11 @@ export default function PaymentSuccess() {
           // Use the verified product from server response, not URL
           const verifiedProduct = data.product as PaymentProduct;
           setProduct(verifiedProduct);
-          
-          // Store access token in localStorage based on verified product
-          if (verifiedProduct === "exam") {
-            localStorage.setItem("examAccessToken", data.accessToken);
-          } else if (verifiedProduct === "scenario") {
-            localStorage.setItem("scenarioAccessToken", data.accessToken);
-          } else if (verifiedProduct === "bundle") {
-            // Bundle gives access to both
-            localStorage.setItem("examAccessToken", data.accessToken);
-            localStorage.setItem("scenarioAccessToken", data.accessToken);
-          }
 
           setSuccess(true);
           toast({
             title: "Payment Successful!",
-            description: "You now have access to your purchased content.",
+            description: "You now have 30 days of premium access to all exam modes.",
           });
         } else {
           throw new Error("Payment verification failed");
@@ -78,12 +67,10 @@ export default function PaymentSuccess() {
   }, [toast]);
 
   const productInfo = {
-    exam: { name: "Full Exam Mode", path: "/quiz/exam" },
-    scenario: { name: "Scenario Quiz Mode", path: "/quiz/scenario" },
-    bundle: { name: "Bundle Package", path: "/quiz/exam" },
+    subscription: { name: "30-Day Premium Pass", path: "/dashboard" },
   };
 
-  const info = product ? productInfo[product] : null;
+  const info = product ? productInfo[product as keyof typeof productInfo] : null;
 
   if (verifying) {
     return (
@@ -143,7 +130,7 @@ export default function PaymentSuccess() {
                 onClick={() => setLocation(info.path)}
                 data-testid="button-start-quiz"
               >
-                Start Quiz
+                Go to Dashboard
               </Button>
               <Button 
                 variant="outline" 
