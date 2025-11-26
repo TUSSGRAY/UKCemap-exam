@@ -198,9 +198,9 @@ export default function Home() {
                   <span className="text-sm text-muted-foreground">Estimated time: 30-60 minutes</span>
                 </li>
               </ul>
-              <Link href="/checkout?product=exam" data-testid="link-purchase-exam">
+              <Link href="/checkout?product=subscription" data-testid="link-purchase-exam">
                 <Button className="w-full" size="lg" variant="default">
-                  Purchase for £0.99
+                  Get Premium Access
                 </Button>
               </Link>
             </CardContent>
@@ -242,9 +242,9 @@ export default function Home() {
                   <span className="text-sm text-muted-foreground">Estimated time: 30-60 minutes</span>
                 </li>
               </ul>
-              <Link href="/checkout?product=scenario" data-testid="link-purchase-scenario">
+              <Link href="/checkout?product=subscription" data-testid="link-purchase-scenario">
                 <Button className="w-full" size="lg" variant="default">
-                  Purchase for £0.99
+                  Get Premium Access
                 </Button>
               </Link>
             </CardContent>
@@ -252,56 +252,50 @@ export default function Home() {
         </div>
 
         <div className="mt-12 max-w-3xl mx-auto">
-          <Card className="hover-elevate transition-all duration-300 border-primary bg-primary/5" data-testid="card-bundle">
+          <Card className="hover-elevate transition-all duration-300 border-primary bg-primary/5" data-testid="card-premium-subscription">
             <CardHeader className="text-center space-y-4">
-              <Badge variant="default" className="mx-auto text-sm font-bold px-4 py-1" data-testid="badge-bundle-savings">
-                Save 50p!
+              <Badge variant="default" className="mx-auto text-sm font-bold px-4 py-1" data-testid="badge-premium-offer">
+                Best Value
               </Badge>
               <CardTitle className="text-4xl font-bold">
-                Bundle Package
+                Premium 30-Day Pass
               </CardTitle>
               <div className="flex items-baseline justify-center gap-3">
-                <span className="text-5xl font-bold text-primary" data-testid="text-bundle-price">£1.49</span>
-                <span className="text-2xl text-muted-foreground line-through" data-testid="text-bundle-original">£1.98</span>
+                <span className="text-5xl font-bold text-primary" data-testid="text-subscription-price">£4.99</span>
+                <span className="text-sm text-muted-foreground">one-time</span>
               </div>
               <CardDescription className="text-base">
-                Full Exam + Scenario Quiz Bundle
+                Unlimited access to all exam modes for 30 days
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-sm text-primary">Full Exam Included:</h4>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">50 mixed-topic questions</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Certificate upon 80% pass</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-sm text-primary">Scenario Quiz Included:</h4>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">10 scenarios (50 questions)</span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm">Real-world case studies</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm">Unlimited Specimen Exam attempts</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm">Unlimited Scenario Quiz attempts</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm">Performance analytics and weak area tracking</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm">Certificates on 80% pass mark</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm">30-day countdown timer on your dashboard</span>
+                </li>
+              </ul>
             </CardContent>
             <CardFooter>
-              <Link href="/checkout?product=bundle" className="w-full" data-testid="link-purchase-bundle">
+              <Link href="/checkout?product=subscription" className="w-full" data-testid="link-purchase-premium">
                 <Button className="w-full" size="lg" variant="default">
-                  Purchase Bundle for £1.49
+                  Get Premium Access for £4.99
                 </Button>
               </Link>
             </CardFooter>
