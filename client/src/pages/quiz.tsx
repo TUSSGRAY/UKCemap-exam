@@ -185,6 +185,24 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
         return acc + (question?.answer === answer ? 1 : 0);
       }, 0);
       
+      // Calculate performance by topic
+      const topicPerformance: Record<string, { correct: number; total: number }> = {};
+      Object.entries(allAnswers).forEach(([id, answer]) => {
+        const question = questions.find(q => q.id === id);
+        if (question) {
+          if (!topicPerformance[question.topic]) {
+            topicPerformance[question.topic] = { correct: 0, total: 0 };
+          }
+          topicPerformance[question.topic].total++;
+          if (question.answer === answer) {
+            topicPerformance[question.topic].correct++;
+          }
+        }
+      });
+      
+      // Store topic performance in sessionStorage for results page
+      sessionStorage.setItem(`topicPerformance_${quizSessionId}`, JSON.stringify(topicPerformance));
+      
       // Include attemptId for practice mode to track unique attempts
       const attemptParam = mode === "practice" ? `&attemptId=${quizSessionId}` : '';
       // Include topicSlug for topic mode

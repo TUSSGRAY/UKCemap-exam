@@ -17,6 +17,10 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 
+interface TopicPerformance {
+  [topic: string]: { correct: number; total: number };
+}
+
 export default function Results() {
   const [, setLocation] = useLocation();
   const [score, setScore] = useState(0);
@@ -26,6 +30,7 @@ export default function Results() {
   const [showNameDialog, setShowNameDialog] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [isSavingScore, setIsSavingScore] = useState(false);
+  const [topicPerformance, setTopicPerformance] = useState<TopicPerformance>({});
   const { toast } = useToast();
 
   useEffect(() => {
@@ -34,6 +39,13 @@ export default function Results() {
     const currentTotal = Number(params.get("total")) || 0;
     const currentMode = params.get("mode") || "practice";
     const attemptId = params.get("attemptId") || '';
+    
+    // Retrieve topic performance from sessionStorage
+    const topicPerfKey = `topicPerformance_${attemptId}`;
+    const storedPerformance = sessionStorage.getItem(topicPerfKey);
+    if (storedPerformance) {
+      setTopicPerformance(JSON.parse(storedPerformance));
+    }
     
     setScore(currentScore);
     setTotal(currentTotal);
@@ -321,6 +333,102 @@ export default function Results() {
         </Card>
 
         {/* Practice Mode - No More Attempts */}
+        {/* Topic Performance Feedback */}
+        {Object.keys(topicPerformance).length > 0 && (
+          <Card className="shadow-lg mb-6 border-primary/20" data-testid="card-topic-feedback">
+            <CardHeader>
+              <CardTitle className="text-lg">Performance by Topic</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {Object.entries(topicPerformance)
+                .map(([topic, { correct, total: topicTotal }]) => ({
+                  topic,
+                  correct,
+                  total: topicTotal,
+                  percentage: Math.round((correct / topicTotal) * 100),
+                }))
+                .sort((a, b) => b.percentage - a.percentage)
+                .map(({ topic, correct, total: topicTotal, percentage }) => (
+                  <div key={topic} className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium capitalize text-sm">{topic}</span>
+                      <span className="text-sm font-semibold">{percentage}%</span>
+                    </div>
+                    <Progress value={percentage} className="h-2" />
+                    <p className="text-xs text-muted-foreground">{correct} of {topicTotal} correct</p>
+                  </div>
+                ))}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Strengths and Weaknesses Summary */}
+        {Object.keys(topicPerformance).length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {/* Strengths */}
+            {(() => {
+              const topicEntries = Object.entries(topicPerformance)
+                .map(([topic, { correct, total: topicTotal }]) => ({
+                  topic,
+                  percentage: Math.round((correct / topicTotal) * 100),
+                }))
+                .sort((a, b) => b.percentage - a.percentage);
+              const strengths = topicEntries.filter(t => t.percentage >= 80).slice(0, 3);
+              
+              return strengths.length > 0 ? (
+                <Card className="border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-950/30">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base flex items-center gap-2 text-green-700 dark:text-green-400">
+                      <Trophy className="w-4 h-4" />
+                      Strong Areas
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-1">
+                      {strengths.map(({ topic, percentage }) => (
+                        <li key={topic} className="text-sm text-green-700 dark:text-green-300">
+                          ✓ {topic} ({percentage}%)
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ) : null;
+            })()}
+
+            {/* Weaknesses */}
+            {(() => {
+              const topicEntries = Object.entries(topicPerformance)
+                .map(([topic, { correct, total: topicTotal }]) => ({
+                  topic,
+                  percentage: Math.round((correct / topicTotal) * 100),
+                }))
+                .sort((a, b) => a.percentage - b.percentage);
+              const weaknesses = topicEntries.filter(t => t.percentage < 80).slice(0, 3);
+              
+              return weaknesses.length > 0 ? (
+                <Card className="border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/30">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base flex items-center gap-2 text-orange-700 dark:text-orange-400">
+                      <Target className="w-4 h-4" />
+                      Areas to Focus
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-1">
+                      {weaknesses.map(({ topic, percentage }) => (
+                        <li key={topic} className="text-sm text-orange-700 dark:text-orange-300">
+                          • {topic} ({percentage}%)
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              ) : null;
+            })()}
+          </div>
+        )}
+
         {noMoreAttempts && (
           <Card className="shadow-xl mb-6 border-orange-200 dark:border-orange-900" data-testid="card-no-attempts">
             <CardContent className="p-6 space-y-4">
