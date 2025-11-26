@@ -11,10 +11,9 @@ import { Loader2, LogIn } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import type { PaymentProduct, User } from "@shared/schema";
 
-if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-  throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
-}
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const stripePromise = import.meta.env.VITE_STRIPE_PUBLIC_KEY
+  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
+  : null;
 
 const CheckoutForm = ({ product, clientSecret }: { product: PaymentProduct; clientSecret: string }) => {
   const stripe = useStripe();
