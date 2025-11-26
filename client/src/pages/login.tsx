@@ -197,13 +197,18 @@ export default function Login() {
           </div>
         </div>
 
-        <CardFooter className="flex justify-center mt-6">
-          <p className="text-sm text-muted-foreground">
+        <CardFooter className="flex flex-col gap-3 mt-6">
+          <Button variant="outline" className="w-full" asChild data-testid="button-signup">
+            <Link href="/register">
+              Create New Account
+            </Link>
+          </Button>
+          <p className="text-xs text-center text-muted-foreground">
             Don't have an account?{" "}
             <Link href="/register">
-              <a className="text-primary hover:underline font-medium" data-testid="link-register">
-                Sign up
-              </a>
+              <span className="text-primary hover:underline font-medium cursor-pointer" data-testid="link-register">
+                Sign up here
+              </span>
             </Link>
           </p>
         </CardFooter>
