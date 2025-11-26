@@ -14,6 +14,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | null>;
   getUserById(id: string): Promise<User | null>;
   verifyPassword(email: string, password: string): Promise<User | null>;
+  deleteUser(userId: string): Promise<void>;
   recordExamPurchase(paymentIntentId: string, userId: string): Promise<string>;
   recordScenarioPurchase(paymentIntentId: string, userId: string): Promise<string>;
   recordBundlePurchase(paymentIntentId: string, userId: string): Promise<string>;
@@ -3350,6 +3351,10 @@ export class MemStorage implements IStorage {
   }
 
   async verifyPassword(email: string, password: string): Promise<User | null> {
+    throw new Error("Not implemented");
+  }
+
+  async deleteUser(userId: string): Promise<void> {
     throw new Error("Not implemented");
   }
 

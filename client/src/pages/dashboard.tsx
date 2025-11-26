@@ -3,14 +3,16 @@ import { getQueryFn } from "@/lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "wouter";
-import { Loader2, TrendingUp, Target, Zap, Share2, LogOut } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
+import { Loader2, TrendingUp, Target, Zap, Share2, LogOut, Trash2 } from "lucide-react";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 export default function Dashboard() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const { data: user, isLoading: userLoading } = useQuery({
     queryKey: ["/api/me"],
@@ -30,6 +32,25 @@ export default function Dashboard() {
         description: "You have been logged out successfully",
       });
       setLocation("/");
+    },
+  });
+
+  const deleteAccountMutation = useMutation({
+    mutationFn: () => apiRequest("DELETE", "/api/delete-account", {}),
+    onSuccess: () => {
+      queryClient.clear();
+      toast({
+        title: "Account Deleted",
+        description: "Your account has been permanently deleted.",
+      });
+      setLocation("/");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to delete account",
+        variant: "destructive",
+      });
     },
   });
 
@@ -259,6 +280,68 @@ export default function Dashboard() {
           <Button asChild size="lg" variant="outline" data-testid="button-home">
             <Link href="/">Home</Link>
           </Button>
+        </div>
+
+        {/* Delete Account Section */}
+        <div className="mt-12 max-w-2xl mx-auto">
+          <Card className="border-destructive/20 bg-destructive/5">
+            <CardHeader>
+              <CardTitle className="text-destructive flex items-center gap-2">
+                <Trash2 className="w-5 h-5" />
+                Danger Zone
+              </CardTitle>
+              <CardDescription>
+                Permanently delete your account and all associated data
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Deleting your account is permanent and cannot be undone. All your quiz history, analytics, and personal information will be permanently removed.
+              </p>
+              {!showDeleteConfirm ? (
+                <Button
+                  variant="destructive"
+                  onClick={() => setShowDeleteConfirm(true)}
+                  data-testid="button-delete-account-confirm"
+                >
+                  Delete My Account
+                </Button>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-background border border-destructive/20 rounded p-4">
+                    <p className="text-sm font-semibold text-destructive mb-4">
+                      Are you absolutely sure? This action cannot be undone.
+                    </p>
+                    <div className="flex gap-3">
+                      <Button
+                        variant="destructive"
+                        onClick={() => deleteAccountMutation.mutate()}
+                        disabled={deleteAccountMutation.isPending}
+                        data-testid="button-delete-confirm-final"
+                      >
+                        {deleteAccountMutation.isPending ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Deleting...
+                          </>
+                        ) : (
+                          "Yes, Delete My Account"
+                        )}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setShowDeleteConfirm(false)}
+                        disabled={deleteAccountMutation.isPending}
+                        data-testid="button-delete-cancel"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

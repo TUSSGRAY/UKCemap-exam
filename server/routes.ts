@@ -361,6 +361,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete user account
+  app.delete("/api/delete-account", requireAuth, async (req, res) => {
+    try {
+      const userId = req.session.userId!;
+      await storage.deleteUser(userId);
+      
+      // Clear session
+      req.session.destroy((err) => {
+        if (err) {
+          return res.status(500).json({ error: "Error deleting account" });
+        }
+        res.json({ success: true, message: "Account deleted successfully" });
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error deleting account: " + error.message });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
