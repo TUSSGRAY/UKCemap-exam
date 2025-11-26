@@ -97,9 +97,10 @@ export default function AdBreakModal({ isOpen, onComplete, duration = 15 }: AdBr
               size="lg"
               className="flex-1"
               onClick={onComplete}
+              disabled={countdown > 0}
               data-testid="button-modal-skip"
             >
-              Continue
+              {countdown > 0 ? `Continue in ${countdown}s` : "Continue"}
             </Button>
           </div>
         </div>

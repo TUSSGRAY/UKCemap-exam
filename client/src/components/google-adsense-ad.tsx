@@ -87,9 +87,10 @@ export function GoogleAdSenseAd({ onComplete, attemptNumber = 1 }: UpgradePrompt
               variant="outline"
               size="lg"
               className="flex-1"
+              disabled={timeRemaining > 0}
               data-testid="button-continue-free"
             >
-              Continue Free Practice
+              {timeRemaining > 0 ? `Continue in ${timeRemaining}s` : "Continue Free Practice"}
             </Button>
           </div>
 
