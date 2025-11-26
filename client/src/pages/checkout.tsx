@@ -15,7 +15,7 @@ const stripePromise = import.meta.env.VITE_STRIPE_PUBLIC_KEY
   ? loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
   : null;
 
-const CheckoutForm = ({ product, clientSecret }: { product: PaymentProduct; clientSecret: string }) => {
+const CheckoutForm = ({ product, clientSecret }: { product: string; clientSecret: string }) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
@@ -24,9 +24,7 @@ const CheckoutForm = ({ product, clientSecret }: { product: PaymentProduct; clie
   const [paymentRequest, setPaymentRequest] = useState<PaymentRequest | null>(null);
 
   const productInfo = {
-    exam: { name: "Full Exam Mode", price: "£0.99", amount: 99, description: "50 questions with certificate" },
-    scenario: { name: "Scenario Quiz Mode", price: "£0.99", amount: 99, description: "10 scenarios with 50 questions" },
-    bundle: { name: "Bundle Package", price: "£1.49", amount: 149, description: "Full Exam + Scenario Quiz" },
+    subscription: { name: "CeMAP Exam Training - 30 Days", price: "£4.99", amount: 499, description: "Unlimited access to Specimen Exam and Scenario Quiz" },
   };
 
   const info = productInfo[product];

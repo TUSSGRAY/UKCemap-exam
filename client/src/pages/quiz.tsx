@@ -284,31 +284,54 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   if (accessError === "no_access") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
-        <Card className="max-w-md" data-testid="card-no-access">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Access Required</CardTitle>
-            <CardDescription className="text-center">
-              Purchase required to access this quiz mode
+        <Card className="max-w-md" data-testid="card-upgrade-invitation">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl">Unlock Full Access</CardTitle>
+            <CardDescription>
+              Get 30 days of unlimited access to all exam modes
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-center text-muted-foreground" data-testid="text-no-access-message">
-              You need to purchase {mode === "exam" ? "Full Exam" : "Scenario Quiz"} mode to access this content.
-            </p>
-            <div className="flex flex-col gap-3">
-              <Link href={`/checkout?product=${mode}`}>
-                <Button className="w-full" data-testid="button-goto-checkout">
-                  <ShoppingBag className="w-4 h-4 mr-2" />
-                  Purchase Now
-                </Button>
-              </Link>
-              <Link href="/">
-                <Button variant="outline" className="w-full" data-testid="button-back-home">
-                  Back to Home
-                </Button>
-              </Link>
+          <CardContent className="space-y-6">
+            <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
+              <div className="flex items-baseline justify-center gap-2 mb-2">
+                <span className="text-4xl font-bold text-primary">£4.99</span>
+                <span className="text-sm text-muted-foreground">one-time</span>
+              </div>
+              <p className="text-center text-sm text-muted-foreground">
+                30 days of unlimited access to Specimen Exam and Scenario Quiz
+              </p>
+            </div>
+            <div className="space-y-2">
+              <p className="text-sm font-medium text-foreground">What's included:</p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> Unlimited Specimen Exam attempts
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> Unlimited Scenario Quiz attempts
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> Performance analytics
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-primary">✓</span> Certificate on 80% pass
+                </li>
+              </ul>
             </div>
           </CardContent>
+          <CardFooter className="flex flex-col gap-3">
+            <Link href="/checkout?product=subscription" className="w-full">
+              <Button className="w-full" size="lg" data-testid="button-upgrade-now">
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Upgrade Now
+              </Button>
+            </Link>
+            <Link href="/">
+              <Button variant="outline" className="w-full" data-testid="button-back-home">
+                Back to Home
+              </Button>
+            </Link>
+          </CardFooter>
         </Card>
       </div>
     );

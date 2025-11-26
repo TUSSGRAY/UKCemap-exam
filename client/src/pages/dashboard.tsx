@@ -89,6 +89,9 @@ export default function Dashboard() {
               Welcome back, {user.name}
             </h1>
             <p className="text-muted-foreground mt-2">Your CeMAP learning dashboard</p>
+            <p className="text-sm text-primary font-medium mt-1" data-testid="text-subscription-status">
+              Premium access active - 30 days remaining
+            </p>
           </div>
           <Button
             variant="outline"
