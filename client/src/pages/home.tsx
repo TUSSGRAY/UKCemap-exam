@@ -167,14 +167,9 @@ export default function Home() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
                 <Trophy className="w-8 h-8 text-primary" />
               </div>
-              <div className="flex items-center justify-center gap-2">
-                <CardTitle className="text-3xl font-semibold text-center">
-                  Full Exam
-                </CardTitle>
-                <Badge variant="outline" className="text-sm font-bold" data-testid="badge-exam-price">
-                  £0.99
-                </Badge>
-              </div>
+              <CardTitle className="text-3xl font-semibold text-center">
+                Full Exam
+              </CardTitle>
               <CardDescription className="text-center text-base">
                 Complete certification practice test
               </CardDescription>
@@ -211,14 +206,9 @@ export default function Home() {
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
                 <Users className="w-8 h-8 text-primary" />
               </div>
-              <div className="flex items-center justify-center gap-2">
-                <CardTitle className="text-3xl font-semibold text-center">
-                  Scenario Quiz
-                </CardTitle>
-                <Badge variant="outline" className="text-sm font-bold" data-testid="badge-scenario-price">
-                  £0.99
-                </Badge>
-              </div>
+              <CardTitle className="text-3xl font-semibold text-center">
+                Scenario Quiz
+              </CardTitle>
               <CardDescription className="text-center text-base">
                 Real-world case studies and applications
               </CardDescription>
