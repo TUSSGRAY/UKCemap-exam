@@ -34,10 +34,10 @@ export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
         <CardContent className="p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-3">
-              Unlock Your CeMAP Success
+              Unlock Premium Access
             </h2>
             <p className="text-lg text-muted-foreground">
-              Upgrade to the Bundle Package for advanced features
+              Get 30 days of unlimited access to all exam modes
             </p>
           </div>
 
@@ -61,10 +61,10 @@ export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
 
           <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 mb-6">
             <div className="flex items-baseline justify-center gap-3">
-              <span className="text-4xl font-bold text-primary">£1.49</span>
-              <span className="text-xl text-muted-foreground line-through">£1.98</span>
+              <span className="text-4xl font-bold text-primary">£4.99</span>
+              <span className="text-sm text-muted-foreground">one-time payment</span>
             </div>
-            <p className="text-center text-sm text-muted-foreground mt-2">Save 50p on Full Exam + Scenario Quiz</p>
+            <p className="text-center text-sm text-muted-foreground mt-2">30-day access to all exam modes</p>
           </div>
 
           <div className="space-y-3 mb-6">
@@ -76,9 +76,9 @@ export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
           </div>
 
           <div className="flex gap-3">
-            <Link href="/checkout?product=bundle" className="flex-1">
-              <Button className="w-full" size="lg" data-testid="button-upgrade-bundle">
-                Get Bundle Package
+            <Link href="/checkout?product=subscription" className="flex-1">
+              <Button className="w-full" size="lg" data-testid="button-upgrade-premium">
+                Upgrade Now for £4.99
               </Button>
             </Link>
             <Button
@@ -93,7 +93,7 @@ export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
           </div>
 
           <p className="text-xs text-center text-muted-foreground mt-4">
-            All features included: Full Exam + Scenario Quiz Bundle
+            Unlimited Specimen Exam + Scenario Quiz attempts for 30 days
           </p>
         </CardContent>
       </Card>
