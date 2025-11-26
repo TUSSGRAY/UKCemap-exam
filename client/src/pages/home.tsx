@@ -373,7 +373,7 @@ export default function Home() {
                 </a>
               </Link>
               <span>•</span>
-              <a href="mailto:privacy@ukcemap.co.uk" className="hover:text-foreground transition-colors" data-testid="link-contact-privacy">
+              <a href="mailto:training@ukcemap.co.uk" className="hover:text-foreground transition-colors" data-testid="link-contact-privacy">
                 Contact
               </a>
             </div>
