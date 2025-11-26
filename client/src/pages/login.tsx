@@ -84,7 +84,7 @@ export default function Login() {
           <div className="flex items-center justify-center mb-4">
             <GraduationCap className="w-10 h-10 text-primary mr-2" />
             <h1 className="text-3xl font-bold text-foreground" data-testid="text-app-title">
-              CeMAP Quiz
+              CeMAP Exam Training
             </h1>
           </div>
           <p className="text-muted-foreground">Sign in to your account</p>

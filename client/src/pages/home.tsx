@@ -49,7 +49,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <GraduationCap className="w-6 h-6 text-primary" />
-              <span className="font-semibold text-foreground">CeMAP Quiz</span>
+              <span className="font-semibold text-foreground">CeMAP Exam Training</span>
             </div>
             <div className="flex items-center gap-3">
               {user ? (
@@ -92,7 +92,7 @@ export default function Home() {
           <div className="flex items-center justify-center mb-6">
             <GraduationCap className="w-12 h-12 text-primary mr-3" />
             <h1 className="text-5xl font-bold text-foreground" data-testid="text-app-title">
-              CeMAP Quiz
+              CeMAP Exam Training
             </h1>
           </div>
           <p className="text-xl text-muted-foreground mb-6">
@@ -102,8 +102,8 @@ export default function Home() {
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-questions">
               150+ Questions
             </Badge>
-            <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-topics">
-              2025 Syllabus
+            <Badge variant="default" className="text-sm font-medium px-4 py-2 bg-primary text-primary-foreground" data-testid="badge-stat-topics">
+              New 2025 Scenario Syllabus
             </Badge>
             <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-passmark">
               Analytics Included
