@@ -265,7 +265,7 @@ export default function Home() {
                 <span className="text-2xl text-muted-foreground line-through" data-testid="text-bundle-original">£1.98</span>
               </div>
               <CardDescription className="text-base">
-                Full Exam + Scenario Quiz + 100 Days Email Campaign
+                Full Exam + Scenario Quiz Bundle
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -296,12 +296,6 @@ export default function Home() {
                     </li>
                   </ul>
                 </div>
-              </div>
-              <div className="bg-background p-4 rounded-lg border-2 border-primary/20">
-                <h4 className="font-semibold text-sm text-primary mb-2">🎁 Bonus: 100 Days to CeMAP Ready</h4>
-                <p className="text-sm text-muted-foreground">
-                  Receive 3 scenario questions with answers via email every day for 100 days. Perfect for consistent learning!
-                </p>
               </div>
             </CardContent>
             <CardFooter>

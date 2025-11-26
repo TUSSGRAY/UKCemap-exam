@@ -93,7 +93,7 @@ export function GoogleAdSenseAd({ onComplete }: UpgradePromptProps) {
           </div>
 
           <p className="text-xs text-center text-muted-foreground mt-4">
-            All features included: Full Exam + Scenario Quiz + 100 Days Email Campaign
+            All features included: Full Exam + Scenario Quiz Bundle
           </p>
         </CardContent>
       </Card>

@@ -133,14 +133,6 @@ export default function PaymentSuccess() {
               </p>
             </div>
             
-            {product === "bundle" && (
-              <div className="bg-primary/10 p-4 rounded-lg">
-                <p className="text-sm font-medium mb-1">100 Days Campaign</p>
-                <p className="text-xs text-muted-foreground">
-                  You'll receive 3 scenario questions daily for 100 days via email.
-                </p>
-              </div>
-            )}
           </CardContent>
         )}
         <CardFooter className="flex gap-2">

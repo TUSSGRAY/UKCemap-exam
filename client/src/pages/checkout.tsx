@@ -26,7 +26,7 @@ const CheckoutForm = ({ product, clientSecret }: { product: PaymentProduct; clie
   const productInfo = {
     exam: { name: "Full Exam Mode", price: "£0.99", amount: 99, description: "50 questions with certificate" },
     scenario: { name: "Scenario Quiz Mode", price: "£0.99", amount: 99, description: "10 scenarios with 50 questions" },
-    bundle: { name: "Bundle Package", price: "£1.49", amount: 149, description: "Both exams + 100 Days email campaign" },
+    bundle: { name: "Bundle Package", price: "£1.49", amount: 149, description: "Full Exam + Scenario Quiz" },
   };
 
   const info = productInfo[product];
