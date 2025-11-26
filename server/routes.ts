@@ -218,17 +218,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let description: string;
       
       switch (product) {
-        case "exam":
-          amount = 99; // £0.99
-          description = "Full Exam Mode Access";
-          break;
-        case "scenario":
-          amount = 99; // £0.99
-          description = "Scenario Quiz Mode Access";
-          break;
-        case "bundle":
-          amount = 149; // £1.49
-          description = "Bundle: Full Exam + Scenario Quiz Access";
+        case "subscription":
+          amount = 499; // £4.99
+          description = "CeMAP Exam Training - 30 Days Premium Access";
           break;
         default:
           return res.status(400).json({ error: "Invalid product" });

@@ -176,7 +176,7 @@ export default function Checkout() {
     const params = new URLSearchParams(window.location.search);
     const productParam = params.get("product") as PaymentProduct;
 
-    if (!productParam || !["exam", "scenario", "bundle"].includes(productParam)) {
+    if (!productParam || !["subscription"].includes(productParam)) {
       toast({
         title: "Invalid Product",
         description: "Please select a valid product from the home page",

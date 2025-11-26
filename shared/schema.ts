@@ -107,7 +107,7 @@ export type InsertHighScore = z.infer<typeof insertHighScoreSchema>;
 export type HighScore = typeof highScores.$inferSelect;
 
 // Payment schemas
-export const paymentProductSchema = z.enum(["exam", "scenario", "bundle"]);
+export const paymentProductSchema = z.enum(["subscription"]);
 export type PaymentProduct = z.infer<typeof paymentProductSchema>;
 
 export const createPaymentIntentSchema = z.object({
