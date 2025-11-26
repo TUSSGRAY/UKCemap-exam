@@ -381,7 +381,7 @@ export default function Results() {
                   data-testid="button-retry-practice"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
-                  Retry Practice Test (Final Attempt)
+                  Retry Practice Test ({5 - practiceAttempts} {5 - practiceAttempts === 1 ? 'attempt' : 'attempts'} left)
                 </Button>
               </div>
             </CardContent>
