@@ -128,7 +128,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     };
 
     checkAccess();
-  }, [mode, user, isLoadingUser, isStarted, devMode];
+  }, [mode, user, isLoadingUser, isStarted, devMode]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
