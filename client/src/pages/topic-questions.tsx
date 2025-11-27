@@ -1,11 +1,10 @@
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Home, BookOpen } from "lucide-react";
-import { getQueryFn } from "@/lib/queryClient";
 
 interface TopicGroup {
   unit: string;
@@ -15,7 +14,11 @@ interface TopicGroup {
 export default function TopicQuestions() {
   const { data: allTopics = [], isLoading } = useQuery<string[]>({
     queryKey: ["/api/all-topics"],
-    queryFn: getQueryFn({ on401: "returnNull" }),
+    queryFn: async () => {
+      const response = await fetch("/api/all-topics");
+      if (!response.ok) throw new Error("Failed to fetch topics");
+      return response.json();
+    },
   });
 
   // Unit mapping - topics that are clearly Unit 2
