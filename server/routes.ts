@@ -53,7 +53,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/questions/topic", async (req, res) => {
     try {
       const topic = req.query.topic as string;
-      const count = Math.min(parseInt(req.query.count as string) || 50, 50);
+      const count = parseInt(req.query.count as string) || 1000;
 
       if (!topic) {
         return res.status(400).json({ error: "Topic is required" });
