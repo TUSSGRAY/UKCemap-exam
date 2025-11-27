@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut, Layers } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { Leaderboard } from "@/components/leaderboard";
 import { useToast } from "@/hooks/use-toast";
@@ -244,50 +244,6 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/quiz/scenario?dev=true" data-testid="link-dev-scenario">
-                <Button className="w-full" size="sm" variant="outline">
-                  Dev Test Mode
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="hover-elevate transition-all duration-300 border-primary/20" data-testid="card-mode-topic-exam">
-            <CardHeader className="space-y-4">
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
-                <Layers className="w-8 h-8 text-primary" />
-              </div>
-              <CardTitle className="text-3xl font-semibold text-center">
-                Topic-Specific Exam
-              </CardTitle>
-              <CardDescription className="text-center text-base">
-                Select a topic area and test your knowledge
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">Choose from 10 topic areas</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">Questions vary by topic availability</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">Results shown at the end</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">Estimated time: 30-45 minutes</span>
-                </li>
-              </ul>
-              <Link href="/checkout?product=subscription" data-testid="link-purchase-topic-exam">
-                <Button className="w-full" size="lg" variant="default">
-                  Get Premium Access
-                </Button>
-              </Link>
-              <Link href="/quiz/topic-exam?dev=true" data-testid="link-dev-topic-exam">
                 <Button className="w-full" size="sm" variant="outline">
                   Dev Test Mode
                 </Button>
