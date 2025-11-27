@@ -4964,6 +4964,98 @@ export class MemStorage implements IStorage {
         optionD: "The purpose of the loan",
         answer: "A"
       },
+
+      // Unit 2: Money Laundering Regulations Questions
+      {
+        topic: "Financial Services Industry",
+        question: "Which one of following is true in respect of a firm's responsibilities under the money laundering regulations? A firm must:",
+        optionA: "Report suspicious circumstances",
+        optionB: "Maintain client confidentiality at all times",
+        optionC: "Appoint its Money Laundering Reporting Officer at a senior level",
+        optionD: "Deny access to appropriate services to anybody unable to provide detailed evidence of identity",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Employees should receive regular training about money laundering so that:",
+        optionA: "They are aware of the consequences to themselves if they fail to comply.",
+        optionB: "They can complete the Money Laundering Report.",
+        optionC: "They can assess their firm's compliance with the sourcebook.",
+        optionD: "They can caution as appropriate any suspect individuals.",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In relation to money laundering, how is 'property' defined as:",
+        optionA: "Physical assets with a freehold title deed only",
+        optionB: "Assets held in cash within the European Union only",
+        optionC: "Physical assets with a leasehold title deed only",
+        optionD: "Assets of every kind including legal papers giving title to such assets",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In order to be required to report a transaction to the Money Laundering Reporting Officer, a member of staff first needs to:",
+        optionA: "Be certain that the person is involved in money laundering",
+        optionB: "Advise the person that they may be investigated",
+        optionC: "Review the circumstances of the case with other experienced staff members",
+        optionD: "Have reasonable grounds for believing that a person is involved in money laundering",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Why might money laundering regulations create 'financial exclusion'?",
+        optionA: "Because not everyone can provide the necessary identification",
+        optionB: "Because certain non-residents cannot be offered banking facilities",
+        optionC: "Because financial organisations are wary of opening bank accounts with cash deposits",
+        optionD: "Because customers want to know why they have been declined a financial product",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Insurance Life plc has set up an ISA for a new client. Why was it not necessary for the company to obtain evidence of identity for money laundering purposes?",
+        optionA: "The client was introduced by an intermediary who obtained the necessary evidence",
+        optionB: "Investments into ISAs are exempt from money laundering identification requirements",
+        optionC: "The client is only temporarily resident in the UK.",
+        optionD: "Investment amounts of less than £10,000 are exempt from money laundering Identification requirements",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "If a staff member of a financial services organisation were to be accused of \"arranging\" under the Proceeds of Crime Act 2004, it could mean that they had",
+        optionA: "Knowingly aided a person to acquire criminal property.",
+        optionB: "Personally owned the proceeds of criminal activity.",
+        optionC: "Unwittingly failed to report a potentially suspicious transaction.",
+        optionD: "Personally used the proceeds of criminal activity.",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Paul was prosecuted under the Proceeds of Crime Act 2002 and received the maximum sentence two years and a fine. This means that he must have been convicted of which money laundering offence?",
+        optionA: "Concealing",
+        optionB: "Tipping off",
+        optionC: "Arranging",
+        optionD: "Acquiring",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Mandy a financial adviser, has completed a report form and submitted it to her company's Money Laundering Reporting Officer. Under what circumstances would she take this action?",
+        optionA: "Only when she believes a colleague may be supporting money laundering",
+        optionB: "Only when she knows for sure that a client is involved in money laundering",
+        optionC: "When the value of the transaction exceeds €15,000",
+        optionD: "When she knows or suspects that a client is involved in money laundering",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "What is the main reason why an authorised firm's senior management must requisition an annual report from its Money Laundering Reporting Officer?",
+        optionA: "So that they can be compliant with the Proceeds of Crime Act 2004",
+        optionB: "In order to monitor activities and increase deficiencies",
+        optionC: "So that they can be compliant with the Financial Services Act",
+        optionD: "In order to review activities and strengthen controls",
+        answer: "D"
+      },
     ];
 
     questionBank.forEach((q) => {

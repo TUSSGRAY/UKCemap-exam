@@ -1,0 +1,55 @@
+Unit 2 Topic 24 Test
+1. Under the General Data Protection Regulations, the definition of ‘sensitive personal data’ includes all of the following areas, except:
+1. Under the General Data Protection Regulations, the definition of ‘sensitive personal data’ includes all of the following areas, except:
+A. Employment status
+B. Religious beliefs
+C. Mental health
+D. Sexual orientation
+
+Answer to continue
+2. Fred has requested a copy of his personal data held by his bank. The General Data Protection Regulations requires that:
+2. Fred has requested a copy of his personal data held by his bank. The General Data Protection Regulations requires that:
+ A. The bank limits any administrative charge to a maximum of £25
+B. The first confirms his identity by providing a copy of his birth certificate or passport
+C. Any corrections must be completed within 14 days
+D. The bank is unable to charge Fred for his subject access request
+
+Answer to continue
+3. In relation to the General Data Protection Regulations, which one of the following is incorrect?
+3. In relation to the General Data Protection Regulations, which one of the following is incorrect?
+A. It requires anyone holding data on individuals to be registered.
+B. It gives individuals the right of access to data relating to them.
+C. It applies only to records held on computer.
+D. It requires anyone holding data to have a data protection policy.
+
+Answer to continue
+4. In 2023 if a company fails to comply with an enforcement notice under GDPR, what is the maximum fine that can be imposed?
+4. In 2023 if a company fails to comply with an enforcement notice under GDPR, what is the maximum fine that can be imposed?
+A. Higher of £17.5M or 4% of previous years worldwide turnover
+B. £20M
+C. 4% of turnover
+D. Lower of £20M or 4% of turnover
+
+Answer to continue
+5. One of the Pension Regulators powers is to be able to investigate schemes to identify and monitor risks. All schemes must carry out the following actions, except:
+5. One of the Pension Regulators powers is to be able to investigate schemes to identify and monitor risks. All schemes must carry out the following actions, except:
+ A. Make notification of any changes to benefits
+B. Provide prompt notification of underfunding issues
+C. Provide details to the regulator of each member transferring out of the scheme
+D. Satisfy any specific actions within the issued timeframes
+
+Answer to continue
+6. When Henry received his payslip on 21st June, his normal occupational pension scheme contribution of £250 had been deducted by his employer. What is the latest date that his employer should pass this contribution to the scheme’s trustees if the Pension Regulator’s guidelines are to be followed?
+6. When Henry received his payslip on 21st June, his normal occupational pension scheme contribution of £250 had been deducted by his employer. What is the latest date that his employer should pass this contribution to the scheme’s trustees if the Pension Regulator’s guidelines are to be followed?
+A. 22nd June
+B. 19th July
+C. 30th June
+D. 21st July
+
+Answer to continue
+7. As an expert in EU law, Kentons Intermediaries are seeking your advice about conducting business in other EU countries. In particular, they are seeking information on the subject of client money and professional indemnity insurance. You can advise them that they will need:
+7. As an expert in EU law, Kentons Intermediaries are seeking your advice about conducting business in other EU countries. In particular, they are seeking information on the subject of client money and professional indemnity insurance. You can advise them that they will need:
+A. Financial capacity of at least 5% of premiums received per annum to meet client money requirements and a minimum level of €1M per case professional indemnity insurance.
+B. Professional indemnity cover of at least €1m total per annum and a minimum financial capacity of €10,000 to meet client money requirements.
+ C. Financial capacity of at least 4% of premiums received per annum to meet client money requirements and a minimum level of €2m total professional indemnity insurance.
+D. Professional indemnity cover of at least €1,300,380 per case and a minimum financial capacity of €18,750 to meet client money requirements.
