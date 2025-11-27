@@ -17,6 +17,7 @@ import PrivacyPolicy from "@/pages/privacy-policy";
 import CemapQualification from "@/pages/cemap-qualification";
 import TopicQuestions from "@/pages/topic-questions";
 import MasterQuestionBank from "@/pages/master-question-bank";
+import AnalyticsGuide from "@/pages/analytics-guide";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/cemap-qualification" component={CemapQualification} />
       <Route path="/topic-questions" component={TopicQuestions} />
       <Route path="/master-question-bank" component={MasterQuestionBank} />
+      <Route path="/analytics" component={AnalyticsGuide} />
       <Route path="/results" component={Results} />
       <Route path="/certificate" component={Certificate} />
       <Route path="/checkout" component={Checkout} />

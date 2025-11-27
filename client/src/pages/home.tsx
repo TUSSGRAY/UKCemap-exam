@@ -112,9 +112,11 @@ export default function Home() {
             <Badge variant="default" className="text-sm font-medium px-4 py-2 bg-primary text-primary-foreground" data-testid="badge-stat-topics">
               New 2025 Scenario Syllabus
             </Badge>
-            <Badge variant="secondary" className="text-sm font-medium px-4 py-2" data-testid="badge-stat-passmark">
-              Analytics Included
-            </Badge>
+            <Link href="/analytics">
+              <Badge variant="secondary" className="text-sm font-medium px-4 py-2 cursor-pointer hover-elevate" data-testid="badge-stat-passmark">
+                Analytics Included
+              </Badge>
+            </Link>
           </div>
           <div className="flex justify-center mt-6">
             <ShareButton 
