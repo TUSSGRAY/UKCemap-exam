@@ -40,6 +40,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/topics", async (req, res) => {
+    try {
+      const allQuestions = await storage.getAllQuestions();
+      const topics = Array.from(new Set(allQuestions.map(q => q.topic)));
+      res.json(topics.sort());
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get("/api/questions/topic", async (req, res) => {
+    try {
+      const topic = req.query.topic as string;
+      const count = Math.min(parseInt(req.query.count as string) || 50, 50);
+
+      if (!topic) {
+        return res.status(400).json({ error: "Topic is required" });
+      }
+
+      const questions = await storage.getQuestionsByTopic(topic, count);
+      res.json(questions);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.get("/api/adverts/random", async (req, res) => {
     try {
       const advert = await storage.getRandomAdvert();

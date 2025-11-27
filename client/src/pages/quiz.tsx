@@ -13,6 +13,7 @@ import AdBreakModal from "@/components/ad-break-modal";
 import ReviewModal from "@/components/review-modal";
 import QuestionCountSelector from "@/components/question-count-selector";
 import { GoogleAdSenseAd as UpgradePrompt } from "@/components/google-adsense-ad";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface QuizProps {
   mode: QuizMode;
@@ -33,21 +34,29 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   const [quizSessionId] = useState(() => Date.now());
   const [mode, setMode] = useState<QuizMode>(initialMode);
   const [topicSlug, setTopicSlug] = useState<string | undefined>(initialTopicSlug);
-  const [checkingAccess, setCheckingAccess] = useState(initialMode === "exam" || initialMode === "scenario");
+  const [checkingAccess, setCheckingAccess] = useState(initialMode === "exam" || initialMode === "scenario" || initialMode === "topic-exam");
   const [accessError, setAccessError] = useState<string | null>(null);
   const [topicConfig, setTopicConfig] = useState<any>(null);
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const [availableTopics, setAvailableTopics] = useState<string[]>([]);
 
   const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
     queryKey: ["/api/me"],
     queryFn: getQueryFn({ on401: "returnNull" }),
-    enabled: mode !== "practice" && mode !== "topic",
+    enabled: mode !== "practice",
+  });
+
+  const { data: topics = [] } = useQuery<string[]>({
+    queryKey: ["/api/topics"],
+    queryFn: getQueryFn({ on401: "returnNull" }),
+    enabled: mode === "topic-exam" && !isStarted,
   });
 
   // Check access for paid modes (but only after quiz is started)
   useEffect(() => {
     const checkAccess = async () => {
-      // Skip access check for practice and topic modes (both free)
-      if (mode === "practice" || mode === "topic") {
+      // Skip access check for practice mode (free)
+      if (mode === "practice") {
         setCheckingAccess(false);
         setAccessError(null);
         return;
@@ -99,11 +108,11 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   }, [mode, user, isLoadingUser, isStarted]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: mode === "topic" ? ["/api/questions/topic", topicSlug] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
-    enabled: isStarted,
+    queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
+    enabled: isStarted && (mode !== "topic-exam" || selectedTopic !== null),
     queryFn: async () => {
-      if (mode === "topic" && topicSlug) {
-        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(topicSlug)}&count=10`, {
+      if (mode === "topic-exam" && selectedTopic) {
+        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(selectedTopic)}&count=50`, {
           credentials: "include"
         });
         if (!response.ok) throw new Error("Failed to fetch topic questions");
@@ -120,7 +129,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
 
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
-  const isPracticeMode = mode === "practice" || mode === "scenario" || mode === "topic";
+  const isPracticeMode = mode === "practice" || mode === "scenario";
   const isCorrect = selectedAnswer === currentQuestion?.answer;
 
   const handleStartQuiz = async (count: number, selectedTopicSlug?: string) => {
@@ -138,17 +147,25 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   };
 
   useEffect(() => {
+    if (topics.length > 0) {
+      setAvailableTopics(topics);
+    }
+  }, [topics]);
+
+  useEffect(() => {
     if (mode === "scenario") {
       setQuestionCount(50); // 10 scenarios × 5 questions each
       setIsStarted(true);
     } else if (mode === "practice") {
       setQuestionCount(10); // Fixed 10 questions for practice mode
       setIsStarted(true);
-    } else if (mode === "topic") {
-      setQuestionCount(10); // Fixed 10 questions for topic exam
-      setIsStarted(true);
+    } else if (mode === "topic-exam") {
+      setQuestionCount(50); // 50 questions for topic exam
+      if (selectedTopic) {
+        setIsStarted(true);
+      }
     }
-  }, [mode]);
+  }, [mode, selectedTopic]);
 
   const handleAnswerSelect = (answer: string) => {
     if (!showFeedback) {
@@ -390,6 +407,54 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
         onStart={handleStartQuiz}
         onCancel={handleExitQuiz}
       />
+    );
+  }
+
+  if (!isStarted && mode === "topic-exam") {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <Card className="max-w-md" data-testid="card-topic-selector">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Select a Topic</CardTitle>
+            <CardDescription className="text-center">
+              Choose which topic area to focus on
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Select value={selectedTopic || ""} onValueChange={setSelectedTopic}>
+              <SelectTrigger data-testid="select-topic">
+                <SelectValue placeholder="Choose a topic..." />
+              </SelectTrigger>
+              <SelectContent>
+                {availableTopics.map((topic) => (
+                  <SelectItem key={topic} value={topic} data-testid={`option-topic-${topic}`}>
+                    {topic}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <div className="flex flex-col gap-2">
+              <Button
+                onClick={() => selectedTopic && setIsStarted(true)}
+                disabled={!selectedTopic}
+                className="w-full"
+                size="lg"
+                data-testid="button-start-topic-exam"
+              >
+                Start Exam (50 Questions)
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleExitQuiz}
+                className="w-full"
+                data-testid="button-cancel-topic"
+              >
+                Back to Home
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 

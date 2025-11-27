@@ -34,6 +34,9 @@ function Router() {
       <Route path="/quiz/scenario">
         {() => <Quiz mode="scenario" />}
       </Route>
+      <Route path="/quiz/topic-exam">
+        {() => <Quiz mode="topic-exam" />}
+      </Route>
       <Route path="/cemap-qualification" component={CemapQualification} />
       <Route path="/results" component={Results} />
       <Route path="/certificate" component={Certificate} />
