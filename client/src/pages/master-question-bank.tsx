@@ -7,13 +7,17 @@ import { Link } from "wouter";
 import type { Question } from "@shared/schema";
 
 export default function MasterQuestionBank() {
-  const { data: questions = [], isLoading } = useQuery<Question[]>({
+  const { data: questions = [], isLoading, error } = useQuery<Question[]>({
     queryKey: ["master-questions"],
     queryFn: async () => {
       const response = await fetch("/api/questions/all");
-      if (!response.ok) throw new Error("Failed to fetch questions");
-      return response.json();
+      if (!response.ok) {
+        throw new Error(`Failed to fetch questions: ${response.status}`);
+      }
+      const data = await response.json();
+      return Array.isArray(data) ? data : [];
     },
+    retry: 3,
   });
 
   const unit1Questions = questions.filter(q => q.topic !== "Financial Services Industry");
@@ -98,6 +102,11 @@ export default function MasterQuestionBank() {
         {isLoading ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">Loading question bank...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-destructive font-semibold">Error loading questions</p>
+            <p className="text-muted-foreground text-sm mt-2">{error.message}</p>
           </div>
         ) : (
           <div className="space-y-8">
