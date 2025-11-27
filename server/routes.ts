@@ -38,6 +38,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/questions/all", async (req, res) => {
+    try {
+      const allQuestions = await storage.getAllQuestions();
+      res.json(allQuestions);
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.get("/api/questions", async (req, res) => {
     try {
       const mode = (req.query.mode as "practice" | "exam" | "scenario") || "practice";

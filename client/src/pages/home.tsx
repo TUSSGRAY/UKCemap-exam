@@ -383,10 +383,15 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center space-y-4">
           <p className="text-sm text-muted-foreground">
             Covering all CeMAP topics: Regulation & Ethics, Mortgage Law, Financial Advice, Products, Protection, Property Valuation, Legal Aspects, and Financial Conduct
           </p>
+          <Link href="/master-question-bank" data-testid="link-master-question-bank">
+            <Button variant="outline" size="sm">
+              View Master Question Bank
+            </Button>
+          </Link>
         </div>
       </div>
 
