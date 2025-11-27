@@ -53,6 +53,12 @@ export default function Home() {
               <span className="font-semibold text-foreground">CeMAP Exam Training</span>
             </div>
             <div className="flex items-center gap-3">
+              <Link href="/master-question-bank">
+                <Button variant="ghost" data-testid="button-question-bank-header">
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Question Bank
+                </Button>
+              </Link>
               {user ? (
                 <>
                   <Link href="/profile">
