@@ -3742,6 +3742,536 @@ export class MemStorage implements IStorage {
         optionD: "He can split the bond into smaller policies for tax-free encashment at any stage",
         answer: "A"
       },
+
+      // Additional Collective Investments Questions
+      {
+        topic: "Collective Investments",
+        question: "When managing unit trusts what does the term 'open-ended' mean?",
+        optionA: "That clients can buy more units",
+        optionB: "That the fund manager can create more units",
+        optionC: "That the fund manager does not need to value the units",
+        optionD: "That there is flexibility in the taxation arrangements of units",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which of the following statements is correct in respect of a unit trust?",
+        optionA: "Any gain made on the sale of units by an investor may be liable to capital gains tax",
+        optionB: "The fund manager is able to borrow",
+        optionC: "An investor who requires mainly capital growth will be best advised to purchase distribution units",
+        optionD: "The price at which an investor purchases units in the fund is referred to as the bid price",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Historically, charges on unit trusts have generally comprised:",
+        optionA: "A bid offer spread only",
+        optionB: "An annual management charge only",
+        optionC: "An annual management charge and a policy fee",
+        optionD: "A bid offer spread and an annual or monthly management charge",
+        answer: "D"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Under a unit trust what does the cancellation price represent?",
+        optionA: "The maximum price at which a full encashment of the units may be made",
+        optionB: "The minimum price at which investors may cash in their units",
+        optionC: "The price applicable to investors if they cancel during the cooling off period",
+        optionD: "The price at which the manager will buy back units if underlying assets do not have to be traded",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Who is responsible for paying capital gains tax from unit trusts to HMRC?",
+        optionA: "The unit holder",
+        optionB: "The trustees",
+        optionC: "The unit trust company",
+        optionD: "The fund managers",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which one of the following best describes an investment trust?",
+        optionA: "A unit linked single premium non-qualifying whole-of-life policy investing solely in shares",
+        optionB: "A trust which invests solely in shares in the alternative investment market",
+        optionC: "A company which invests in shares of other companies",
+        optionD: "A partnership which invests in gilt-edged securities",
+        answer: "C"
+      },
+      {
+        topic: "Collective Investments",
+        question: "If the shares of an investment trust stand at a discount below the net asset value per share, which one of the following is correct?",
+        optionA: "Capital growth is potentially higher than direct investment",
+        optionB: "A minimum level of capital growth is guaranteed",
+        optionC: "Capital growth will be negligible",
+        optionD: "Income growth is forsaken for capital growth",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which one of the following is true of open-ended investment companies (OEICS)?",
+        optionA: "Switches are made on a mid-price basis",
+        optionB: "Shares are bought and sold at the same price on any given day",
+        optionC: "There is no initial charge",
+        optionD: "The initial charge is included in the bid/offer spread",
+        answer: "B"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Non-Structured Capital at risk products may be able to provide a minimum return of:",
+        optionA: "Nothing",
+        optionB: "85% of the initial capital invested",
+        optionC: "50% of the initial capital invested",
+        optionD: "100% of the initial capital invested",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Unit trusts, investment trusts and open-ended investment company shares are suitable for which profile of investor?",
+        optionA: "A long-term investor who would still like reasonably easy access to funds",
+        optionB: "A long-term investor who is happy to give notice to withdraw funds",
+        optionC: "A low-risk investor who requires a guaranteed income",
+        optionD: "A high-risk investor who likes to play the stock market",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Why does investment in a collective investment scheme carry a reduced risk compared with direct investment in equities?",
+        optionA: "Because collective investment schemes invest in many different companies",
+        optionB: "Because fund managers can negotiate higher dividend payments",
+        optionC: "Collective investment schemes invest in equities that are not available to individuals",
+        optionD: "Collective investments must guarantee as a minimum, the return of capital invested",
+        answer: "A"
+      },
+      {
+        topic: "Collective Investments",
+        question: "Which of the following is true in relation to the manager of an investment trust?",
+        optionA: "They cannot borrow funds to invest",
+        optionB: "They can borrow to improve income and capital growth",
+        optionC: "They can issue more units or repurchase units according to demand",
+        optionD: "They can cancel units if the fund grows sharply",
+        answer: "B"
+      },
+
+      // Additional Financial Advice Process Questions (Pensions & ISAs)
+      {
+        topic: "Financial Advice Process",
+        question: "Excluding an employer's contribution, what is the maximum percentage of UK earnings that an employee can contribute to a personal pension plan?",
+        optionA: "100%",
+        optionB: "78%",
+        optionC: "40%",
+        optionD: "25%",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which one of the following items would usually be used to calculate the maximum permitted contribution payable to a personal pension plan?",
+        optionA: "Date of birth",
+        optionB: "Employee's highest rate of income tax",
+        optionC: "Class 1 NIC record",
+        optionD: "UK earnings",
+        answer: "D"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "What is the highest rate of tax relief in total that can be granted to personal pension contributions?",
+        optionA: "100%",
+        optionB: "20%",
+        optionC: "40%",
+        optionD: "45%",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which one of the following is true of the tax relief available for an individual's contribution to a personal pension plan?",
+        optionA: "They will receive tax relief up front at their marginal rate",
+        optionB: "They will receive basic rate tax relief up front and any higher rate relief via self-assessment",
+        optionC: "Relief is restricted to 10% for starting rate taxpayers",
+        optionD: "Nil rate taxpayers cannot receive tax relief on contributions",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "After taking the tax-free cash sum, a personal pension plan holder could use the balance of the fund to buy:",
+        optionA: "An annuity",
+        optionB: "A pension income bond",
+        optionC: "A FSAVC",
+        optionD: "Compulsory retirement contract",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "A client's personal pension plan fund at retirement is £150,000. What is the maximum available as a tax-free cash sum?",
+        optionA: "£24,000",
+        optionB: "£32,000",
+        optionC: "£40,000",
+        optionD: "£37,500",
+        answer: "D"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "The open market option enables the plan holder to:",
+        optionA: "Move his pension fund between providers to get the best investment return before retirement",
+        optionB: "Move the accumulated fund at retirement to the provider which will provide the best annuity rate",
+        optionC: "Have more than one personal pension plan with different providers, to get the best return",
+        optionD: "Accumulate his fund with one provider but get personal pension term assurance from another",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "How is the income from a pension taxed in retirement?",
+        optionA: "As earned income",
+        optionB: "As unearned income",
+        optionC: "As investment income",
+        optionD: "It is tax free",
+        answer: "A"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "If a customer is contributing to an occupational pension scheme and wishes to also start a stakeholder pension, what is the maximum amount of income per annum that they can have earned in the last year?",
+        optionA: "£3,600",
+        optionB: "£17,010",
+        optionC: "£24,300",
+        optionD: "No limit",
+        answer: "D"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Julia is a higher-rate taxpayer. She understands that she pays her pension contributions net of tax relief to the product provider and reclaims the remainder from HMRC. At what rate is this additional relief reclaimed from HMRC?",
+        optionA: "18%",
+        optionB: "22%",
+        optionC: "40%",
+        optionD: "20%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Which of these statements is incorrect in relation to an ISA?",
+        optionA: "The maximum contribution per tax year is £20,000.",
+        optionB: "Joint ISAs can now be taken under the new rules",
+        optionC: "Growth of the fund is tax free in the hands of the investor",
+        optionD: "Dividends paid into an ISA are paid without deduction of income tax",
+        answer: "B"
+      },
+      {
+        topic: "Financial Advice Process",
+        question: "Colin has paid £100 per month to the cash element of an ISA every month in the tax year. He is considering using the equities element of the ISA. What is the maximum additional amount he can pay into the ISA this tax year?",
+        optionA: "£18,800",
+        optionB: "£20,000",
+        optionC: "£3,600",
+        optionD: "Nil",
+        answer: "A"
+      },
+
+      // Additional Protection Products Questions
+      {
+        topic: "Protection Products",
+        question: "The main benefit of increasing term assurance is that it:",
+        optionA: "Qualifies for life assurance premium relief",
+        optionB: "Provides a hedge against inflation",
+        optionC: "Guarantees cover for the whole of the policyholder's life",
+        optionD: "Offers the possibility of a terminal bonus on death",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        question: "What is the principal purpose of whole-of-life plans?",
+        optionA: "Savings",
+        optionB: "Investment",
+        optionC: "Retirement planning",
+        optionD: "Protection",
+        answer: "D"
+      },
+      {
+        topic: "Protection Products",
+        question: "How is life cover paid for on a flexible whole-of-life assurance?",
+        optionA: "Via the bid offer spread",
+        optionB: "Within the plan fee",
+        optionC: "By cancellation of units",
+        optionD: "As a direct deduction from the monthly premium",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "Flexible whole of life policies are best suited to which of the following scenarios?",
+        optionA: "Primarily as a savings vehicle",
+        optionB: "As a protection plan only",
+        optionC: "As a protection plan with some allowance for savings",
+        optionD: "As a way of including other forms of protection policy",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "For which situation might a joint whole-of-life policy be the most suitable recommendation?",
+        optionA: "Ken and Sheila, a recently retired couple, wish to provide a tax-free legacy",
+        optionB: "Simon and Lois, a middle-aged couple who wish to maximise their savings",
+        optionC: "Abdul and Kim, a married couple requiring a lump sum for their old age",
+        optionD: "Benjamin and Roy, a newly married couple seeking a mortgage",
+        answer: "A"
+      },
+      {
+        topic: "Protection Products",
+        question: "Stewart wants a whole-of-life assurance that also provides critical illness cover. Which type should he choose?",
+        optionA: "Flexible",
+        optionB: "With-profit",
+        optionC: "Universal",
+        optionD: "Unit linked",
+        answer: "A"
+      },
+      {
+        topic: "Protection Products",
+        question: "What is the main difference between accident sickness and unemployment (ASU) policies and income protection policies?",
+        optionA: "ASU provides short-term cover only",
+        optionB: "ASU does not have a deferred payment period",
+        optionC: "ASU provides for other employment scenarios not just redundancy",
+        optionD: "ASU provides total protection for all income",
+        answer: "A"
+      },
+      {
+        topic: "Protection Products",
+        question: "Benefits from a critical illness policy are usually payable as:",
+        optionA: "A lump sum to the policyholder.",
+        optionB: "Regular income to the policyholder.",
+        optionC: "A lump sum to the policyholder's estate.",
+        optionD: "Regular income to the policyholder's dependents.",
+        answer: "A"
+      },
+      {
+        topic: "Protection Products",
+        question: "Which one of the following illnesses would not normally result in benefits being paid from a critical illness policy?",
+        optionA: "Heart attack",
+        optionB: "Stroke",
+        optionC: "Skin cancer",
+        optionD: "Kidney failure",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "What policy can provide a daily rate of income for overnight NHS hospital stays?",
+        optionA: "Permanent health insurance",
+        optionB: "Private medical insurance",
+        optionC: "Long term care insurance",
+        optionD: "Critical illness cover",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        question: "Julian wants to ensure he can meet essential outgoings if unable to work due to medium- or long-term illness. Which product is most suitable?",
+        optionA: "Accident, sickness and unemployment",
+        optionB: "Critical illness cover",
+        optionC: "Income protection insurance",
+        optionD: "Private medical insurance",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "What is usually the maximum benefit payment period for ASU policies?",
+        optionA: "1 year",
+        optionB: "2 years",
+        optionC: "5 years",
+        optionD: "7 years",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        question: "Which of the following is normally regarded as a standard peril in most buildings insurance policies?",
+        optionA: "Accidental damage",
+        optionB: "Third party liability cover",
+        optionC: "Riot or civil commotion",
+        optionD: "Civil war or insurrection",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "Which statement is true in relation to income protection or critical illness cover?",
+        optionA: "There is no limit to the level of benefit that can be arranged under an income protection plan.",
+        optionB: "Premiums on a critical illness policy qualify for tax relief for retired policyholders.",
+        optionC: "Critical illness cover provides a taxable lump sum.",
+        optionD: "There is no limit to the number of claims under income protection, provided premiums are kept up to date.",
+        answer: "D"
+      },
+      {
+        topic: "Protection Products",
+        question: "Matthew has been given information regarding critical illness insurance. Which statement is correct?",
+        optionA: "The monthly benefit received from a CIC policy is taxed as income",
+        optionB: "The lump sum benefit is free from all UK taxes",
+        optionC: "Premiums on a CIC plan attract tax relief",
+        optionD: "Monthly benefit is limited to 60% of pre-disability income",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        question: "Christopher's job requires full physical fitness. Which product gives long-term income if illness forces him into lower-paid work?",
+        optionA: "Critical illness cover",
+        optionB: "Income protection insurance",
+        optionC: "Payment protection insurance",
+        optionD: "Whole of life assurance",
+        answer: "B"
+      },
+      {
+        topic: "Protection Products",
+        question: "When will benefit payments under a family income benefit plan stop?",
+        optionA: "Upon death of the recipient",
+        optionB: "State pension age",
+        optionC: "At the end of the plan",
+        optionD: "After 10 years",
+        answer: "C"
+      },
+      {
+        topic: "Protection Products",
+        question: "What type of assurance is a family income benefit plan?",
+        optionA: "Level term assurance",
+        optionB: "Decreasing term assurance",
+        optionC: "Whole of life",
+        optionD: "Short-term insurance",
+        answer: "B"
+      },
+
+      // Additional Mortgage Products Questions
+      {
+        topic: "Mortgage Products",
+        question: "Peter takes a loan from a building society to buy a new house. He is the:",
+        optionA: "Mortgagor",
+        optionB: "Mortgagee",
+        optionC: "Assignee",
+        optionD: "Vendor",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which one of the following statements about repayment mortgages is true?",
+        optionA: "The older the borrower, the higher the monthly repayment.",
+        optionB: "The shorter the term, the higher the total amount of interest paid.",
+        optionC: "The higher the interest rate, the higher the monthly repayment.",
+        optionD: "The longer the term, the higher the monthly repayment.",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which one of the following is a feature of a repayment mortgage?",
+        optionA: "Repayments will be fixed throughout the term of the mortgage",
+        optionB: "The capital and interest payment proportions change over the term of the mortgage",
+        optionC: "The capital balance does not reduce over the term of the mortgage",
+        optionD: "The borrower will have to take out an investment policy to cover the shortfall at the end of the mortgage",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "What happens to the capital outstanding during the duration of an interest-only mortgage?",
+        optionA: "It reduces by an even amount each year",
+        optionB: "Most capital is repaid towards the beginning of the term",
+        optionC: "Most capital is repaid towards the end of the term",
+        optionD: "It remains the same",
+        answer: "D"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Nick and Lynne want to remortgage, but their existing lender says they must pay six months' extra interest. Why?",
+        optionA: "They are on the lender's standard variable rate",
+        optionB: "They have arrears on their mortgage account",
+        optionC: "They have a fixed rate mortgage",
+        optionD: "Their lender is reclaiming the valuation fee outlay",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which type of mortgage provides a genuine reduction in the normal variable rates of interest?",
+        optionA: "Low-start mortgage",
+        optionB: "Low-cost mortgage",
+        optionC: "Deferred interest mortgage",
+        optionD: "Discounted mortgage",
+        answer: "D"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which of the following is true in relation to remortgages and second mortgages?",
+        optionA: "A second mortgage is an additional loan from a new lender",
+        optionB: "A remortgage is an additional loan from a new lender",
+        optionC: "A remortgage is a way for a lender to charge a higher interest rate",
+        optionD: "A second mortgage increases the first loan from the same lender",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "What type of mortgage scheme would help someone with a low level of deposit become an owner-occupier?",
+        optionA: "Buy to let",
+        optionB: "Shared ownership",
+        optionC: "Full endowment",
+        optionD: "Home reversion",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Dick and Margaret notice rates have fallen, but their payment hasn't changed. What mortgage do they likely have?",
+        optionA: "Base rate tracker",
+        optionB: "Fixed rate",
+        optionC: "Discount rate",
+        optionD: "Capped rate",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "An advantage of a variable rate mortgage is that:",
+        optionA: "Arrangement fees may be added to the loan",
+        optionB: "First-time buyers are able to budget accurately",
+        optionC: "Borrowers benefit from reductions in interest rates",
+        optionD: "Repayments are lower than any other product",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which type of endowment normally guarantees the original mortgage loan will be repaid in full at the end of the term?",
+        optionA: "Qualifying unit-linked",
+        optionB: "Low start unit-linked",
+        optionC: "Non-profit",
+        optionD: "Low cost",
+        answer: "C"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "On a with-profits policy, a reversionary bonus is:",
+        optionA: "One that reverts to a minimum level in the event of a claim",
+        optionB: "Declared each year and once attached, guaranteed payable if premiums continue",
+        optionC: "An irregular payment depending on type of policy and lives assured",
+        optionD: "A payment made on maturity at the insurer's discretion",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which statement is correct regarding a unit-linked endowment policy?",
+        optionA: "A predetermined guaranteed benefit is payable on maturity",
+        optionB: "Guaranteed sum assured only is paid on death before maturity",
+        optionC: "Life cover is funded by encashing units monthly",
+        optionD: "Value equals number of units × offer price",
+        answer: "D"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Compared to a full endowment, a traditional low-cost endowment has:",
+        optionA: "Lower premium for a given death benefit but fewer guarantees on maturity",
+        optionB: "Lower death benefit for a given premium but more savings",
+        optionC: "Higher premium for a given guaranteed maturity value",
+        optionD: "Higher premium for a given sum assured but more chance of bonuses",
+        answer: "A"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "If a low-cost endowment is used as a mortgage repayment vehicle, the mortgage is guaranteed to be repaid:",
+        optionA: "Providing interest rates do not exceed 12%.",
+        optionB: "On death or maturity as long as premiums are paid.",
+        optionC: "As long as the policy is held for 25 years.",
+        optionD: "On death only.",
+        answer: "B"
+      },
+      {
+        topic: "Mortgage Products",
+        question: "Which of the following describes an advantage that a unit-linked policy has over a non-profit policy for mortgage repayment?",
+        optionA: "A guaranteed minimum maturity value",
+        optionB: "Tax relief on premiums",
+        optionC: "The chance of a surplus at the end of the term",
+        optionD: "The possibility of repaying the loan early",
+        answer: "C"
+      },
     ];
 
     questionBank.forEach((q) => {
