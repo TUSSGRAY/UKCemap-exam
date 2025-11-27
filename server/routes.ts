@@ -319,6 +319,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Check topic access (all topics except first are locked behind paywall)
+  app.get("/api/check-topic-access", async (req, res) => {
+    try {
+      const hasAccess = req.session?.userId 
+        ? await storage.checkExamAccess(req.session.userId!)
+        : false;
+      res.json({ hasAccess, isAuthenticated: !!req.session?.userId });
+    } catch (error: any) {
+      res.status(500).json({ error: "Access check failed" });
+    }
+  });
+
   // Get user profile with access tokens
   app.get("/api/profile", requireAuth, async (req, res) => {
     try {

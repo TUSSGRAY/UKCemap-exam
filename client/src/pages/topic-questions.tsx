@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, Home, BookOpen } from "lucide-react";
+import { GraduationCap, Home, BookOpen, Lock } from "lucide-react";
 
 interface TopicGroup {
   unit: string;
@@ -17,6 +17,15 @@ export default function TopicQuestions() {
     queryFn: async () => {
       const response = await fetch("/api/all-topics");
       if (!response.ok) throw new Error("Failed to fetch topics");
+      return response.json();
+    },
+  });
+
+  const { data: accessData } = useQuery({
+    queryKey: ["/api/check-topic-access"],
+    queryFn: async () => {
+      const response = await fetch("/api/check-topic-access");
+      if (!response.ok) throw new Error("Failed to check access");
       return response.json();
     },
   });
@@ -94,30 +103,53 @@ export default function TopicQuestions() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {group.topics.map((topic, idx) => (
-                    <Card
-                      key={`${groupIdx}-${idx}`}
-                      className="hover-elevate transition-all duration-300 cursor-pointer"
-                      data-testid={`card-topic-${topic.replace(/\s+/g, '-').toLowerCase()}`}
-                    >
-                      <CardHeader className="pb-3">
-                        <CardTitle className="text-lg flex items-start gap-2">
-                          <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                          <span>{topic}</span>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <CardDescription>
-                          Practice questions covering this topic area
-                        </CardDescription>
-                        <Link href={`/quiz/practice?topic=${encodeURIComponent(topic)}`}>
-                          <Button className="w-full" size="sm" data-testid={`button-practice-${topic.replace(/\s+/g, '-').toLowerCase()}`}>
-                            Practice Questions
-                          </Button>
-                        </Link>
-                      </CardContent>
-                    </Card>
-                  ))}
+                  {group.topics.map((topic, idx) => {
+                    const isFirstTopic = groupIdx === 0 && idx === 0;
+                    const isLocked = !isFirstTopic && !accessData?.hasAccess;
+                    
+                    return (
+                      <Card
+                        key={`${groupIdx}-${idx}`}
+                        className={`transition-all duration-300 ${isLocked ? 'opacity-75' : 'hover-elevate cursor-pointer'}`}
+                        data-testid={`card-topic-${topic.replace(/\s+/g, '-').toLowerCase()}`}
+                      >
+                        <CardHeader className="pb-3">
+                          <CardTitle className="text-lg flex items-start gap-2">
+                            {isLocked && <Lock className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />}
+                            {!isLocked && <BookOpen className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />}
+                            <span>{topic}</span>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          <CardDescription>
+                            {isFirstTopic ? "Free practice topic - start here" : "Practice questions covering this topic area"}
+                          </CardDescription>
+                          {isLocked ? (
+                            <Link href="/pricing">
+                              <Button 
+                                className="w-full" 
+                                size="sm"
+                                variant="outline"
+                                data-testid={`button-upgrade-${topic.replace(/\s+/g, '-').toLowerCase()}`}
+                              >
+                                Upgrade to Access
+                              </Button>
+                            </Link>
+                          ) : (
+                            <Link href={`/quiz/practice?topic=${encodeURIComponent(topic)}`}>
+                              <Button 
+                                className="w-full" 
+                                size="sm" 
+                                data-testid={`button-practice-${topic.replace(/\s+/g, '-').toLowerCase()}`}
+                              >
+                                Practice Questions
+                              </Button>
+                            </Link>
+                          )}
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
                 </div>
               </div>
             ))}
