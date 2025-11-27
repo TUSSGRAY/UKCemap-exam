@@ -5056,6 +5056,71 @@ export class MemStorage implements IStorage {
         optionD: "In order to review activities and strengthen controls",
         answer: "D"
       },
+
+      // Unit 2: GDPR and Pension Regulations Questions
+      {
+        topic: "Financial Services Industry",
+        question: "Under the General Data Protection Regulations, the definition of 'sensitive personal data' includes all of the following areas, except:",
+        optionA: "Employment status",
+        optionB: "Religious beliefs",
+        optionC: "Mental health",
+        optionD: "Sexual orientation",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Fred has requested a copy of his personal data held by his bank. The General Data Protection Regulations requires that:",
+        optionA: "The bank limits any administrative charge to a maximum of £25",
+        optionB: "The first confirms his identity by providing a copy of his birth certificate or passport",
+        optionC: "Any corrections must be completed within 14 days",
+        optionD: "The bank is unable to charge Fred for his subject access request",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In relation to the General Data Protection Regulations, which one of the following is incorrect?",
+        optionA: "It requires anyone holding data on individuals to be registered.",
+        optionB: "It gives individuals the right of access to data relating to them.",
+        optionC: "It applies only to records held on computer.",
+        optionD: "It requires anyone holding data to have a data protection policy.",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In 2023 if a company fails to comply with an enforcement notice under GDPR, what is the maximum fine that can be imposed?",
+        optionA: "Higher of £17.5M or 4% of previous years worldwide turnover",
+        optionB: "£20M",
+        optionC: "4% of turnover",
+        optionD: "Lower of £20M or 4% of turnover",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "One of the Pension Regulators powers is to be able to investigate schemes to identify and monitor risks. All schemes must carry out the following actions, except:",
+        optionA: "Make notification of any changes to benefits",
+        optionB: "Provide prompt notification of underfunding issues",
+        optionC: "Provide details to the regulator of each member transferring out of the scheme",
+        optionD: "Satisfy any specific actions within the issued timeframes",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "When Henry received his payslip on 21st June, his normal occupational pension scheme contribution of £250 had been deducted by his employer. What is the latest date that his employer should pass this contribution to the scheme's trustees if the Pension Regulator's guidelines are to be followed?",
+        optionA: "22nd June",
+        optionB: "19th July",
+        optionC: "30th June",
+        optionD: "21st July",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "As an expert in EU law, Kentons Intermediaries are seeking your advice about conducting business in other EU countries. In particular, they are seeking information on the subject of client money and professional indemnity insurance. You can advise them that they will need:",
+        optionA: "Financial capacity of at least 5% of premiums received per annum to meet client money requirements and a minimum level of €1M per case professional indemnity insurance.",
+        optionB: "Professional indemnity cover of at least €1m total per annum and a minimum financial capacity of €10,000 to meet client money requirements.",
+        optionC: "Financial capacity of at least 4% of premiums received per annum to meet client money requirements and a minimum level of €2m total professional indemnity insurance.",
+        optionD: "Professional indemnity cover of at least €1,300,380 per case and a minimum financial capacity of €18,750 to meet client money requirements.",
+        answer: "D"
+      },
     ];
 
     questionBank.forEach((q) => {
