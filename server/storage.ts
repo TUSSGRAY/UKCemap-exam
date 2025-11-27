@@ -4818,6 +4818,152 @@ export class MemStorage implements IStorage {
         optionD: "The level of savings in notice accounts",
         answer: "C"
       },
+
+      // Unit 2: Mortgage Regulation and Consumer Credit Questions
+      {
+        topic: "Financial Services Industry",
+        question: "James, who is taking out a mortgage that falls within FCA regulation, has just received his customer specific illustration. This means that he is at what stage of the mortgage application process?",
+        optionA: "He has received the mortgage offer",
+        optionB: "He has signed and returned the mortgage offer",
+        optionC: "He has not yet completed the mortgage application form",
+        optionD: "He has completed on the house purchase",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "If a customer decides that they want to cancel their general insurance contract within the cooling off period, they must do so within:",
+        optionA: "14 days",
+        optionB: "7 days",
+        optionC: "28 days",
+        optionD: "30 days",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "If a customer cancels their general insurance contract within the cooling off period, the insurance company must return any sums to it, within how many days?",
+        optionA: "14 days",
+        optionB: "30 days",
+        optionC: "7 days",
+        optionD: "28 days",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Philip, a mortgage adviser, has to satisfy additional training and competence requirements under Financial Conduct Authority regulation because he offers advice on:",
+        optionA: "Further advances",
+        optionB: "Buy to let mortgages",
+        optionC: "Second charges",
+        optionD: "Lifetime mortgages",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following statements is not true regarding the mortgage offer document?",
+        optionA: "It must contain details of the mortgage payments",
+        optionB: "It must state how long the offer is valid for and how the customer can withdraw from the contract once the mortgage has completed",
+        optionC: "It must be accompanied by an up-to-date tariff of charges",
+        optionD: "It must contain details of any fees associated with the mortgage.",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Mortgage Brokers Ltd have just offered advice, post-October 2004, to a residential mortgage client and have not yet issued a suitability letter. This is permitted because:",
+        optionA: "Suitability letters need to be issued for commercial mortgages only.",
+        optionB: "There is no Financial Conduct Authority requirement for the issuing of mortgage suitability letters.",
+        optionC: "Suitability letters need only be issued on buy-to-let mortgages.",
+        optionD: "It is only necessary for a mortgage suitability letter to be issued after completion of the mortgage.",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "When must the Initial Disclosure Document be provided by a mortgage adviser?",
+        optionA: "At the beginning of the first meeting with a prospective client",
+        optionB: "As soon as regulated business is transacted",
+        optionC: "Within 14 days of the first meeting",
+        optionD: "As soon as the client requests it",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Gary has found that the mortgage he is arranging post-October 2004, and which is secured by a first charge is not regulated by the Financial Conduct Authority. This is because:",
+        optionA: "He is using the mortgage to buy a property as an investment which will be let to private tenants.",
+        optionB: "The mortgage will be partly used to repay credit card debts.",
+        optionC: "He is using the mortgage to build an extension on his existing residential property.",
+        optionD: "The mortgage will be used to repay a more expensive mortgage on existing main residence.",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Where MCOB rules apply to a residential mortgage, what minimum percentage of property must be occupied as a residence by the borrower?",
+        optionA: "100%",
+        optionB: "51%",
+        optionC: "40%",
+        optionD: "60%",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In respect of mortgage advice, which of the following pieces of information is not required as part of the initial disclosures under MCOB 4?",
+        optionA: "Fees associated with the service",
+        optionB: "Arrears arrangements",
+        optionC: "Complaints and compensation details",
+        optionD: "The providers of mortgages under discussion",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Pauline is offering mortgage advice to a client. Who is ultimately responsible for assuring that the mortgage is affordable?",
+        optionA: "Adviser",
+        optionB: "Adviser's compliance department",
+        optionC: "Client",
+        optionD: "The lender",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following type of mortgage became regulated by the FCA under MCOB for the first time from March 2016?",
+        optionA: "Buy to let mortgages for consumers",
+        optionB: "Equity release",
+        optionC: "Home improvement loans",
+        optionD: "Lifetime mortgages",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following is exempt from the provisions of the Consumer Credit Acts of 1974 and 2006?",
+        optionA: "A credit card with a limit of £5,000",
+        optionB: "A further advance for £20,000 for home improvements with the existing lender",
+        optionC: "An authorised overdraft for £18,000",
+        optionD: "An unsecured loan for £10,000",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The maximum size of loan, if any, regulated by the Consumer Credit Act is:",
+        optionA: "£15,000",
+        optionB: "£20,000",
+        optionC: "£25,000",
+        optionD: "unlimited",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Ben, an adviser, is required under FCA rules to provide a European Standardised Information Sheet (ESIS) detailing the APRC to his client. This confirms that the client has expressed an interest in:",
+        optionA: "Collective investment business",
+        optionB: "Mortgage business",
+        optionC: "Offshore business",
+        optionD: "Protection business",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following must be included on all quotations for loans regulated under the Consumer Credit Act?",
+        optionA: "The Annual Percentage Rate",
+        optionB: "The Bank of England base rate",
+        optionC: "The lender's registered office address",
+        optionD: "The purpose of the loan",
+        answer: "A"
+      },
     ];
 
     questionBank.forEach((q) => {
