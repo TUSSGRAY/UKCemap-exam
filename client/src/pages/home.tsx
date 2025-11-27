@@ -267,11 +267,11 @@ export default function Home() {
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">Choose from 9 topic areas</span>
+                  <span className="text-sm text-foreground">Choose from 10 topic areas</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-foreground">50 questions per topic</span>
+                  <span className="text-sm text-foreground">Questions vary by topic availability</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />

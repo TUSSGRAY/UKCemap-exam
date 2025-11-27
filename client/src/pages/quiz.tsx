@@ -135,11 +135,14 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     enabled: isStarted && (mode !== "topic-exam" || selectedTopic !== null),
     queryFn: async () => {
       if (mode === "topic-exam" && selectedTopic) {
-        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(selectedTopic)}&count=50`, {
+        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(selectedTopic)}&count=1000`, {
           credentials: "include"
         });
         if (!response.ok) throw new Error("Failed to fetch topic questions");
-        return response.json();
+        const topicQuestions = await response.json();
+        // Dynamically set question count based on available questions in topic
+        setQuestionCount(topicQuestions.length);
+        return topicQuestions;
       }
       
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
@@ -483,7 +486,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
           <CardHeader>
             <CardTitle className="text-2xl text-center">Select a Topic</CardTitle>
             <CardDescription className="text-center">
-              Choose which topic area to focus on
+              Choose which topic area to focus on. Questions vary by topic availability.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -507,7 +510,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
                 size="lg"
                 data-testid="button-start-topic-exam"
               >
-                Start Exam (50 Questions)
+                Start Topic Exam
               </Button>
               <Button
                 variant="outline"
