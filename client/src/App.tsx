@@ -15,6 +15,7 @@ import Profile from "@/pages/profile";
 import Dashboard from "@/pages/dashboard";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import CemapQualification from "@/pages/cemap-qualification";
+import TopicQuestions from "@/pages/topic-questions";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
         {() => <Quiz mode="scenario" />}
       </Route>
       <Route path="/cemap-qualification" component={CemapQualification} />
+      <Route path="/topic-questions" component={TopicQuestions} />
       <Route path="/results" component={Results} />
       <Route path="/certificate" component={Certificate} />
       <Route path="/checkout" component={Checkout} />

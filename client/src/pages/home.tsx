@@ -124,6 +124,45 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <Card className="hover-elevate transition-all duration-300" data-testid="card-mode-topic-questions">
+            <CardHeader className="space-y-4">
+              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">
+                <BookOpen className="w-8 h-8 text-primary" />
+              </div>
+              <CardTitle className="text-3xl font-semibold text-center">
+                Topic Specific Questions
+              </CardTitle>
+              <CardDescription className="text-center text-base">
+                Browse questions by topic and regulatory unit
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground">Unit 1 & Unit 2 topics</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground">Browse all available topics</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground">Start practice on any topic</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-muted-foreground">Flexible learning</span>
+                </li>
+              </ul>
+              <Link href="/topic-questions" data-testid="link-topic-questions">
+                <Button className="w-full" size="lg">
+                  Browse Topics
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
           <Card className="hover-elevate transition-all duration-300" data-testid="card-mode-practice">
             <CardHeader className="space-y-4">
               <div className="flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mx-auto">

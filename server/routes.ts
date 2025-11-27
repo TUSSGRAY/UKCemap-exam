@@ -28,6 +28,16 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  app.get("/api/all-topics", async (req, res) => {
+    try {
+      const allQuestions = await storage.getAllQuestions();
+      const topics = Array.from(new Set(allQuestions.map(q => q.topic)));
+      res.json(topics.sort());
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.get("/api/questions", async (req, res) => {
     try {
       const mode = (req.query.mode as "practice" | "exam" | "scenario") || "practice";
