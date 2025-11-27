@@ -60,8 +60,15 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   const { data: topics = [] } = useQuery<string[]>({
     queryKey: ["/api/topics"],
     queryFn: getQueryFn({ on401: "returnNull" }),
-    enabled: mode === "topic-exam" && !isStarted,
+    enabled: mode === "topic-exam",
   });
+
+  // Populate availableTopics whenever topics data changes
+  useEffect(() => {
+    if (mode === "topic-exam" && topics.length > 0) {
+      setAvailableTopics(topics);
+    }
+  }, [topics, mode]);
 
   // Check access for paid modes (only BEFORE quiz is started, never during)
   useEffect(() => {
@@ -169,11 +176,6 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     setIsStarted(true);
   };
 
-  useEffect(() => {
-    if (topics.length > 0) {
-      setAvailableTopics(topics);
-    }
-  }, [topics]);
 
   useEffect(() => {
     if (mode === "scenario") {
