@@ -1,9 +1,9 @@
-import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken, Review, InsertReview } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { eq, desc, and, gte, ne, lt } from "drizzle-orm";
-import { questions, highScores, accessTokens, users } from "@shared/schema";
+import { eq, desc, and, gte, ne, lt, avg } from "drizzle-orm";
+import { questions, highScores, accessTokens, users, reviews } from "@shared/schema";
 import bcrypt from "bcrypt";
 
 export interface IStorage {
@@ -24,6 +24,8 @@ export interface IStorage {
   saveHighScore(highScore: InsertHighScore): Promise<HighScore>;
   getWeeklyHighScores(mode: string, limit: number): Promise<HighScore[]>;
   getAllTimeHighScore(mode: string): Promise<HighScore | null>;
+  saveReview(review: InsertReview): Promise<Review>;
+  getAverageReviewScore(): Promise<number | null>;
 }
 
 export class MemStorage implements IStorage {
