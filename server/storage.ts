@@ -4618,6 +4618,206 @@ export class MemStorage implements IStorage {
         optionD: "Money laundering reporting officer",
         answer: "A"
       },
+
+      // Unit 2: Financial Promotions, Customer Communications and Business Risk Questions
+      {
+        topic: "Financial Services Industry",
+        question: "Justin, a financial adviser, hopes to extend his client bank by making unsolicited telephone calls to a list of people he has taken from the telephone directory. As he is aware of the FCA rules, he will only be making contact:",
+        optionA: "Between 9am and 8pm Monday to Friday",
+        optionB: "Between 9am and 9pm Monday to Saturday",
+        optionC: "Between 9am and 9pm Monday to Friday",
+        optionD: "Between 9am and 8pm Monday to Saturday",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following criteria is not one that must be satisfied by an advertisement in order to comply with the FCA's guidelines on advertising?",
+        optionA: "The advert must be authorised by the FCA",
+        optionB: "It must be tailored to the likely sophistication of the reader",
+        optionC: "It must be clear, fair and not misleading",
+        optionD: "It must make reference to any potential risks involved",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "A key function of a client agreement is to set out:",
+        optionA: "The individual contracts that the adviser is licensed to sell.",
+        optionB: "The areas from where a potential client can obtain advice.",
+        optionC: "The rights and obligations of the firm and client and to disclose charges.",
+        optionD: "The Financial Services and Markets Act.",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "A restricted adviser is one who:",
+        optionA: "Can only make recommendations based on the products of a single provider",
+        optionB: "Has not passed all the exams to enable them to give independent advice",
+        optionC: "Can only give basic advice on stakeholder products",
+        optionD: "Does not meet the requirements to be independent",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Under the 'know your customer' requirements, advisers should:",
+        optionA: "Assume that a private individual fully understands the risks involved",
+        optionB: "Explain the potential product risks to an execution only client",
+        optionC: "Provide the highest level of advice and duty of care to clients categorised as retail customers",
+        optionD: "Offer exactly the same duty of care and advice to all customers",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "When an adviser transacts designated investment business for a client, the basis or amount of the charges would normally be disclosed in which document?",
+        optionA: "The client agreement",
+        optionB: "The key features document",
+        optionC: "The statutory cancellation notice",
+        optionD: "The suitability letter",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which risk warning must appear on all advertising material containing details of past investment performance? Past performance:",
+        optionA: "Is only a general guide to the future",
+        optionB: "Over five years or more is a reasonable guide to the future",
+        optionC: "Is not necessarily a reliable indicator of future performance",
+        optionD: "Is not necessarily better than future performance",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "From 2018, a Key Information Document (KID) will be required for all these products except:",
+        optionA: "Pension",
+        optionB: "Unit trust",
+        optionC: "An OEIC",
+        optionD: "A unit-linked endowment",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "If a client intends to purchase an investment product from an adviser on an execution only basis, then:",
+        optionA: "No charges will be payable",
+        optionB: "This is only possible with high-net-worth clients",
+        optionC: "No recommendation will be required",
+        optionD: "This is only possible with professional clients",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In terms of knowing your customer, what is an eligible counterparty?",
+        optionA: "Where a firm acts on behalf of a private customer",
+        optionB: "A private customer",
+        optionC: "Where a customer is in a senior function within a financial services firm",
+        optionD: "A business customer",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "What is the latest date, if any, that the suitability letter can be sent to a customer who is considering investing in a personal pension plan?",
+        optionA: "Before the contract is concluded",
+        optionB: "Five days after the final interview",
+        optionC: "Five days after the end of the cooling-off period",
+        optionD: "No later than 14 days after the contract is concluded",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "When carrying out a sale on an 'execution-only' basis, the responsibility for the transaction rests with the:",
+        optionA: "Adviser",
+        optionB: "Regulator",
+        optionC: "Product provider",
+        optionD: "Customer",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Henry invested £1,000 in a unit linked lump sum product and cancelled seven days later and received back £950. What did this reduction most likely represent?",
+        optionA: "Handling charge",
+        optionB: "Advisers fee",
+        optionC: "Cancellation charge",
+        optionD: "Reduction in market value",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "A professional customer is best described as:",
+        optionA: "A regulated collective investment scheme.",
+        optionB: "An individual dealing on behalf of a private customer with some knowledge of the industry.",
+        optionC: "An inexperienced private investor.",
+        optionD: "Firm or institution involved in a merger.",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following will not be included in an initial disclosure document?",
+        optionA: "Product recommendations",
+        optionB: "Complaints procedure",
+        optionC: "Name of the regulator",
+        optionD: "Services offered",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The 'cooling-off' period usually starts from the date:",
+        optionA: "The application form was signed",
+        optionB: "The policy document was issued",
+        optionC: "The contract begins",
+        optionD: "The acceptance terms were issued",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "An adviser must issue a key features document or key information document prior to a sale being concluded, for all of the following products except:",
+        optionA: "Life assurance",
+        optionB: "Stakeholder pensions",
+        optionC: "Unit trusts",
+        optionD: "Gilt edged securities",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Haddon Bank are about to begin an advertising campaign to promote fresh interest in their UK Equity Fund, which was launched ten years ago. Since they intend to show recent performance of the fund, what is the minimum period over which performance figures must be shown?",
+        optionA: "10 years",
+        optionB: "7 years",
+        optionC: "5 years",
+        optionD: "1 year",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Mortgage Advice Ltd has found that their primary method of obtaining new business is not permitted under Financial Conduct Authority regulation. This means that they must have been using which of the following methods?",
+        optionA: "Cold calling",
+        optionB: "TV advertising",
+        optionC: "Mortgage introducers",
+        optionD: "Radio advertising",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following risks would be defined as a main risk that can arise from the way that a business is run and managed?",
+        optionA: "Capital adequacy risk",
+        optionB: "Internal risk",
+        optionC: "Liquidity risk",
+        optionD: "Operational risk",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "A bank's capital as a proportion of its risk weighted assets is referred to as the:",
+        optionA: "Capital adequacy margin",
+        optionB: "Liquidity ratio",
+        optionC: "Prudential standard",
+        optionD: "Solvency ratio",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Liquidity is a measure of:",
+        optionA: "The excess of a business's assets over its liabilities",
+        optionB: "An insurance company's potential exposure to claims",
+        optionC: "The ability for a business to convert its assets into cash at a reasonable cost",
+        optionD: "The level of savings in notice accounts",
+        answer: "C"
+      },
     ];
 
     questionBank.forEach((q) => {
