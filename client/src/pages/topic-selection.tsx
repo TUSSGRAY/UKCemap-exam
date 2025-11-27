@@ -13,7 +13,7 @@ export default function TopicSelection() {
 
   const { data: topics = [], isLoading } = useQuery<string[]>({
     queryKey: ["/api/topics"],
-    queryFn: getQueryFn(),
+    queryFn: getQueryFn({ on401: "returnNull" }),
   });
 
   const handleStartQuiz = (topic: string) => {
