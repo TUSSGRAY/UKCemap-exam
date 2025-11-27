@@ -420,7 +420,11 @@ export default function Home() {
                 Privacy Policy
               </a>
               <span>•</span>
-              <a href="mailto:training@ukcemap.co.uk" className="hover:text-foreground transition-colors" data-testid="link-contact-privacy">
+              <a 
+                onClick={() => setLocation("/privacy-policy")}
+                className="hover:text-foreground transition-colors cursor-pointer" 
+                data-testid="link-contact-privacy"
+              >
                 Contact
               </a>
             </div>
