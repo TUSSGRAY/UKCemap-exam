@@ -25,12 +25,8 @@ export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 export type Question = typeof questions.$inferSelect;
 
 // Quiz mode type
-export const quizModeSchema = z.enum(["practice", "exam", "scenario", "topic"]);
+export const quizModeSchema = z.enum(["practice", "exam", "scenario"]);
 export type QuizMode = z.infer<typeof quizModeSchema>;
-
-// Topic slug for topic-specific exams
-export const topicSlugSchema = z.enum(["collective-investments"]);
-export type TopicSlug = z.infer<typeof topicSlugSchema>;
 
 // Quiz request schema
 export const quizRequestSchema = z.object({
@@ -58,18 +54,6 @@ export const advertSchema = z.object({
 });
 
 export type Advert = z.infer<typeof advertSchema>;
-
-// Topic exam configuration
-export const topicExamConfigSchema = z.object({
-  slug: topicSlugSchema,
-  title: z.string(),
-  description: z.string(),
-  questionCount: z.number(),
-  passThreshold: z.number(),
-  topics: z.array(z.string()),
-});
-
-export type TopicExamConfig = z.infer<typeof topicExamConfigSchema>;
 
 // Users table for authentication
 export const users = pgTable("users", {

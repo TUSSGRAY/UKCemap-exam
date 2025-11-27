@@ -14,7 +14,6 @@ import Register from "@/pages/register";
 import Profile from "@/pages/profile";
 import Dashboard from "@/pages/dashboard";
 import PrivacyPolicy from "@/pages/privacy-policy";
-import TopicSelection from "@/pages/topic-selection";
 import CemapQualification from "@/pages/cemap-qualification";
 import NotFound from "@/pages/not-found";
 
@@ -34,10 +33,6 @@ function Router() {
       </Route>
       <Route path="/quiz/scenario">
         {() => <Quiz mode="scenario" />}
-      </Route>
-      <Route path="/quiz/topic-selection" component={TopicSelection} />
-      <Route path="/quiz/topic/:topic">
-        {(params) => <Quiz mode="topic" topicSlug={decodeURIComponent(params.topic)} />}
       </Route>
       <Route path="/cemap-qualification" component={CemapQualification} />
       <Route path="/results" component={Results} />
