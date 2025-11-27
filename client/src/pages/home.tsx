@@ -199,6 +199,11 @@ export default function Home() {
                   Get Premium Access
                 </Button>
               </Link>
+              <Link href="/quiz/exam?dev=true" data-testid="link-dev-exam">
+                <Button className="w-full" size="sm" variant="outline">
+                  Dev Test Mode
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -238,6 +243,11 @@ export default function Home() {
                   Get Premium Access
                 </Button>
               </Link>
+              <Link href="/quiz/scenario?dev=true" data-testid="link-dev-scenario">
+                <Button className="w-full" size="sm" variant="outline">
+                  Dev Test Mode
+                </Button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -275,6 +285,11 @@ export default function Home() {
               <Link href="/checkout?product=subscription" data-testid="link-purchase-topic-exam">
                 <Button className="w-full" size="lg" variant="default">
                   Get Premium Access
+                </Button>
+              </Link>
+              <Link href="/quiz/topic-exam?dev=true" data-testid="link-dev-topic-exam">
+                <Button className="w-full" size="sm" variant="outline">
+                  Dev Test Mode
                 </Button>
               </Link>
             </CardContent>
