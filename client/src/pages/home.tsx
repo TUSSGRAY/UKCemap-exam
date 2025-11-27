@@ -4,13 +4,12 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut, Play } from "lucide-react";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { Leaderboard } from "@/components/leaderboard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient, getQueryFn } from "@/lib/queryClient";
 import type { User as UserType } from "@shared/schema";
-import marketingVideo from "@assets/generated_videos/cemap_exam_training_app_walkthrough_demo.mp4";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -120,30 +119,7 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Marketing Video Section */}
-          <div className="flex justify-center my-8">
-            <div className="w-full max-w-2xl">
-              <div className="relative bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg border-2 border-primary/20 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <video 
-                  src={marketingVideo}
-                  controls
-                  autoPlay
-                  muted
-                  loop
-                  className="w-full h-auto"
-                  data-testid="video-marketing-demo"
-                >
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-0 pointer-events-none rounded-md border-2 border-primary/30" />
-              </div>
-              <p className="text-center text-sm text-muted-foreground mt-3">
-                See how CeMAP training works - from quizzes to analytics to certification
-              </p>
-            </div>
-          </div>
-
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-6">
             <ShareButton 
               variant="default" 
               size="lg"
