@@ -4010,6 +4010,26 @@ export class MemStorage implements IStorage {
     return this.allTimeHighScores.get(mode as "exam" | "scenario") || null;
   }
 
+  async getAvailableTopics(): Promise<string[]> {
+    const topics = new Set<string>();
+    this.questions.forEach(question => {
+      topics.add(question.topic);
+    });
+    return Array.from(topics).sort();
+  }
+
+  async getQuestionsByTopic(topic: string, count: number): Promise<Question[]> {
+    const topicQuestions = Array.from(this.questions.values())
+      .filter(q => q.topic === topic);
+    
+    // Shuffle and return up to count questions
+    const shuffled = topicQuestions
+      .sort(() => Math.random() - 0.5)
+      .slice(0, count);
+    
+    return shuffled;
+  }
+
 }
 
 // Database-backed storage implementation
