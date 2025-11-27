@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Home, CheckCircle2, XCircle, LogIn, ShoppingBag } from "lucide-react";
+import { Home, CheckCircle2, XCircle, LogIn, ShoppingBag, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getQueryFn } from "@/lib/queryClient";
 import type { Question, QuizMode, User } from "@shared/schema";
@@ -21,7 +21,18 @@ interface QuizProps {
 }
 
 export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }: QuizProps) {
+  const [location] = useLocation();
   const [, setLocation] = useLocation();
+  
+  // Developer test mode - check for ?dev=true in URL
+  const devMode = useMemo(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("dev") === "true";
+    }
+    return false;
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -43,7 +54,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
     queryKey: ["/api/me"],
     queryFn: getQueryFn({ on401: "returnNull" }),
-    enabled: mode !== "practice",
+    enabled: mode !== "practice" && !devMode,
   });
 
   const { data: topics = [] } = useQuery<string[]>({
@@ -57,6 +68,13 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     const checkAccess = async () => {
       // Skip access check for practice mode (free)
       if (mode === "practice") {
+        setCheckingAccess(false);
+        setAccessError(null);
+        return;
+      }
+
+      // Developer test mode - bypass all access checks
+      if (devMode) {
         setCheckingAccess(false);
         setAccessError(null);
         return;
@@ -105,7 +123,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     };
 
     checkAccess();
-  }, [mode, user, isLoadingUser, isStarted]);
+  }, [mode, user, isLoadingUser, isStarted, devMode]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
@@ -395,6 +413,49 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
               </Link>
             </div>
           </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (devMode && (mode === "exam" || mode === "scenario" || mode === "topic-exam") && !isStarted) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center px-6">
+        <Card className="max-w-md" data-testid="card-dev-mode">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center flex items-center justify-center gap-2">
+              <Zap className="w-6 h-6 text-yellow-500" />
+              Dev Mode Active
+            </CardTitle>
+            <CardDescription className="text-center">
+              Paywall bypassed for testing
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3">
+              <p className="text-sm text-muted-foreground text-center">
+                Developer test function active. Paywall has been temporarily disabled.
+              </p>
+            </div>
+            <p className="text-xs text-muted-foreground text-center">
+              Mode: <span className="font-mono text-foreground">{mode}</span>
+            </p>
+          </CardContent>
+          <CardFooter className="flex flex-col gap-3">
+            <Button
+              onClick={() => setIsStarted(true)}
+              className="w-full"
+              size="lg"
+              data-testid="button-start-dev-exam"
+            >
+              Start Testing
+            </Button>
+            <Link href="/">
+              <Button variant="outline" className="w-full" data-testid="button-back-home-dev">
+                Back to Home
+              </Button>
+            </Link>
+          </CardFooter>
         </Card>
       </div>
     );
