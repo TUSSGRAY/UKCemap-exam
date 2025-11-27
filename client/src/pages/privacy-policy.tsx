@@ -311,8 +311,8 @@ export default function PrivacyPolicy() {
                   If you have questions about this Privacy Policy or our privacy practices, please contact us:
                 </p>
                 <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-                  <p><strong className="text-foreground">Email:</strong> <span className="text-muted-foreground">training@ukcemap.co.uk</span></p>
-                  <p><strong className="text-foreground">Website:</strong> <span className="text-muted-foreground">ukcemap.co.uk</span></p>
+                  <p><strong className="text-foreground">Email:</strong> <span className="text-muted-foreground">UKCEMAP@OUTLOOK.COM</span></p>
+                  <p><strong className="text-foreground">Website:</strong> <span className="text-muted-foreground">WWW.UKCEMAP.CO.UK</span></p>
                   <p className="text-xs text-muted-foreground pt-2">
                     We will respond to legitimate requests within 30 days.
                   </p>
