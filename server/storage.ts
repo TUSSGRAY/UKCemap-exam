@@ -5634,10 +5634,16 @@ class DatabaseStorage implements IStorage {
       .where(eq(accessTokens.userId, userId));
 
     const now = new Date().toISOString();
-    return tokens.some(token => 
+    console.log(`[DEBUG] checkExamAccess for userId: ${userId}, found ${tokens.length} tokens`);
+    console.log(`[DEBUG] tokens:`, tokens.map(t => ({ product: t.product, expiresAt: t.expiresAt })));
+    
+    const hasAccess = tokens.some(token => 
       (token.product === "exam" && token.expiresAt === null) ||
       (token.product === "bundle" && (token.expiresAt === null || token.expiresAt > now))
     );
+    
+    console.log(`[DEBUG] checkExamAccess result: ${hasAccess}`);
+    return hasAccess;
   }
 
   async checkScenarioAccess(userId: string): Promise<boolean> {
