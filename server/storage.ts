@@ -4272,6 +4272,188 @@ export class MemStorage implements IStorage {
         optionD: "The possibility of repaying the loan early",
         answer: "C"
       },
+
+      // Unit 2: Financial Conduct Authority Regulation Questions
+      {
+        topic: "Financial Services Industry",
+        question: "The Financial Conduct Authority's single strategic objective is to:",
+        optionA: "Govern organisations that manage investments on behalf of other people.",
+        optionB: "Ensure that relevant markets work well so that customers get a fair deal.",
+        optionC: "Regulate the marketing and sale of all life assurance products.",
+        optionD: "Oversee the administration of all types of investment business.",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Individuals who are allowed to carry out certain functions in relation to a firm's regulated activities are often referred to as:",
+        optionA: "Authorised persons",
+        optionB: "Approved persons",
+        optionC: "Appointed persons",
+        optionD: "Appropriate persons",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The second key Principle of Business as defined by the regulator is that firms must act with skill, care and:",
+        optionA: "Control",
+        optionB: "Integrity",
+        optionC: "Diligence",
+        optionD: "Honesty",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "A 'situation where individuals use information about a company that is not generally available to deal for their own financial advantage' is a definition of:",
+        optionA: "Insider dealing",
+        optionB: "Best execution",
+        optionC: "Market manipulation",
+        optionD: "Money laundering",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "When did mortgages become regulated?",
+        optionA: "October 2004",
+        optionB: "January 2005",
+        optionC: "April 2006",
+        optionD: "June 1998",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following is not one of the FCA's operational objectives?",
+        optionA: "Reducing the scope for financial crime",
+        optionB: "Protecting and enhancing the integrity of the UK financial system",
+        optionC: "Protecting competition in the interests of consumers",
+        optionD: "Securing an appropriate degree of protection for consumers",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which one of the following is not one of the Financial Conduct Authority's Principles for Business with which a firm must comply?",
+        optionA: "Conduct its business with integrity",
+        optionB: "Communicate with customers in a clear manner",
+        optionC: "Observe proper standards of market conduct",
+        optionD: "Maintain an independent compliance function",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Knowingly giving out false information to influence the price of shares for personal gain is known as:",
+        optionA: "Money laundering",
+        optionB: "Market manipulation",
+        optionC: "Best execution",
+        optionD: "Insider dealing",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In seeking to promote competition, the FCA uses its power to ensure all of the following except which of the following:",
+        optionA: "Customers are engaged to drive competition",
+        optionB: "There are no undue barriers preventing new providers from entering the market",
+        optionC: "Offering 'light touch' regulation for providers that show a strong record in product innovation",
+        optionD: "Preventing any single firm from dominating the market",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "What was the main driver for the Financial Services and Markets Act 2000?",
+        optionA: "Increasingly high levels of fraud",
+        optionB: "The lack of compliance within the banking industry",
+        optionC: "Lack of consumer confidence in existing provisions",
+        optionD: "The need for integrated legislation and regulation",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "One of the operational objectives of the Financial Conduct Authority is to:",
+        optionA: "Oversee the activities of financial organisations such as clearing houses, the London Stock Exchange and Lloyd's.",
+        optionB: "Provide appropriate customer protection.",
+        optionC: "Regulate mortgage lending and enforce the Mortgage Code.",
+        optionD: "Maintain market confidence and recommend suitable investments.",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Who has prudential responsibility for deposit takers and insurers?",
+        optionA: "Financial Policy Committee",
+        optionB: "Financial Conduct Authority",
+        optionC: "Financial Services Authority",
+        optionD: "Prudential Regulatory Authority",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "There are three main areas of financial crime that the FCA seeks to control. Which one of the following is the exception?",
+        optionA: "Mis-selling investments",
+        optionB: "Money laundering",
+        optionC: "Fraud and dishonesty",
+        optionD: "Criminal market conduct",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The FCA has powers under the Competition Act 1998 and the Enterprise Act 2002, meaning in respect of competition, it is a concurrent regulator with the:",
+        optionA: "Competition Commission",
+        optionB: "Office of Fair Trading",
+        optionC: "PRA",
+        optionD: "Competition and Markets Authority",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which one of the following contained within the FCA Handbook is binding on authorised firms?",
+        optionA: "Rules",
+        optionB: "Guidelines",
+        optionC: "Standards",
+        optionD: "Procedures",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In which sourcebook does the FCA Handbook cover investor complaints and compensation?",
+        optionA: "Interim Prudential",
+        optionB: "Market Conduct",
+        optionC: "Specialist",
+        optionD: "Redress",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In which sourcebook does the FCA Handbook cover standards for stockbrokers and financial market traders?",
+        optionA: "Interim prudential",
+        optionB: "Market conduct",
+        optionC: "Specialist",
+        optionD: "Redress",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which one of the following is not covered by the Financial Conduct Authority's Principles for Business?",
+        optionA: "A firm's relations with its regulators",
+        optionB: "The protection of customers' assets",
+        optionC: "Guidelines on financial promotions",
+        optionD: "Maintenance of adequate financial resources",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following is not one of the Financial Conduct Authority's Principles of Business with which a firm must comply?",
+        optionA: "Be open and honest with the market in all respects",
+        optionB: "Communicate with clients in a clear manner",
+        optionC: "Conduct business with integrity",
+        optionD: "Observe proper standards of market conduct",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The FCA considers that responsibility for the fair treatment of consumers lies with which of the following?",
+        optionA: "Firm's advisers",
+        optionB: "Firm's senior management",
+        optionC: "All employees",
+        optionD: "Managers",
+        answer: "C"
+      },
     ];
 
     questionBank.forEach((q) => {
