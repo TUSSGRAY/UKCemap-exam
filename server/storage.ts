@@ -4454,6 +4454,170 @@ export class MemStorage implements IStorage {
         optionD: "Managers",
         answer: "C"
       },
+
+      // Unit 2: FCA Systems, Controls and Training & Competence Questions
+      {
+        topic: "Financial Services Industry",
+        question: "The FCA rules insist that an organisation's systems and controls are clearly documented. Which one of the following is also an FCA rule with regard to systems and controls?",
+        optionA: "They must be regularly reviewed",
+        optionB: "They must be notified to customers",
+        optionC: "They must be agreed by the FCA before implementation",
+        optionD: "They must meet an agreed industry standard",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which statement best describes the relationship between the 'fit and proper' test and the Senior Managers and Certification Regime?",
+        optionA: "'Fit and proper' test is recommended by the FCA for anyone applying for a senior management role.",
+        optionB: "A satisfactory 'fit and proper' test is necessary before an individual can be accepted for a senior management role.",
+        optionC: "The 'fit and proper' test is mainly designed to establish the creditworthiness of an approved person.",
+        optionD: "The 'fit and proper' test relates solely to previous business activity in a controlled function.",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "If the FCA discovers a contravention of its rules, one of the steps it may take is to vary a firm's permissions. This means that:",
+        optionA: "The firm may have one of its regulated activities removed",
+        optionB: "The firm will be required to sell assets to provide restitution",
+        optionC: "The firm will need to seek authorisation from a different regulator",
+        optionD: "The firm will be required to submit each sale to the FSA for approval",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "In the FCA Handbook there is a section on rules relating to arrangements, systems and controls within authorised firms. These rules:",
+        optionA: "Detail the actual size, staffing structure and form which all firms' control systems must take.",
+        optionB: "Identify and categorise all the types of risks which firms are required to manage.",
+        optionC: "Require directors and senior managers to take responsibility for the effective management of their firms.",
+        optionD: "State that all responsibilities relating to a firm's control systems must only be delegated to the firm's compliance officer.",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "What is the FCA's most severe disciplinary power?",
+        optionA: "Financial penalties",
+        optionB: "Withdrawal of authorisation",
+        optionC: "Public censure",
+        optionD: "Private warning",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The FCA Training and Competence Sourcebook is particularly prescriptive in relation to three groups of employees who are subject to detailed training and competence rules. These three groups include:",
+        optionA: "The company accountants, financial advisers and supervisors of certain 'back office' functions.",
+        optionB: "Supervisors of certain 'back office' functions, clerical claims staff and supervisors of advisers.",
+        optionC: "Financial advisers, supervisors of those advisers and supervisors of certain 'back office' functions.",
+        optionD: "Supervisors of advisers, supervisors of certain 'back office' functions and clerical staff.",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Training and competence records for an individual working for a non MiFID firm must be retained for a specified period after they have left the firm. This period is:",
+        optionA: "Three years",
+        optionB: "Five years",
+        optionC: "Seven years",
+        optionD: "Ten years",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Peter has almost completed his induction training with Haddon Bank, prior to taking up a position of trainee financial adviser. The FCA require that the training he receives is:",
+        optionA: "Documented and retained for 12 months",
+        optionB: "Evaluated to check its success",
+        optionC: "At least 50 hours per annum",
+        optionD: "Carried out only by approved persons",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Simon has undergone his initial financial adviser training with Brington Bank, but has not yet passed an appropriate examination. Under what circumstances might he be allowed to advise customers about regulated products, if at all?",
+        optionA: "He may do so provided investments are below an agreed level",
+        optionB: "Under no circumstances can he offer advice to customers",
+        optionC: "He may do so provided he acts under appropriate supervision",
+        optionD: "If all advice is double-checked by a representative of the FCA",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following statements is false in relation to Training and Competence regulation?",
+        optionA: "Firms must monitor continuing competence",
+        optionB: "Records of assessment criteria must be kept",
+        optionC: "All approved persons are subject to the detailed rules",
+        optionD: "Those subject to the rules may need to pass a detailed examination",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which one of the following areas is not specifically covered by the 'Training and Competence' requirements?",
+        optionA: "Practical Assessment",
+        optionB: "Initial training",
+        optionC: "Business production levels",
+        optionD: "Ongoing supervision of 'competent' advisors",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Tom has been successful in his training as an authorised adviser. What happens next?",
+        optionA: "His continued competence will be monitored",
+        optionB: "He will have to complete 15 hours continuing professional development per annum",
+        optionC: "He will be required to take further examinations",
+        optionD: "His line-manager will draw up a development plan",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following group of company employees would not be subject to detailed rules of training and competence under the FCA's Conduct of Business rules?",
+        optionA: "Directors",
+        optionB: "Back-office supervisors",
+        optionC: "Investment Advisers",
+        optionD: "Sellers of stakeholder pensions",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Before an employee carries out duties that fall under the FCA's regulatory responsibility he should:",
+        optionA: "Have successfully completed his probation period.",
+        optionB: "Have completed the required number of hours' continuing professional development.",
+        optionC: "Assessed as competent to undertake the role without supervision.",
+        optionD: "Be assessed on technical knowledge and its application.",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Those individuals categorised by the FCA/PRA as performing a 'significant harm' function must be approved by:",
+        optionA: "Both the FCA and PRA",
+        optionB: "Either the FCA or PRA",
+        optionC: "Their employing firm under the certification regime",
+        optionD: "Their employing firm under the senior managers' regime",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Individuals performing which of the following roles will be individually vetted and approved by the FCA/PRA?",
+        optionA: "Those performing an ancillary role",
+        optionB: "Those performing senior management functions",
+        optionC: "Those in significant harm functions",
+        optionD: "Those in significant harm and senior management functions",
+        answer: "D"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The FCA categorises roles into various functions; into which type of function would the Money Laundering Reporting function be categorised?",
+        optionA: "Customer function",
+        optionB: "Governing function",
+        optionC: "Risk function",
+        optionD: "Senior management function",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following bank employees would not normally require individual FCA/PRA approval?",
+        optionA: "Financial Adviser",
+        optionB: "Director of regulated sales",
+        optionC: "Chairperson",
+        optionD: "Money laundering reporting officer",
+        answer: "A"
+      },
     ];
 
     questionBank.forEach((q) => {

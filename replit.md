@@ -20,7 +20,11 @@ The backend is an Express.js server with TypeScript, exposing a RESTful API. Key
 
 ### Data Storage
 
-The application uses PostgreSQL database for persistent storage of users, access tokens, and high scores via Drizzle ORM. The question bank uses in-memory storage with a hardcoded bank of 136 regular questions and 10 scenario case studies with 5 questions each (50 questions total). Questions are designed to test understanding with similar numerical options and specific textbook details. Scenario questions cover a wide range of real-world mortgage situations.
+The application uses PostgreSQL database for persistent storage of users, access tokens, and high scores via Drizzle ORM. The question bank uses in-memory storage with categorized questions by unit:
+- **Unit 1**: 419 original CeMAP exam questions covering all mortgage and financial services topics
+- **Unit 2**: 38 FCA regulation questions (20 on FCA strategic objectives/principles + 18 on systems/controls/training & competence)
+- **Scenario Questions**: 10 scenario case studies with 5 questions each (50 questions total) for scenario quiz mode
+- **Total**: 457 questions across 10 topics. Questions are designed to test understanding with similar numerical options and specific textbook details.
 
 ### Key Features
 
