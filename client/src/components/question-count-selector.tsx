@@ -8,32 +8,18 @@ import type { QuizMode } from "@shared/schema";
 
 interface QuestionCountSelectorProps {
   mode: QuizMode;
-  onStart: (count: number, topicSlug?: string) => void;
+  onStart: (count: number) => void;
   onCancel: () => void;
 }
 
 export default function QuestionCountSelector({ mode, onStart, onCancel }: QuestionCountSelectorProps) {
   const [selectedCount, setSelectedCount] = useState(5);
-  const [selectedExamType, setSelectedExamType] = useState<string>("full");
   const isExamMode = mode === "exam";
 
-  // Topic exam configurations
-  const topicExams = [
-    {
-      value: "collective-investments",
-      label: "Collective Investments & Investment Bonds",
-      questionCount: 16,
-      passThreshold: 13,
-      timeEstimate: "10-20 mins"
-    }
-  ];
-
   if (isExamMode) {
-    const isTopic = selectedExamType !== "full";
-    const selectedTopic = topicExams.find(t => t.value === selectedExamType);
-    const questionCount = isTopic && selectedTopic ? selectedTopic.questionCount : 50;
-    const passThreshold = isTopic && selectedTopic ? selectedTopic.passThreshold : 40;
-    const timeEstimate = isTopic && selectedTopic ? selectedTopic.timeEstimate : "30-60 mins";
+    const questionCount = 50;
+    const passThreshold = 40;
+    const timeEstimate = "30-60 mins";
 
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
@@ -44,35 +30,10 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
             </div>
             <CardTitle className="text-3xl">CeMAP Exam</CardTitle>
             <CardDescription className="text-base">
-              Select your exam type and begin when ready
+              Complete certification practice test
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <label htmlFor="exam-type" className="text-sm font-medium">
-                Exam Type
-              </label>
-              <Select value={selectedExamType} onValueChange={setSelectedExamType}>
-                <SelectTrigger id="exam-type" data-testid="select-exam-type">
-                  <SelectValue placeholder="Select exam type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="full" data-testid="select-item-full">
-                    Full Exam (50 questions)
-                  </SelectItem>
-                  {topicExams.map(topic => (
-                    <SelectItem 
-                      key={topic.value} 
-                      value={topic.value}
-                      data-testid={`select-item-${topic.value}`}
-                    >
-                      {topic.label} ({topic.questionCount} questions)
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
             <div className="bg-muted/50 rounded-lg p-6 space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Total Questions</span>
@@ -86,17 +47,11 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
                 <span className="text-sm font-medium">Time Estimate</span>
                 <Badge variant="secondary">{timeEstimate}</Badge>
               </div>
-              {isTopic && (
-                <div className="flex items-center justify-between pt-2 border-t">
-                  <span className="text-sm font-medium">Type</span>
-                  <Badge variant="default" className="text-xs">FREE TOPIC EXAM</Badge>
-                </div>
-              )}
             </div>
 
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground text-center">
-                {isTopic ? "Immediate feedback after each answer. Good luck!" : "Results will be shown at the end. Good luck!"}
+                Results will be shown at the end. Good luck!
               </p>
             </div>
 
@@ -110,7 +65,7 @@ export default function QuestionCountSelector({ mode, onStart, onCancel }: Quest
                 Cancel
               </Button>
               <Button
-                onClick={() => onStart(questionCount, isTopic ? selectedExamType : undefined)}
+                onClick={() => onStart(questionCount)}
                 className="flex-1"
                 data-testid="button-begin-exam"
               >

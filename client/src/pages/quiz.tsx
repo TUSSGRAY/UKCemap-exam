@@ -17,10 +17,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 interface QuizProps {
   mode: QuizMode;
-  topicSlug?: string;
 }
 
-export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }: QuizProps) {
+export default function Quiz({ mode: initialMode }: QuizProps) {
   const [location] = useLocation();
   const [, setLocation] = useLocation();
   
@@ -44,12 +43,8 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   const [questionCount, setQuestionCount] = useState(5);
   const [quizSessionId] = useState(() => Date.now());
   const [mode, setMode] = useState<QuizMode>(initialMode);
-  const [topicSlug, setTopicSlug] = useState<string | undefined>(initialTopicSlug);
-  const [checkingAccess, setCheckingAccess] = useState(initialMode === "exam" || initialMode === "scenario" || initialMode === "topic-exam");
+  const [checkingAccess, setCheckingAccess] = useState(initialMode === "exam" || initialMode === "scenario");
   const [accessError, setAccessError] = useState<string | null>(null);
-  const [topicConfig, setTopicConfig] = useState<any>(null);
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [availableTopics, setAvailableTopics] = useState<string[]>([]);
 
   const { data: user, isLoading: isLoadingUser } = useQuery<User | null>({
     queryKey: ["/api/me"],
@@ -57,18 +52,6 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     enabled: mode !== "practice" && !devMode,
   });
 
-  const { data: topics = [] } = useQuery<string[]>({
-    queryKey: ["/api/topics"],
-    queryFn: getQueryFn({ on401: "returnNull" }),
-    enabled: mode === "topic-exam",
-  });
-
-  // Populate availableTopics whenever topics data changes
-  useEffect(() => {
-    if (mode === "topic-exam" && topics.length > 0) {
-      setAvailableTopics(topics);
-    }
-  }, [topics, mode]);
 
   // Check access for paid modes (only BEFORE quiz is started, never during)
   useEffect(() => {
@@ -92,9 +75,9 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
         return;
       }
 
-      // For exam and topic-exam modes, defer access check until quiz is started
-      // This allows users to see the question selector/topic selector first
-      if ((mode === "exam" || mode === "topic-exam") && !isStarted) {
+      // For exam mode, defer access check until quiz is started
+      // This allows users to see the question selector first
+      if (mode === "exam" && !isStarted) {
         setCheckingAccess(false);
         return;
       }
@@ -138,17 +121,9 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   }, [mode, user, isLoadingUser, isStarted, devMode]);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
-    enabled: isStarted && (mode !== "topic-exam" || (selectedTopic !== null && selectedTopic !== "")),
+    queryKey: ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
+    enabled: isStarted,
     queryFn: async () => {
-      if (mode === "topic-exam" && selectedTopic) {
-        const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(selectedTopic)}&count=1000`, {
-          credentials: "include"
-        });
-        if (!response.ok) throw new Error("Failed to fetch topic questions");
-        return response.json();
-      }
-      
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
         credentials: "include"
       });
@@ -162,17 +137,8 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
   const isPracticeMode = mode === "practice" || mode === "scenario";
   const isCorrect = selectedAnswer === currentQuestion?.answer;
 
-  const handleStartQuiz = async (count: number, selectedTopicSlug?: string) => {
+  const handleStartQuiz = async (count: number) => {
     setQuestionCount(count);
-    
-    // If a topic is selected, switch to topic mode
-    if (selectedTopicSlug) {
-      setMode("topic");
-      setTopicSlug(selectedTopicSlug);
-      setCheckingAccess(false); // Topic exams are free, no access check needed
-      setAccessError(null); // Clear any previous access errors
-    }
-    
     setIsStarted(true);
   };
 
@@ -184,13 +150,8 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     } else if (mode === "practice") {
       setQuestionCount(10); // Fixed 10 questions for practice mode
       setIsStarted(true);
-    } else if (mode === "topic-exam") {
-      setQuestionCount(50); // 50 questions for topic exam
-      if (selectedTopic) {
-        setIsStarted(true);
-      }
     }
-  }, [mode, selectedTopic]);
+  }, [mode]);
 
   const handleAnswerSelect = (answer: string) => {
     if (!showFeedback) {
@@ -245,9 +206,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
       
       // Include attemptId for all modes (for practice to track attempts, for others to retrieve topic performance)
       const attemptParam = `&attemptId=${quizSessionId}`;
-      // Include topicSlug for topic mode
-      const modeParam = mode === "topic" && topicSlug ? `topic:${topicSlug}` : mode;
-      setLocation(`/results?mode=${modeParam}&score=${score}&total=${questions.length}${attemptParam}`);
+      setLocation(`/results?mode=${mode}&score=${score}&total=${questions.length}${attemptParam}`);
       return;
     }
 
@@ -425,7 +384,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     );
   }
 
-  if (devMode && (mode === "exam" || mode === "scenario" || mode === "topic-exam") && !isStarted) {
+  if (devMode && (mode === "exam" || mode === "scenario") && !isStarted) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center px-6">
         <Card className="max-w-md" data-testid="card-dev-mode">
@@ -478,54 +437,6 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     );
   }
 
-  if (!isStarted && mode === "topic-exam") {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center px-6">
-        <Card className="max-w-md" data-testid="card-topic-selector">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Select a Topic</CardTitle>
-            <CardDescription className="text-center">
-              Choose which topic area to focus on. Questions vary by topic availability.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Select value={selectedTopic || ""} onValueChange={setSelectedTopic}>
-              <SelectTrigger data-testid="select-topic">
-                <SelectValue placeholder="Choose a topic..." />
-              </SelectTrigger>
-              <SelectContent>
-                {availableTopics.map((topic) => (
-                  <SelectItem key={topic} value={topic} data-testid={`option-topic-${topic}`}>
-                    {topic}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <div className="flex flex-col gap-2">
-              <Button
-                onClick={() => selectedTopic && setIsStarted(true)}
-                disabled={!selectedTopic}
-                className="w-full"
-                size="lg"
-                data-testid="button-start-topic-exam"
-              >
-                Start Topic Exam
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleExitQuiz}
-                className="w-full"
-                data-testid="button-cancel-topic"
-              >
-                Back to Home
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -565,7 +476,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
               J&K Cemap Training
             </p>
             <Badge variant="secondary" className="text-xs font-medium" data-testid="badge-mode-indicator">
-              {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : mode === "topic" ? "Topic Exam" : "Full Exam"}
+              {mode === "practice" ? "Practice Mode" : mode === "scenario" ? "Scenario Quiz" : "Full Exam"}
             </Badge>
           </div>
           <div className="w-10" />

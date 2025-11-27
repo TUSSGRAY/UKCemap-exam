@@ -25,7 +25,7 @@ export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 export type Question = typeof questions.$inferSelect;
 
 // Quiz mode type
-export const quizModeSchema = z.enum(["practice", "exam", "scenario", "topic-exam"]);
+export const quizModeSchema = z.enum(["practice", "exam", "scenario"]);
 export type QuizMode = z.infer<typeof quizModeSchema>;
 
 // Quiz request schema

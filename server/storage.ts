@@ -5481,26 +5481,6 @@ export class MemStorage implements IStorage {
     return this.allTimeHighScores.get(mode as "exam" | "scenario") || null;
   }
 
-  async getAvailableTopics(): Promise<string[]> {
-    const topics = new Set<string>();
-    this.questions.forEach(question => {
-      topics.add(question.topic);
-    });
-    return Array.from(topics).sort();
-  }
-
-  async getQuestionsByTopic(topic: string, count: number): Promise<Question[]> {
-    const topicQuestions = Array.from(this.questions.values())
-      .filter(q => q.topic === topic);
-    
-    // Shuffle and return up to count questions
-    const shuffled = topicQuestions
-      .sort(() => Math.random() - 0.5)
-      .slice(0, count);
-    
-    return shuffled;
-  }
-
 }
 
 // Database-backed storage implementation
@@ -5726,22 +5706,6 @@ class DatabaseStorage implements IStorage {
       .limit(1);
 
     return scores.length > 0 ? scores[0] : null;
-  }
-
-  async getTopicExamConfig(slug: TopicSlug): Promise<TopicExamConfig | null> {
-    return this.memStorage.getTopicExamConfig(slug);
-  }
-
-  async getTopicQuestions(slug: TopicSlug): Promise<Question[]> {
-    return this.memStorage.getTopicQuestions(slug);
-  }
-
-  async getAvailableTopics(): Promise<string[]> {
-    return this.memStorage.getAvailableTopics();
-  }
-
-  async getQuestionsByTopic(topic: string, count: number): Promise<Question[]> {
-    return this.memStorage.getQuestionsByTopic(topic, count);
   }
 }
 

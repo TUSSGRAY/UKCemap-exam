@@ -42,7 +42,7 @@ export function GoogleAdSenseAd({ onComplete, attemptNumber = 1 }: UpgradePrompt
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
               <BookOpen className="w-6 h-6 text-primary mb-2" />
               <h3 className="font-semibold text-foreground mb-1">2025 Syllabus</h3>
@@ -52,11 +52,6 @@ export function GoogleAdSenseAd({ onComplete, attemptNumber = 1 }: UpgradePrompt
               <TrendingUp className="w-6 h-6 text-primary mb-2" />
               <h3 className="font-semibold text-foreground mb-1">Analytics</h3>
               <p className="text-sm text-muted-foreground">Track your progress and weak areas</p>
-            </div>
-            <div className="bg-primary/5 rounded-lg p-4 border border-primary/20">
-              <Zap className="w-6 h-6 text-primary mb-2" />
-              <h3 className="font-semibold text-foreground mb-1">Topic Exams</h3>
-              <p className="text-sm text-muted-foreground">Master specific topics with focused practice</p>
             </div>
           </div>
 

@@ -28,7 +28,7 @@ The application uses PostgreSQL database for persistent storage of users, access
 
 ### Key Features
 
-*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback, 2 scenario questions), Full Exam (paid, 50 questions, no feedback until end), Scenario Quiz (paid, 10 scenarios/50 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
+*   **Quiz Modes**: Practice (free, 10 questions, immediate feedback), Full Exam (paid, 50 questions, no feedback until end), Scenario Quiz (paid, 10 scenarios/50 questions, immediate feedback, randomized). All modes have an 80% pass threshold for certificate.
 *   **Payment & Access Control**: User authentication and Stripe integration with comprehensive security:
     - **User Authentication**: Email/password authentication with bcrypt password hashing, session-based authentication with express-session
     - **Secure Payments**: £0.99 for single modes (exam/scenario), £1.49 for bundle package (30-day expiration)
