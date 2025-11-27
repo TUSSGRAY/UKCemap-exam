@@ -10,6 +10,7 @@ import { Leaderboard } from "@/components/leaderboard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient, getQueryFn } from "@/lib/queryClient";
 import type { User as UserType } from "@shared/schema";
+import marketingVideo from "@assets/generated_videos/real_cemap_app_walkthrough_with_actual_interface.mp4";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -119,7 +120,30 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="flex justify-center mt-6">
+          {/* Marketing Video Section */}
+          <div className="flex justify-center my-8">
+            <div className="w-full max-w-3xl">
+              <div className="relative bg-gradient-to-br from-primary/5 to-primary/10 rounded-lg border-2 border-primary/20 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <video 
+                  src={marketingVideo}
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  className="w-full h-auto"
+                  data-testid="video-marketing-demo"
+                >
+                  Your browser does not support the video tag.
+                </video>
+                <div className="absolute inset-0 pointer-events-none rounded-md border-2 border-primary/30" />
+              </div>
+              <p className="text-center text-sm text-muted-foreground mt-3">
+                Watch how students master CeMAP with our practice quizzes, analytics, and topic-specific exams
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-center mt-8">
             <ShareButton 
               variant="default" 
               size="lg"
