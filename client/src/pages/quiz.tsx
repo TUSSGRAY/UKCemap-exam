@@ -132,17 +132,14 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
-    enabled: isStarted && (mode !== "topic-exam" || selectedTopic !== null),
+    enabled: isStarted && (mode !== "topic-exam" || (selectedTopic !== null && selectedTopic !== "")),
     queryFn: async () => {
       if (mode === "topic-exam" && selectedTopic) {
         const response = await fetch(`/api/questions/topic?topic=${encodeURIComponent(selectedTopic)}&count=1000`, {
           credentials: "include"
         });
         if (!response.ok) throw new Error("Failed to fetch topic questions");
-        const topicQuestions = await response.json();
-        // Dynamically set question count based on available questions in topic
-        setQuestionCount(topicQuestions.length);
-        return topicQuestions;
+        return response.json();
       }
       
       const response = await fetch(`/api/questions?mode=${mode}&count=${questionCount}`, {
