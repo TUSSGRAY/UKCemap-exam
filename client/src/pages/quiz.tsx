@@ -63,9 +63,14 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     enabled: mode === "topic-exam" && !isStarted,
   });
 
-  // Check access for paid modes (but only after quiz is started)
+  // Check access for paid modes (only BEFORE quiz is started, never during)
   useEffect(() => {
     const checkAccess = async () => {
+      // Skip access check if quiz has already started (don't interrupt user)
+      if (isStarted) {
+        return;
+      }
+
       // Skip access check for practice mode (free)
       if (mode === "practice") {
         setCheckingAccess(false);
@@ -80,9 +85,9 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
         return;
       }
 
-      // For exam mode, defer access check until quiz is started
-      // This allows users to see the topic selector first
-      if (mode === "exam" && !isStarted) {
+      // For exam and topic-exam modes, defer access check until quiz is started
+      // This allows users to see the question selector/topic selector first
+      if ((mode === "exam" || mode === "topic-exam") && !isStarted) {
         setCheckingAccess(false);
         return;
       }
@@ -123,7 +128,7 @@ export default function Quiz({ mode: initialMode, topicSlug: initialTopicSlug }:
     };
 
     checkAccess();
-  }, [mode, user, isLoadingUser, isStarted, devMode]);
+  }, [mode, user, isLoadingUser, isStarted, devMode];
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: mode === "topic-exam" && selectedTopic ? ["/api/questions/topic", selectedTopic] : ["/api/questions", mode, questionCount, mode === "scenario" ? quizSessionId : null],
