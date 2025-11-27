@@ -5121,6 +5121,98 @@ export class MemStorage implements IStorage {
         optionD: "Professional indemnity cover of at least €1,300,380 per case and a minimum financial capacity of €18,750 to meet client money requirements.",
         answer: "D"
       },
+
+      // Unit 2: Complaints and Compensation Questions
+      {
+        topic: "Financial Services Industry",
+        question: "Jason has just made a complaint alleging that his personal pension plan was mis-sold to him. He has complained to the pension company initially and has received a final response letter. Who should he now take this complaint to?",
+        optionA: "The Prudential Regulatory Authority",
+        optionB: "The Pensions Ombudsman",
+        optionC: "The Pensions Advisory Service",
+        optionD: "The Financial Ombudsman Service",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The Financial Services Compensation Scheme will pay out compensation to customers who have:",
+        optionA: "been mis-sold a mortgage endowment policy",
+        optionB: "lost money through the insolvency of an authorised firm",
+        optionC: "been mis-sold a personal pension plan",
+        optionD: "lost money through the mis-management of an investment fund",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "What is the effect of the final response letter for a customer who is in the process of making a complaint about a financial services product they have bought?",
+        optionA: "They will now have to take legal action to obtain redress",
+        optionB: "They can now take the complaint to the Financial Ombudsman Service",
+        optionC: "The Financial Ombudsman Service has found their complaint frivolous",
+        optionD: "The customer will have to pay to progress the complaint further",
+        answer: "B"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "On the insolvency of an authorised investment firm, the maximum that could be paid out to an individual investor from the Financial Services Compensation Scheme would be:",
+        optionA: "100% of the first £50,000",
+        optionB: "100% of the first £20,000 plus 90% of the next £50,000",
+        optionC: "100% of the first £20,000 plus 90% of the next £30,000",
+        optionD: "100% of the first £85,000",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Regulations established under the Financial Conduct Authority require firms to make a commitment to try to resolve complaints within:",
+        optionA: "3 working days",
+        optionB: "1 month",
+        optionC: "8 weeks",
+        optionD: "3 months",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Ruth lost £90,000 when a UK investment firm became insolvent. What is the maximum amount that the Financial Services Compensation Scheme will pay her in compensation?",
+        optionA: "£42,000",
+        optionB: "£85,000",
+        optionC: "£54,000",
+        optionD: "£60,000",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "The Pensions Ombudsman may deal with unresolved complaints in respect of:",
+        optionA: "Personal pension schemes",
+        optionB: "State pensions",
+        optionC: "The administration of occupational pension schemes",
+        optionD: "Stakeholder pension schemes",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Jane opens a deposit account with the Moorland Building Society and deposits £10,000. She is worried about the money if the building society goes out of business. If this were to happen, how much would she receive from the Financial Services Compensation Scheme?",
+        optionA: "£8,400",
+        optionB: "£9,000",
+        optionC: "£10,000",
+        optionD: "£8,000",
+        answer: "C"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "Which of the following statements best describes the situation applying where a contract is found to contain a term that is deemed to be unfair?",
+        optionA: "As long as it is practical, the rest of the contract can continue",
+        optionB: "The business can choose to bind the consumer to the contract",
+        optionC: "The contract will continue as specified",
+        optionD: "The whole contract will be invalid",
+        answer: "A"
+      },
+      {
+        topic: "Financial Services Industry",
+        question: "John held deposits with Bank A and Bank B and they were both declared insolvent. The FSCS paid a higher amount of compensation for his holdings with Bank A because:",
+        optionA: "Bank B had recently made the annual interest payment on John's account",
+        optionB: "John and his wife held £150,000 in a joint account in Bank A and £70,000 in his sole name in Bank B",
+        optionC: "John had £70,000 in a joint account with his brother with Bank A and £70,000 in his sole name in Bank B",
+        optionD: "John had £100,000 saved with Bank A and £90,000 with Bank B",
+        answer: "B"
+      },
     ];
 
     questionBank.forEach((q) => {
