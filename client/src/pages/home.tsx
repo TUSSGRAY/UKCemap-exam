@@ -407,7 +407,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border mt-20 bg-muted/30">
         <div className="max-w-6xl mx-auto px-6 py-12">
-          <div className="mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <Button 
               variant="outline" 
               size="lg" 
@@ -416,6 +416,16 @@ export default function Home() {
               data-testid="button-cemap-qualification"
             >
               Learn About CeMAP Qualification Structure
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="w-full" 
+              onClick={() => setLocation("/topics-guide")}
+              data-testid="button-topics-guide-footer"
+            >
+              <BookOpen className="w-4 h-4 mr-2" />
+              Explore All Topics
             </Button>
           </div>
           <div className="flex items-center justify-between text-sm text-muted-foreground">

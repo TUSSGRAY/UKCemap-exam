@@ -408,6 +408,29 @@ export default function Dashboard() {
           </Button>
         </div>
 
+        {/* Educational Topics Guide */}
+        <div className="mt-12 max-w-3xl mx-auto">
+          <Card className="border-primary/20 bg-primary/5" data-testid="card-educational-guide">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-primary" />
+                Learn All CeMAP Topics
+              </CardTitle>
+              <CardDescription>
+                Comprehensive guide explaining all 10 exam topics
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Understand what you need to know for each topic. From Financial Services fundamentals to FCA regulations, compliance requirements, and more. This educational guide breaks down all 522+ questions into digestible topic explanations.
+              </p>
+              <Button asChild className="w-full" data-testid="button-view-topics-guide">
+                <Link href="/topics-guide">View Topics Guide</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Delete Account Section */}
         <div className="mt-12 max-w-2xl mx-auto">
           <Card className="border-destructive/20 bg-destructive/5">
