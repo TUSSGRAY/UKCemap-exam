@@ -12,7 +12,7 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { loginSchema, type LoginInput } from "@shared/schema";
 import { GraduationCap, Loader2, ChevronRight } from "lucide-react";
 import { useAuthSound } from "@/hooks/use-auth-sound";
-import swipeImage from "@assets/0e4303d4-6a75-4e9b-abab-728d170230d2_1762285219114.png";
+import swipeImage from "@assets/ae9330d0-50ac-429e-982d-78be07b24600_1765386602201.png";
 
 export default function Login() {
   const [, setLocation] = useLocation();
