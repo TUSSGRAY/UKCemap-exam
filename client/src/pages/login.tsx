@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useLocation } from "wouter";
@@ -10,24 +10,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { loginSchema, type LoginInput } from "@shared/schema";
-import { GraduationCap, Loader2, ChevronRight, Hand, Unlock, CheckCircle2 } from "lucide-react";
+import { GraduationCap, Loader2 } from "lucide-react";
 import { useAuthSound } from "@/hooks/use-auth-sound";
-import swipeImage from "@assets/ae9330d0-50ac-429e-982d-78be07b24600_1765386602201.png";
 
 export default function Login() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { playSuccessSound } = useAuthSound();
   const [swipeProgress, setSwipeProgress] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(true);
   const touchStartX = useRef(0);
-  const touchStartTime = useRef(0);
   const swipeContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsAnimating(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
   
   const form = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
@@ -164,141 +156,48 @@ export default function Login() {
           </CardContent>
         </Card>
 
-        {/* Swipe to Login Gesture Area - Animated */}
+        {/* Swipe to Login Toggle Button */}
         <div 
           ref={swipeContainerRef}
-          className="mt-6 relative group"
+          className="mt-6 flex flex-col items-center"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           data-testid="swipe-login-area"
         >
-          <div className="relative p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border-2 border-primary/30 cursor-grab active:cursor-grabbing overflow-hidden shadow-lg transition-all duration-300 hover:border-primary/50 hover:shadow-xl">
-            {/* Background Image */}
+          {/* Toggle Switch Container */}
+          <div 
+            className="relative w-64 h-16 bg-primary rounded-full cursor-pointer shadow-lg transition-all duration-200 hover:shadow-xl active:scale-[0.98]"
+            onClick={() => {
+              if (!loginMutation.isPending) {
+                onSubmit(form.getValues());
+              }
+            }}
+          >
+            {/* Slider Thumb */}
             <div 
-              className="absolute inset-0 opacity-10 bg-cover bg-center rounded-md"
-              style={{ backgroundImage: `url(${swipeImage})` }}
-            />
-            {/* Animated Background Gradient */}
-            <div 
-              className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 transition-all duration-300"
+              className="absolute left-1 top-1 bottom-1 w-20 bg-gray-200 dark:bg-gray-300 rounded-full shadow-md transition-all duration-150 flex items-center justify-center"
               style={{
-                opacity: isAnimating && swipeProgress === 0 ? 0.5 : 0,
-                animation: isAnimating && swipeProgress === 0 ? 'shimmer 2s infinite' : 'none'
+                transform: `translateX(${swipeProgress * 140}px)`,
               }}
-            />
+            >
+              {loginMutation.isPending && (
+                <Loader2 className="w-6 h-6 text-gray-500 animate-spin" />
+              )}
+            </div>
             
-            <div className="relative text-center z-10">
-              {/* Swipe Indicator with Animation */}
-              <div className="relative h-20 flex items-center justify-between px-4 mb-3">
-                {/* Left Icon - Swipe Prompt */}
-                <div className="flex flex-col items-center flex-1">
-                  <div 
-                    className="relative transition-all duration-150"
-                    style={{
-                      opacity: Math.max(0, 1 - swipeProgress * 1.5),
-                      transform: `translateX(${-swipeProgress * 20}px) scale(${1 - swipeProgress * 0.3})`,
-                    }}
-                  >
-                    <div className="animate-bounce" style={{ animationDelay: '0s' }}>
-                      <Hand className="w-10 h-10 text-primary" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Center Thumb - Tracks Swipe Progress */}
-                <div 
-                  className="relative transition-all duration-75"
-                  style={{
-                    transform: `translateX(${swipeProgress * 140}px)`,
-                  }}
-                >
-                  <div className="relative">
-                    {/* Swipe Thumb with Shadow */}
-                    <div className="absolute inset-0 bg-primary/30 blur-xl rounded-full w-10 h-10" />
-                    <div className="relative w-10 h-10 bg-primary rounded-full flex items-center justify-center text-white shadow-lg hover:shadow-xl transition-shadow">
-                      <ChevronRight className="w-6 h-6" />
-                    </div>
-                    
-                    {/* Ripple Effect */}
-                    {swipeProgress > 0 && (
-                      <div 
-                        className="absolute inset-0 bg-primary/40 rounded-full animate-ping"
-                        style={{ animationDuration: '1s' }}
-                      />
-                    )}
-                  </div>
-                </div>
-
-                {/* Right Icon - Success State */}
-                <div className="flex flex-col items-center flex-1">
-                  <div 
-                    className="transition-all duration-150"
-                    style={{
-                      opacity: Math.min(1, swipeProgress * 1.5),
-                      transform: `translateX(${swipeProgress * 20}px) scale(${0.7 + swipeProgress * 0.3})`,
-                    }}
-                  >
-                    {swipeProgress > 0.7 ? (
-                      <CheckCircle2 className="w-10 h-10 text-green-500" />
-                    ) : (
-                      <Unlock className="w-10 h-10 text-primary" />
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Text Indicator */}
-              <div className="h-6 mb-3">
-                <p className="text-sm font-semibold transition-all duration-150"
-                  style={{
-                    opacity: swipeProgress > 0 ? 0 : 1,
-                    color: 'hsl(var(--primary))',
-                  }}
-                >
-                  Swipe right to login
-                </p>
-                {swipeProgress > 0 && (
-                  <p className="text-sm font-bold animate-pulse"
-                    style={{
-                      color: swipeProgress > 0.7 ? 'hsl(142, 76%, 36%)' : 'hsl(var(--primary))',
-                    }}
-                  >
-                    {swipeProgress > 0.7 ? 'Release to login!' : `Swiping... ${Math.round(swipeProgress * 100)}%`}
-                  </p>
-                )}
-              </div>
-
-              {/* Progress Bar - Enhanced */}
-              <div className="relative h-2 bg-muted rounded-full overflow-hidden">
-                <div 
-                  className="absolute inset-0 bg-gradient-to-r from-primary to-primary/60 transition-all duration-75 rounded-full"
-                  style={{ width: `${swipeProgress * 100}%` }}
-                />
-                {/* Shimmer Effect on Progress */}
-                {swipeProgress > 0 && (
-                  <div 
-                    className="absolute top-0 bottom-0 w-1 bg-white/50 blur-sm"
-                    style={{
-                      left: `${swipeProgress * 100}%`,
-                      animation: 'pulse 1s infinite',
-                    }}
-                  />
-                )}
-              </div>
+            {/* LOGIN Text */}
+            <div className="absolute inset-0 flex items-center justify-end pr-8">
+              <span className="text-xl font-bold text-black tracking-wide">
+                LOGIN
+              </span>
             </div>
           </div>
-
-          <style>{`
-            @keyframes shimmer {
-              0%, 100% { opacity: 0; }
-              50% { opacity: 0.5; }
-            }
-            @keyframes pulse {
-              0%, 100% { opacity: 0; }
-              50% { opacity: 1; }
-            }
-          `}</style>
+          
+          {/* Swipe to Login Text */}
+          <p className="mt-3 text-sm font-medium text-muted-foreground">
+            SWIPE TO LOGIN
+          </p>
         </div>
 
         <CardFooter className="flex flex-col gap-3 mt-6">
