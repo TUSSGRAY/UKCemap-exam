@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { loginSchema, type LoginInput } from "@shared/schema";
-import { GraduationCap, Loader2, ChevronRight } from "lucide-react";
+import { GraduationCap, Loader2, ChevronRight, Hand, Unlock, CheckCircle2 } from "lucide-react";
 import { useAuthSound } from "@/hooks/use-auth-sound";
 import swipeImage from "@assets/ae9330d0-50ac-429e-982d-78be07b24600_1765386602201.png";
 
@@ -200,8 +200,8 @@ export default function Login() {
                       transform: `translateX(${-swipeProgress * 20}px) scale(${1 - swipeProgress * 0.3})`,
                     }}
                   >
-                    <div className="text-4xl animate-bounce" style={{ animationDelay: '0s' }}>
-                      👆
+                    <div className="animate-bounce" style={{ animationDelay: '0s' }}>
+                      <Hand className="w-10 h-10 text-primary" />
                     </div>
                   </div>
                 </div>
@@ -233,13 +233,17 @@ export default function Login() {
                 {/* Right Icon - Success State */}
                 <div className="flex flex-col items-center flex-1">
                   <div 
-                    className="text-4xl transition-all duration-150"
+                    className="transition-all duration-150"
                     style={{
                       opacity: Math.min(1, swipeProgress * 1.5),
                       transform: `translateX(${swipeProgress * 20}px) scale(${0.7 + swipeProgress * 0.3})`,
                     }}
                   >
-                    {swipeProgress > 0.7 ? '✅' : '🔓'}
+                    {swipeProgress > 0.7 ? (
+                      <CheckCircle2 className="w-10 h-10 text-green-500" />
+                    ) : (
+                      <Unlock className="w-10 h-10 text-primary" />
+                    )}
                   </div>
                 </div>
               </div>
@@ -260,7 +264,7 @@ export default function Login() {
                       color: swipeProgress > 0.7 ? 'hsl(142, 76%, 36%)' : 'hsl(var(--primary))',
                     }}
                   >
-                    {swipeProgress > 0.7 ? '✓ Release to login!' : `Swiping... ${Math.round(swipeProgress * 100)}%`}
+                    {swipeProgress > 0.7 ? 'Release to login!' : `Swiping... ${Math.round(swipeProgress * 100)}%`}
                   </p>
                 )}
               </div>
