@@ -4,21 +4,38 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { GraduationCap, BookOpen, Trophy, Clock, CheckCircle2, Target, Users, LogIn, User, LogOut, Send, Shield } from "lucide-react";
 import { ShareButton } from "@/components/share-button";
 import { Leaderboard } from "@/components/leaderboard";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient, getQueryFn } from "@/lib/queryClient";
 import type { User as UserType } from "@shared/schema";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
 
   const { data: user } = useQuery<UserType | null>({
     queryKey: ["/api/me"],
     queryFn: getQueryFn({ on401: "returnNull" }),
   });
+
+  const { data: isAdminData } = useQuery<{ isAdmin: boolean }>({
+    queryKey: ["/api/is-admin"],
+    queryFn: getQueryFn({ on401: "returnNull" }),
+    enabled: !!user,
+  });
+
+  useEffect(() => {
+    apiRequest("POST", "/api/track-visit", { pagePath: "/" }).catch(() => {});
+  }, []);
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -39,6 +56,41 @@ export default function Home() {
       });
     },
   });
+
+  const contactMutation = useMutation({
+    mutationFn: async (data: { name: string; email: string; message: string }) => {
+      return await apiRequest("POST", "/api/contact", data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Message Sent",
+        description: "Thank you for your message! We'll get back to you soon.",
+      });
+      setContactName("");
+      setContactEmail("");
+      setContactMessage("");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactName || !contactEmail || !contactMessage) {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+    contactMutation.mutate({ name: contactName, email: contactEmail, message: contactMessage });
+  };
 
   const handleLogout = () => {
     logoutMutation.mutate();
@@ -418,9 +470,81 @@ export default function Home() {
               Learn About CeMAP Qualification Structure
             </Button>
           </div>
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+
+          {/* Contact Form */}
+          <div className="mb-12">
+            <Card data-testid="card-contact-form">
+              <CardHeader>
+                <CardTitle className="text-xl">Contact Us</CardTitle>
+                <CardDescription>
+                  Have questions? Send us a message and we'll get back to you.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleContactSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="contact-name">Name</Label>
+                      <Input
+                        id="contact-name"
+                        placeholder="Your name"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                        data-testid="input-contact-name"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="contact-email">Email</Label>
+                      <Input
+                        id="contact-email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        data-testid="input-contact-email"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="contact-message">Message</Label>
+                    <Textarea
+                      id="contact-message"
+                      placeholder="How can we help you?"
+                      rows={4}
+                      value={contactMessage}
+                      onChange={(e) => setContactMessage(e.target.value)}
+                      data-testid="input-contact-message"
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    disabled={contactMutation.isPending}
+                    data-testid="button-submit-contact"
+                  >
+                    <Send className="w-4 h-4 mr-2" />
+                    {contactMutation.isPending ? "Sending..." : "Send Message"}
+                  </Button>
+                </form>
+              </CardContent>
+              <CardFooter className="text-sm text-muted-foreground">
+                Or email us directly at: <a href="mailto:UKCEMAP@OUTLOOK.COM" className="text-primary ml-1">UKCEMAP@OUTLOOK.COM</a>
+              </CardFooter>
+            </Card>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>© 2025 J&K CeMAP Training. All rights reserved.</p>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
+              <a 
+                href="https://www.ukcemap.co.uk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors" 
+                data-testid="link-website"
+              >
+                WWW.UKCEMAP.CO.UK
+              </a>
+              <span>•</span>
               <a 
                 onClick={() => setLocation("/privacy-policy")}
                 className="hover:text-foreground transition-colors cursor-pointer" 
@@ -428,14 +552,19 @@ export default function Home() {
               >
                 Privacy Policy
               </a>
-              <span>•</span>
-              <a 
-                onClick={() => setLocation("/privacy-policy")}
-                className="hover:text-foreground transition-colors cursor-pointer" 
-                data-testid="link-contact-privacy"
-              >
-                Contact
-              </a>
+              {isAdminData?.isAdmin && (
+                <>
+                  <span>•</span>
+                  <a 
+                    onClick={() => setLocation("/admin")}
+                    className="hover:text-foreground transition-colors cursor-pointer flex items-center gap-1" 
+                    data-testid="link-admin"
+                  >
+                    <Shield className="w-3 h-3" />
+                    Admin
+                  </a>
+                </>
+              )}
             </div>
           </div>
         </div>
