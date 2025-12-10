@@ -7,7 +7,8 @@ import {
   createPaymentIntentSchema, 
   verifyPaymentSchema,
   registerSchema,
-  loginSchema
+  loginSchema,
+  insertContactMessageSchema
 } from "@shared/schema";
 import { z } from "zod";
 import Stripe from "stripe";
@@ -23,6 +24,19 @@ const stripe = process.env.STRIPE_SECRET_KEY
 function requireAuth(req: Request, res: Response, next: NextFunction) {
   if (!req.session?.userId) {
     return res.status(401).json({ error: "Authentication required" });
+  }
+  next();
+}
+
+// Admin middleware
+async function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!req.session?.userId) {
+    return res.status(401).json({ error: "Authentication required" });
+  }
+  
+  const isAdmin = await storage.isUserAdmin(req.session.userId);
+  if (!isAdmin) {
+    return res.status(403).json({ error: "Admin access required" });
   }
   next();
 }
@@ -366,6 +380,139 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error: any) {
       res.status(500).json({ error: "Error deleting account: " + error.message });
+    }
+  });
+
+  // ==================== ADMIN ROUTES ====================
+
+  // Get admin stats
+  app.get("/api/admin/stats", requireAdmin, async (req, res) => {
+    try {
+      const stats = await storage.getAdminStats();
+      res.json(stats);
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching admin stats: " + error.message });
+    }
+  });
+
+  // Get all users
+  app.get("/api/admin/users", requireAdmin, async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      // Return users without password hashes
+      const safeUsers = users.map(({ passwordHash, ...user }) => user);
+      res.json(safeUsers);
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching users: " + error.message });
+    }
+  });
+
+  // Grant premium access to a user
+  app.post("/api/admin/grant-premium", requireAdmin, async (req, res) => {
+    try {
+      const { userId, daysValid } = req.body;
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      const token = await storage.grantPremiumAccess(userId, daysValid);
+      res.json({ success: true, token });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error granting premium access: " + error.message });
+    }
+  });
+
+  // Revoke premium access from a user
+  app.post("/api/admin/revoke-premium", requireAdmin, async (req, res) => {
+    try {
+      const { userId } = req.body;
+      if (!userId) {
+        return res.status(400).json({ error: "User ID is required" });
+      }
+      
+      await storage.revokePremiumAccess(userId);
+      res.json({ success: true, message: "Premium access revoked" });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error revoking premium access: " + error.message });
+    }
+  });
+
+  // Get all contact messages
+  app.get("/api/admin/contact-messages", requireAdmin, async (req, res) => {
+    try {
+      const messages = await storage.getAllContactMessages();
+      res.json(messages);
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching contact messages: " + error.message });
+    }
+  });
+
+  // Delete a contact message
+  app.delete("/api/admin/contact-messages/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteContactMessage(req.params.id);
+      res.json({ success: true, message: "Message deleted" });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error deleting message: " + error.message });
+    }
+  });
+
+  // Mark contact message as read
+  app.post("/api/admin/contact-messages/:id/read", requireAdmin, async (req, res) => {
+    try {
+      await storage.markContactMessageRead(req.params.id);
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error marking message as read: " + error.message });
+    }
+  });
+
+  // Get page analytics
+  app.get("/api/admin/analytics", requireAdmin, async (req, res) => {
+    try {
+      const analytics = await storage.getPageAnalytics();
+      res.json(analytics);
+    } catch (error: any) {
+      res.status(500).json({ error: "Error fetching analytics: " + error.message });
+    }
+  });
+
+  // ==================== PUBLIC CONTACT ROUTE ====================
+
+  // Submit a contact message (public)
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const message = insertContactMessageSchema.parse(req.body);
+      const savedMessage = await storage.createContactMessage(message);
+      res.json({ success: true, message: "Your message has been sent successfully!" });
+    } catch (error: any) {
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: error.errors[0].message });
+      }
+      res.status(500).json({ error: "Error sending message: " + error.message });
+    }
+  });
+
+  // Track page visit (public)
+  app.post("/api/track-visit", async (req, res) => {
+    try {
+      const { pagePath } = req.body;
+      if (pagePath) {
+        await storage.trackPageVisit(pagePath);
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error tracking visit" });
+    }
+  });
+
+  // Check if current user is admin
+  app.get("/api/is-admin", requireAuth, async (req, res) => {
+    try {
+      const isAdmin = await storage.isUserAdmin(req.session.userId!);
+      res.json({ isAdmin });
+    } catch (error: any) {
+      res.status(500).json({ error: "Error checking admin status" });
     }
   });
 
