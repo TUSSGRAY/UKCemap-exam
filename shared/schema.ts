@@ -62,6 +62,7 @@ export const users = pgTable("users", {
   passwordHash: text("password_hash").notNull(),
   name: text("name").notNull(),
   createdAt: text("created_at").notNull(),
+  isAdmin: integer("is_admin").default(0), // 0 = regular user, 1 = admin
 });
 
 export const insertUserSchema = createInsertSchema(users).omit({
@@ -156,3 +157,45 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
 
 export type InsertReview = z.infer<typeof insertReviewSchema>;
 export type Review = typeof reviews.$inferSelect;
+
+// Contact messages table
+export const contactMessages = pgTable("contact_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  message: text("message").notNull(),
+  createdAt: text("created_at").notNull(),
+  isRead: integer("is_read").default(0), // 0 = unread, 1 = read
+});
+
+export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
+  id: true,
+  createdAt: true,
+  isRead: true,
+});
+
+export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
+export type ContactMessage = typeof contactMessages.$inferSelect;
+
+// Page analytics table
+export const pageAnalytics = pgTable("page_analytics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  pagePath: text("page_path").notNull(),
+  visitCount: integer("visit_count").default(0),
+  lastVisited: text("last_visited"),
+});
+
+export type PageAnalytics = typeof pageAnalytics.$inferSelect;
+
+// Admin stats type (not a table, computed)
+export const adminStatsSchema = z.object({
+  totalUsers: z.number(),
+  premiumUsers: z.number(),
+  pageViews: z.array(z.object({
+    pagePath: z.string(),
+    visitCount: z.number(),
+  })),
+  contactMessages: z.number(),
+});
+
+export type AdminStats = z.infer<typeof adminStatsSchema>;
