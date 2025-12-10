@@ -1,9 +1,9 @@
-import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken, Review, InsertReview } from "@shared/schema";
+import type { Question, InsertQuestion, QuizMode, Advert, HighScore, InsertHighScore, User, InsertUser, AccessToken, Review, InsertReview, ContactMessage, InsertContactMessage, PageAnalytics, AdminStats } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
-import { eq, desc, and, gte, ne, lt, avg } from "drizzle-orm";
-import { questions, highScores, accessTokens, users, reviews } from "@shared/schema";
+import { eq, desc, and, gte, ne, lt, avg, sql, count } from "drizzle-orm";
+import { questions, highScores, accessTokens, users, reviews, contactMessages, pageAnalytics } from "@shared/schema";
 import bcrypt from "bcrypt";
 
 export interface IStorage {
@@ -26,6 +26,18 @@ export interface IStorage {
   getAllTimeHighScore(mode: string): Promise<HighScore | null>;
   saveReview(review: InsertReview): Promise<Review>;
   getAverageReviewScore(): Promise<number | null>;
+  // Admin methods
+  getAdminStats(): Promise<AdminStats>;
+  getAllUsers(): Promise<User[]>;
+  grantPremiumAccess(userId: string, daysValid?: number): Promise<AccessToken>;
+  revokePremiumAccess(userId: string): Promise<void>;
+  createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
+  getAllContactMessages(): Promise<ContactMessage[]>;
+  deleteContactMessage(id: string): Promise<void>;
+  markContactMessageRead(id: string): Promise<void>;
+  trackPageVisit(pagePath: string): Promise<void>;
+  getPageAnalytics(): Promise<PageAnalytics[]>;
+  isUserAdmin(userId: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -5706,6 +5718,121 @@ class DatabaseStorage implements IStorage {
       .limit(1);
 
     return scores.length > 0 ? scores[0] : null;
+  }
+
+  // Admin methods
+  async getAdminStats(): Promise<AdminStats> {
+    // Get total users
+    const allUsers = await this.db.select().from(users);
+    const totalUsers = allUsers.length;
+
+    // Get premium users (users with active bundle access)
+    const now = new Date().toISOString();
+    const tokens = await this.db.select().from(accessTokens);
+    const premiumUserIds = new Set(
+      tokens
+        .filter(t => t.product === "bundle" && (t.expiresAt === null || t.expiresAt > now))
+        .map(t => t.userId)
+        .filter(Boolean)
+    );
+    const premiumUsers = premiumUserIds.size;
+
+    // Get page views
+    const pageViews = await this.db.select().from(pageAnalytics);
+
+    // Get contact messages count
+    const messages = await this.db.select().from(contactMessages);
+
+    return {
+      totalUsers,
+      premiumUsers,
+      pageViews: pageViews.map(p => ({
+        pagePath: p.pagePath,
+        visitCount: p.visitCount || 0,
+      })),
+      contactMessages: messages.length,
+    };
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return await this.db.select().from(users).orderBy(desc(users.createdAt));
+  }
+
+  async grantPremiumAccess(userId: string, daysValid?: number): Promise<AccessToken> {
+    const token = randomUUID();
+    const expiresAt = daysValid 
+      ? new Date(Date.now() + daysValid * 24 * 60 * 60 * 1000).toISOString()
+      : null; // null = lifetime
+
+    const [newToken] = await this.db.insert(accessTokens).values({
+      token,
+      paymentIntentId: `admin_grant_${randomUUID()}`,
+      product: "bundle",
+      userId,
+      expiresAt,
+      createdAt: new Date().toISOString(),
+    }).returning();
+
+    return newToken;
+  }
+
+  async revokePremiumAccess(userId: string): Promise<void> {
+    await this.db.delete(accessTokens).where(eq(accessTokens.userId, userId));
+  }
+
+  async createContactMessage(message: InsertContactMessage): Promise<ContactMessage> {
+    const [newMessage] = await this.db.insert(contactMessages).values({
+      ...message,
+      createdAt: new Date().toISOString(),
+    }).returning();
+
+    return newMessage;
+  }
+
+  async getAllContactMessages(): Promise<ContactMessage[]> {
+    return await this.db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
+  }
+
+  async deleteContactMessage(id: string): Promise<void> {
+    await this.db.delete(contactMessages).where(eq(contactMessages.id, id));
+  }
+
+  async markContactMessageRead(id: string): Promise<void> {
+    await this.db.update(contactMessages).set({ isRead: 1 }).where(eq(contactMessages.id, id));
+  }
+
+  async trackPageVisit(pagePath: string): Promise<void> {
+    // Try to update existing record
+    const existing = await this.db
+      .select()
+      .from(pageAnalytics)
+      .where(eq(pageAnalytics.pagePath, pagePath))
+      .limit(1);
+
+    if (existing.length > 0) {
+      await this.db
+        .update(pageAnalytics)
+        .set({ 
+          visitCount: (existing[0].visitCount || 0) + 1,
+          lastVisited: new Date().toISOString(),
+        })
+        .where(eq(pageAnalytics.pagePath, pagePath));
+    } else {
+      await this.db.insert(pageAnalytics).values({
+        pagePath,
+        visitCount: 1,
+        lastVisited: new Date().toISOString(),
+      });
+    }
+  }
+
+  async getPageAnalytics(): Promise<PageAnalytics[]> {
+    return await this.db.select().from(pageAnalytics).orderBy(desc(pageAnalytics.visitCount));
+  }
+
+  async isUserAdmin(userId: string): Promise<boolean> {
+    const user = await this.getUserById(userId);
+    return user?.isAdmin === 1;
   }
 }
 
