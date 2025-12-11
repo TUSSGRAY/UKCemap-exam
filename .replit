@@ -1,5 +1,5 @@
 modules = ["nodejs-20", "web", "postgresql-16"]
-run = "npm run dev"
+run = "node dist/index.js"
 hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 
 [nix]
@@ -9,6 +9,7 @@ channel = "stable-24_05"
 deploymentTarget = "gce"
 build = ["npm", "run", "build"]
 run = ["sh", "-c", "node dist/index.js"]
+publicDir = "dist/public"
 
 [workflows]
 runButton = "Project"
@@ -28,7 +29,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "node dist/index.js"
 waitForPort = 5000
 
 [agent]
