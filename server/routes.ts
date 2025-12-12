@@ -85,7 +85,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication endpoints
   app.post("/api/register", async (req, res) => {
     try {
-      const { password, ...rest } = registerSchema.parse(req.body);
+      const { password, paymentIntentId, ...rest } = registerSchema.parse(req.body);
+      
+      // If paymentIntentId provided, verify it first before creating user
+      let verifiedPayment: { product: string; paymentIntentId: string } | null = null;
+      
+      if (paymentIntentId) {
+        if (!stripe) {
+          return res.status(500).json({ error: "Payment processing unavailable" });
+        }
+        
+        // Verify payment with Stripe
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+        
+        if (paymentIntent.status !== "succeeded") {
+          return res.status(400).json({ error: "Payment not successful. Please complete payment first." });
+        }
+        
+        // Validate product metadata
+        const product = paymentIntent.metadata?.product;
+        if (!product || !["subscription"].includes(product)) {
+          return res.status(400).json({ error: "Invalid payment: missing or invalid product" });
+        }
+        
+        // Validate amount
+        const expectedAmounts = { subscription: 499 };
+        const expectedAmount = expectedAmounts[product as keyof typeof expectedAmounts];
+        if (paymentIntent.amount !== expectedAmount || paymentIntent.currency !== "gbp") {
+          return res.status(400).json({ error: "Payment amount mismatch" });
+        }
+        
+        verifiedPayment = { product, paymentIntentId };
+      }
       
       // Storage expects passwordHash field (even though it contains raw password)
       const user = await storage.createUser({
@@ -96,9 +127,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Set session
       req.session.userId = user.id;
       
+      // If payment was verified, attach access token to new user
+      let accessToken: string | null = null;
+      if (verifiedPayment) {
+        accessToken = await storage.recordBundlePurchase(
+          verifiedPayment.paymentIntentId, 
+          user.id
+        );
+      }
+      
       // Return user without password hash
       const { passwordHash, ...userWithoutPassword } = user;
-      res.json(userWithoutPassword);
+      res.json({ 
+        ...userWithoutPassword,
+        premiumActivated: !!accessToken,
+        accessToken
+      });
     } catch (error: any) {
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: error.errors[0].message });
