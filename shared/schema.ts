@@ -131,6 +131,7 @@ export const registerSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
   name: z.string().min(2, "Name must be at least 2 characters"),
+  paymentIntentId: z.string().optional(), // Optional: attach payment to new account
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
